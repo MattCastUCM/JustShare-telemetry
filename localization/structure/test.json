@@ -1,0 +1,19 @@
+{
+    "root": {
+        "type": "text",
+        "character": "dad",
+        "next": "momDialog"
+    },
+    "momDialog": {
+        "type": "text",
+        "character": "mom",
+        "next": "choiceNode"
+    },
+    "choiceNode": {
+        "type": "choice",
+        "choices":[
+            { "next": "" },
+            { "next": "" }
+        ]
+    }
+}

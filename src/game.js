@@ -1,5 +1,12 @@
-const max_w = 1360, max_h = 765, min_w = 320, min_h = 240;
+import BootScene from "./scenes/bootScene.js";
+import TextOnlyScene from "./scenes/gameLoop/textOnlyScene.js";
+import TestScene from "./scenes/gameLoop/testScene.js";
 
+// UI
+import UIManager from './managers/UIManager.js';
+
+
+const max_w = 1600, max_h = 900, min_w = 320, min_h = 240;
 const config = {
     width: max_w,
     height: max_h,
@@ -8,7 +15,16 @@ const config = {
 
     type: Phaser.AUTO,
     // Nota: el orden de las escenas es relevante, y las que se encuentren antes en el array se renderizaran por debajo de las siguientes
-    scene: [],
+    scene: [
+        // Carga de assets
+        BootScene,
+        
+        TextOnlyScene,
+        TestScene,
+        
+        // UI
+        UIManager,
+    ],
     autoFocus: true,
     // Desactivar que aparezca el menu de inspeccionar al hacer click derecho
     disableContextMenu: true,

@@ -1,0 +1,28 @@
+{
+    "root": [
+        {
+            "text": "",
+            "text_male": "Texto de ejemplo del padre en masculino",
+            "text_female": "Texto de ejemplo del padre en femenino"
+        },
+        {
+            "text": "",
+            "text_male": "Texto de ejemplo del padre en masculino 2",
+            "text_female": "Texto de ejemplo del padre en femenino 2"
+        }
+
+    ],
+    "momDialog": {
+        "text": "",
+        "text_male": "Texto de ejemplo de la madre en masculino",
+        "text_female": "Texto de ejemplo de la madre en femenino"
+    },
+    "choiceNode": [
+        {
+            "text": "Sí"
+        },
+        {
+            "text": "No"
+        }
+    ]
+}
