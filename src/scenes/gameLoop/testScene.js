@@ -22,6 +22,7 @@ export default class TestScene extends BaseScene {
 
         let momTr = this.portraitTr;
         let momPortrait = new Portrait(this, "mom", momTr)
+        momPortrait.setFlipX(true);
         this.portraits.set("mom", momPortrait);
 
         let dadTr = this.portraitTr;

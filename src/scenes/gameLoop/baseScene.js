@@ -31,15 +31,15 @@ export default class BaseScene extends Phaser.Scene {
 
         // Crea el mapa para los retratos de los personajes
         this.portraits = new Map();
-        this.portraitX = this.CANVAS_WIDTH / 4;
-        this.portraitY = this.CANVAS_HEIGHT / 2;
-        this.portraitScale = 1;
+        this.PORTRAIT_X = this.CANVAS_WIDTH / 4;
+        this.PORTRAIT_Y = this.CANVAS_HEIGHT / 1.5;
+        this.PORTRAIT_SCALE = 0.7;
 
         // Transform del retrato con posicion y escala 
         this.portraitTr = {
-            x: this.portraitX,
-            y: this.portraitY,
-            scale: this.portraitScale
+            x: this.PORTRAIT_X,
+            y: this.PORTRAIT_Y,
+            scale: this.PORTRAIT_SCALE
         };
 
         // Blackboard de variables dela escena actual

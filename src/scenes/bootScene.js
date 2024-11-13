@@ -226,6 +226,7 @@ export default class BootScene extends Phaser.Scene {
         // Solo son namespaces del plugin i18next
         // Namespace --> test\\dialog.json
         let onlyNamespaces = [
+            "names",
             "testTextOnly",
         ]
 

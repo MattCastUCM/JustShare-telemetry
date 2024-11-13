@@ -130,4 +130,9 @@ export default class Portrait {
     setDepth(depth) {
         this.img.setDepth(depth);
     }
+    
+    setFlipX(flip) {
+        this.img.flipX = flip;
+    }
+
 }

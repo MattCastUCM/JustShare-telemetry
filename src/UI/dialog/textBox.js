@@ -11,11 +11,13 @@ export default class TextBox extends DialogObject {
         this.scene = scene;
 
         // Configuracion de la imagen de la caja de texto
-        this.padding = 10;        // Espacio entre la caja y los bordes del canvas
+        this.PADDING = 10;        // Espacio entre la caja y los bordes del canvas
 
         // Imagen de la caja
-        this.box = scene.add.image(this.scene.CANVAS_WIDTH / 2, this.scene.CANVAS_HEIGHT - this.padding, 'dialogs', 'textbox').setOrigin(0.5, 1);
-        let horizontalScale = (this.scene.CANVAS_WIDTH - this.padding * 2) / this.box.width;
+        this.box = scene.add.image(this.scene.CANVAS_WIDTH / 2, this.scene.CANVAS_HEIGHT - this.PADDING, 'dialogs', 'textbox').setOrigin(0.5, 1);
+        // TEST
+        // 847 = this.scene.CANVAS_WIDTH 
+        let horizontalScale = (1000 - this.PADDING * 2) / this.box.width;
         this.box.setScale(horizontalScale, 1);
         this.box.visible = true;
 
@@ -25,21 +27,28 @@ export default class TextBox extends DialogObject {
         });
 
         // Imagen de la caja del nombre
-        this.nameBox = scene.add.image(this.scene.CANVAS_WIDTH / 2, this.scene.CANVAS_HEIGHT - this.padding, 'dialogs', 'textboxName').setOrigin(0.5, 1);
+        this.nameBox = scene.add.image(this.scene.CANVAS_WIDTH / 2, this.scene.CANVAS_HEIGHT - this.PADDING, 'dialogs', 'textboxName').setOrigin(0.5, 1);
         this.nameBox.setScale(horizontalScale, 1);
         this.nameBox.visible = true;
 
-        this.height = 135;      // Alto que va a ocupar el texto
-        // Depurar el tamano real de la caja de texto
-        /*
-        this.graphics = scene.add.graphics();
-        this.graphics.fillStyle('black', 1);
-        this.graphics.fillRect(230, this.scene.CANVAS_HEIGHT / 1.28, (this.scene.CANVAS_WIDTH - this.padding) / 1.53, this.height);
-        */
+        // Dimensiones y posiciones
+        this.TEXT_X = 390;      // Posicion X del texto
+        this.TEXT_Y = 710;      // Posicion Y del texo
+        this.WIDTH = 850;       // Ancho que va a ocupar el texto
+        this.HEIGHT = 140;      // Alto que va a ocupar el texto
 
+        this.NAME_X = 550;      // Posicion X del nombre
+        this.NAME_Y = 674;      // Posicion Y del nombre
+
+        // Depurar el tamano real de la caja de texto
+        // this.graphics = scene.add.graphics();
+        // this.graphics.fillStyle('black', 1);
+        // this.graphics.fillRect(this.scene.CANVAS_WIDTH / 2 - this.WIDTH / 2, this.TEXT_Y, this.WIDTH, this.HEIGHT);
+        
+        
         // Indica si el texto de la caja esta centrado o no
         this.centered = false;
-
+        
         // Configuracion por defecto del texto de la caja
         this.defaultNormalTextConfig = { ...scene.gameManager.textConfig };
         this.defaultNormalTextConfig.fontStyle = 'bold';
@@ -55,7 +64,7 @@ export default class TextBox extends DialogObject {
         this.nameTextConfig = { ...this.defaultNameTextConfig };
 
         // Animacion del texto
-        this.textDelay = 30;                                                        // Tiempo que tarda en aparecer cada letra en milisegundos
+        this.TEXT_DELAY = 30;                                                        // Tiempo que tarda en aparecer cada letra en milisegundos
         this.currText = this.scene.add.text(0, 0, "", this.normalTextConfig);       // Texto escrito hasta el momento
         this.fulltext = "";                                                         // Texto completo a escribir
         this.fullTextSplit = null;                                                  // Texto completo a escribir separado por palabras
@@ -114,7 +123,7 @@ export default class TextBox extends DialogObject {
         if (animate) {
             // Se crea el evento 
             this.timedEvent = this.scene.time.addEvent({
-                delay: this.textDelay,
+                delay: this.TEXT_DELAY,
                 callback: this.animateText,
                 callbackScope: this,
                 loop: true
@@ -127,18 +136,16 @@ export default class TextBox extends DialogObject {
     * @param {String} text - texto a escribir
     */
     changeText(text) {
-        // Nota: no hay soporte para texto centrado con retrato
-        
         // Arriba a la izquierda y con retrato
-        let x = 230;
-        let y = 660;
-        let width = (this.scene.CANVAS_WIDTH - this.padding) / 1.53;
+        let x = this.TEXT_X;
+        let y = this.TEXT_Y;
+        let width = this.WIDTH;
 
-        // Centrado y sin retrato
+        // Centrado
         if (this.centered) {
             x = this.box.x;
             y = this.box.y - this.box.displayHeight / 2.25;
-            width = (this.scene.CANVAS_WIDTH - this.padding * 2) / 1.30;
+            width = (this.scene.CANVAS_WIDTH - this.PADDING * 2) / 1.30;
         }
         
         this.normalTextConfig.wordWrap = {
@@ -158,13 +165,10 @@ export default class TextBox extends DialogObject {
     * @param {String} name - nombre del personaje
     */
     changeName(name) {
-        let x = 290;
-        let y = 622;
-
         // Crea el texto en la escena
         this.nameText.setOrigin(0.5, 0.5);
-        this.nameText.x = x;
-        this.nameText.y = y;
+        this.nameText.x = this.NAME_X;
+        this.nameText.y = this.NAME_Y;
 
         // Cambia el texto del objeto
         this.nameText.setText(name);
@@ -176,7 +180,7 @@ export default class TextBox extends DialogObject {
     * @returns {boolean} - true si la caja supera la altura maxima, false en caso contrario
     */
     textTooBig() {
-        return (this.currText.getBounds().height > this.height);
+        return (this.currText.getBounds().height > this.HEIGHT);
     }
 
     
