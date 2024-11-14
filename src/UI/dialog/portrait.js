@@ -67,7 +67,7 @@ export default class Portrait {
 
         let anim = null;
         
-        if (talking) {
+        if (talking && this.img.scale != this.scale) {
             // Hace la animacion de iluminarse
             anim = this.scene.tweens.add({
                 targets: this.img,
@@ -93,7 +93,7 @@ export default class Portrait {
                 duration: duration
             });
         }
-        else {
+        else if (!talking && this.img.scale != this.deactiveScale) {
             // Hace la animacion de oscurecerse
             anim = this.scene.tweens.add({
                 targets: this.img,

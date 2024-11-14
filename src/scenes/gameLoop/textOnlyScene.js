@@ -5,8 +5,9 @@ export default class TextOnlyScene extends BaseScene {
      * Escena para las transiciones en las que solo hay texto,  
      * @extends Phaser.Scene
      */
-    constructor() {
-        super('TextOnlyScene');
+    constructor(name) {
+        if(!name) name = 'TextOnlyScene'; 
+        super(name);
     }
 
     onCreate(params) {
@@ -38,7 +39,7 @@ export default class TextOnlyScene extends BaseScene {
 
         let PADDING = 50;
 
-        let text = "";
+        this.text = "";
         let onComplete = () => { };
         let onCompleteDelay = 0;
 
@@ -54,7 +55,7 @@ export default class TextOnlyScene extends BaseScene {
         }
 
         if (params.text) {
-            text = params.text
+            this.text = params.text
         }
         if (params.onComplete) {
             onComplete = params.onComplete;
@@ -105,7 +106,7 @@ export default class TextOnlyScene extends BaseScene {
 
 
         // Crea el texto
-        let screenText = this.add.text(this.CANVAS_WIDTH / 2, this.CANVAS_HEIGHT / 2, text, textConfig).setOrigin(0.5, 0.5);
+        let screenText = this.add.text(this.CANVAS_WIDTH / 2, this.CANVAS_HEIGHT / 2, this.text, textConfig).setOrigin(0.5, 0.5);
 
         // En caso de que el texto sea demasiado largo y se salga de la 
         // pantalla, se va reduciendo el tamano de la fuente hasta que quepa
@@ -118,8 +119,9 @@ export default class TextOnlyScene extends BaseScene {
             fontSize -= 5;
             textConfig.fontSize = fontSize + 'px';
             screenText.destroy();
-            screenText = this.add.text(this.CANVAS_WIDTH / 2, this.CANVAS_HEIGHT / 2, text, textConfig).setOrigin(0.5, 0.5);
+            screenText = this.add.text(this.CANVAS_WIDTH / 2, this.CANVAS_HEIGHT / 2, this.text, textConfig).setOrigin(0.5, 0.5);
         }
+
 
     }
 

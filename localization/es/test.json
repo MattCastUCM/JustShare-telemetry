@@ -1,28 +1,116 @@
 {
     "root": [
         {
-            "text": "",
-            "text_male": "Texto de ejemplo del padre en masculino",
-            "text_female": "Texto de ejemplo del padre en femenino"
+            "text": "..."
+        }
+    ],
+    "next1": {
+        "text": "¿Estás bien hijo?"
+    },
+    "next2": {
+        "text": "Sí... Bueno, no lo sé."
+    },
+    "next3": {
+        "text": "¿Estás seguro? ¿No necesitas nada?"
+    },
+    "next4": {
+        "text": "Sí, tranquilos, no es nada..."
+    },
+    "next5": {
+        "text": "Hijo, sabes que nos tienes para lo que necesites. Estamos para ti si nos quieres contar cualquier cosa."
+    },
+    "next6": {
+        "text": "Ya has escuchado a tu madre. Para lo que sea que necesites, ahí estamos. Somos una piña :)"
+    },
+    "next7": [
+        {
+            "text": "(¿Debería contárselo...?)"
         },
         {
-            "text": "",
-            "text_male": "Texto de ejemplo del padre en masculino 2",
-            "text_female": "Texto de ejemplo del padre en femenino 2"
+            "text": "(No lo sé, a lo mejor se avergüenzan de mí...)"
         }
-
     ],
-    "momDialog": {
-        "text": "",
-        "text_male": "Texto de ejemplo de la madre en masculino",
-        "text_female": "Texto de ejemplo de la madre en femenino"
+    "next8": {
+        "text": "¿Tienes algún problema en el insti?"
     },
     "choiceNode": [
         {
-            "text": "Sí"
+            "text": "Decirles la verdad"
         },
         {
-            "text": "No"
+            "text": "Mentirles"
         }
-    ]
+    ],
+
+    
+    "truth": [
+        {
+            "text": "Pues la verdad..."
+        },
+        {
+            "text": "He hecho una amiga en internet, y, al principio, pues todo muy bien..."
+        },
+        {
+            "text": "Y seguimos hablando y tal y me comenzó a gustar. Y ella se sentía igual."
+        },
+        {
+            "text": "Y... no sé cómo, una cosa llevó a la otra, y me pidió una foto sin camiseta."
+        }
+    ],
+    "truth2": {
+        "text": "Hijo, sabes que ese tipo de cosas son muy peligrosas..."
+    },
+    "truth3": {
+        "text": "Da gracias que no ha ido a más. Deja de hablar con esa persona y bloquéala."
+    },
+    "truth4": [
+        {
+            "text": "La verdad es que no nos intercambiamos solo fotos sin camiseta..."
+        },
+        {
+            "text": "También le envié una foto desnudo."
+        }
+    ],
+    "truth5": {
+        "text": "¡¿Pero cómo se te ocurre hacer eso?!"
+    },
+    "truth6": {
+        "text": "Además, me ha amenazado con publicar esa foto si no le envío más."
+    },
+    "truth7": {
+        "text": "Menudo lío..."
+    },
+    "truth8": {
+        "text": "Tranquilo hijo, lo solucionaremos. Tenemos que ir a denunciarlo cuanto antes."
+    },
+    "truth9": [
+        {
+            "text": "Muchas gracias, sois muy comprensivos..."
+        },
+        {
+            "text": "Lo siento mucho..."
+        }
+    ],
+    
+
+    "lie": [
+        {
+            "text": "Sí, es eso." 
+        },
+        {
+            "text": "Pero no es nada en particular, simplemente que estoy estresado por tanto cambio." 
+        }
+    ],
+    "lie2": {
+        "text": "Bueno, no pasa nada. Es normal."
+    },
+    "lie3": {
+        "text": "Ya, adaptarse a tantos cambios es complicado."
+    },
+    "lie4": {
+        "text": "Pero no te rayes, que es lo peor que puedes hacer."
+    },
+    "lie5": {
+        "text": "Sí, vale, gracias... *risa nerviosa*"
+    }
 }

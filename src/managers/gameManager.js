@@ -101,9 +101,18 @@ export default class GameManager {
         // Pasa a la escena inicial con los parametros text, onComplete y onCompleteDelay
         let sceneName = 'TextOnlyScene';
         let params = {
-            text: this.i18next.t("startingBlackScreen.test", { ns: "testTextOnly", returnObjects: true }),
+            text: this.i18next.t("startingBlackScreen.test1", { ns: "testTextOnly", returnObjects: true }),
             onComplete: () => {
-                this.changeScene("TestScene", null);
+                // TEST
+                let sceneName = 'TextOnlyScene2';
+                let params = {
+                    text: this.i18next.t("startingBlackScreen.test2", { ns: "testTextOnly", returnObjects: true }),
+                    onComplete: () => {
+                        this.changeScene("TestScene", null);
+                    },
+                    onCompleteDelay: 500
+                };
+                this.changeScene(sceneName, params);
             },
             onCompleteDelay: 500
         };

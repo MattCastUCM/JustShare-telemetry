@@ -45,6 +45,10 @@ export default class TestScene extends BaseScene {
         bg.on("pointerdown", () => {
             this.setNode();
         })
+
+        this.dispatcher.add("resetGame", this, () => {
+            this.gameManager.startTestScene();
+        })
         
     }
 
