@@ -105,7 +105,6 @@ export default class GameManager {
             onComplete: () => {
                 this.changeScene("Scene1Classroom", null);
             },
-            onCompleteDelay: 500
         };
         
         this.changeScene(sceneName, params);
@@ -136,23 +135,37 @@ export default class GameManager {
     * @param {Boolean} cantReturn - true si se puede regresar a la escena anterior, false en caso contrario
     */
     changeScene(scene, params, canReturn = false) {
-        // Si no se puede volver a la escena anterior, se detienen todas las
-        // escenas que ya estaban creadas porque ya no van a hacer falta 
-        if (!canReturn) {
-            this.clearRunningScenes();
+        let FADE_TIME = 200;
+        if (params && params.fadeTime != null) {
+            FADE_TIME = params.fadeTime;
         }
-        // Si no, se se duerme la escena actual en vez de destruirla ya que
-        // habria que mantener su estado por si se quiere volver a ella
-        else {
-            this.currentScene.scene.sleep();
-        }
-        
-        // Se inicia y actualiza la escena actual
-        this.currentScene.scene.run(scene, params);
-        this.currentScene = this.currentScene.scene.get(scene);
+        this.currentScene.cameras.main.fadeOut(FADE_TIME, 0, 0, 0);
 
-        // Se anade la escena a las escenas que estan ejecutandose
-        this.runningScenes.add(this.currentScene);
+        // Cuando acaba el fade out de la escena actual se cambia a la siguiente
+        this.currentScene.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, (cam, effect) => {
+            // Si no se puede volver a la escena anterior, se detienen todas las
+            // escenas que ya estaban creadas porque ya no van a hacer falta 
+            if (!canReturn) {
+                this.clearRunningScenes();
+            }
+            // Si no, se se duerme la escena actual en vez de destruirla ya que
+            // habria que mantener su estado por si se quiere volver a ella
+            else {
+                this.currentScene.scene.sleep();
+            }
+
+            // Se inicia y actualiza la escena actual
+            this.currentScene.scene.run(scene, params);
+            this.currentScene = this.currentScene.scene.get(scene);
+
+            // Se anade la escena a las escenas que estan ejecutandose
+            this.runningScenes.add(this.currentScene);
+            
+            // Cuando se termina de crear la escena, se anade el fade in
+            this.currentScene.events.on('create', () => {
+                this.currentScene.cameras.main.fadeIn(FADE_TIME, 0, 0, 0);    
+            });
+        });
     }
 
     

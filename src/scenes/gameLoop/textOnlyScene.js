@@ -15,10 +15,7 @@ export default class TextOnlyScene extends BaseScene {
 
         let DEFAULT_TIME = 5000;
         setTimeout(() => {
-            if (!this.exiting) {
-                this.exiting = true;
-                this.cameras.main.fadeOut(this.FADE_TIME, 0, 0, 0);
-            }
+            this.exit();
         }, DEFAULT_TIME);
     }
 
@@ -46,7 +43,6 @@ export default class TextOnlyScene extends BaseScene {
         // Configuracion de texto
         let fontSize = 100;
         let textConfig = { ...this.gameManager.textConfig };
-        // textConfig.fontFamily = 'gidole-regular';
         textConfig.fontSize = fontSize + 'px';
         textConfig.align = 'center';
         textConfig.wordWrap = {
@@ -72,18 +68,6 @@ export default class TextOnlyScene extends BaseScene {
         // Hace invisible el UIManager entero
         this.scene.setVisible(false, this.UIManager);
 
-        // Establece las animaciones de fade in y fade out
-        this.FADE_TIME = 300;
-        this.cameras.main.fadeIn(this.FADE_TIME, 0, 0, 0);
-        // Una vez terminado el fade out, se vuelve a hacer visible el UIManager 
-        // y se llama a la funcion que se haya pasado por los parametros
-        this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, (cam, effect) => {
-            setTimeout(() => {
-                this.scene.setVisible(true, this.UIManager);
-                onComplete();
-            }, onCompleteDelay);
-        });
-
         // Anade la imagen del fondo 
         let bg = this.add.rectangle(0, 0, this.CANVAS_WIDTH, this.CANVAS_HEIGHT, 0x000, 1).setOrigin(0, 0);
 
@@ -93,16 +77,18 @@ export default class TextOnlyScene extends BaseScene {
         });
 
         this.exiting = false;
-        // Se anade el evento de hacer clicke sobre el fondo para que solo se pueda ejecutar una vez.
-        // Si no se hace click sobre el fondo, se pone un temporizador para que haga fade out 
-        // automaticamente tras un tiempo. El temporizador empezara cuando la escena este creada
-        bg.once('pointerdown', (pointer) => {
-            // Al hacer click en la imagen del fondo, comienza el fade out
+        this.exit = () => {
             if (!this.exiting) {
                 this.exiting = true;
-                this.cameras.main.fadeOut(this.FADE_TIME, 0, 0, 0);
+                this.scene.setVisible(true, this.UIManager);
+                setTimeout(onComplete, onCompleteDelay);
             }
-        });
+        }
+    
+        // Se anade el evento de hacer clicke sobre el fondo para que solo se pueda ejecutar una vez.
+        // Si no se hace click sobre el fondo, se pone un temporizador para que se llame a onComplete
+        // automaticamente tras un tiempo. El temporizador empezara cuando la escena este creada
+        bg.once('pointerdown', this.exit);
 
 
         // Crea el texto

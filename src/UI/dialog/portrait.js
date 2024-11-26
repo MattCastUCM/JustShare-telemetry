@@ -11,15 +11,15 @@ export default class Portrait {
         this.img.setPosition(trans.x, trans.y);
         this.img.setScale(trans.scale);
 
-        this.animEase = 'linear';
+        this.ANIM_EASE = 'linear';
         this.scale = trans.scale;
         this.deactiveScale = this.scale * 0.8;
 
-        this.noTint = Phaser.Display.Color.HexStringToColor('#ffffff');
-        this.deactiveTint = Phaser.Display.Color.HexStringToColor('#454545');
+        this.NO_TINT = Phaser.Display.Color.HexStringToColor('#ffffff');
+        this.INACTIVE_TINT = Phaser.Display.Color.HexStringToColor('#454545');
 
         this.key = key;
-        this.activate(false)
+        this.setAlpha(0);
     }
     
     getKey() { return this.key; }
@@ -36,7 +36,7 @@ export default class Portrait {
             anim = this.scene.tweens.add({
                 targets: this.img,
                 alpha: { from: 0, to: 1 },
-                ease: this.animEase,
+                ease: this.ANIM_EASE,
                 duration: duration,
                 repeat: 0,
             });
@@ -48,7 +48,7 @@ export default class Portrait {
             anim = this.scene.tweens.add({
                 targets: this.img,
                 alpha: { from: 1, to: 0 },
-                ease: this.animEase,
+                ease: this.ANIM_EASE,
                 duration: duration,
                 repeat: 0,
             });
@@ -71,7 +71,7 @@ export default class Portrait {
             // Hace la animacion de iluminarse
             anim = this.scene.tweens.add({
                 targets: this.img,
-                ease: this.animEase,
+                ease: this.ANIM_EASE,
                 duration: duration,
                 scale: this.scale,
                 repeat: 0,
@@ -84,7 +84,7 @@ export default class Portrait {
                 to: 100,
                 onUpdate: (tween) => {
                     const value = tween.getValue();
-                    let col = Phaser.Display.Color.Interpolate.ColorWithColor(this.deactiveTint, this.noTint, 100, value);
+                    let col = Phaser.Display.Color.Interpolate.ColorWithColor(this.INACTIVE_TINT, this.NO_TINT, 100, value);
                     let colInt = Phaser.Display.Color.GetColor(col.r, col.g, col.b);
                     this.img.setTint(colInt);
                 },
@@ -97,7 +97,7 @@ export default class Portrait {
             // Hace la animacion de oscurecerse
             anim = this.scene.tweens.add({
                 targets: this.img,
-                ease: this.animEase,
+                ease: this.ANIM_EASE,
                 duration: duration,
                 scale: this.deactiveScale,
                 repeat: 0,
@@ -110,7 +110,7 @@ export default class Portrait {
                 to: 100,
                 onUpdate: (tween) => {
                     const value = tween.getValue();
-                    let col = Phaser.Display.Color.Interpolate.ColorWithColor(this.noTint, this.deactiveTint, 100, value);
+                    let col = Phaser.Display.Color.Interpolate.ColorWithColor(this.NO_TINT, this.INACTIVE_TINT, 100, value);
                     let colInt = Phaser.Display.Color.GetColor(col.r, col.g, col.b);
                     this.img.setTint(colInt);
                 },
@@ -135,4 +135,7 @@ export default class Portrait {
         this.img.flipX = flip;
     }
 
+    setAlpha(alpha) {
+        this.img.alpha = alpha;
+    }
 }

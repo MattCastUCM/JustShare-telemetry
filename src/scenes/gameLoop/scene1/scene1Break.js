@@ -1,14 +1,14 @@
 import BaseScene from '../baseScene.js';
 import Portrait from '../../../UI/dialog/portrait.js';
 
-export default class Scene1Classroom extends BaseScene {
+export default class Scene1Break extends BaseScene {
     /**
      * Escena base para el salon. Coloca los elementos que se mantienen igual todos los dias
      * @extends BaseScene
      * @param {String} name - id de la escena
      */
     constructor(name) {
-        super("Scene1Classroom", 'Scene1Classroom');
+        super("Scene1Break", 'Scene1Break');
     }
 
     create(params) {
@@ -29,25 +29,24 @@ export default class Scene1Classroom extends BaseScene {
         let dadPortrait = new Portrait(this, "dad", dadTr);
         this.portraits.set("dad", dadPortrait);
 
-        let nodes = this.cache.json.get('scene1Classroom');
-        this.node = super.readNodes(nodes, "scene1\\scene1Classroom", "", true);
+        let nodes = this.cache.json.get('Scene1Break');
+        this.node = super.readNodes(nodes, "scene1\\Scene1Break", "", true);
 
         this.setNode = () => {
             this.dialogManager.setNode(this.node, [momPortrait, dadPortrait]);
         }
 
-        this.dispatcher.add("startBreak", this, () => {
-            // Pasa a la escena inicial con los parametros text, onComplete y onCompleteDelay
-            let sceneName = 'TextOnlyScene';
-            let params = {
-                text: this.i18next.t("scene1.break", { ns: "transitions", returnObjects: true }),
-                onComplete: () => {
-                    this.gameManager.changeScene("Scene1Classroom", null);
-                    // this.gameManager.changeScene("Scene1Break", null);
-                },
-            };
-            this.gameManager.changeScene(sceneName, params);
-        })
+        // this.dispatcher.add("startBreak", this, () => {
+        //     // Pasa a la escena inicial con los parametros text, onComplete y onCompleteDelay
+        //     let sceneName = 'TextOnlyScene';
+        //     let params = {
+        //         text: this.i18next.t("scene1.break", { ns: "transitions", returnObjects: true }),
+        //         onComplete: () => {
+        //             this.gameManager.changeScene("Scene1Break", null);
+        //         },
+        //     };
+        //     this.gameManager.changeScene(sceneName, params);
+        // })
     }
 
     // Se hace esto porque si se establece un dialogo en la constructora,

@@ -74,7 +74,7 @@ export default class DialogManager {
 
         // Coge las imagenes de todos los retratos, las copia en esta escena, y las pone detras de la caja de texto
         scene.portraits.forEach((value, key) => {
-            value.activate(false);
+            value.setAlpha(0);
 
             let p = this.scene.add.existing(value.img);
             p.setDepth(this.textbox.box.depth - 1)
@@ -109,12 +109,14 @@ export default class DialogManager {
         // Si no hay ningun dialogo activo y el nodo a poner es valido
         if (!this.isTalking() && node) {
             
+            let portraitAnimTime = 200;
+
             // Guarda los retratos de los personajes que participan en el dialogo, los muestra, y se pone que no estan hablando
             this.portraits.clear();
             portraits.forEach((value) => {
                 let key = value.getKey()
                 this.portraits.set(key, value);
-                value.activate(true, 200);
+                value.activate(true, portraitAnimTime);
                 value.setTalking(false);
             });
             
@@ -129,8 +131,10 @@ export default class DialogManager {
             this.activateOptions(false);
 
             // Cambia el nodo por el indicado
-            this.currNode = node;
-            this.processNode(node);
+            setTimeout(() => {
+                this.currNode = node;
+                this.processNode(node);
+            }, portraitAnimTime);
         }
         else {
             this.textbox.activate(false);

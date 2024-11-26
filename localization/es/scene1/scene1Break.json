@@ -1,0 +1,61 @@
+{
+    "mainConversation": {
+        "root": {
+            "text": "¡{{name}}! ¡Ven aquí, siéntate conmigo!"
+        },
+        "thanks": {
+            "text": "",
+            "text_male": "Gracias por compartir mesa conmigo. Como soy nuevo no sabía donde sentarme.",
+            "text_female": "Gracias por compartir mesa conmigo. Como soy nueva no sabía donde sentarme."
+        },
+        "welcome": {
+           "text": "Ni lo menciones. Justo estaba viendo el último video de ToniVlogs hablando de su viaje a Japón."
+        },
+        "surprise": {
+            "text": "“¿Como? ¿¡Tu también eres fan de ToniVlogs!? Es mi influencer favorito."
+        },
+        "dog": {
+            "text": "¡Sí! Me encantan sus videos, sobre todo en los que sale su perrita Mila. Es la perrita más mona que he visto nunca."
+        },
+        "agree": {
+            "text": "Yo les vi a los dos en persona este verano y creeme que Mila es la mejor. Tengo una foto de ella en la que sale genial."
+        },
+        "phone": [
+            {
+                "text": "¿¡En serio!? Pásamela luego, porfaaa."
+            },
+            {
+                "text": "Ten, este es mi número (te apunta su número)"
+            },
+            {
+                "text": "De hecho, te voy a meter ya al grupo de clase."
+            }
+        ],
+        "photo": {
+            "text": "Gracias, luego al llegar a casa te envío la foto de Mila."
+        },
+        "lauraThanks": {
+            "text": "",
+            "text_male": "¡Eres el mejor!",
+            "text_female": "¡Eres la mejor!"
+        }
+    },
+
+    "tables1": {
+        "root": {
+            "text": "*Esa mesa parece llena, mejor busco otra.*"
+        }
+    },
+
+    "tables2": {
+        "root": {
+            "text": "*Ahí están los del último curso, que vergüenza.*"
+        }
+    },
+
+    "tables3": {
+        "root": {
+            "text": "*No conozco a nadie aún.*"
+        }
+    }
+}
