@@ -14,11 +14,11 @@ export default class TextBox extends DialogObject {
         this.PADDING = 10;        // Espacio entre la caja y los bordes del canvas
 
         // Imagen de la caja
-        this.box = scene.add.image(this.scene.CANVAS_WIDTH / 2, this.scene.CANVAS_HEIGHT - this.PADDING, 'dialogs', 'textbox').setOrigin(0.5, 1);
+        this.box = scene.add.image(this.scene.CANVAS_WIDTH / 2, this.scene.CANVAS_HEIGHT - this.PADDING, 'textbox').setOrigin(0.5, 1);
+        // this.box = scene.add.image(this.scene.CANVAS_WIDTH / 2, this.scene.CANVAS_HEIGHT - this.PADDING, 'dialogs', 'textbox').setOrigin(0.5, 1);
+        
         // TEST
         // 847 = this.scene.CANVAS_WIDTH 
-        let horizontalScale = (1000 - this.PADDING * 2) / this.box.width;
-        this.box.setScale(horizontalScale, 1);
         this.box.visible = true;
 
         this.box.setInteractive({ useHandCursor: true });
@@ -26,23 +26,18 @@ export default class TextBox extends DialogObject {
             dialogManager.nextDialog();
         });
 
-        // Imagen de la caja del nombre
-        this.nameBox = scene.add.image(this.scene.CANVAS_WIDTH / 2, this.scene.CANVAS_HEIGHT - this.PADDING, 'dialogs', 'textboxName').setOrigin(0.5, 1);
-        this.nameBox.setScale(horizontalScale, 1);
-        this.nameBox.visible = true;
-
         // Dimensiones y posiciones
-        this.TEXT_X = 390;      // Posicion X del texto
-        this.TEXT_Y = 710;      // Posicion Y del texo
-        this.WIDTH = 850;       // Ancho que va a ocupar el texto
-        this.HEIGHT = 140;      // Alto que va a ocupar el texto
+        this.TEXT_X = 250;      // Posicion X del texto
+        this.TEXT_Y = 635;      // Posicion Y del texo
+        this.WIDTH = 1100;       // Ancho que va a ocupar el texto
+        this.HEIGHT = 200;      // Alto que va a ocupar el texto
 
-        this.NAME_X = 550;      // Posicion X del nombre
-        this.NAME_Y = 674;      // Posicion Y del nombre
+        this.NAME_X = 474;      // Posicion X del nombre
+        this.NAME_Y = 570;      // Posicion Y del nombre
 
         // Depurar el tamano real de la caja de texto
         // this.graphics = scene.add.graphics();
-        // this.graphics.fillStyle('black', 1);
+        // this.graphics.fillStyle('black', 0.9);
         // this.graphics.fillRect(this.scene.CANVAS_WIDTH / 2 - this.WIDTH / 2, this.TEXT_Y, this.WIDTH, this.HEIGHT);
         
         
@@ -75,7 +70,6 @@ export default class TextBox extends DialogObject {
         this.canWrite = false;
 
         this.box.alpha = 0;
-        this.nameBox.alpha = 0;
         this.currText.alpha = 0;
         this.nameText.alpha = 0;
     }
@@ -225,7 +219,7 @@ export default class TextBox extends DialogObject {
             this.canWrite = false;
 
             this.box.disableInteractive();
-                super.activate(true, [this.box, this.nameBox, this.currText, this.nameText], () => {
+                super.activate(true, [this.box, this.currText, this.nameText], () => {
                     setTimeout(() => {
                         this.box.setInteractive({ useHandCursor: true });
                         this.canWrite = true;
@@ -237,7 +231,7 @@ export default class TextBox extends DialogObject {
             this.box.disableInteractive();
             this.canWrite = false;
 
-            super.activate(false, [this.box, this.nameBox, this.currText, this.nameText], onComplete, delay);
+            super.activate(false, [this.box, this.currText, this.nameText], onComplete, delay);
         }
         // Si se va a desactivar y no era visible, se llama a la funcion que se ha pasado
         else if (!active && !isVisible) {

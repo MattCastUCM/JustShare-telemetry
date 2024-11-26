@@ -1,0 +1,21 @@
+{
+    "root": [
+        {
+            "text": "Buenos días chicos, espero que hayáis pasado un buen verano."
+        },
+        {
+            "text": "",
+            "text_male": "Este año se une a nosotros {{name}}, espero que seáis buenos con él.",
+            "text_female": "Este año se une a nosotros {{name}}, espero que seáis buenos con ella."
+        },
+        {
+            "text": "{{name}} por favor siéntate ahí al lado de Laura."
+        }
+    ],
+    "introduction": {
+        "text": "Hey, soy Laura, encantada. Si necesitas cualquier cosa, no dudes en preguntarme."
+    },
+    "thanks": {
+        "text": "Perfecto gracias, cualquier cosa te diré."
+    }
+}

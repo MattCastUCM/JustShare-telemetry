@@ -88,7 +88,7 @@ export default class GameManager {
         this.blackboard.clear();
         this.day = 0;
         this.userInfo = {
-            name: "testName",
+            name: "Rigoberto",
             gender: "male"    
         }
         this.i18next.changeLanguage("es");
@@ -101,18 +101,9 @@ export default class GameManager {
         // Pasa a la escena inicial con los parametros text, onComplete y onCompleteDelay
         let sceneName = 'TextOnlyScene';
         let params = {
-            text: this.i18next.t("startingBlackScreen.test1", { ns: "testTextOnly", returnObjects: true }),
+            text: this.i18next.t("scene1.classroom", { ns: "transitions", returnObjects: true }),
             onComplete: () => {
-                // TEST
-                let sceneName = 'TextOnlyScene2';
-                let params = {
-                    text: this.i18next.t("startingBlackScreen.test2", { ns: "testTextOnly", returnObjects: true }),
-                    onComplete: () => {
-                        this.changeScene("TestScene", null);
-                    },
-                    onCompleteDelay: 500
-                };
-                this.changeScene(sceneName, params);
+                this.changeScene("Scene1Classroom", null);
             },
             onCompleteDelay: 500
         };

@@ -1,0 +1,27 @@
+{
+    "root": {
+        "type": "text",
+        "character": "teacher",
+        "next": "introduction"
+    },
+    "introduction": {
+        "type": "text",
+        "character": "laura",
+        "next": "thanks"
+    },
+    "thanks": {
+        "type": "text",
+        "character": "player",
+        "next": "break"
+    },
+    "break": {
+        "type": "event",
+        "events": [
+            {
+                "startBreak": { 
+                    "delay": 500
+                }
+            }
+        ]
+    }
+}

@@ -1,8 +1,7 @@
 import BootScene from "./scenes/bootScene.js";
-import TextOnlyScene from "./scenes/gameLoop/textOnlyScene.js";
-import TestScene from "./scenes/gameLoop/testScene.js";
 
-import TextOnlyScene2 from "./scenes/gameLoop/textOnlyScene2.js";
+import TextOnlyScene from "./scenes/gameLoop/textOnlyScene.js";
+import Scene1Classroom from "./scenes/gameLoop/scene1/scene1Classroom.js";
 
 // UI
 import UIManager from './managers/UIManager.js';
@@ -22,8 +21,7 @@ const config = {
         BootScene,
         
         TextOnlyScene,
-        TextOnlyScene2,
-        TestScene,
+        Scene1Classroom,
         
         // UI
         UIManager,

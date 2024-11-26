@@ -2,6 +2,13 @@ import TextBox from '../UI/dialog/textBox.js';
 import OptionBox from '../UI/dialog/optionBox.js';
 import GameManager from './gameManager.js';
 
+/*
+PARA ARREGLAR NODOS DE EVENTO SI SE sALTAN LOS DIALOGOS:
+SEGUN SE VAN LEYENDO LOS EVENTOS, GUARDARLOS EN UNA LISTA.
+SEGUN SE VAN PROCESANDO, SACARLOS DE LA LISTA.
+SI EL NODO ACTUAL SE VUELVE NULL, PROCESAR EL SIGUIENTE NODO DE LA LISTA
+*/
+
 export default class DialogManager {
     /**
     * Gestor de los dialogos. Crea la caja de texto/opciones con su texto y se encarga de actualizarlos.

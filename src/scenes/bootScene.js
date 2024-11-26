@@ -178,6 +178,7 @@ export default class BootScene extends Phaser.Scene {
 
         // Assets de la caja de texto y de opcion multiple
         this.load.atlas('dialogs', 'dialogs.png', 'dialogs.json');
+        this.load.image('textbox', 'textbox.png');
 
         // Archivos de dialogos (estructura)
         this.load.setPath('localization/structure');
@@ -221,13 +222,13 @@ export default class BootScene extends Phaser.Scene {
         // Id archivo dialogo --> dialog
         // Namespace --> test\\dialog.json
         let dialogsAndNamespaces = [
-            "test",
+            "scene1/scene1Classroom",
         ]
         // Solo son namespaces del plugin i18next
         // Namespace --> test\\dialog.json
         let onlyNamespaces = [
             "names",
-            "testTextOnly",
+            "transitions",
         ]
 
         this.loadComputersAssets();
