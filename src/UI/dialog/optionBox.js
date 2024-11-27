@@ -13,7 +13,8 @@ export default class OptionBox extends DialogObject {
         super(scene);
 
         let padding = 10;
-        this.box = scene.add.image(this.scene.CANVAS_WIDTH / 2, 0, 'dialogs', 'optionBg').setOrigin(0.5, 0);
+        // this.box = scene.add.image(this.scene.CANVAS_WIDTH / 2, 0, 'dialogs', 'optionBg').setOrigin(0.5, 0);
+        this.box = scene.add.image(this.scene.CANVAS_WIDTH / 2, 0, 'optionBox').setOrigin(0.5, 0);
         let scale = this.scene.CANVAS_WIDTH / (this.box.width + padding);
         this.box.setScale(scale);
 
@@ -21,12 +22,12 @@ export default class OptionBox extends DialogObject {
 
         // Configuracion del texto de la caja
         this.textConfig = { ...scene.gameManager.textConfig };
-        this.textConfig.fontSize = 25 + 'px';
-        this.textConfig.fontStyle = 'bold';
-        this.textConfig.strokeThickness = 5;
+        this.textConfig.fontFamily = 'roboto-regular';
+        this.textConfig.fontSize = 35 + 'px';
+        this.textConfig.color = '#000000';
 
-        let x = 50;
-        let y = this.box.y + this.box.displayHeight / 2;
+        let x = 80;
+        let y = this.box.y + this.box.displayHeight / 2 + 4;
 
         // Crea el texto
         this.text = this.scene.add.text(x, y, text, this.textConfig);

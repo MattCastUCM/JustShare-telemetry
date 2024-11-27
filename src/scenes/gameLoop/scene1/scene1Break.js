@@ -19,42 +19,86 @@ export default class Scene1Break extends BaseScene {
         this.scale = this.CANVAS_HEIGHT / bg.height;
         bg.setScale(this.scale);
 
-        let momTr = this.portraitTr;
-        let momPortrait = new Portrait(this, "mom", momTr)
-        momPortrait.setFlipX(true);
-        this.portraits.set("mom", momPortrait);
+        let lauraTr = this.portraitTr;
+        lauraTr.x = this.CANVAS_WIDTH / 2;
+        let lauraPortrair = new Portrait(this, "mom", lauraTr, "laura")
+        lauraPortrair.setFlipX(true);
+        this.portraits.set("laura", lauraPortrair);
 
-        let dadTr = this.portraitTr;
-        dadTr.x += this.CANVAS_WIDTH / 2;
-        let dadPortrait = new Portrait(this, "dad", dadTr);
-        this.portraits.set("dad", dadPortrait);
+        
+        let interactedTables = [false, false, false];
+        let nodes = this.cache.json.get('scene1Break');
 
-        let nodes = this.cache.json.get('Scene1Break');
-        this.node = super.readNodes(nodes, "scene1\\Scene1Break", "", true);
+        let nodeTable1 = super.readNodes(nodes, "scene1\\scene1Break", "tables1", true);
+        let table1 = this.add.image(0, 0, 'livingroomBg').setOrigin(0, 0).setScale(0.2, 0.2);
+        table1.setInteractive({ useHandCursor: true });
+        table1.on('pointerdown', () => {
+            this.dialogManager.setNode(nodeTable1, []);
+            interactedTables[0] = true;
+            this.clickTable(table1);
+        });
 
-        this.setNode = () => {
-            this.dialogManager.setNode(this.node, [momPortrait, dadPortrait]);
+        let nodeTable2 = super.readNodes(nodes, "scene1\\scene1Break", "tables2", true);
+        let table2 = this.add.image(300, 300, 'livingroomBg').setOrigin(0, 0).setScale(0.2, 0.2);
+        table2.setInteractive({ useHandCursor: true });
+        table2.on('pointerdown', () => {
+            this.dialogManager.setNode(nodeTable2, []);
+            interactedTables[1] = true;
+            this.clickTable(table2);
+        });
+
+        let nodeTable3 = super.readNodes(nodes, "scene1\\scene1Break", "tables3", true);
+        let table3 = this.add.image(600, 600, 'livingroomBg').setOrigin(0, 0).setScale(0.2, 0.2);
+        table3.setInteractive({ useHandCursor: true });
+        table3.on('pointerdown', () => {
+            this.dialogManager.setNode(nodeTable3, []);
+            interactedTables[2] = true;
+            this.clickTable(table3);
+        });
+
+
+        this.dispatcher.add("checkAllTables", this, () => {
+            let allPressed = true;
+            for (let i = 0; i < interactedTables.length && allPressed; i++) {
+                allPressed &= interactedTables[i];
+            }
+    
+            if (allPressed) {
+                let node = super.readNodes(nodes, "scene1\\scene1Break", "mainConversation", true);
+                setTimeout(() => {
+                    this.dialogManager.setNode(node, [lauraPortrair]); 
+                }, 500);
+            }
+        });
+
+        this.dispatcher.add("endBreak", this, () => {
+            // Pasa a la escena inicial con los parametros text, onComplete y onCompleteDelay
+            let sceneName = 'TextOnlyScene';
+            let params = {
+                text: this.i18next.t("scene1.classEnd", { ns: "transitions", returnObjects: true }),
+                onComplete: () => {
+                    
+                },
+            };
+            this.gameManager.changeScene(sceneName, params);
+        });
+    }
+
+
+    clickTable(table) {
+        // Configuracion de las animaciones
+        let animConfig = {
+            fadeTime: 150,
+            fadeEase: 'linear'
         }
 
-        // this.dispatcher.add("startBreak", this, () => {
-        //     // Pasa a la escena inicial con los parametros text, onComplete y onCompleteDelay
-        //     let sceneName = 'TextOnlyScene';
-        //     let params = {
-        //         text: this.i18next.t("scene1.break", { ns: "transitions", returnObjects: true }),
-        //         onComplete: () => {
-        //             this.gameManager.changeScene("Scene1Break", null);
-        //         },
-        //     };
-        //     this.gameManager.changeScene(sceneName, params);
-        // })
+        table.disableInteractive();
+        this.tweens.add({
+            targets: table,
+            alpha: { from: 1, to: 0 },
+            ease: animConfig.fadeEase,
+            duration: animConfig.fadeTime,
+            repeat: 0,
+        });
     }
-
-    // Se hace esto porque si se establece un dialogo en la constructora,
-    // no funciona el bloqueo del fondo del DialogManager
-    onCreate() {
-        setTimeout(() => {
-            this.setNode();
-        }, 500);
-    }
-
 }

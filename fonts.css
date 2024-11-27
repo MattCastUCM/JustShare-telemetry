@@ -8,6 +8,10 @@ body {
     height: 100vh;
     overflow: hidden;
 }
+
 /*
 Fuentes que se usan en Phaser
-*/
+*/@font-face {
+    font-family: "roboto-regular";
+    src: url('assets/fonts/roboto-regular.ttf');
+}

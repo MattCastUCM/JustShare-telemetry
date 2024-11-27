@@ -88,8 +88,8 @@ export default class GameManager {
         this.blackboard.clear();
         this.day = 0;
         this.userInfo = {
-            name: "Rigoberto",
-            gender: "male"    
+            name: "Rigoberta",
+            gender: "female"    
         }
         this.i18next.changeLanguage("es");
         // IMPORTANTE: Hay que lanzar primero el UIManager para que se inicialice
@@ -103,7 +103,7 @@ export default class GameManager {
         let params = {
             text: this.i18next.t("scene1.classroom", { ns: "transitions", returnObjects: true }),
             onComplete: () => {
-                this.changeScene("Scene1Classroom", null);
+                this.changeScene("Scene1Break", null);
             },
         };
         
@@ -135,6 +135,7 @@ export default class GameManager {
     * @param {Boolean} cantReturn - true si se puede regresar a la escena anterior, false en caso contrario
     */
     changeScene(scene, params, canReturn = false) {
+        // Reproduce un fade out al cambiar de escena
         let FADE_TIME = 200;
         if (params && params.fadeTime != null) {
             FADE_TIME = params.fadeTime;
@@ -160,8 +161,8 @@ export default class GameManager {
 
             // Se anade la escena a las escenas que estan ejecutandose
             this.runningScenes.add(this.currentScene);
-            
-            // Cuando se termina de crear la escena, se anade el fade in
+  
+            // Cuando se termina de crear la escena, se reproduce el fade in
             this.currentScene.events.on('create', () => {
                 this.currentScene.cameras.main.fadeIn(FADE_TIME, 0, 0, 0);    
             });

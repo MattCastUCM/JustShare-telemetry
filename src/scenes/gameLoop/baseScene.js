@@ -107,7 +107,6 @@ export default class BaseScene extends Phaser.Scene {
                 node.next[i] = nextNode;
             }
         });
-
         return root;
     }
 

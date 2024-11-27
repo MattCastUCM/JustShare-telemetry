@@ -32,8 +32,8 @@ export default class TextBox extends DialogObject {
         this.WIDTH = 1100;       // Ancho que va a ocupar el texto
         this.HEIGHT = 200;      // Alto que va a ocupar el texto
 
-        this.NAME_X = 474;      // Posicion X del nombre
-        this.NAME_Y = 570;      // Posicion Y del nombre
+        this.NAME_X = 450;      // Posicion X del nombre
+        this.NAME_Y = 578;      // Posicion Y del nombre
 
         // Depurar el tamano real de la caja de texto
         // this.graphics = scene.add.graphics();
@@ -46,15 +46,19 @@ export default class TextBox extends DialogObject {
         
         // Configuracion por defecto del texto de la caja
         this.defaultNormalTextConfig = { ...scene.gameManager.textConfig };
-        this.defaultNormalTextConfig.fontStyle = 'bold';
-        this.defaultNormalTextConfig.strokeThickness = 5;
+        this.defaultNormalTextConfig.fontFamily = 'roboto-regular';
+        this.defaultNormalTextConfig.fontSize = 35 + 'px';
+        this.defaultNormalTextConfig.color = '#000000';
+
         // Inicialmente la configuracion del texto de la caja es la de por defecto
         this.normalTextConfig = { ...this.defaultNormalTextConfig };
 
         // Configuracion por defecto del texto del nombre
         this.defaultNameTextConfig = { ...scene.gameManager.textConfig };
+        this.defaultNameTextConfig.fontFamily = 'roboto-regular';
         this.defaultNameTextConfig.fontStyle = 'bold';
-        this.defaultNameTextConfig.strokeThickness = 5;
+        this.defaultNameTextConfig.fontSize = 35 + 'px';
+
         // Inicialmente la configuracion del texto del nombre la por defecto
         this.nameTextConfig = { ...this.defaultNameTextConfig };
 

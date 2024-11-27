@@ -2,12 +2,13 @@ export default class Portrait {
     /**
     * Clase para un personaje y su retrato 
     * @param {Phaser.Scene} scene - escena a la que pertenece
-    * @param {String} key - id de la imagen
+    * @param {String} img - id de la imagen
     * @param {Object} trans - posicion y escala del personaje
+    * @param {String} key - key del retrato en la escena
     */
-    constructor(scene, key, trans) {
+    constructor(scene, img, trans, key) {
         this.scene = scene;
-        this.img = scene.add.image(0, 0, key)
+        this.img = scene.add.image(0, 0, img)
         this.img.setPosition(trans.x, trans.y);
         this.img.setScale(trans.scale);
 

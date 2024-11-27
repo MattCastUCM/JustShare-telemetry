@@ -7,6 +7,8 @@ PARA ARREGLAR NODOS DE EVENTO SI SE sALTAN LOS DIALOGOS:
 SEGUN SE VAN LEYENDO LOS EVENTOS, GUARDARLOS EN UNA LISTA.
 SEGUN SE VAN PROCESANDO, SACARLOS DE LA LISTA.
 SI EL NODO ACTUAL SE VUELVE NULL, PROCESAR EL SIGUIENTE NODO DE LA LISTA
+
+** NO SIRVE (SI HAY EVENTOS EN RAMIFICACIONES, NO SE PUEDE SABER QUE RAMA SE HA ESCOGIDO SI SE QUEDA PILLADO ANTES)
 */
 
 export default class DialogManager {
@@ -17,19 +19,20 @@ export default class DialogManager {
     constructor(scene) {
         this.scene = scene;
 
+        this.gameManager = GameManager.getInstance();
+        this.dispatcher = this.gameManager.dispatcher;
+
         this.textbox = null;                // Instancia de la caja de dialogo
         this.lastCharacter = "";            // Ultimo personaje que hablo
         this.options = [];                  // Cajas de opcion multiple
         this.currNode = null;               // Nodo actual
+
         this.portraits = new Map();         // Mapa para guardar los retratos en esta escena
         this.portraitsImages = new Map();   // Mapa para guardar las imagenes de los retratos en esta escena
 
-        this.gameManager = GameManager.getInstance();
-        this.dispatcher = this.gameManager.dispatcher;
-
         this.textbox = new TextBox(scene, this);
 
-
+        this.PORTRAIT_ANIM_TIME = 200;
         this.setTalking(false);
 
         // Anade un rectangulo para bloquear la interaccion con los elementos del fondo
@@ -106,17 +109,18 @@ export default class DialogManager {
     * @param {Map} portraits - mapa con los retratos de los personajes que interactuan en la conversacion 
     */
     setNode(node, portraits) {
-        // Si no hay ningun dialogo activo y el nodo a poner es valido
-        if (!this.isTalking() && node) {
-            
-            let portraitAnimTime = 200;
-
+        let animTime = this.PORTRAIT_ANIM_TIME * 2;
+        if (portraits.length == 0) {
+            animTime = 0;
+        }
+        // Si no hay ningun dialogo/nodo activo y el nodo a poner es valido
+        if (!this.isTalking() && this.currNode == null && node) {
             // Guarda los retratos de los personajes que participan en el dialogo, los muestra, y se pone que no estan hablando
             this.portraits.clear();
             portraits.forEach((value) => {
                 let key = value.getKey()
                 this.portraits.set(key, value);
-                value.activate(true, portraitAnimTime);
+                value.activate(true, this.PORTRAIT_ANIM_TIME);
                 value.setTalking(false);
             });
             
@@ -130,16 +134,31 @@ export default class DialogManager {
             }
             this.activateOptions(false);
 
-            // Cambia el nodo por el indicado
+            // Cambia el nodo por el indicado (despues de que hayan aparecido los personajes)
             setTimeout(() => {
                 this.currNode = node;
                 this.processNode(node);
-            }, portraitAnimTime);
+            }, animTime);
         }
         else {
+            portraits.forEach((value) => {
+                let key = value.getKey()
+                this.portraits.set(key, value);
+                value.setTalking(false, this.PORTRAIT_ANIM_TIME);
+            });
+            // Se resetea la configuracion del texto de la caja por si se habia cambiado a la de por defecto
+            this.currNode = null;
+            this.textbox.resetTextConfig();
             this.textbox.activate(false);
             this.bgBlock.disableInteractive();
             this.setTalking(false);
+            
+            // Desactiva los personajes (despues de que haya desaparecido la caja de texto)
+            setTimeout(() => {
+                portraits.forEach((value) => {
+                    value.activate(false, this.PORTRAIT_ANIM_TIME);
+                });
+            }, animTime);
         }
     }
 
@@ -148,7 +167,7 @@ export default class DialogManager {
      * @param {DialogNode} node - Nodo a procesar 
      * @returns {Number} - indice del siguiente nodo
      */
-    processCondition(node) {
+    processConditionNode(node) {
         let conditionMet = false;
         let i = 0;
 
@@ -201,29 +220,31 @@ export default class DialogManager {
      * Procesa el nodo de evento que se le pasa como parametro
      * @param {DialogNode} node - nodo a procesar 
      */
-    processEvent(node) {
+    processEventNode(node) {
         // Recorre todos los eventos del nodo y les hace dispatch con el delay establecido (si tienen)
         for (let i = 0; i < node.events.length; i++) {
             let evt = node.events[i];
-
-            let delay = 0
-            if (evt.delay) {
-                delay = evt.delay;
-            }
-            setTimeout(() => {
-                this.dispatcher.dispatch(evt.name, evt);
-
-                // Si el evento establece el valor de una variable, lo cambia en la 
-                // blackboard correspondiente (la de la escena o la del gameManager)
-                let blackboard = this.gameManager.blackboard;
-                if (evt.global !== undefined && evt.global === false) {
-                    blackboard = evt.blackboard;
-                }
-                if (evt.variable && evt.value !== undefined) {
-                    this.gameManager.setValue(evt.variable, evt.value, blackboard);
-                }
-            }, delay);
+            this.processEvent(evt);
         }
+    }
+    processEvent(evt) {
+        let delay = 0
+        if (evt.delay) {
+            delay = evt.delay;
+        }
+        setTimeout(() => {
+            this.dispatcher.dispatch(evt.name, evt);
+
+            // Si el evento establece el valor de una variable, lo cambia en la 
+            // blackboard correspondiente (la de la escena o la del gameManager)
+            let blackboard = this.gameManager.blackboard;
+            if (evt.global !== undefined && evt.global === false) {
+                blackboard = evt.blackboard;
+            }
+            if (evt.variable && evt.value !== undefined) {
+                this.gameManager.setValue(evt.variable, evt.value, blackboard);
+            }
+        }, delay);
     }
 
     // Procesa el nodo actual dependiendo de su tipo
@@ -233,7 +254,7 @@ export default class DialogManager {
             this.bgBlock.setInteractive();
 
             if (this.currNode.type === "condition") {
-                let i = this.processCondition(this.currNode);
+                let i = this.processConditionNode(this.currNode);
 
                 // El indice del siguiente nodo sera el primero que cumpla una de las condiciones
                 this.currNode = this.currNode.next[i];
@@ -244,7 +265,7 @@ export default class DialogManager {
             else if (this.currNode.type === "choice") {
                 // Si el personaje anterior esta en el mapa de retratos, se oscurece
                 if (this.portraits.get(this.lastCharacter)) {
-                    this.portraits.get(this.lastCharacter).setTalking(false, 200);
+                    this.portraits.get(this.lastCharacter).setTalking(false, this.PORTRAIT_ANIM_TIME);
                 }
 
                 this.createOptions(this.currNode.choices);
@@ -265,17 +286,17 @@ export default class DialogManager {
                         this.setText(this.currNode.dialogs[this.currNode.currDialog], true);
                         this.textbox.activate(true);
                     }
-
+                    
                     // Si el ultimo personaje que hablo es distinto del que habla ahora, se oculta la caja y luego se muestra
                     if (this.currNode.character !== this.lastCharacter) {
                         // Si el personaje anterior esta en el mapa de retratos, se oscurece
                         if (this.portraits.get(this.lastCharacter)) {
-                            this.portraits.get(this.lastCharacter).setTalking(false, 200);
+                            this.portraits.get(this.lastCharacter).setTalking(false, this.PORTRAIT_ANIM_TIME);
                         }
 
                         // Si el personaje actual esta en el mapa de retratos, se aclara
                         if (this.portraits.get(this.currNode.character)) {
-                            this.portraits.get(this.currNode.character).setTalking(true, 200);
+                            this.portraits.get(this.currNode.character).setTalking(true, this.PORTRAIT_ANIM_TIME);
                         }
 
 
@@ -290,7 +311,7 @@ export default class DialogManager {
                 }
             }
             else if (this.currNode.type === "event") {
-                this.processEvent(this.currNode);
+                this.processEventNode(this.currNode);
 
                 // IMPORTANTE: DESPUES DE UN NODO DE EVENTO SOLO HAY UN NODO, POR LO QUE 
                 // EL SIGUIENTE NODO SERA EL PRIMER NODO DEL ARRAY DE NODOS SIGUIENTES
@@ -331,19 +352,7 @@ export default class DialogManager {
         }
         // Se ha acabado el dialogo o se ha pasado un nodo invalido
         else {
-            // Se resetea la configuracion del texto de la caja por si se habia cambiado a la de por defecto
-            this.textbox.resetTextConfig();
-            this.textbox.activate(false);
-            this.bgBlock.disableInteractive();
-            this.setTalking(false);
-            
-            // Se ocultan los retratos
-            this.portraits.forEach((value) => {
-                let key = value.getKey()
-                this.portraits.set(key, value);
-                value.activate(false, 200);
-            });
-            this.portraits.clear();
+            this.setNode(null, this.portraits);
         }
     }
 

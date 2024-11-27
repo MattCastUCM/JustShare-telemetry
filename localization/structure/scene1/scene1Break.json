@@ -46,7 +46,7 @@
             "next": "endBreak"
         },
         
-        "endBbreak": {
+        "endBreak": {
             "type": "event",
             "events": [
                 {

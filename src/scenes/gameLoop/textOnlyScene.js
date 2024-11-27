@@ -43,10 +43,11 @@ export default class TextOnlyScene extends BaseScene {
         // Configuracion de texto
         let fontSize = 100;
         let textConfig = { ...this.gameManager.textConfig };
+        textConfig.fontFamily = 'roboto-regular';
         textConfig.fontSize = fontSize + 'px';
         textConfig.align = 'center';
         textConfig.wordWrap = {
-            width: this.CANVAS_WIDTH - PADDING * 2,
+            width: (this.CANVAS_WIDTH - PADDING * 2) * 0.9,
             useAdvancedWrap: true
         }
 
@@ -73,7 +74,7 @@ export default class TextOnlyScene extends BaseScene {
 
         // Se puede hacer click en la imagen de fondo una vez termine el fade in
         this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_IN_COMPLETE, (cam, effect) => {
-            bg.setInteractive();
+            bg.setInteractive({ useHandCursor: true });
         });
 
         this.exiting = false;

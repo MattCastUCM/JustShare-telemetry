@@ -2,6 +2,7 @@ import BootScene from "./scenes/bootScene.js";
 
 import TextOnlyScene from "./scenes/gameLoop/textOnlyScene.js";
 import Scene1Classroom from "./scenes/gameLoop/scene1/scene1Classroom.js";
+import Scene1Break from "./scenes/gameLoop/scene1/scene1Break.js";
 
 // UI
 import UIManager from './managers/UIManager.js';
@@ -21,7 +22,7 @@ const config = {
         BootScene,
         
         TextOnlyScene,
-        Scene1Classroom,
+        Scene1Classroom, Scene1Break,
         
         // UI
         UIManager,

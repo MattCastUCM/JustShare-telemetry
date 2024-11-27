@@ -154,7 +154,8 @@ export default class BootScene extends Phaser.Scene {
             // Idiomas permitidos
             // Sin esta propiedad a la hora de buscar las traducciones se podria buscar
             // en cualquier idioma (aunque no existiese)
-            supportedLngs: ['en', 'es', 'fr', 'pt'],
+            // supportedLngs: ['en', 'es', 'fr', 'pt'],
+            supportedLngs: ['es'],
             // IMPORTANTE: hay que precargar los namespaces de todos los idiomas porque sino a la hora
             // de usar un namespace por primera vez no le da tiempo a encontrar la traduccion
             // y termina usando la del idioma de respaldo
@@ -179,6 +180,7 @@ export default class BootScene extends Phaser.Scene {
         // Assets de la caja de texto y de opcion multiple
         this.load.atlas('dialogs', 'dialogs.png', 'dialogs.json');
         this.load.image('textbox', 'textbox.png');
+        this.load.image('optionBox', 'optionBox.png');
 
         // Archivos de dialogos (estructura)
         this.load.setPath('localization/structure');

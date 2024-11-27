@@ -1,27 +1,42 @@
 {
-    "root": {
-        "type": "text",
-        "character": "teacher",
-        "next": "introduction"
-    },
-    "introduction": {
-        "type": "text",
-        "character": "laura",
-        "next": "thanks"
-    },
-    "thanks": {
-        "type": "text",
-        "character": "player",
-        "next": "break"
-    },
-    "break": {
-        "type": "event",
-        "events": [
-            {
-                "startBreak": { 
-                    "delay": 500
+    "part1": {
+        "root": {
+            "type": "text",
+            "character": "teacher",
+            "next": "sitClass"
+        },
+        "sitClass": {
+            "type": "event",
+            "events": [
+                {
+                    "appearLaura": {
+                        "delay": 1500
+                     }
                 }
-            }
-        ]
+            ]
+        }    
+    },
+    "part2": {
+        "root": {
+            "type": "text",
+            "character": "laura",
+            "next": "thanks"
+        },
+        "thanks": {
+            "type": "text",
+            "character": "player",
+            "next": "break"
+        },
+        "break": {
+            "type": "event",
+            "events": [
+                {
+                    "startBreak": { 
+                        "delay": 500
+                    }
+                }
+            ]
+        }
     }
+
 }
