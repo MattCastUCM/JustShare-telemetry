@@ -112,6 +112,9 @@ export default class BootScene extends Phaser.Scene {
     }
 
     loadComputersAssets() {
+        this.load.setPath('assets/UI');
+        this.load.image('sendIcon', 'send.png');
+
         this.load.setPath('assets/UI/computer');
 
     }
@@ -212,7 +215,8 @@ export default class BootScene extends Phaser.Scene {
         // TEST
         this.load.image('mom', 'mom.png');
         this.load.image('dad', 'dad.png');
-        this.load.image('friend', 'friend.webp');
+        this.load.image('teacher', 'teacher.png');
+        this.load.image('laura', 'laura.png');
     }
 
     loadBackgrounds() {
@@ -220,6 +224,8 @@ export default class BootScene extends Phaser.Scene {
 
         // Salon
         this.load.image('livingroomBg', 'livingroom.png');
+        this.load.image('classBg', 'class.png');
+        this.load.image('canteenBg', 'canteen.png');
     }
 
     loadCreditsSceneAssets() {

@@ -15,15 +15,15 @@ export default class Scene1Break extends BaseScene {
         super.create(params)
 
         // Pone la imagen de fondo con las dimensiones del canvas
-        let bg = this.add.image(0, 0, 'livingroomBg').setOrigin(0, 0);
+        let bg = this.add.image(0, 0, 'canteenBg').setOrigin(0, 0);
         this.scale = this.CANVAS_HEIGHT / bg.height;
         bg.setScale(this.scale);
 
         let lauraTr = this.portraitTr;
         lauraTr.x = this.CANVAS_WIDTH / 2;
-        let lauraPortrair = new Portrait(this, "mom", lauraTr, "laura")
-        lauraPortrair.setFlipX(true);
-        this.portraits.set("laura", lauraPortrair);
+        let lauraPortrait = new Portrait(this, "laura", lauraTr, "laura")
+        lauraPortrait.setFlipX(true);
+        this.portraits.set("laura", lauraPortrait);
 
         this.addTables();
 
@@ -50,7 +50,7 @@ export default class Scene1Break extends BaseScene {
         let nodes = this.cache.json.get('scene1Break');
 
         let nodeTable1 = super.readNodes(nodes, "scene1\\scene1Break", "tables1", true);
-        let table1 = this.add.image(0, 0, 'livingroomBg').setOrigin(0, 0).setScale(0.2, 0.2);
+        let table1 = this.add.image(1300, 600, 'sendIcon').setOrigin(1, 0).setScale(0.4, 0.4);
         table1.setInteractive({ useHandCursor: true });
         table1.on('pointerdown', () => {
             this.dialogManager.setNode(nodeTable1, []);
@@ -59,7 +59,7 @@ export default class Scene1Break extends BaseScene {
         });
 
         let nodeTable2 = super.readNodes(nodes, "scene1\\scene1Break", "tables2", true);
-        let table2 = this.add.image(300, 300, 'livingroomBg').setOrigin(0, 0).setScale(0.2, 0.2);
+        let table2 = this.add.image(550, 530, 'sendIcon').setOrigin(1, 0).setScale(0.4, 0.4);
         table2.setInteractive({ useHandCursor: true });
         table2.on('pointerdown', () => {
             this.dialogManager.setNode(nodeTable2, []);
@@ -68,12 +68,28 @@ export default class Scene1Break extends BaseScene {
         });
 
         let nodeTable3 = super.readNodes(nodes, "scene1\\scene1Break", "tables3", true);
-        let table3 = this.add.image(600, 600, 'livingroomBg').setOrigin(0, 0).setScale(0.2, 0.2);
+        let table3 = this.add.image(940, 530, 'sendIcon').setOrigin(0, 0).setScale(0.3, 0.3);
         table3.setInteractive({ useHandCursor: true });
         table3.on('pointerdown', () => {
             this.dialogManager.setNode(nodeTable3, []);
             this.interactedTables[2] = true;
             this.clickTable(table3);
+        });
+
+        this.animateTable(table1);
+        this.animateTable(table2);
+        this.animateTable(table3);
+    }
+
+    animateTable(button) {
+        let originalScale = button.scale;
+
+        this.tweens.add({
+            targets: [button],
+            scale: originalScale * 0.9,
+            duration: 1000,
+            repeat: -1,
+            yoyo: true
         });
     }
 

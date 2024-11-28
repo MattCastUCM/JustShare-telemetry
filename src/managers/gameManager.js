@@ -89,6 +89,28 @@ export default class GameManager {
             gender: "female"    
         }
         this.i18next.changeLanguage("es");
+
+        // // IMPORTANTE: Hay que lanzar primero el UIManager para que se inicialice
+        // // el DialogManager y las escenas puedan crear los dialogos correctamente
+        // let UIsceneName = 'UIManager';
+        // this.currentScene.scene.launch(UIsceneName);
+        // this.UIManager = this.currentScene.scene.get(UIsceneName);
+
+        // // Pasa a la escena inicial con los parametros text, onComplete y onCompleteDelay
+        // let sceneName = 'TextOnlyScene';
+        // let params = {
+        //     text: this.i18next.t("scene1.classroom", { ns: "transitions", returnObjects: true }),
+        //     onComplete: () => {
+        //         this.changeScene("Scene1Break", null);
+        //     },
+        // };
+        
+        // this.changeScene(sceneName, params);
+        this.startGame();
+    }
+
+
+    startGame() {
         // IMPORTANTE: Hay que lanzar primero el UIManager para que se inicialice
         // el DialogManager y las escenas puedan crear los dialogos correctamente
         let UIsceneName = 'UIManager';
@@ -100,13 +122,13 @@ export default class GameManager {
         let params = {
             text: this.i18next.t("scene1.classroom", { ns: "transitions", returnObjects: true }),
             onComplete: () => {
-                this.changeScene("Scene1Break", null);
+                 this.UIManager.phoneManager.activatePhoneIcon(false);
+                this.changeScene("Scene1Classroom", null);
             },
         };
         
         this.changeScene(sceneName, params);
     }
-
 
     /**
      * Metodo para borrar y cerrar todas las escenas activas

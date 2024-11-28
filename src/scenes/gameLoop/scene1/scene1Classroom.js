@@ -15,18 +15,18 @@ export default class Scene1Classroom extends BaseScene {
         super.create(params)
 
         // Pone la imagen de fondo con las dimensiones del canvas
-        let bg = this.add.image(0, 0, 'livingroomBg').setOrigin(0, 0);
+        let bg = this.add.image(0, 0, 'classBg').setOrigin(0, 0);
         this.scale = this.CANVAS_HEIGHT / bg.height;
         bg.setScale(this.scale);
 
         
         let teacherTr = this.portraitTr;
         teacherTr.x = this.CANVAS_WIDTH / 2;
-        let teacherPortrait = new Portrait(this, "dad", teacherTr, "teacher");
+        let teacherPortrait = new Portrait(this, "teacher", teacherTr, "teacher");
         this.portraits.set("teacher", teacherPortrait);
 
         let lauraTr = this.portraitTr;
-        let lauraPortrait = new Portrait(this, "mom", lauraTr, "laura")
+        let lauraPortrait = new Portrait(this, "laura", lauraTr, "laura")
         lauraPortrait.setFlipX(true);
         this.portraits.set("laura", lauraPortrait);
 
