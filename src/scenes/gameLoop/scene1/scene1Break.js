@@ -25,50 +25,10 @@ export default class Scene1Break extends BaseScene {
         lauraPortrair.setFlipX(true);
         this.portraits.set("laura", lauraPortrair);
 
-        
-        let interactedTables = [false, false, false];
-        let nodes = this.cache.json.get('scene1Break');
-
-        let nodeTable1 = super.readNodes(nodes, "scene1\\scene1Break", "tables1", true);
-        let table1 = this.add.image(0, 0, 'livingroomBg').setOrigin(0, 0).setScale(0.2, 0.2);
-        table1.setInteractive({ useHandCursor: true });
-        table1.on('pointerdown', () => {
-            this.dialogManager.setNode(nodeTable1, []);
-            interactedTables[0] = true;
-            this.clickTable(table1);
-        });
-
-        let nodeTable2 = super.readNodes(nodes, "scene1\\scene1Break", "tables2", true);
-        let table2 = this.add.image(300, 300, 'livingroomBg').setOrigin(0, 0).setScale(0.2, 0.2);
-        table2.setInteractive({ useHandCursor: true });
-        table2.on('pointerdown', () => {
-            this.dialogManager.setNode(nodeTable2, []);
-            interactedTables[1] = true;
-            this.clickTable(table2);
-        });
-
-        let nodeTable3 = super.readNodes(nodes, "scene1\\scene1Break", "tables3", true);
-        let table3 = this.add.image(600, 600, 'livingroomBg').setOrigin(0, 0).setScale(0.2, 0.2);
-        table3.setInteractive({ useHandCursor: true });
-        table3.on('pointerdown', () => {
-            this.dialogManager.setNode(nodeTable3, []);
-            interactedTables[2] = true;
-            this.clickTable(table3);
-        });
-
+        this.addTables();
 
         this.dispatcher.add("checkAllTables", this, () => {
-            let allPressed = true;
-            for (let i = 0; i < interactedTables.length && allPressed; i++) {
-                allPressed &= interactedTables[i];
-            }
-    
-            if (allPressed) {
-                let node = super.readNodes(nodes, "scene1\\scene1Break", "mainConversation", true);
-                setTimeout(() => {
-                    this.dialogManager.setNode(node, [lauraPortrair]); 
-                }, 500);
-            }
+            this.checkAllTables();
         });
 
         this.dispatcher.add("endBreak", this, () => {
@@ -85,6 +45,38 @@ export default class Scene1Break extends BaseScene {
     }
 
 
+    addTables() {
+        this.interactedTables = [false, false, false];
+        let nodes = this.cache.json.get('scene1Break');
+
+        let nodeTable1 = super.readNodes(nodes, "scene1\\scene1Break", "tables1", true);
+        let table1 = this.add.image(0, 0, 'livingroomBg').setOrigin(0, 0).setScale(0.2, 0.2);
+        table1.setInteractive({ useHandCursor: true });
+        table1.on('pointerdown', () => {
+            this.dialogManager.setNode(nodeTable1, []);
+            this.interactedTables[0] = true;
+            this.clickTable(table1);
+        });
+
+        let nodeTable2 = super.readNodes(nodes, "scene1\\scene1Break", "tables2", true);
+        let table2 = this.add.image(300, 300, 'livingroomBg').setOrigin(0, 0).setScale(0.2, 0.2);
+        table2.setInteractive({ useHandCursor: true });
+        table2.on('pointerdown', () => {
+            this.dialogManager.setNode(nodeTable2, []);
+            this.interactedTables[1] = true;
+            this.clickTable(table2);
+        });
+
+        let nodeTable3 = super.readNodes(nodes, "scene1\\scene1Break", "tables3", true);
+        let table3 = this.add.image(600, 600, 'livingroomBg').setOrigin(0, 0).setScale(0.2, 0.2);
+        table3.setInteractive({ useHandCursor: true });
+        table3.on('pointerdown', () => {
+            this.dialogManager.setNode(nodeTable3, []);
+            this.interactedTables[2] = true;
+            this.clickTable(table3);
+        });
+    }
+
     clickTable(table) {
         // Configuracion de las animaciones
         let animConfig = {
@@ -100,5 +92,20 @@ export default class Scene1Break extends BaseScene {
             duration: animConfig.fadeTime,
             repeat: 0,
         });
+    }
+
+    checkAllTables() {
+        let allPressed = true;
+        for (let i = 0; i < this.interactedTables.length && allPressed; i++) {
+            allPressed &= this.interactedTables[i];
+        }
+
+        if (allPressed) {
+            let nodes = this.cache.json.get('scene1Break');
+            let node = super.readNodes(nodes, "scene1\\scene1Break", "mainConversation", true);
+            setTimeout(() => {
+                this.dialogManager.setNode(node, [this.portraits.get("laura")]); 
+            }, 500);
+        }
     }
 }

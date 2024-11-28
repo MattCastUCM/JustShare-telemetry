@@ -43,15 +43,7 @@ export default class Scene1Classroom extends BaseScene {
         });
 
         this.dispatcher.add("startBreak", this, () => {
-            // Pasa a la escena inicial con los parametros text, onComplete y onCompleteDelay
-            let sceneName = 'TextOnlyScene';
-            let params = {
-                text: this.i18next.t("scene1.break", { ns: "transitions", returnObjects: true }),
-                onComplete: () => {
-                    this.gameManager.changeScene("Scene1Break", null);
-                },
-            };
-            this.gameManager.changeScene(sceneName, params);
+            this.startBreak();
         });
     }
 
@@ -61,6 +53,18 @@ export default class Scene1Classroom extends BaseScene {
         setTimeout(() => {
             this.setNode();
         }, 500);
+    }
+
+    startBreak() {
+        // Pasa a la escena inicial con los parametros text, onComplete y onCompleteDelay
+        let sceneName = 'TextOnlyScene';
+        let params = {
+            text: this.i18next.t("scene1.break", { ns: "transitions", returnObjects: true }),
+            onComplete: () => {
+                this.gameManager.changeScene("Scene1Break", null);
+            },
+        };
+        this.gameManager.changeScene(sceneName, params);
     }
 
 }

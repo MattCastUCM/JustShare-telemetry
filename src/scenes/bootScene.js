@@ -119,6 +119,16 @@ export default class BootScene extends Phaser.Scene {
     loadPhoneAssets() {
         this.load.setPath('assets/UI/phone');
 
+        this.load.image('phone', 'phone.png');
+        this.load.image('phoneIcon', 'phoneIcon.png');
+        this.load.image('returnButton', 'returnButton.png');
+        this.load.image('messageListBg', 'messageListBg.png');
+        this.load.image('chatButton', 'chatButton.png');
+        this.load.image('chatBg', 'chatBg.png');
+        this.load.image('chatTextBox', 'chatTextBox.png');
+        this.load.image('chatReturnButton', 'chatReturnButton.png');
+        this.load.image('myBubble', '9slicePlayer.png');
+        this.load.image('othersBubble', '9sliceOthers.png');
     }
 
     loadFlags() {
@@ -232,6 +242,7 @@ export default class BootScene extends Phaser.Scene {
         let onlyNamespaces = [
             "names",
             "transitions",
+            "phoneInfo"
         ]
 
         this.loadComputersAssets();

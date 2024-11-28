@@ -21,11 +21,10 @@ const config = {
         // Carga de assets
         BootScene,
         
-        TextOnlyScene,
         Scene1Classroom, Scene1Break,
         
         // UI
-        UIManager,
+        UIManager,  TextOnlyScene,
     ],
     autoFocus: true,
     // Desactivar que aparezca el menu de inspeccionar al hacer click derecho

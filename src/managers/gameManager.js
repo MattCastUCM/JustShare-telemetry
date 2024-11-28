@@ -44,9 +44,6 @@ export default class GameManager {
         // Informacion del usuario
         this.userInfo = null;
 
-        // Dia de la semana. Empieza en 0 porque al iniciarse la escena de la alarma, se va actualizando
-        this.day = 0;
-
         // Configuracion de texto por defecto
         this.textConfig = {
             fontFamily: 'Arial',        // Fuente (tiene que estar precargada en el html o el css)
@@ -61,6 +58,7 @@ export default class GameManager {
             padding: null               // Separacion con el fondo (en el caso de que haya fondo)
         }
 
+        this.generateTextures();
     }
 
     // metodo para generar y coger la instancia
@@ -81,7 +79,6 @@ export default class GameManager {
     ///////////////////////////////////////
     /// Metodos para cambiar de escena ///
     //////////////////////////////////////
-
 
     // TEST
     startTestScene() {
@@ -183,6 +180,7 @@ export default class GameManager {
     ///////////////////////////////////////
     ///// Metodos para la blackboard /////
     //////////////////////////////////////
+
     /**
     * Devuelve el valor buscado en la blackboard
     * @param {String} key - valor buscado
@@ -222,25 +220,112 @@ export default class GameManager {
         return blackboard.has(key);
     }
 
+
+
+    ///////////////////////////////////////
+    /// Metodos para generar texturas ////
+    //////////////////////////////////////
+
     /**
-     * Modifica el valor de amistad del personaje indicado
-     * @param {String} character - personaje al que cambiar el valor de amistad
-     * @param {Number} amount - cantidad de amistad que sumarle
+     * Se utiliza para generar las diferentes texturas que se van a usar en los menus y poder
+     * tener un sencillo acceso a los diferentes parametros de cada una (nombre, tam...)
      */
-    changeFriendship(character, amount) {
-        let varName = character + "FS";
-
-        // Si no se encuentra el personaje en la blackboard, se anade con 50 de amistad por defecto
-        if (!this.getValue(varName)) {
-            this.setValue(varName, 50);
+    generateTextures() {
+        // Se genera una textura en forma de circulo
+        // Es necesario porque el emisor de particulas solo admite texturas, pero no shapes
+        this.circleParticle = {
+            name: 'circleParticle',
+            radius: 50,
+            color: 0xFF0808
         }
+        // Se crea un render texture para poder generar texturas dinamicante a
+        // partir de casi cualquier objeto
+        // (x, y, width, height) --> 
+        // --> el render texture se coloca en el centro del circulo y con el tam del circulo para que la textura resultante sea del tam del circulo
+        let rt = this.currentScene.add.renderTexture(this.circleParticle.radius, this.circleParticle.radius, this.circleParticle.radius * 2, this.circleParticle.radius * 2);
+        // Se crea un circlo
+        let circle = this.currentScene.add.circle(0, 0, this.circleParticle.radius, this.circleParticle.color);
+        // (entry, x, y) --> se dibuja el circulo
+        rt.draw(circle, this.circleParticle.radius, this.circleParticle.radius);
+        // Se guarda la textura con el nombre correspondiente
+        rt.saveTexture(this.circleParticle.name);
+        // Se destruye el circulo
+        circle.destroy();
 
-        // Obtiene la cantidad a establecer y la actualiza
-        let val = this.getValue(varName)
-        val += amount;
-        this.setValue(varName, val);
+        // Se crea un objeto grafico, que sirve para formas primitivas (resulta muy util para dibujar elementos con bordes redondeados)
+        // Ademas, si el objeto grafico no va a modificar durante el tiempo es recomendable convertirlo en una textura y usarla
+        // para mejorar el rendimiento
+        this.graphics = this.currentScene.add.graphics();
 
-        // Actualiza el valor tambien en la pantalla de relaciones del movil
-        this.UIManager.phoneManager.phone.updateRelationShip(character, val);
+        // Se crea un cuadrado con bordes redondeados
+        this.roundedSquare = {
+            fillName: 'fillSquare',
+            edgeName: 'edgeSquare',
+            width: 100,
+            height: 100,
+            radius: 10,
+            fillColor: 0xffffff,
+            edgeColor: 0x000000,
+            edgeWith: 2.6,
+            offset: 10
+        }
+        this.generateBox(this.roundedSquare);
+
+        // Se crea un rectangulo con bordes redondeados que sirve para una caja de texto
+        this.textBox = {
+            fillName: 'fillText',
+            edgeName: 'edgeText',
+            width: 335,
+            height: 80,
+            radius: 10,
+            fillColor: 0xffffff,
+            edgeColor: 0x000000,
+            edgeWith: 1,
+            offset: 10
+        }
+        this.generateBox(this.textBox);
+
+        // Se crea un rectangulo alargado con bordes redondeados que sirve para una caja donde introducir input
+        this.inputBox = {
+            fillName: 'fillInput',
+            edgeName: 'edgeInput',
+            width: 420,
+            height: 100,
+            radius: 10,
+            fillColor: 0xffffff,
+            edgeColor: 0x000000,
+            edgeWith: 2,
+            offset: 10
+        }
+        this.generateBox(this.inputBox);
+
+        // Se destruyen tanto el render texture como el graphics puesto que ya no se van a usar mas
+        rt.destroy();
+        this.graphics.destroy();
+    }
+
+    /**
+     * Sirve para crear una forma primitva usando el objeto grafico creado anteriormente
+     * Se van a crear tanto la parte interior como el borde de la forma
+     * IMPORTANTE:
+     * - La forma primitva no se puede crear pegada a uno de los bordes de la pantalla porque sino hay ciertos detalles que se pierden
+     * - La textura generada a partir de la forma primitiva no puede ser exactamente del mismo detalle que la forma porque sino hay
+     *      ciertos detalles que se pierden.
+     * Por los motivos nombrados arriba se utiliza un pequeño offset. Sin embargo, esto va a provocar que la caja de colision
+     * textura sea un poquito mas grande que la textura en si
+     * Nota: a la hora de crear una forma primitiva con un objeto grafico, el (0, 0) esta arriba a la izquierda
+     */
+    generateBox(boxParams) {
+        // parte interior
+        this.graphics.fillStyle(boxParams.fillColor, 1);
+        this.graphics.fillRoundedRect(boxParams.offset, boxParams.offset, boxParams.width, boxParams.height, boxParams.radius);
+        this.graphics.generateTexture(boxParams.fillName, boxParams.width + boxParams.offset * 2, boxParams.height + boxParams.offset * 2);
+        this.graphics.clear();
+
+        // borde
+        this.graphics.lineStyle(boxParams.edgeWith, boxParams.edgeColor, 1);
+        this.graphics.strokeRoundedRect(boxParams.offset, boxParams.offset, boxParams.width, boxParams.height, boxParams.radius);
+        this.graphics.generateTexture(boxParams.edgeName, boxParams.width + boxParams.offset * 2, boxParams.height + boxParams.offset * 2);
+        this.graphics.clear();
     }
 }
