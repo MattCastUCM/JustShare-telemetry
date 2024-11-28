@@ -37,7 +37,7 @@ export default class Scene1Break extends BaseScene {
             let params = {
                 text: this.i18next.t("scene1.classEnd", { ns: "transitions", returnObjects: true }),
                 onComplete: () => {
-                    
+                    this.gameManager.changeScene("TitleScene");
                 },
             };
             this.gameManager.changeScene(sceneName, params);

@@ -38,7 +38,8 @@ export default class PhoneManager {
         this.notificationAmount = 0;
 
         this.setNotifications();
-        this.togglePhone(0);
+        this.activatePhone(false);
+        this.activatePhoneIcon(false);
     }
 
 
@@ -221,4 +222,13 @@ export default class PhoneManager {
         }
     }
 
+    activatePhone(active) {
+        this.phone.visible = active;
+        if (active) {
+            this.bgBlock.setInteractive();
+        }
+        else {
+            this.bgBlock.disableInteractive();
+        }
+    }
 }
