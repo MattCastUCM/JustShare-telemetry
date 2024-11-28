@@ -73,8 +73,8 @@ export default class DialogManager {
             this.textbox.activate(false);
         }
         this.activateOptions(false);
-        this.portraits.clear();
 
+        this.portraits.clear();
         // Coge las imagenes de todos los retratos, las copia en esta escena, y las pone detras de la caja de texto
         scene.portraits.forEach((value, key) => {
             value.setAlpha(0);
@@ -137,15 +137,11 @@ export default class DialogManager {
             // Cambia el nodo por el indicado (despues de que hayan aparecido los personajes)
             setTimeout(() => {
                 this.currNode = node;
+                this.lastCharacter = null;
                 this.processNode(node);
             }, animTime);
         }
         else {
-            portraits.forEach((value) => {
-                let key = value.getKey()
-                this.portraits.set(key, value);
-                value.setTalking(false, this.PORTRAIT_ANIM_TIME);
-            });
             // Se resetea la configuracion del texto de la caja por si se habia cambiado a la de por defecto
             this.currNode = null;
             this.textbox.resetTextConfig();
@@ -153,6 +149,12 @@ export default class DialogManager {
             this.bgBlock.disableInteractive();
             this.setTalking(false);
             
+            portraits.forEach((value) => {
+                let key = value.getKey()
+                this.portraits.set(key, value);
+                value.setTalking(false, this.PORTRAIT_ANIM_TIME);
+            });
+
             // Desactiva los personajes (despues de que haya desaparecido la caja de texto)
             setTimeout(() => {
                 portraits.forEach((value) => {

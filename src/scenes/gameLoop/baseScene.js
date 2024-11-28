@@ -46,9 +46,15 @@ export default class BaseScene extends Phaser.Scene {
         this.blackboard = new Map();
 
         this.scale = 1;
-       
+        
+        
         // Se anaden funciones adicionales a las que se llamara al crear y reactivar
-        this.events.on('create', () => {
+        // Se tiene que suscribir el onCreate al evento create porque la escena base
+        // es la que se encarga de cambiar los portraits del DialogManager, por lo que
+        // no se puede llamar antes de que se cree la escena hija porque no va a haber
+        // portraits, y la escena hija no puede llamar al super al final de su create 
+        // porque necesita las variables de la clase padre
+        this.events.once('create', () => {
             this.onCreate(params);
         }, this);
         this.events.on('wake', (scene, params) => {
