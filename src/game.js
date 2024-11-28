@@ -6,6 +6,7 @@ import Scene1Break from "./scenes/gameLoop/scene1/scene1Break.js";
 
 // UI
 import UIManager from './managers/UIManager.js';
+import TitleScene from "./scenes/titleScene.js";
 
 
 const max_w = 1600, max_h = 900, min_w = 320, min_h = 240;
@@ -22,9 +23,12 @@ const config = {
         BootScene,
         
         Scene1Classroom, Scene1Break,
+
+        // Menus
+        TitleScene,
         
         // UI
-        UIManager,  TextOnlyScene,
+        UIManager, TextOnlyScene
     ],
     autoFocus: true,
     // Desactivar que aparezca el menu de inspeccionar al hacer click derecho

@@ -73,12 +73,15 @@ export default class GameManager {
     static getInstance() {
         return this.create();
     }
-    
 
 
     ///////////////////////////////////////
     /// Metodos para cambiar de escena ///
     //////////////////////////////////////
+    startTitleScene() {
+        let sceneName = 'TitleScene';
+        this.changeScene(sceneName);
+    }
 
     // TEST
     startTestScene() {

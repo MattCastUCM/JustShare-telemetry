@@ -111,12 +111,14 @@ export default class BootScene extends Phaser.Scene {
 
     }
 
-    loadComputersAssets() {
+    loadUIAssets() {
         this.load.setPath('assets/UI');
         this.load.image('sendIcon', 'send.png');
+    }
 
+    loadComputerAssets() {
         this.load.setPath('assets/UI/computer');
-
+        this.load.image('loginScreen', 'login.png')
     }
 
     loadPhoneAssets() {
@@ -248,10 +250,12 @@ export default class BootScene extends Phaser.Scene {
         let onlyNamespaces = [
             "names",
             "transitions",
-            "phoneInfo"
+            "phoneInfo",
+            "titleScene"
         ]
 
-        this.loadComputersAssets();
+        this.loadUIAssets();
+        this.loadComputerAssets();
         this.loadPhoneAssets();
         this.loadFlags();
         this.loadAvatars();
@@ -289,7 +293,8 @@ export default class BootScene extends Phaser.Scene {
             // gameManager.startLangMenu();
             
             // TEST
-            gameManager.startTestScene();
+            // gameManager.startTestScene();
+            gameManager.startTitleScene();
         })
     }
 }
