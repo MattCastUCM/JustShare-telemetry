@@ -1,6 +1,6 @@
 import GameManager from "./gameManager.js";
 import DialogManager from "./dialogManager.js";
-import PhoneManager from "./PhoneManager.js";
+import PhoneManager from "./phoneManager.js";
 
  export default class UIManager extends Phaser.Scene {
     /**
