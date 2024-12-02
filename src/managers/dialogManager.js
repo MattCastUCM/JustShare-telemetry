@@ -268,6 +268,7 @@ export default class DialogManager {
                 // Si el personaje anterior esta en el mapa de retratos, se oscurece
                 if (this.portraits.get(this.lastCharacter)) {
                     this.portraits.get(this.lastCharacter).setTalking(false, this.PORTRAIT_ANIM_TIME);
+                    this.lastCharacter = "";
                 }
 
                 this.createOptions(this.currNode.choices);

@@ -17,7 +17,7 @@ export default class OptionBox extends DialogObject {
         this.box = scene.add.image(this.scene.CANVAS_WIDTH / 2, 0, 'optionBox').setOrigin(0.5, 0);
         let scale = this.scene.CANVAS_WIDTH / (this.box.width + padding);
         this.box.setScale(scale);
-
+        
         this.box.y = this.scene.CANVAS_HEIGHT - (this.box.displayHeight * numOpts) + (this.box.displayHeight * index);
 
         // Configuracion del texto de la caja
@@ -27,19 +27,18 @@ export default class OptionBox extends DialogObject {
         this.textConfig.color = '#000000';
 
         let x = 80;
-        let y = this.box.y + this.box.displayHeight / 2 + 4;
+        let y = this.box.y + this.box.displayHeight / 2.3;
 
         // Crea el texto
         this.text = this.scene.add.text(x, y, text, this.textConfig);
         this.text.setOrigin(0, 0.5);
-
         this.box.setInteractive({ useHandCursor: true });
 
         // Configuracion de las animaciones
         let tintFadeTime = 50;
 
         let noTint = Phaser.Display.Color.HexStringToColor('#ffffff');
-        let pointerOverColor = Phaser.Display.Color.HexStringToColor('#00ff56');
+        let pointerOverColor = Phaser.Display.Color.HexStringToColor('#d9d9d9');
 
         // Hace fade del color de la caja al pasar o quitar el raton por encima
         this.box.on('pointerover', () => {

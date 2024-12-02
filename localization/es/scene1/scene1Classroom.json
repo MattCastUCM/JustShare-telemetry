@@ -16,10 +16,34 @@
     },
     "part2": {
         "root": {
-            "text": "Hey, soy Laura, encantada. Si necesitas cualquier cosa, no dudes en preguntarme."
+            "text": "Hey, soy Laura, encantada."
         },
-        "thanks": {
-            "text": "Perfecto gracias, cualquier cosa te diré."
+        "thanks": [
+            {
+                "text": "",
+                "text_male": "Igualmente, encantado de conocerte *sonríes*.",
+                "text_female": "Igualmente, encantada de conocerte *sonríes*."
+            },
+            {
+                "text": "Gracias, ya te iré diciendo."
+            },
+            {
+                "text": "... Ah, sí, hola."
+            }
+        ],
+
+        "friendly": {
+            "text": "",
+            "text_male": "Pareces majo .Si necesitas cualquier cosa, no dudes en preguntarme.",
+            "text_female": "Pareces maja .Si necesitas cualquier cosa, no dudes en preguntarme."
+        },
+        "neutral": {
+            "text": "Espero que nos llevemos bien. Si necesitas cualquier cosa, no dudes en preguntarme."
+        },
+        "shy": {
+            "text": "",
+            "text_male": "Venga, no seas tímido. Si necesitas cualquier cosa, no dudes en preguntarme.",
+            "text_female": "Venga, no seas tímida. Si necesitas cualquier cosa, no dudes en preguntarme."
         }
     }
 
