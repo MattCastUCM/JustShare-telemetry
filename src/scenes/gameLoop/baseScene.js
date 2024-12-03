@@ -554,66 +554,61 @@ export default class BaseScene extends Phaser.Scene {
 
 
     /**
-     * Cambia la imagen de la puerta cerrada por la puerta abierta o viceversa
-     * al interactuar con ella (al hacer click o al pasar/sacar el raton por encima)
-     * @param {Phaser.Image} closed - imagen de la puerta cerrada
-     * @param {Phaser.Image} opened - imagen de la puerta abierta 
-     * @param {Function} onClick - funcion a la que se llamara al hacer click sobre la puerta abierta
-     * @param {Boolean} click - true si la imagen se cambia al hacer click, false si lo hace al pasar/sacar el raton por encima
+     * Crea el icono con el que interactuar con los elementos del escenario
+     * @param {Number} x - posicion x del icono
+     * @param {Number} y - posicion y del icono
+     * @param {Function} onClick - funcion a la que se llamara al hacer click sobre el icono
+     * @param {Boolean} deactivateOnClick - true si la el icono desaparece al hacer click, false si se mantiene
      */
-    toggleDoor(closed, opened, onClick = {}, click = true) {
-        closed.setInteractive({ useHandCursor: true });
-        opened.setInteractive({ useHandCursor: true });
-
-        // Oculta la imagen de la puerta abierta
-        opened.visible = false;
-
-        // Establece el tipo de evento de puntero segun si
-        // hay que hacer click o pasar el raton por encima
-        let openEvt = 'pointerdown';
-        let closeEvt = 'pointerdown';
-        if (!click) {
-            openEvt = 'pointerover';
-            closeEvt = 'pointerout';
+    createInteractiveElement(x, y, scale, onClick, deactivateOnClick) {
+        // Configuracion de las animaciones
+        let animConfig = {
+            fadeTime: 150,
+            fadeEase: 'linear'
         }
 
-        // Al producir el evento de puntero en la puerta cerrada, se oculta la 
-        // imagen de la puerta cerrada y se muestra la imagen de la puerta abierta.
-        closed.on(openEvt, () => {
-            closed.visible = false;
-            opened.visible = true;
+        // Anade el icono del boton y lo hace interactivo
+        let button = this.add.image(x, y, 'sendIcon').setOrigin(1, 0).setScale(scale);
+        button.setInteractive({ useHandCursor: true });
+       
+        // Se reproduce la animacion de aparecer
+        this.tweens.add({
+            targets: button,
+            alpha: { from: 0, to: 1 },
+            ease: animConfig.fadeEase,
+            duration: animConfig.fadeTime,
+            repeat: 0,
         });
-        // Al producir el evento de puntero en la puerta abierta, se oculta la
-        // imagen de la puerta abierta y se muestra la imagen de la puerta cerrada.
-        opened.on(closeEvt, () => {
-            opened.visible = false;
-            closed.visible = true;
-        });
-        
-        // Al pulsar la puerta abierta, se produce el evento indicado
-        opened.on('pointerdown', () => {
-            if (onClick !== null && typeof onClick === 'function') {
+
+        // Al pulsar el icono
+        button.on('pointerdown', () => {
+            // Si es valida, se ejecuta la funcion onClick
+            if (onClick !== null && typeof onClick === 'function' && !this.gameManager.isInFadeAnimation()) {
                 onClick();
             }
-        });
 
-
-        // Al pulsar la puerta cerrada, si se esta usando input tactil, se abre la puerta por un 
-        // momento, se produce el evento indicado despues de que se abra la puerta, y luego se cierra
-        closed.on('pointerdown', () => {
-            if (IS_TOUCH) {
-                opened.visible = true;
-                closed.visible = false;
-                setTimeout(() => {
-                    if (onClick !== null && typeof onClick === 'function') {
-                        onClick();
-                    }
-                    if (!click) {
-                        opened.visible = false;
-                        closed.visible = true;
-                    }
-                }, 100);
+            // Si hay que desactivar el boton al hacer click, deja de ser 
+            // interactivo y se reproduce la animacion de desaparecer
+            if (deactivateOnClick) {
+                button.disableInteractive();
+                this.tweens.add({
+                    targets: button,
+                    alpha: { from: 1, to: 0 },
+                    ease: animConfig.fadeEase,
+                    duration: animConfig.fadeTime,
+                    repeat: 0,
+                });
             }
+        });
+        
+        // Se reproduce la animacion de encogerse y agrandarse
+        let originalScale = button.scale;
+        this.tweens.add({
+            targets: button,
+            scale: originalScale * 0.9,
+            duration: 1000,
+            repeat: -1,
+            yoyo: true
         });
     }
 

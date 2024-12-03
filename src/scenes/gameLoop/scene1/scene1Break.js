@@ -25,6 +25,7 @@ export default class Scene1Break extends BaseScene {
         lauraPortrait.setFlipX(true);
         this.portraits.set("laura", lauraPortrait);
 
+        this.nodes = this.cache.json.get('scene1Break');
         this.addTables();
 
         this.dispatcher.add("checkAllTables", this, () => {
@@ -37,7 +38,7 @@ export default class Scene1Break extends BaseScene {
             let params = {
                 text: this.i18next.t("scene1.classEnd", { ns: "transitions", returnObjects: true }),
                 onComplete: () => {
-                    this.gameManager.changeScene("TitleScene");
+                    this.gameManager.changeScene("Scene1Lunch");
                 },
             };
             this.gameManager.changeScene(sceneName, params);
@@ -47,9 +48,8 @@ export default class Scene1Break extends BaseScene {
 
     addTables() {
         this.interactedTables = [false, false, false];
-        let nodes = this.cache.json.get('scene1Break');
 
-        let nodeTable1 = super.readNodes(nodes, "scene1\\scene1Break", "tables1", true);
+        let nodeTable1 = super.readNodes(this.nodes, "scene1\\scene1Break", "tables1", true);
         let table1 = this.add.image(1300, 600, 'sendIcon').setOrigin(1, 0).setScale(0.4, 0.4);
         table1.setInteractive({ useHandCursor: true });
         table1.on('pointerdown', () => {
@@ -58,7 +58,7 @@ export default class Scene1Break extends BaseScene {
             this.clickTable(table1);
         });
 
-        let nodeTable2 = super.readNodes(nodes, "scene1\\scene1Break", "tables2", true);
+        let nodeTable2 = super.readNodes(this.nodes, "scene1\\scene1Break", "tables2", true);
         let table2 = this.add.image(550, 530, 'sendIcon').setOrigin(1, 0).setScale(0.4, 0.4);
         table2.setInteractive({ useHandCursor: true });
         table2.on('pointerdown', () => {
@@ -67,7 +67,7 @@ export default class Scene1Break extends BaseScene {
             this.clickTable(table2);
         });
 
-        let nodeTable3 = super.readNodes(nodes, "scene1\\scene1Break", "tables3", true);
+        let nodeTable3 = super.readNodes(this.nodes, "scene1\\scene1Break", "tables3", true);
         let table3 = this.add.image(940, 530, 'sendIcon').setOrigin(0, 0).setScale(0.3, 0.3);
         table3.setInteractive({ useHandCursor: true });
         table3.on('pointerdown', () => {
@@ -117,8 +117,7 @@ export default class Scene1Break extends BaseScene {
         }
 
         if (allPressed) {
-            let nodes = this.cache.json.get('scene1Break');
-            let node = super.readNodes(nodes, "scene1\\scene1Break", "mainConversation", true);
+            let node = super.readNodes(this.nodes, "scene1\\scene1Break", "mainConversation", true);
             setTimeout(() => {
                 this.dialogManager.setNode(node, [this.portraits.get("laura")]); 
             }, 500);

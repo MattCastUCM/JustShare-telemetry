@@ -29,6 +29,7 @@ export default class GameManager {
         // la docu manejarlo a traves de el
         this.currentScene = scene;
         this.runningScenes = new Set();
+        this.fading = false;
 
         this.i18next = this.currentScene.plugins.get('rextexttranslationplugin');
         this.dispatcher = EventDispatcher.getInstance();
@@ -93,23 +94,23 @@ export default class GameManager {
         }
         this.i18next.changeLanguage("es");
 
-        // // IMPORTANTE: Hay que lanzar primero el UIManager para que se inicialice
-        // // el DialogManager y las escenas puedan crear los dialogos correctamente
-        // let UIsceneName = 'UIManager';
-        // this.currentScene.scene.launch(UIsceneName);
-        // this.UIManager = this.currentScene.scene.get(UIsceneName);
+        // IMPORTANTE: Hay que lanzar primero el UIManager para que se inicialice
+        // el DialogManager y las escenas puedan crear los dialogos correctamente
+        let UIsceneName = 'UIManager';
+        this.currentScene.scene.launch(UIsceneName);
+        this.UIManager = this.currentScene.scene.get(UIsceneName);
 
-        // // Pasa a la escena inicial con los parametros text, onComplete y onCompleteDelay
-        // let sceneName = 'TextOnlyScene';
-        // let params = {
-        //     text: this.i18next.t("scene1.classroom", { ns: "transitions", returnObjects: true }),
-        //     onComplete: () => {
-        //         this.changeScene("Scene1Break", null);
-        //     },
-        // };
+        // Pasa a la escena inicial con los parametros text, onComplete y onCompleteDelay
+        let sceneName = 'TextOnlyScene';
+        let params = {
+            text: this.i18next.t("scene1.classroom", { ns: "transitions", returnObjects: true }),
+            onComplete: () => {
+                this.changeScene("Scene1Lunch1", null);
+            },
+        };
         
-        // this.changeScene(sceneName, params);
-        this.startGame();
+        this.changeScene(sceneName, params);
+        // this.startGame();
     }
 
 
@@ -163,6 +164,7 @@ export default class GameManager {
             FADE_TIME = params.fadeTime;
         }
         this.currentScene.cameras.main.fadeOut(FADE_TIME, 0, 0, 0);
+        this.fading = true;
 
         // Cuando acaba el fade out de la escena actual se cambia a la siguiente
         this.currentScene.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, (cam, effect) => {
@@ -186,7 +188,12 @@ export default class GameManager {
   
             // Cuando se termina de crear la escena, se reproduce el fade in
             this.currentScene.events.on('create', () => {
+                this.currentScene.cameras.main.fadeIn(FADE_TIME, 0, 0, 0); 
+                this.fading = false;   
+            });
+            this.currentScene.events.on('wake', () => {
                 this.currentScene.cameras.main.fadeIn(FADE_TIME, 0, 0, 0);    
+                this.fading = false;   
             });
         });
     }
@@ -201,6 +208,9 @@ export default class GameManager {
         return this.userInfo;
     }
 
+    isInFadeAnimation() {
+        return this.fading;
+    }
 
     ///////////////////////////////////////
     ///// Metodos para la blackboard /////

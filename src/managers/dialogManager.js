@@ -85,6 +85,16 @@ export default class DialogManager {
         });
     }
 
+    setPortraits(portraits) {
+        // Guarda los retratos de los personajes que participan en el dialogo, los muestra, y se pone que no estan hablando
+        this.portraits.clear();
+        portraits.forEach((value) => {
+            let key = value.getKey()
+            this.portraits.set(key, value);
+            value.activate(true, this.PORTRAIT_ANIM_TIME);
+            value.setTalking(false);
+        });
+    }
 
     /**
     * Cambia el texto de la caja
@@ -115,14 +125,7 @@ export default class DialogManager {
         }
         // Si no hay ningun dialogo/nodo activo y el nodo a poner es valido
         if (!this.isTalking() && this.currNode == null && node) {
-            // Guarda los retratos de los personajes que participan en el dialogo, los muestra, y se pone que no estan hablando
-            this.portraits.clear();
-            portraits.forEach((value) => {
-                let key = value.getKey()
-                this.portraits.set(key, value);
-                value.activate(true, this.PORTRAIT_ANIM_TIME);
-                value.setTalking(false);
-            });
+            this.setPortraits(portraits);
             
             // Indica que ha empezado un dialogo
             this.setTalking(true);
@@ -226,29 +229,27 @@ export default class DialogManager {
         // Recorre todos los eventos del nodo y les hace dispatch con el delay establecido (si tienen)
         for (let i = 0; i < node.events.length; i++) {
             let evt = node.events[i];
-            this.processEvent(evt);
+            
+            let delay = 0
+            if (evt.delay) {
+                delay = evt.delay;
+            }
+            setTimeout(() => {
+                this.dispatcher.dispatch(evt.name, evt);
+
+                // Si el evento establece el valor de una variable, lo cambia en la 
+                // blackboard correspondiente (la de la escena o la del gameManager)
+                let blackboard = this.gameManager.blackboard;
+                if (evt.global !== undefined && evt.global === false) {
+                    blackboard = evt.blackboard;
+                }
+                if (evt.variable && evt.value !== undefined) {
+                    this.gameManager.setValue(evt.variable, evt.value, blackboard);
+                }
+            }, delay);
         }
     }
-    processEvent(evt) {
-        let delay = 0
-        if (evt.delay) {
-            delay = evt.delay;
-        }
-        setTimeout(() => {
-            this.dispatcher.dispatch(evt.name, evt);
-
-            // Si el evento establece el valor de una variable, lo cambia en la 
-            // blackboard correspondiente (la de la escena o la del gameManager)
-            let blackboard = this.gameManager.blackboard;
-            if (evt.global !== undefined && evt.global === false) {
-                blackboard = evt.blackboard;
-            }
-            if (evt.variable && evt.value !== undefined) {
-                this.gameManager.setValue(evt.variable, evt.value, blackboard);
-            }
-        }, delay);
-    }
-
+    
     // Procesa el nodo actual dependiendo de su tipo
     processNode() {
         // Si el nodo actual es valido

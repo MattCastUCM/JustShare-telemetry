@@ -1,0 +1,81 @@
+{
+    "main": {
+        "root": {
+            "text": "",
+            "text_male": "Bueno hijo, ¿qué tal te ha ido tú primer día?¿Has hecho muchos amigos?",
+            "text_female": "Bueno hija, ¿qué tal te ha ido tú primer día?¿Has hecho muchos amigos?"
+        },
+        "choices": [
+            {
+                "text": "Contarles sobre mi día."
+            },
+            {
+                "text": "No contarles sobre mi día."
+            }
+        ],
+    
+        "tell": {
+          "text": "Bien. He conocido a Laura, una chica de clase que es super maja. Durante el recreo  hemos estado todo el rato hablando"  
+        },
+        "glad": [
+            {
+                "text": "Me alegro, cariño."
+            },
+            {
+                "text": "Esa chica, Laura, parece muy agradable."
+            }
+        ],
+        "invite": {
+            "text": "Puedes invitarla un día a casa a merendar, si te apetece."
+        },
+        "yea": {
+            "text": "Sí, la verdad es que ha sido muy amable conmigo."
+        },
+    
+        "noTell": {
+            "text": "Bien. Un día normal."
+        },
+        "tomorrow": {
+            "text": "Bueno, seguro que mañana mejora, ya verás."
+        },
+        "stepByStep": {
+            "text": "Poco a poco irás haciendo amigos, cariño."
+        },
+        "sure": {
+            "text": "Sí, no os preocupéis."
+        },
+    
+    
+        "announcement": {
+            "text": "Por cierto cariño, a tu padre y a mí nos ha surgido un viaje de trabajo y vamos a estar unas semanas fuera."
+        },
+        "alone": {
+            "text": "",
+            "text_male": "¿Eso significa que me quedo solo y a cargo de la casa por fin?",
+            "text_female": "¿Eso significa que me quedo sola y a cargo de la casa por fin?"
+        },
+        "bet": [
+            {
+                "text": "Ya te gustaría. Mañana por la mañana llega tu abuela."
+            },
+            {
+                "text": "Así qué más te vale portarte bien, que está muy mayor la pobre mujer."
+            }
+        ],
+        "disappointed": {
+            "text": "Bueno, vale..."
+        }
+    },
+
+    "door": {
+        "root": {
+            "text": "(Ahora mismo no tengo nada que hacer fuera.)"
+        }
+    },
+
+    "endLunch": {
+        "root": {
+            "text": "Ya he terminado de comer, ya me puedo ir a mi cuarto."
+        }
+    }
+}

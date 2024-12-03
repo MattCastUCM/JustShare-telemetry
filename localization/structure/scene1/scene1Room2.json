@@ -1,0 +1,15 @@
+{
+    "bed": {
+        "root": {
+            "type": "text",
+            "character": "player"
+        }
+    },
+
+    "closet": {
+        "root": {
+            "type": "text",
+            "character": "player"
+        }
+    }
+}

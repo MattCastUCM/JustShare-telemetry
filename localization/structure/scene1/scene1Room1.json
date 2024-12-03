@@ -1,0 +1,122 @@
+{
+    "bed": {
+        "root": {
+            "type": "text",
+            "character": "player"
+        }
+    },
+
+    "closet": {
+        "root": {
+            "type": "text",
+            "character": "player"
+        }
+    },
+
+    "interruption": {
+        "root": {
+            "type": "text",
+            "character": "door",
+            "next": "ask"
+        },
+        "ask": {
+            "type": "text",
+            "character": "player",
+            "next": "enter"
+        },
+        "enter": {
+            "type": "text",
+            "character": "mom",
+            "next": "lazy"
+        },
+        "lazy": {
+            "type": "text",
+            "character": "player",
+            "next": "start"
+        },
+        "start": {
+            "type": "text",
+            "character": "dad",
+            "next": "ok"
+        },
+        "ok": {
+            "type": "text",
+            "character": "player",
+            "next": "setInterruption"
+        },
+        "setInterruption": {
+            "type": "event",
+            "events": [
+                {
+                    "setInterruption": {
+                        "delay": 500
+                    }
+                }
+            ]
+        }
+    },
+
+    "bedAfterInterruption": {
+        "root": {
+            "type": "text",
+            "character": "player"
+        }
+    },
+
+    "homework": {
+        "root": {
+            "type": "text",
+            "character": "player",
+            "next": "endHomework"
+        },
+        "endHomework": {
+            "type": "event",
+            "events": [
+                {
+                    "endHomework": {
+                        "delay": 500
+                    }
+                }
+            ]
+        }
+    },
+
+    "bedAfterHomework": {
+        "root": {
+            "type": "text",
+            "character": "player"
+        }
+    },
+
+    "bedFinal": {
+        "root": {
+            "type": "text",
+            "character": "player",
+            "next": "goToSleep"
+        },
+        "goToSleep": {
+            "type": "choice",
+            "choices": [
+                { "next": "sleep" },
+                { }
+            ]
+        },
+        "sleep": {
+           "type": "event",
+            "events": [
+                {
+                    "sleep": {
+                        "delay": 500
+                    }
+                }
+            ] 
+        }
+    },
+
+    "computerFinal": {
+        "root": {
+            "type": "text",
+            "character": "player"
+        }
+    }
+}

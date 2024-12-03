@@ -1,0 +1,13 @@
+{
+    "bed": {
+        "root": {
+            "text": "(No tengo sueño.)"
+        }
+    },
+
+    "closet": {
+        "root": {
+            "text": "(Debería ordenarlo en algún momento.)"
+        }
+    }
+}

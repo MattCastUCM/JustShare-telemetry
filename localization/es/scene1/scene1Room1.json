@@ -1,0 +1,87 @@
+{
+    "bed": {
+        "root": {
+            "text": "(Antes de tumbarme quiero echarle un ojo al ordenador.)" 
+        }
+    },
+
+    "closet": {
+        "root": {
+            "text": "(Debería ordenarlo en algún momento.)"
+        }
+    },
+
+    "interruption": {
+        "root": {
+            "text": "*knock* *knock*"
+        },
+        "ask": {
+            "text": "¿Sí?"
+        },
+        "enter": {
+            "text": "{{name}}, deberías ponerte a hacer los deberes antes de que sea tarde."
+
+        },
+        "lazy": {
+            "text": "Pero me da mucha pereza..."
+
+        },
+        "start": {
+            "text": "Cuanto antes te pongas, antes terminarás y podrás seguir a lo tuyo."
+
+        },
+        "ok": {
+            "text": "Vale..."
+        }
+    },
+
+    "bedAfterInterruption": {
+        "text": "(Antes de tumbarme tengo que hacer los deberes.)"
+    },
+
+    "homework": [
+        {
+            "text": "(Muevo la X al otro lado...)"
+        },
+        {
+            "text": "..."
+        },
+        {
+            "text": "(Despejo esto...)"
+        },
+        {
+            "text": "(Como odio las funciones...)"
+        },
+        {
+            "text": "..."
+        },
+        {
+            "text": "¡Por fin! Terminé todos los ejercicios."
+        }
+    ],
+
+    "bedAfterHomework": {
+        "text_maleHarasser": "(Antes de tumbarme voy a contestar a Pablo)",
+        "text_femaleHarasser": "(Antes de tumbarme voy a contestar a Lucía)"
+    },
+
+    "bedFinal": {
+        "root": {
+            "text": "(¿Debería irme ya a dormir?)"
+        },
+        "goToSleep": [
+            { 
+                "text": "Sí." 
+            },
+            {
+                "text": "No."
+            }
+        ]
+    },
+
+    "computerFinal": {
+        "root": {
+            "text": "Mejor no, ya es hora de dormir."
+        }
+    }
+}

@@ -228,6 +228,7 @@ export default class BootScene extends Phaser.Scene {
         this.load.image('livingroomBg', 'livingroom.png');
         this.load.image('classBg', 'class.png');
         this.load.image('canteenBg', 'canteen.png');
+        this.load.image('bedroomBg', 'bedroom.png');
     }
 
     loadCreditsSceneAssets() {
@@ -244,6 +245,7 @@ export default class BootScene extends Phaser.Scene {
         let dialogsAndNamespaces = [
             "scene1/scene1Classroom",
             "scene1/scene1Break",
+            "scene1/scene1Lunch1",
         ]
         // Solo son namespaces del plugin i18next
         // Namespace --> test\\dialog.json
