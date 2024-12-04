@@ -4,7 +4,7 @@ import TextOnlyScene from "./scenes/gameLoop/textOnlyScene.js";
 import Scene1Classroom from "./scenes/gameLoop/scene1/scene1Classroom.js";
 import Scene1Break from "./scenes/gameLoop/scene1/scene1Break.js";
 import Scene1Lunch1 from "./scenes/gameLoop/scene1/scene1Lunch1.js";
-import Scene1Room from "./scenes/gameLoop/scene1/scene1Room.js";
+import Scene1Room1 from "./scenes/gameLoop/scene1/scene1Room1.js";
 
 // UI
 import UIManager from './managers/UIManager.js';
@@ -25,7 +25,7 @@ const config = {
         BootScene,
         
         // Escena 1
-        Scene1Classroom, Scene1Break, Scene1Lunch1, Scene1Room,
+        Scene1Classroom, Scene1Break, Scene1Lunch1, Scene1Room1,
 
         // Menus
         TitleScene,

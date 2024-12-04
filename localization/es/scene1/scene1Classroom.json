@@ -34,8 +34,8 @@
 
         "friendly": {
             "text": "",
-            "text_male": "Pareces majo .Si necesitas cualquier cosa, no dudes en preguntarme.",
-            "text_female": "Pareces maja .Si necesitas cualquier cosa, no dudes en preguntarme."
+            "text_male": "Pareces majo. Si necesitas cualquier cosa, no dudes en preguntarme.",
+            "text_female": "Pareces maja. Si necesitas cualquier cosa, no dudes en preguntarme."
         },
         "neutral": {
             "text": "Espero que nos llevemos bien. Si necesitas cualquier cosa, no dudes en preguntarme."

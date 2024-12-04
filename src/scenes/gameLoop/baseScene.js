@@ -568,7 +568,8 @@ export default class BaseScene extends Phaser.Scene {
         }
 
         // Anade el icono del boton y lo hace interactivo
-        let button = this.add.image(x, y, 'sendIcon').setOrigin(1, 0).setScale(scale);
+        let button = this.add.image(0, 0, 'sendIcon').setOrigin(1, 0).setScale(scale);
+        button.setPosition(x, y);
         button.setInteractive({ useHandCursor: true });
        
         // Se reproduce la animacion de aparecer

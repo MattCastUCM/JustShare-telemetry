@@ -26,12 +26,12 @@ import PhoneManager from "./phoneManager.js";
         this.botLid = this.add.rectangle(0, this.CANVAS_HEIGHT / 2, this.CANVAS_WIDTH, this.CANVAS_HEIGHT / 2, 0x000, 1).setOrigin(0, 0);
         this.botLid.setDepth(100).setScrollFactor(0);
 
-        this.activateLids(false);
+        this.moveLids(true);
     }
 
     // Animacion de abrir los ojos
     openEyes() {
-        this.activateLids(true);
+        this.moveLids(false);
         let speed = 1000;
         let lastTopPos = this.topLid.y;
         let lastBotPos = this.botLid.y;
@@ -138,12 +138,12 @@ import PhoneManager from "./phoneManager.js";
     // Animacion de cerrar los ojos. Cierra los parpados y 
     // vuelve a reproducir la animacion de abrir los ojos
     closeEyes(onComplete) {
-        this.activateLids(true);
+        this.moveLids(true);
         let speed = 2000;
         let lastTopPos = this.topLid.y;
         let lastBotPos = this.botLid.y;
         
-        this.tweens.add({
+        let anim = this.tweens.add({
             targets: [this.topLid],
             y: { from: lastTopPos, to: 0 },
             duration: speed,
@@ -156,13 +156,21 @@ import PhoneManager from "./phoneManager.js";
             repeat: 0,
         });
         
-        if (onComplete !== null && typeof onComplete === 'function') {
-            onComplete();
-        }
+        anim.on('complete', () => {
+            if (onComplete !== null && typeof onComplete === 'function') {
+                onComplete();
+            }
+        });
     }
 
-    activateLids(active) {
-        this.topLid.visible = active;
-        this.botLid.visible = active;
+    moveLids(opened) {
+        if (!opened) {
+            this.topLid.y = 0;
+            this.botLid.y = this.CANVAS_HEIGHT / 2;
+        }
+        else {
+            this.topLid.y = -this.CANVAS_HEIGHT / 2;
+            this.botLid.y = this.CANVAS_HEIGHT;
+        }
     }
 }

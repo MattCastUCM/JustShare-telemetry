@@ -36,7 +36,9 @@
     },
 
     "bedAfterInterruption": {
-        "text": "(Antes de tumbarme tengo que hacer los deberes.)"
+        "root": {
+            "text": "(Antes de tumbarme tengo que hacer los deberes.)"
+        }
     },
 
     "homework": [
@@ -61,8 +63,11 @@
     ],
 
     "bedAfterHomework": {
-        "text_maleHarasser": "(Antes de tumbarme voy a contestar a Pablo)",
-        "text_femaleHarasser": "(Antes de tumbarme voy a contestar a Lucía)"
+        "root": {
+            "text": "",
+            "text_maleHarasser": "(Antes de tumbarme voy a contestar a Pablo)",
+            "text_femaleHarasser": "(Antes de tumbarme voy a contestar a Lucía)"
+        }
     },
 
     "bedFinal": {

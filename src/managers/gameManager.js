@@ -94,6 +94,7 @@ export default class GameManager {
         }
         this.i18next.changeLanguage("es");
 
+        //*
         // IMPORTANTE: Hay que lanzar primero el UIManager para que se inicialice
         // el DialogManager y las escenas puedan crear los dialogos correctamente
         let UIsceneName = 'UIManager';
@@ -105,11 +106,13 @@ export default class GameManager {
         let params = {
             text: this.i18next.t("scene1.classroom", { ns: "transitions", returnObjects: true }),
             onComplete: () => {
-                this.changeScene("Scene1Lunch1", null);
+                this.changeScene("Scene1Room1", null);
             },
         };
         
         this.changeScene(sceneName, params);
+        //*/
+
         // this.startGame();
     }
 

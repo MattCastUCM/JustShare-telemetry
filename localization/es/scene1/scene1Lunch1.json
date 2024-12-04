@@ -2,8 +2,8 @@
     "main": {
         "root": {
             "text": "",
-            "text_male": "Bueno hijo, ¿qué tal te ha ido tú primer día?¿Has hecho muchos amigos?",
-            "text_female": "Bueno hija, ¿qué tal te ha ido tú primer día?¿Has hecho muchos amigos?"
+            "text_male": "Bueno hijo, ¿qué tal te ha ido tú primer día? ¿Has hecho muchos amigos?",
+            "text_female": "Bueno hija, ¿qué tal te ha ido tú primer día? ¿Has hecho muchos amigos?"
         },
         "choices": [
             {

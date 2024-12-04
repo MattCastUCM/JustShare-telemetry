@@ -214,21 +214,30 @@ export default class BootScene extends Phaser.Scene {
         // Personajes planos sin animaciones
         this.load.setPath('assets/characters');
 
-        // TEST
         this.load.image('mom', 'mom.png');
         this.load.image('dad', 'dad.png');
         this.load.image('teacher', 'teacher.png');
         this.load.image('laura', 'laura.png');
+        this.load.image('paula', 'paula.png');
+        this.load.image('harasser', 'harasser.png');
     }
 
     loadBackgrounds() {
         this.load.setPath('assets/backgrounds');
 
-        // Salon
-        this.load.image('livingroomBg', 'livingroom.png');
-        this.load.image('classBg', 'class.png');
+        // Clase
+        this.load.image('classBg', 'classroom.png');
+
+        // Cafeteria
         this.load.image('canteenBg', 'canteen.png');
+
+        // Salon
+        this.load.image('livingroomInsideBg', 'livingroomInside.png');
+        this.load.image('livingroomOutsideBg', 'livingroomOutside.png');
+
+        // Habitacion
         this.load.image('bedroomBg', 'bedroom.png');
+
     }
 
     loadCreditsSceneAssets() {
@@ -246,6 +255,7 @@ export default class BootScene extends Phaser.Scene {
             "scene1/scene1Classroom",
             "scene1/scene1Break",
             "scene1/scene1Lunch1",
+            "scene1/scene1Room1",
         ]
         // Solo son namespaces del plugin i18next
         // Namespace --> test\\dialog.json
