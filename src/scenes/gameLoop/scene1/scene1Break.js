@@ -26,6 +26,7 @@ export default class Scene1Break extends BaseScene {
         lauraPortrait.setFlipX(true);
         this.portraits.set("laura", lauraPortrait);
 
+        
         // Lee el archivo de nodos
         this.nodes = this.cache.json.get('scene1Break');
 
@@ -68,7 +69,7 @@ export default class Scene1Break extends BaseScene {
             this.dialogManager.setNode(nodeTable2, []);
             this.interactedTables++;
         }, true);
-
+        
         let nodeTable3 = super.readNodes(this.nodes, "scene1\\scene1Break", "tables3", true);
         super.createInteractiveElement(1300, 520, 0.4, () => {
             this.dialogManager.setNode(nodeTable3, []);

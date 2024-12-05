@@ -23,7 +23,8 @@ export default class BaseScene extends Phaser.Scene {
         this.gameManager = GameManager.getInstance();
 
         this.UIManager = this.gameManager.UIManager;
-        this.dialogManager = this.gameManager.UIManager.dialogManager;
+        this.dialogManager = this.UIManager.dialogManager;
+        this.phoneManager = this.UIManager.phoneManager;
         this.dispatcher = this.gameManager.dispatcher;
 
         // Obtiene el plugin de i18n del GameManager
@@ -568,7 +569,7 @@ export default class BaseScene extends Phaser.Scene {
         }
 
         // Anade el icono del boton y lo hace interactivo
-        let button = this.add.image(0, 0, 'sendIcon').setOrigin(1, 0).setScale(scale);
+        let button = this.add.image(0, 0, 'interactable').setOrigin(1, 0).setScale(scale);
         button.setPosition(x, y);
         button.setInteractive({ useHandCursor: true });
        

@@ -113,7 +113,7 @@ export default class BootScene extends Phaser.Scene {
 
     loadUIAssets() {
         this.load.setPath('assets/UI');
-        this.load.image('sendIcon', 'send.png');
+        this.load.image('interactable', 'interactable.png');
     }
 
     loadComputerAssets() {
@@ -256,6 +256,10 @@ export default class BootScene extends Phaser.Scene {
             "scene1/scene1Break",
             "scene1/scene1Lunch1",
             "scene1/scene1Room1",
+            "scene1/scene1Lunch2",
+            "scene1/scene1Room2",
+
+            "scene2/scene2Break",
         ]
         // Solo son namespaces del plugin i18next
         // Namespace --> test\\dialog.json

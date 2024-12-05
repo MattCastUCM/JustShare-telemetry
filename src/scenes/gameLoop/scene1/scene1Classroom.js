@@ -31,6 +31,7 @@ export default class Scene1Classroom extends BaseScene {
         lauraPortrait.setFlipX(true);
         this.portraits.set("laura", lauraPortrait);
 
+        
         // Lee el archivo de nodos
         let nodes = this.cache.json.get('scene1Classroom');
         let node = super.readNodes(nodes, "scene1\\scene1Classroom", "part1", true);

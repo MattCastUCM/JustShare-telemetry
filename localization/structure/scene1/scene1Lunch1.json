@@ -92,13 +92,13 @@
         "root": {
             "type": "text",
             "character": "player",
-            "next": "spawnInteractions"
+            "next": "receiveMsg"
         },
-        "spawnInteractions": {
+        "receiveMsg": {
             "type": "event",
             "events": [
                 {
-                    "spawnInteractions": {
+                    "receiveMsg": {
                         "delay": 500
                     }
                 }
@@ -110,6 +110,26 @@
         "root": {
             "type": "text",
             "character": "player"
+        }
+    },
+
+    "phone": {
+        "root": {
+            "type": "chatMessage",
+            "character": "laura",
+            "chat": "chat1",
+            "replyDelay": 0,
+            "next": "spawnInteractions"
+        },
+        "spawnInteractions": {
+            "type": "event",
+            "events": [
+                {
+                    "spawnInteractions": {
+                        "delay": 1000
+                    }
+                }
+            ]
         }
     }
 }

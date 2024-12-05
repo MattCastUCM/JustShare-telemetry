@@ -77,5 +77,11 @@
         "root": {
             "text": "Ya he terminado de comer, ya me puedo ir a mi cuarto."
         }
+    },
+
+    "phone": {
+        "root": {
+            "text": "Socorro"
+        }
     }
 }

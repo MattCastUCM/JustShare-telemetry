@@ -32,7 +32,18 @@
         },
         "wave": {
             "type": "text",
-            "character": "player"
+            "character": "player",
+            "next": "parentsLeave"
+        },
+        "parentsLeave": {
+            "type": "event",
+            "events": [
+                {
+                    "parentsLeave": {
+                        "delay": 500
+                    }
+                }
+            ]
         }
     },
 

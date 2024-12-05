@@ -137,7 +137,7 @@ export default class ChatScreen extends BaseScreen {
                 });
                 // Si se ha hecho la animacion, al terminar la animacion hace que
                 // el dialogManager cree las opciones para responder y las active
-                if (fadeColor) {
+                if (fadeColor && this.currNode) {
                     fadeColor.on('complete', () => {
                         if (this.currNode.type === "chatMessage") {
                             this.processNode();
@@ -248,10 +248,7 @@ export default class ChatScreen extends BaseScreen {
         // Si el nodo a poner es valido, cambia el nodo por el indicado
         if (node) {
             this.currNode = node;
-
-            if (this.currNode.type === "chatMessage") {
-                this.processNode();
-            }
+            this.processNode();
         }
     }
 
@@ -275,7 +272,7 @@ export default class ChatScreen extends BaseScreen {
             }
             // Si el nodo es de tipo condicion, hace que el dialogManager lo procese y obtiene el siguiente nodo
             else if (this.currNode.type === "condition") {
-                let i = this.scene.dialogManager.processCondition(this.currNode);
+                let i = this.scene.dialogManager.processConditionNode(this.currNode);
 
                 // El indice del siguiente nodo sera el primero que cumpla una de las condiciones
                 this.currNode = this.currNode.next[i];
@@ -285,7 +282,7 @@ export default class ChatScreen extends BaseScreen {
             }
             // Si el nodo es de tipo evento, hace que el dialogManager lo procese y pasa al siguiente nodo
             else if (this.currNode.type === "event") {
-                this.scene.dialogManager.processEvent(this.currNode);
+                this.scene.dialogManager.processEventNode(this.currNode);
 
                 // IMPORTANTE: DESPUES DE UN NODO DE EVENTO SOLO HAY UN NODO, POR LO QUE 
                 // EL SIGUIENTE NODO SERA EL PRIMER NODO DEL ARRAY DE NODOS SIGUIENTES

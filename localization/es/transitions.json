@@ -5,5 +5,10 @@
         "classEnd": "El resto del día pasa con normalidad. Al acabar las clases, vuelves a tu casa y comes con tus padres.",
         "afterLunch": "Más tarde...",
         "nextDay": "A la hora de comer del día siguiente..."
+    },
+
+    "scene2": {
+        "startWeek": "La semana siguiente...",
+        "classEnd": "La campana suena y volvéis a clase. Al volver a casa, comes con tu abuela y te vas rápidamente a tu cuarto a utilizar el ordenador. Antes de darte cuenta, ya es por la noche."
     }
 }

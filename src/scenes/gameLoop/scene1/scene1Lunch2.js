@@ -1,14 +1,14 @@
 import BaseScene from '../baseScene.js';
 import Portrait from '../../../UI/dialog/portrait.js';
 
-export default class Scene1Lunch1 extends BaseScene {
+export default class Scene1Lunch2 extends BaseScene {
     /**
      * Escena base para el salon. Coloca los elementos que se mantienen igual todos los dias
      * @extends BaseScene
      * @param {String} name - id de la escena
      */
     constructor(name) {
-        super("Scene1Lunch1", 'Scene1Lunch1');
+        super("Scene1Lunch2", 'Scene1Lunch2');
     }
 
     create(params) {
@@ -33,46 +33,31 @@ export default class Scene1Lunch1 extends BaseScene {
         momPortrait.setFlipX(true);
         this.portraits.set("mom", momPortrait);
 
+        // Retrato de la abuela
+        // PENDIENTE
 
+        
         // Lee el archivo de nodos
-        let nodes = this.cache.json.get('scene1Lunch1');
-        let node = super.readNodes(nodes, "scene1\\scene1Lunch1", "main", true);
+        let nodes = this.cache.json.get('scene1Lunch2');
+        let node = super.readNodes(nodes, "scene1\\scene1Lunch2", "main", true);
         
         // Callback que al llamarse cambiara el nodo de dialogo
         this.setNode = () => {
             this.dialogManager.setNode(node, [dadPortrait, momPortrait]);
         }
 
-        // Anade el evento endLunch para que, al producirse, cambie de dialogo
-        this.dispatcher.add("endLunch", this, () => {
-            let thoughtNode = super.readNodes(nodes, "scene1\\scene1Lunch1", "endLunch", true);
-            this.dialogManager.setNode(thoughtNode, []);
-        });
-        
-        // Anade el evento receiveMsg para que, al producirse, 
-        // aparezca el icono del telefono y se reciba un mensaje
-        this.dispatcher.add("receiveMsg", this, () => {
-            this.phoneManager.activatePhoneIcon(true);
-            // PENDIENTE
-            let chatName = this.i18next.t("textMessages.chat1", { ns: "phoneInfo", returnObjects: true });
-            let phoneNode = super.readNodes(nodes, "scene1\\scene1Lunch1", "phone", true);
-            this.phoneManager.phone.addChat(chatName, "");
-            this.phoneManager.phone.setChatNode(chatName, phoneNode);
-        })
 
-        // Anade el evento spawnInteractions para que, al producirse, se creen los elementos interactuables de la escena
-        this.dispatcher.add("spawnInteractions", this, () => {
-            let doorNode = super.readNodes(nodes, "scene1\\scene1Lunch1", "door", true);
+        // Anade el evento parentsLeave para que, al producirse, se creen los elementos interactuables de la escena
+        this.dispatcher.add("parentsLeave", this, () => {
+            let doorNode = super.readNodes(nodes, "scene1\\scene1Lunch2", "door", true);
             super.createInteractiveElement(890, 380, 0.4, () => {
                 this.dialogManager.setNode(doorNode, []);
             }, false);
 
             super.createInteractiveElement(1140, 380, 0.4, () => {
-                this.gameManager.changeScene("Scene1Room1", null, true);
+                this.gameManager.changeScene("Scene1Room2", null, true);
             }, false);
         });
-
-        
     }
 
     // Se hace esto porque si se establece un dialogo en la constructora,
