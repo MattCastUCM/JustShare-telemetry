@@ -60,26 +60,39 @@ export default class Scene1Lunch1 extends BaseScene {
             this.phoneManager.phone.setChatNode(chatName, phoneNode);
         })
 
+        let msgAnswered = false;
         // Anade el evento spawnInteractions para que, al producirse, se creen los elementos interactuables de la escena
         this.dispatcher.add("spawnInteractions", this, () => {
             let doorNode = super.readNodes(nodes, "scene1\\scene1Lunch1", "door", true);
-            super.createInteractiveElement(890, 380, 0.4, () => {
+            super.createInteractiveElement(890, 380, "pointer", 0.4, () => {
                 this.dialogManager.setNode(doorNode, []);
             }, false);
-
-            super.createInteractiveElement(1140, 380, 0.4, () => {
-                this.gameManager.changeScene("Scene1Room1", null, true);
+            
+            // PENDIENTE
+            let bedroomNode = super.readNodes(nodes, "scene1\\scene1Lunch1", "unanswered", true);
+            super.createInteractiveElement(1140, 380, "enter", 0.4, () => {
+                if (msgAnswered) {
+                    this.gameManager.changeScene("Scene1Bedroom1", null, true);
+                }
+                else {
+                    this.dialogManager.setNode(bedroomNode, []);
+                }
             }, false);
         });
 
-        
+        this.dispatcher.add("chatEnded", this, () =>{
+            msgAnswered = true;
+        });
+
+
+        this.dispatcher.dispatch("receiveMsg", {});
     }
 
     // Se hace esto porque si se establece un dialogo en la constructora,
     // no funciona el bloqueo del fondo del DialogManager
     onCreate() {
         setTimeout(() => {
-            this.setNode();
+            // this.setNode();
         }, 500);
     }
     

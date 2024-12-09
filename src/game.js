@@ -5,9 +5,9 @@ import TextOnlyScene from "./scenes/gameLoop/textOnlyScene.js";
 import Scene1Classroom from "./scenes/gameLoop/scene1/scene1Classroom.js";
 import Scene1Break from "./scenes/gameLoop/scene1/scene1Break.js";
 import Scene1Lunch1 from "./scenes/gameLoop/scene1/scene1Lunch1.js";
-import Scene1Room1 from "./scenes/gameLoop/scene1/scene1Room1.js";
+import Scene1Bedroom1 from "./scenes/gameLoop/scene1/scene1Bedroom1.js";
 import Scene1Lunch2 from "./scenes/gameLoop/scene1/scene1Lunch2.js";
-import Scene1Room2 from "./scenes/gameLoop/scene1/scene1Room2.js";
+import Scene1Bedroom2 from "./scenes/gameLoop/scene1/scene1Bedroom2.js";
 // Escena 2
 import Scene2Break from "./scenes/gameLoop/scene2/scene2Break.js";
 
@@ -30,7 +30,7 @@ const config = {
         BootScene,
         
         // Escena 1
-        Scene1Classroom, Scene1Break, Scene1Lunch1, Scene1Room1, Scene1Lunch2, Scene1Room2,
+        Scene1Classroom, Scene1Break, Scene1Lunch1, Scene1Bedroom1, Scene1Lunch2, Scene1Bedroom2,
         // Escena 2
         Scene2Break,
 

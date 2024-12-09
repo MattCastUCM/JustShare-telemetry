@@ -106,7 +106,7 @@ export default class GameManager {
         let params = {
             text: this.i18next.t("scene1.classroom", { ns: "transitions", returnObjects: true }),
             onComplete: () => {
-                this.changeScene("Scene2Break", null);
+                this.changeScene("Scene1Lunch1", null);
             },
         };
         

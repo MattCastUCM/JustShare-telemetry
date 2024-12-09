@@ -113,7 +113,11 @@ export default class BootScene extends Phaser.Scene {
 
     loadUIAssets() {
         this.load.setPath('assets/UI');
+
         this.load.image('interactable', 'interactable.png');
+        this.load.image('pointer', 'pointer.png');
+        this.load.image('enter', 'door-enter.png');
+        this.load.image('exit', 'door-exit.png');
     }
 
     loadComputerAssets() {
@@ -193,7 +197,6 @@ export default class BootScene extends Phaser.Scene {
         this.load.setPath('assets/UI/dialog');
 
         // Assets de la caja de texto y de opcion multiple
-        this.load.atlas('dialogs', 'dialogs.png', 'dialogs.json');
         this.load.image('textbox', 'textbox.png');
         this.load.image('optionBox', 'optionBox.png');
 
@@ -255,9 +258,9 @@ export default class BootScene extends Phaser.Scene {
             "scene1/scene1Classroom",
             "scene1/scene1Break",
             "scene1/scene1Lunch1",
-            "scene1/scene1Room1",
+            "scene1/scene1Bedroom1",
             "scene1/scene1Lunch2",
-            "scene1/scene1Room2",
+            "scene1/scene1Bedroom2",
 
             "scene2/scene2Break",
         ]

@@ -558,10 +558,11 @@ export default class BaseScene extends Phaser.Scene {
      * Crea el icono con el que interactuar con los elementos del escenario
      * @param {Number} x - posicion x del icono
      * @param {Number} y - posicion y del icono
+     * @param {String} img - imagen que poner como icono
      * @param {Function} onClick - funcion a la que se llamara al hacer click sobre el icono
      * @param {Boolean} deactivateOnClick - true si la el icono desaparece al hacer click, false si se mantiene
      */
-    createInteractiveElement(x, y, scale, onClick, deactivateOnClick) {
+    createInteractiveElement(x, y, img, scale, onClick, deactivateOnClick) {
         // Configuracion de las animaciones
         let animConfig = {
             fadeTime: 150,
@@ -569,7 +570,7 @@ export default class BaseScene extends Phaser.Scene {
         }
 
         // Anade el icono del boton y lo hace interactivo
-        let button = this.add.image(0, 0, 'interactable').setOrigin(1, 0).setScale(scale);
+        let button = this.add.image(0, 0, img).setOrigin(1, 0).setScale(scale);
         button.setPosition(x, y);
         button.setInteractive({ useHandCursor: true });
        

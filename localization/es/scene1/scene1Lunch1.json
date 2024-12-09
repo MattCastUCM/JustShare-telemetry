@@ -82,6 +82,20 @@
     "phone": {
         "root": {
             "text": "Socorro"
+        },
+        "choices": [
+            {
+                "text": "Respuesta 1"
+            },
+            {
+                "text": "Respuesta 2"
+            }
+        ]
+    },
+
+    "unanswered": {
+        "root": {
+            "text": "Debería contestar "
         }
     }
 }

@@ -129,7 +129,33 @@
                         "delay": 1000
                     }
                 }
+            ],
+            "next": "choices"
+        },
+        "choices": {
+            "type": "choice",
+            "choices":[
+                { "next": "chatEnded" },
+                { "next": "chatEnded" }
             ]
+        },
+        
+        "chatEnded": {
+            "type": "event",
+            "events": [
+                {
+                    "chatEnded": {
+                        "delay": 0
+                    }
+                }
+            ]
+        }
+    },
+
+    "unanswered": {
+        "root": {
+            "type": "text",
+            "character": "player"
         }
     }
 }

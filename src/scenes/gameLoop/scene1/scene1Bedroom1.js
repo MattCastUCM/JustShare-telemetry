@@ -1,14 +1,14 @@
 import BaseScene from '../baseScene.js';
 import Portrait from '../../../UI/dialog/portrait.js';
 
-export default class Scene1Room1 extends BaseScene {
+export default class Scene1Bedroom1 extends BaseScene {
     /**
      * Escena base para el salon. Coloca los elementos que se mantienen igual todos los dias
      * @extends BaseScene
      * @param {String} name - id de la escena
      */
     constructor(name) {
-        super("Scene1Room1", 'Scene1Room1');
+        super("Scene1Bedroom1", 'Scene1Bedroom1');
     }
 
     create(params) {
@@ -21,42 +21,45 @@ export default class Scene1Room1 extends BaseScene {
 
 
         // Elemento interactuable que permite volver al salon
-        super.createInteractiveElement(1400, 800, 0.4, () => {
+        super.createInteractiveElement(120, 790, "exit", 0.4, () => {
             this.gameManager.changeScene("Scene1Lunch1", null, true);
         }, false)
 
         
         // Lee el archivo de nodos
-        let nodes = this.cache.json.get('scene1Room1');
-
-        // Cama
-        let bedNode = super.readNodes(nodes, "scene1\\scene1Room1", "bed", true);
-        super.createInteractiveElement(700, 500, 0.4, () => {
-            this.dialogManager.setNode(bedNode, []);
-        }, false)
+        let nodes = this.cache.json.get('scene1Bedroom1');
 
         // Armario
-        let closetNode = super.readNodes(nodes, "scene1\\scene1Room1", "closet", true);
-        super.createInteractiveElement(600, 500, 0.4, () => {
+        let closetNode = super.readNodes(nodes, "scene1\\scene1Bedroom1", "closet", true);
+        super.createInteractiveElement(240, 400, "pointer", 0.4, () => {
             this.dialogManager.setNode(closetNode, []);
         }, false)
-
-        // Ordenador
-        // PENDIENTE
         
+        // Cama
+        let bedNode = super.readNodes(nodes, "scene1\\scene1Bedroom1", "bed", true);
+        super.createInteractiveElement(790, 550, "pointer", 0.4, () => {
+            this.dialogManager.setNode(bedNode, []);
+        }, false)
+        
+        // Ordenador
+        super.createInteractiveElement(1390, 400, "pointer", 0.4, () => {
+            // PENDIENTE
+        }, false)
+        
+
         // Anade el evento setInterruption para que, al producirse, se cambie el dialogo de la cama
         this.dispatcher.add("setInterruption", this, () => {
-            bedNode = super.readNodes(nodes, "scene1\\scene1Room1", "bedAfterInterruption", true);
+            bedNode = super.readNodes(nodes, "scene1\\scene1Bedroom1", "bedAfterInterruption", true);
         });
 
         // Anade el evento homework para que, al producirse, se cambie el dialogo de la cama
         this.dispatcher.add("homework", this, () => {
-            bedNode = super.readNodes(nodes, "scene1\\scene1Room1", "bedAfterHomework", true);
+            bedNode = super.readNodes(nodes, "scene1\\scene1Bedroom1", "bedAfterHomework", true);
         });
 
         // Anade el evento endConversation para que, al producirse, se cambie el dialogo de la cama
         this.dispatcher.add("endConversation", this, () => {
-            bedNode = super.readNodes(nodes, "scene1\\scene1Room1", "bedFinal", true);
+            bedNode = super.readNodes(nodes, "scene1\\scene1Bedroom1", "bedFinal", true);
         });
 
         // Anade el evento sleep para que, al producirse, se haga la animacion de cerrar los ojos

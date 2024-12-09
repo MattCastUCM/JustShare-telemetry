@@ -59,19 +59,19 @@ export default class Scene1Break extends BaseScene {
         this.interactedTables = 0;
 
         let nodeTable1 = super.readNodes(this.nodes, "scene1\\scene1Break", "tables1", true);
-        super.createInteractiveElement(550, 480, 0.3, () => {
+        super.createInteractiveElement(550, 480, "pointer", 0.3, () => {
             this.dialogManager.setNode(nodeTable1, []);
             this.interactedTables++;
         }, true);
 
         let nodeTable2 = super.readNodes(this.nodes, "scene1\\scene1Break", "tables2", true);
-        super.createInteractiveElement(980, 460, 0.3, () => {
+        super.createInteractiveElement(980, 460, "pointer", 0.3, () => {
             this.dialogManager.setNode(nodeTable2, []);
             this.interactedTables++;
         }, true);
         
         let nodeTable3 = super.readNodes(this.nodes, "scene1\\scene1Break", "tables3", true);
-        super.createInteractiveElement(1300, 520, 0.4, () => {
+        super.createInteractiveElement(1300, 520, "pointer", 0.4, () => {
             this.dialogManager.setNode(nodeTable3, []);
             this.interactedTables++;
         }, true);
