@@ -90,7 +90,8 @@ export default class GameManager {
         this.day = 0;
         this.userInfo = {
             name: "Rigoberta",
-            gender: "female"    
+            gender: "female",
+            relationship: "femaleHarasser"
         }
         this.i18next.changeLanguage("es");
 
@@ -106,7 +107,7 @@ export default class GameManager {
         let params = {
             text: this.i18next.t("scene1.classroom", { ns: "transitions", returnObjects: true }),
             onComplete: () => {
-                this.changeScene("Scene1Lunch1", null);
+                this.changeScene("Scene1Bedroom2", null);
             },
         };
         

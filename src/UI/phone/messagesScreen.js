@@ -102,7 +102,6 @@ export default class MessagesScreen extends BaseScreen {
             // animacion, al terminar la animacion llama a la funcion
             if (fadeColor) {
                 fadeColor.on('complete', () => {
-                    console.log(onclick)
                     if (onClick !== null && typeof onClick === 'function') {
                         onClick();
                     }

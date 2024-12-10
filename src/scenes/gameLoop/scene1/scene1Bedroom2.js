@@ -30,13 +30,13 @@ export default class Scene1Bedroom2 extends BaseScene {
         let nodes = this.cache.json.get('scene1Bedroom2');
 
         // Armario
-        let closetNode = super.readNodes(nodes, "scene1\\scene1Bedroom1", "closet", true);
+        let closetNode = super.readNodes(nodes, "scene1\\scene1Bedroom2", "closet", true);
         super.createInteractiveElement(240, 400, "pointer", 0.4, () => {
             this.dialogManager.setNode(closetNode, []);
         }, false)
         
         // Cama
-        let bedNode = super.readNodes(nodes, "scene1\\scene1Bedroom1", "bed", true);
+        let bedNode = super.readNodes(nodes, "scene1\\scene1Bedroom2", "bed", true);
         super.createInteractiveElement(790, 550, "pointer", 0.4, () => {
             this.dialogManager.setNode(bedNode, []);
         }, false)

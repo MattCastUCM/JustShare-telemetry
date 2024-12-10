@@ -1,7 +1,20 @@
 {
     "bed": {
         "root": {
-            "text": "(No tengo sueño.)"
+            "text_real": "No tengo sueño.",
+            "text": "Text",
+            
+            "text_male": "Text male",
+            "text_female": "Text female",
+
+            "text_maleHarasser": "Text male harasser",
+            "text_femaleHarasser": "Text female harasser",
+
+            "text_male_maleHarasser": "Text male harasser",
+            "text_male_femaleHarasser": "Text female harasser",
+
+            "text_female_maleHarasser": "Text male harasser",
+            "text_female_femaleHarasser": "Text female harasser"
         }
     },
 

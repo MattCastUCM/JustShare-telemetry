@@ -47,7 +47,10 @@ export default class BaseScene extends Phaser.Scene {
         this.blackboard = new Map();
 
         this.scale = 1;
-        
+
+        this.playerName = this.gameManager.getUserInfo().name;
+        this.context = this.gameManager.getUserInfo().gender;
+        this.relationship = this.gameManager.getUserInfo().relationship;
         
         // Se anaden funciones adicionales a las que se llamara al crear y reactivar
         // Se tiene que suscribir el onCreate al evento create porque la escena base
@@ -146,8 +149,6 @@ export default class BaseScene extends Phaser.Scene {
     * 
     */
     readAllNodes(id, file, namespace, objectName, getObjs, nodesMap) {
-        let playerName = this.gameManager.getUserInfo().name;
-        let context = this.gameManager.getUserInfo().gender;
         let fileObj = file;
         let translationId = id;
 
@@ -252,7 +253,10 @@ export default class BaseScene extends Phaser.Scene {
             // Obtiene la id del personaje y coge su nombre del archivo de nombres localizados
             let character = fileObj[id].character;
             node.character = character;
-            node.name = this.i18next.t(fileObj[id].character, { ns: "names", returnObjects: getObjs });
+            node.name = this.i18next.t(fileObj[id].character, { 
+                ns: "names", 
+                returnObjects: getObjs 
+            });
 
             // Obtiene si el texto esta centrado o no
             if (fileObj[id].centered) {
@@ -261,7 +265,13 @@ export default class BaseScene extends Phaser.Scene {
 
             // Obtiene los fragmentos del dialogo
             let texts = [];
-            let textTranslation = this.i18next.t(translationId, { ns: namespace, name: playerName, context: context, returnObjects: getObjs })
+            let textTranslation = this.i18next.t(translationId, { 
+                ns: namespace, 
+                name: this.playerName, 
+                context: this.context,
+                returnObjects: getObjs 
+            });
+            console.log(textTranslation)
 
             // Si el texto no esta dividido en fragmentos, se guarda directamente en el array de textos
             if (!Array.isArray(textTranslation)) {
@@ -303,7 +313,11 @@ export default class BaseScene extends Phaser.Scene {
             node = new ChoiceNode();
 
             // Se obtienen las opciones del archivo de textos traducidos
-            let texts = this.i18next.t(translationId, { ns: namespace, name: playerName, context: context, returnObjects: getObjs })
+            let texts = this.i18next.t(translationId, { 
+                ns: namespace, name: this.playerName, 
+                context: this.context, 
+                returnObjects: getObjs });
+
             for (let i = 0; i < fileObj[id].choices.length; i++) {
                 let repeat = false;
                 if (fileObj[id].choices[i].repeat === undefined || fileObj[id].choices[i].repeat) {
@@ -374,7 +388,12 @@ export default class BaseScene extends Phaser.Scene {
             node = new ChatNode();
 
             // Obtiene el texto del archivo de textos traducidos y lo guarda
-            let text = this.i18next.t(translationId + ".text", { ns: namespace, name: playerName, context: context, returnObjects: getObjs });
+            let text = this.i18next.t(translationId + ".text", { 
+                ns: namespace, 
+                name: this.playerName, 
+                context: this.context, 
+                returnObjects: getObjs });
+
             node.text = text;
 
             // Obtiene el nombre del personaje del archivo de nombres localizados
@@ -384,12 +403,16 @@ export default class BaseScene extends Phaser.Scene {
                 node.name = this.gameManager.getUserInfo().name;
             }
             else {
-                node.name = this.i18next.t(fileObj[id].character, { ns: "names" });
+                node.name = this.i18next.t(fileObj[id].character, { 
+                    ns: "names" 
+                });
             }
             node.character = character;
 
             // Guarda el chat en el que tiene que ir la respuesta y el retardo con el que se envia
-            node.chat = this.i18next.t("textMessages" + "." + fileObj[id].chat, { ns: "phoneInfo" });
+            node.chat = this.i18next.t("textMessages" + "." + fileObj[id].chat, {
+                ns: "phoneInfo" 
+            });
 
             if (fileObj[id].replyDelay) {
                 node.replyDelay = fileObj[id].replyDelay;
@@ -407,14 +430,21 @@ export default class BaseScene extends Phaser.Scene {
             node = new SocialNetNode();
 
             // Obtiene el texto del archivo de textos traducidos y lo guarda
-            let text = this.i18next.t(translationId + ".text", { ns: namespace, name: playerName, context: context, returnObjects: getObjs });
+            let text = this.i18next.t(translationId + ".text", { 
+                ns: namespace, 
+                name: this.playerName, 
+                context: this.context, 
+                returnObjects: getObjs });
+
             node.text = text;
 
             node.character = fileObj[id].character;
             // Obtiene el nombre del personaje del archivo de nombres localizados
             // En el caso de se trate del propio del jugador, obtiene el pronombre personal Tu
             // traducido en el idioma correspondiente
-            node.name = this.i18next.t(fileObj[id].character, { ns: "names" });
+            node.name = this.i18next.t(fileObj[id].character, { 
+                ns: "names" 
+            });
 
             // Guarda el usuario que ha subido el post
             node.owner = fileObj[id].owner;
@@ -553,6 +583,30 @@ export default class BaseScene extends Phaser.Scene {
         return newDialogs;
     }
 
+
+    // TEST
+    t(translationId, options) {
+        console.log(options)
+        let ns = options.ns;
+        let key = translationId;
+
+        if (this.relationship && this.context) {
+            key += `_${this.context}_${this.relationship}`;
+        } 
+        else if (this.relationship) {
+            key += `_${this.relationship}`;
+        } 
+        else if (this.context) {
+            key += `_${this.context}`;
+        }
+
+        return this.i18next.t(key, {
+            ns,
+            interpolation: {
+                escapeValue: false
+            }
+        });
+    }
 
     /**
      * Crea el icono con el que interactuar con los elementos del escenario

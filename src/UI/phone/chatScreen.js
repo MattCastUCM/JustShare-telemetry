@@ -143,7 +143,7 @@ export default class ChatScreen extends BaseScreen {
                             this.processNode();
                         }
                         else {
-                            this.scene.dialogManager.setNode(this.currNode);
+                            this.scene.dialogManager.setNode(this.currNode, []);
                         }
                     });
 
@@ -291,7 +291,7 @@ export default class ChatScreen extends BaseScreen {
             }
             // Si no, si es de cualquier otro tipo excepto de eleccion multiple, lo gestiona el dialogManager
             else if (this.currNode.type !== "choice") {
-                this.scene.dialogManager.setNode(this.currNode);
+                this.scene.dialogManager.setNode(this.currNode, []);
             }
         }
     }
