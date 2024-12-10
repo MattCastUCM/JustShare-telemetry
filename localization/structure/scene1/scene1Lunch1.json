@@ -126,7 +126,7 @@
             "events": [
                 {
                     "spawnInteractions": {
-                        "delay": 1000
+                        "delay": 500
                     }
                 }
             ],

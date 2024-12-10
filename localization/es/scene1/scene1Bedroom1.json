@@ -64,9 +64,7 @@
 
     "bedAfterHomework": {
         "root": {
-            "text": "PENDIENTE",
-            "text_maleHarasser": "(Antes de tumbarme voy a contestar a Pablo)",
-            "text_femaleHarasser": "(Antes de tumbarme voy a contestar a Lucía)"
+            "text": "(Antes de tumbarme voy a contestar a <harasser, Pablo, Lucía>)"
         }
     },
 

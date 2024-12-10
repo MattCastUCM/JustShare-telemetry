@@ -53,7 +53,7 @@ export default class Scene1Bedroom1 extends BaseScene {
         });
 
         // Anade el evento homework para que, al producirse, se cambie el dialogo de la cama
-        this.dispatcher.add("homework", this, () => {
+        this.dispatcher.add("endHomework", this, () => {
             bedNode = super.readNodes(nodes, "scene1\\scene1Bedroom1", "bedAfterHomework", true);
         });
 
@@ -85,6 +85,7 @@ export default class Scene1Bedroom1 extends BaseScene {
     // Se hace esto porque si se establece un dialogo en la constructora,
     // no funciona el bloqueo del fondo del DialogManager
     onCreate() {
+        this.dispatcher.dispatch("endHomework", this, {});
     }
     
 }
