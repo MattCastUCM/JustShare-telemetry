@@ -37,7 +37,7 @@ export default class TitleScene extends Phaser.Scene {
     }
 
     createButton(x, y, textId, fn) {
-        let translation = this.i18next.t(textId, { ns: this.namespace });
+        let translation = this.gameManager.translate(textId, { ns: this.namespace });
 
         let button = new Button(this, x, y, this.BUTTON_SCALE, fn,
             this.gameManager.textBox.fillName, { R: 255, G: 255, B: 255 }, { R: 200, G: 200, B: 200 }, { R: 150, G: 150, B: 150 },

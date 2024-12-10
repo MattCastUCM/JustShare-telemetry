@@ -1,42 +1,35 @@
 import BaseScene from '../baseScene.js';
 import Portrait from '../../../UI/dialog/portrait.js';
 
-export default class Scene1Bedroom2 extends BaseScene {
+export default class Scene2Bedroom extends BaseScene {
     /**
      * Escena base para el salon. Coloca los elementos que se mantienen igual todos los dias
      * @extends BaseScene
      * @param {String} name - id de la escena
      */
     constructor(name) {
-        super("Scene1Bedroom2", 'Scene1Bedroom2');
+        super("Scene2Bedroom", 'Scene2Bedroom');
     }
 
     create(params) {
         super.create(params)
 
         // Pone la imagen de fondo con las dimensiones del canvas
-        let bg = this.add.image(0, 0, 'bedroomBg').setOrigin(0, 0);
+        let bg = this.add.image(0, 0, 'bedroomNightBg').setOrigin(0, 0);
         this.scale = this.CANVAS_HEIGHT / bg.height;
         bg.setScale(this.scale);
-
-
-        // Elemento interactuable que permite volver al salon
-        super.createInteractiveElement(1400, 800, 0.4, () => {
-            this.gameManager.changeScene("Scene1Lunch2", null, true);
-        }, false)
-
         
         // Lee el archivo de nodos
-        let nodes = this.cache.json.get('scene1Bedroom2');
+        let nodes = this.cache.json.get('scene2Bedroom');
 
         // Armario
-        let closetNode = super.readNodes(nodes, "scene1\\scene1Bedroom2", "closet", true);
+        let closetNode = super.readNodes(nodes, "scene2\\scene2Bedroom", "closet", true);
         super.createInteractiveElement(240, 400, "pointer", 0.4, () => {
             this.dialogManager.setNode(closetNode, []);
         }, false)
         
         // Cama
-        let bedNode = super.readNodes(nodes, "scene1\\scene1Bedroom2", "bed", true);
+        let bedNode = super.readNodes(nodes, "scene2\\scene2Bedroom", "bed", true);
         super.createInteractiveElement(790, 550, "pointer", 0.4, () => {
             this.dialogManager.setNode(bedNode, []);
         }, false)
@@ -45,7 +38,24 @@ export default class Scene1Bedroom2 extends BaseScene {
         super.createInteractiveElement(1390, 400, "pointer", 0.4, () => {
             // PENDIENTE
         }, false)
+        
 
+        this.dispatcher.add("chatEnded", this, () =>{
+            bedNode = super.readNodes(nodes, "scene2\\scene2Bedroom", "bedFinal", true);
+            closetNode = super.readNodes(nodes, "scene2\\scene2Bedroom", "closetNight", true);
+        });
+
+
+        // Anade el evento receiveMsg para que, al producirse, 
+        // aparezca el icono del telefono y se reciba un mensaje
+        this.dispatcher.add("receiveMsg", this, () => {
+            this.phoneManager.activatePhoneIcon(true);
+            // PENDIENTE
+            let chatName = this.gameManager.translate("textMessages.chat2", { ns: "phoneInfo", returnObjects: true });
+            let phoneNode = super.readNodes(nodes, "scene2\\scene2Bedroom", "phone", true);
+            this.phoneManager.phone.addChat(chatName, "");
+            this.phoneManager.phone.setChatNode(chatName, phoneNode);
+        })
         
         // Anade el evento sleep para que, al producirse, se haga la animacion de cerrar los ojos
         this.dispatcher.add("sleep", this, () => {
@@ -55,10 +65,10 @@ export default class Scene1Bedroom2 extends BaseScene {
                 setTimeout(() => {
                     let sceneName = 'TextOnlyScene';
                     let params = {
-                        text: this.gameManager.translate("scene2.startWeek", { ns: "transitions", returnObjects: true }),
+                        text: this.gameManager.translate("scene3.startWeek", { ns: "transitions", returnObjects: true }),
                         onComplete: () => {
                             this.UIManager.moveLids(true);
-                            this.gameManager.changeScene("Scene2Break");
+                            this.gameManager.changeScene("TitleScene");
                         },
                     };
                     this.gameManager.changeScene(sceneName, params);
@@ -70,7 +80,8 @@ export default class Scene1Bedroom2 extends BaseScene {
     // Se hace esto porque si se establece un dialogo en la constructora,
     // no funciona el bloqueo del fondo del DialogManager
     onCreate() {
-        // this.dispatcher.dispatch("sleep", { });
+        // TEST
+        this.dispatcher.dispatch("receiveMsg", this, {});
     }
     
 }

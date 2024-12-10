@@ -1,0 +1,63 @@
+{
+    "bed": {
+        "root": {
+            "text": "(Antes de irme a dormir quiero hablar un rato con <harasser, Pablo, Lucía>.)"
+        }
+    },
+
+    "closet": {
+        "root": {
+            "text": "(Ya lo ordenaré otro día, ahora quiero hablar con  <harasser, Pablo, Lucía>.)"
+        }
+    },
+
+
+    "closetNight": {
+        "root": {
+            "text": "(Ya es muy tarde, ya lo ordenaré otro día.)"
+        }
+    },
+
+    "bedUnanswered": {
+        "root": {
+            "text": "(Antes de irme a dormir tengo que ver que he recibido el mensaje de <harasser, Pablo, Lucía>.)"
+        }
+    },
+
+    "phone": {
+        "root": {
+            "text": "helloooo :)"
+        },
+        "choices": [
+            {
+                "text": "Jajaja."
+            },
+            {
+                "text": "Bueno, me voy a dormir."
+            }
+        ],
+        "reply1": {
+            "text": "jajaja"
+        },
+        "reply2": {
+            "text": "bueno, me voy a dormir"
+        },
+        "bye": {
+            "text": "chau"
+        }
+    },
+
+    "bedFinal": {
+        "root": {
+            "text": "(¿Debería irme ya a dormir?)"
+        },
+        "goToSleep": [
+            { 
+                "text": "Sí." 
+            },
+            {
+                "text": "No."
+            }
+        ]
+    }
+}

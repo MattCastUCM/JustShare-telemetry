@@ -240,6 +240,7 @@ export default class BootScene extends Phaser.Scene {
 
         // Habitacion
         this.load.image('bedroomBg', 'bedroom.png');
+        this.load.image('bedroomNightBg', 'bedroomNight.png');
 
     }
 
@@ -263,6 +264,7 @@ export default class BootScene extends Phaser.Scene {
             "scene1/scene1Bedroom2",
 
             "scene2/scene2Break",
+            "scene2/scene2Bedroom",
         ]
         // Solo son namespaces del plugin i18next
         // Namespace --> test\\dialog.json

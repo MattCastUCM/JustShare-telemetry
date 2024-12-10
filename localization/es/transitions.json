@@ -10,5 +10,9 @@
     "scene2": {
         "startWeek": "La semana siguiente...",
         "classEnd": "La campana suena y volvéis a clase. Al volver a casa, comes con tu abuela y te vas rápidamente a tu cuarto a utilizar el ordenador. Antes de darte cuenta, ya es por la noche."
+    },
+
+    "scene3": {
+        "startWeek": "Unos días más tarde..."
     }
 }

@@ -13,7 +13,7 @@ export default class MessagesScreen extends BaseScreen {
         textConfig.color = '#000';
 
         // Se coge el texto del archivo de traducciones y se pone en pantalla 
-        let text = this.i18next.t("textMessages.title", { ns: "phoneInfo" });
+        let text = this.gameManager.translate("textMessages.title", { ns: "phoneInfo" });
         let titleText = this.scene.add.text(this.BG_X, this.BG_Y * 0.225, text, textConfig).setOrigin(0.5, 0.5);
 
         this.chatNum = 0;

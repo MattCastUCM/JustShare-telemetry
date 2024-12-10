@@ -253,7 +253,7 @@ export default class BaseScene extends Phaser.Scene {
             // Obtiene la id del personaje y coge su nombre del archivo de nombres localizados
             let character = fileObj[id].character;
             node.character = character;
-            node.name = this.translate(fileObj[id].character, { 
+            node.name = this.gameManager.translate(fileObj[id].character, { 
                 ns: "names", 
                 returnObjects: getObjs 
             });
@@ -265,7 +265,7 @@ export default class BaseScene extends Phaser.Scene {
 
             // Obtiene los fragmentos del dialogo
             let texts = [];
-            let textTranslation = this.translate(translationId, { 
+            let textTranslation = this.gameManager.translate(translationId, { 
                 ns: namespace, 
                 name: this.playerName, 
                 context: this.context,
@@ -313,7 +313,7 @@ export default class BaseScene extends Phaser.Scene {
             node = new ChoiceNode();
 
             // Se obtienen las opciones del archivo de textos traducidos
-            let texts = this.translate(translationId, { 
+            let texts = this.gameManager.translate(translationId, { 
                 ns: namespace, name: this.playerName, 
                 context: this.context, 
                 returnObjects: getObjs });
@@ -388,7 +388,7 @@ export default class BaseScene extends Phaser.Scene {
             node = new ChatNode();
 
             // Obtiene el texto del archivo de textos traducidos y lo guarda
-            let text = this.translate(translationId + ".text", { 
+            let text = this.gameManager.translate(translationId + ".text", { 
                 ns: namespace, 
                 name: this.playerName, 
                 context: this.context, 
@@ -403,14 +403,14 @@ export default class BaseScene extends Phaser.Scene {
                 node.name = this.gameManager.getUserInfo().name;
             }
             else {
-                node.name = this.translate(fileObj[id].character, { 
+                node.name = this.gameManager.translate(fileObj[id].character, { 
                     ns: "names" 
                 });
             }
             node.character = character;
 
             // Guarda el chat en el que tiene que ir la respuesta y el retardo con el que se envia
-            node.chat = this.translate("textMessages" + "." + fileObj[id].chat, {
+            node.chat = this.gameManager.translate("textMessages" + "." + fileObj[id].chat, {
                 ns: "phoneInfo" 
             });
 
@@ -430,7 +430,7 @@ export default class BaseScene extends Phaser.Scene {
             node = new SocialNetNode();
 
             // Obtiene el texto del archivo de textos traducidos y lo guarda
-            let text = this.translate(translationId + ".text", { 
+            let text = this.gameManager.translate(translationId + ".text", { 
                 ns: namespace, 
                 name: this.playerName, 
                 context: this.context, 
@@ -442,7 +442,7 @@ export default class BaseScene extends Phaser.Scene {
             // Obtiene el nombre del personaje del archivo de nombres localizados
             // En el caso de se trate del propio del jugador, obtiene el pronombre personal Tu
             // traducido en el idioma correspondiente
-            node.name = this.translate(fileObj[id].character, { 
+            node.name = this.gameManager.translate(fileObj[id].character, { 
                 ns: "names" 
             });
 
@@ -583,93 +583,6 @@ export default class BaseScene extends Phaser.Scene {
         return newDialogs;
     }
 
-    /**
-     * Obtiene el texto traducido
-     * @param {String} translationId - id completa del nodo en el que mirar
-     * @param {Object} options - parametros que pasarle a i18n
-     * @returns 
-     */
-    translate(translationId, options) {
-        let str = this.i18next.t(translationId, options);
-
-        // Si se ha obtenido algo
-        if (str != null) {
-            // Si el objeto obtenido no es un array y tiene la propiedad
-            // .text, devuelve el texto con las expresiones <> reemplazadas
-            if (!Array.isArray(str) && str.text != null) {
-                return this.replaceGender(str.text);
-            } 
-            // Si es un array
-            else {
-                // Recorre todos los elementos
-                for (let i = 0; i < str.length; i++) {
-                    // Si el elemento tiene la propiedad text, modifica el
-                    // objeto original para reemplazar su contenido por el
-                    // texto con las expresiones <> reemplazadas
-                    if (str[i].text != null) {
-                        str[i] = this.replaceGender(str[i].text);
-                    }
-                }
-            }
-        }
-        return str;
-    }
-
-    /**
-     * Reemplaza en el string indicado todos los contenidos que haya entre <>
-     * con el formato: <player, male expression, female expression >, en el que 
-     * la primera variable es el contexto a comprobar y las otras dos expresiones
-     * son el texto por el que sustituir todo lo que hay entre <>
-     * @param {String} input - texto en el que reemplazar las expresiones <>
-     * @returns {String} - texto con las expresiones <> reemplazadas
-     */
-    replaceGender(input) {
-        // Expresion a sustituir (todo lo que haya entre <>)
-        let regex = /<([^>]+)>/g;
-
-        // Encuentra todos los elementos entre <>
-        let matches = [...input.matchAll(regex)];
-
-        let result = '';
-        let lastEndIndex = 0;
-        
-        // Por cada <>
-        matches.forEach((match, index) => {
-            // Obtiene todo el contenido entre <> y lo separa en un array
-            let [fullMatch, content] = match;
-            let variable = content.split(", ");
-            
-            // Elige que variable se usara para comprobar el contexto
-            let useContext = null;
-            if (variable[0] === "player") {
-                useContext = this.context;
-            }
-            else if (variable[0] === "harasser") {
-                useContext = this.harasser;
-            }
-            
-            // Elige el texto por el que reemplazar la expresion dependiendo del contexto
-            let replacement = "";
-            if (useContext != null) {
-                if (useContext === "male") {
-                    replacement = variable[1];
-                }
-                else if (useContext === "female") {
-                    replacement = variable[2];
-                }
-            }
-
-            // Anade el texto reemplazado al texto completo
-            result += input.slice(lastEndIndex, match.index) + `${replacement}`;
-
-            // Actualiza el indice del ultimo <> para el siguiente <>
-            lastEndIndex = match.index + fullMatch.length;
-        });
-
-        // Anade el resto del texto al texto completo
-        result += input.slice(lastEndIndex);
-        return result;
-    }
 
     /**
      * Crea el icono con el que interactuar con los elementos del escenario

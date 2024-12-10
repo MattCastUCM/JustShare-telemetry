@@ -1,0 +1,103 @@
+{
+    "bed": {
+        "root": {
+            "type": "text",
+            "character": "player"
+        }
+    },
+    
+    "closet": {
+        "root": {
+            "type": "text",
+            "character": "player"
+        }
+    },
+
+    
+    "bedUnanswered": {
+        "root": {
+            "type": "text",
+            "character": "player"
+        }
+    },
+
+    "closetNight": {
+        "root": {
+            "type": "text",
+            "character": "player"
+        }
+    },
+
+    "phone": {
+        "root": {
+            "type": "chatMessage",
+            "character": "harasser",
+            "chat": "chat2",
+            "replyDelay": 0,
+            "next": "choices"
+        },
+        "choices": {
+            "type": "choice",
+            "choices":[
+                { "next": "reply1" },
+                { "next": "reply2" }
+            ]
+        },
+        "reply1": {
+            "type": "chatMessage",
+            "character": "player",
+            "chat": "chat2",
+            "replyDelay": 0,
+            "next": "reply2"
+        },
+        "reply2": {
+            "type": "chatMessage",
+            "character": "player",
+            "chat": "chat2",
+            "replyDelay": 700,
+            "next": "bye"
+        },
+        "bye": {
+            "type": "chatMessage",
+            "character": "harasser",
+            "chat": "chat2",
+            "replyDelay": 1500,
+            "next": "chatEnded"
+        },
+        "chatEnded": {
+            "type": "event",
+            "events": [
+                {
+                    "chatEnded": {
+                        "delay": 0
+                    }
+                }
+            ]
+        }
+    },
+
+    "bedFinal": {
+        "root": {
+            "type": "text",
+            "character": "player",
+            "next": "goToSleep"
+        },
+        "goToSleep": {
+            "type": "choice",
+            "choices": [
+                { "next": "sleep" },
+                { }
+            ]
+        },
+        "sleep": {
+           "type": "event",
+            "events": [
+                {
+                    "sleep": {
+                        "delay": 500
+                    }
+                }
+            ] 
+        }
+    }
+}

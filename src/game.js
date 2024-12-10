@@ -10,7 +10,7 @@ import Scene1Lunch2 from "./scenes/gameLoop/scene1/scene1Lunch2.js";
 import Scene1Bedroom2 from "./scenes/gameLoop/scene1/scene1Bedroom2.js";
 // Escena 2
 import Scene2Break from "./scenes/gameLoop/scene2/scene2Break.js";
-
+import Scene2Bedroom from "./scenes/gameLoop/scene2/scene2Bedroom.js";
 // UI
 import UIManager from './managers/UIManager.js';
 import TitleScene from "./scenes/titleScene.js";
@@ -32,7 +32,7 @@ const config = {
         // Escena 1
         Scene1Classroom, Scene1Break, Scene1Lunch1, Scene1Bedroom1, Scene1Lunch2, Scene1Bedroom2,
         // Escena 2
-        Scene2Break,
+        Scene2Break, Scene2Bedroom,
 
         // Menus
         TitleScene,

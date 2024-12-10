@@ -70,7 +70,7 @@ export default class Scene1Bedroom1 extends BaseScene {
                 setTimeout(() => {
                     let sceneName = 'TextOnlyScene';
                     let params = {
-                        text: this.i18next.t("scene1.nextDay", { ns: "transitions", returnObjects: true }),
+                        text: this.gameManager.translate("scene1.nextDay", { ns: "transitions", returnObjects: true }),
                         onComplete: () => {
                             this.UIManager.moveLids(true);
                             this.gameManager.changeScene("Scene1Lunch2");
@@ -85,7 +85,6 @@ export default class Scene1Bedroom1 extends BaseScene {
     // Se hace esto porque si se establece un dialogo en la constructora,
     // no funciona el bloqueo del fondo del DialogManager
     onCreate() {
-        this.dispatcher.dispatch("endHomework", this, {});
     }
     
 }

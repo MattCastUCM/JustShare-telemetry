@@ -4,9 +4,7 @@
             "text": "Oye, {{name}}, ya llevas una semana en el insti, ¿no? ¿Qué te va pareciendo? ¿Ya te llevas bien con alguien de clase?"
         },
         "noTalk": {
-            "text": "PENDIENTE",
-            "text_maleHarasser": "Pues… la verdad es que todavía no he hablado mucho con nuestros compañeros, pero he conocido a un chico de otro instituto de la ciudad y llevamos unos cuántos días hablando.",
-            "text_femaleHarasser": "Pues… la verdad es que todavía no he hablado mucho con nuestros compañeros, pero he conocido a una chica de otro instituto de la ciudad y llevamos unos cuántos días hablando."
+            "text": "Pues… la verdad es que todavía no he hablado mucho con nuestros compañeros, pero he conocido a <harasser, un chico, una chica> de otro instituto de la ciudad y llevamos unos cuántos días hablando."
         },
         "glad": {
             "text": "Me alegro por ti. Mudarse a otra ciudad y cambiarse de instituto tiene que ser un rollo..."
