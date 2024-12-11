@@ -13,8 +13,9 @@ import Scene2Break from "./scenes/gameLoop/scene2/scene2Break.js";
 import Scene2Bedroom from "./scenes/gameLoop/scene2/scene2Bedroom.js";
 // UI
 import UIManager from './managers/UIManager.js';
+// Menus
 import TitleScene from "./scenes/titleScene.js";
-
+import LoginScene from "./scenes/loginScene.js";
 
 const max_w = 1600, max_h = 900, min_w = 320, min_h = 240;
 const config = {
@@ -35,7 +36,7 @@ const config = {
         Scene2Break, Scene2Bedroom,
 
         // Menus
-        TitleScene,
+        TitleScene, LoginScene,
         
         // UI
         UIManager, TextOnlyScene

@@ -7,7 +7,7 @@ export default class Button extends Phaser.GameObjects.Container {
     * @param {Number} x - posicion x
     * @param {Number} y - posicion y
     * @param {Number} scale - escala del objeto
-    * @param {Function} fn - funcion que se ejecuta cuando se clica en el boton
+    * @param {Function} onClick - funcion que se ejecuta cuando se clica en el boton
     * @param {String} fill - sprite que se usa para el relleno
     * @param {Color} normalCol - color RGB del boton cuando no se esta interactuando con el
     * @param {Color} highlightedCol - color RGB cuando se pasa el puntero por encima
@@ -17,7 +17,7 @@ export default class Button extends Phaser.GameObjects.Container {
     * @param {String} edge - sprite que se usa para el borde (opcional)
     * @param {String} hitArea - cambiar el area de colision (opcional)
     */
-    constructor(scene, x, y, scale, fn, fill, normalCol, highlightedCol, pressedCol, text, fontParams, edge, hitArea) {
+    constructor(scene, x, y, scale, onClick, fill, normalCol, highlightedCol, pressedCol, text, fontParams, edge, hitArea) {
         super(scene, x, y);
         this.scene.add.existing(this);
 
@@ -106,7 +106,7 @@ export default class Button extends Phaser.GameObjects.Container {
             });
             down.on('complete', () => {
                 this.fillImg.setInteractive({ useHandCursor: true });
-                fn();
+                onClick();
             });
         });
 

@@ -21,3 +21,8 @@ Fuentes que se usan en Phaser
     font-family: "corpid";
     src: url('assets/fonts/Corpid.otf');
 }
+
+@font-face {
+    font-family: "corpid-black";
+    src: url('assets/fonts/Corpid-Black.otf');
+}
