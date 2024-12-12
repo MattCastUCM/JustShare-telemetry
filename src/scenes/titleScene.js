@@ -17,12 +17,12 @@ export default class TitleScene extends ComputerBaseScene {
         const BUTTON_OFFSET = 60
 
         let playButton = this.createButton(this.CANVAS_WIDTH / 3, 3 * this.CANVAS_HEIGHT / 7, "playButton", BUTTON_SCALE, () => {
-            this.gameManager.startTestScene();
+            this.gameManager.changeScene("LoginScene")
         });
 
         let creditsButton = this.createButton(playButton.x, playButton.y + BUTTON_HEIGHT + BUTTON_OFFSET, 
             "creditsButton", BUTTON_SCALE, () => {
-
+                
         });
     }
 }

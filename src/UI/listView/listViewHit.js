@@ -47,8 +47,10 @@ export default class ListViewHit extends Phaser.GameObjects.Zone {
         let rect = this.getBoundingRect();
         this.setPosition(rect.x, rect.y);
         this.setSize(rect.width, rect.height);
-        if (this.scene.sys.game.debug) {
-            this.scene.input.enableDebug(this, '0x000000');
+
+        let debug = this.scene.sys.game.debug;
+        if (debug.enable) {
+            this.scene.input.enableDebug(this, debug.color);
         }
     }
 
@@ -77,8 +79,9 @@ export default class ListViewHit extends Phaser.GameObjects.Zone {
 
             // Cada vez que se cambia la zona, hay que volver a llamar al enableDebug
             // para que el area de colision se pinte correctamente
-            if (this.scene.sys.game.debug) {
-                this.scene.input.enableDebug(this, '0x000000');
+            let debug = this.scene.sys.game.debug;
+            if (debug.enable) {
+                this.scene.input.enableDebug(this, debug.color);
             }
         }
     }

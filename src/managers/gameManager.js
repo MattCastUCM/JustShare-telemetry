@@ -75,20 +75,14 @@ export default class GameManager {
         return this.create();
     }
 
-
     ///////////////////////////////////////
     /// Metodos para cambiar de escena ///
     //////////////////////////////////////
     
-    // TEST
-    startTestScene() {
+    startTestScene(userInfo) {
         this.blackboard.clear();
         this.day = 0;
-        this.userInfo = {
-            name: "Rigoberta",
-            gender: "female",
-            harasser: "male"
-        }
+        this.userInfo = userInfo;
 
         //*
         // IMPORTANTE: Hay que lanzar primero el UIManager para que se inicialice
@@ -263,6 +257,8 @@ export default class GameManager {
      * tener un sencillo acceso a los diferentes parametros de cada una (nombre, tam...)
      */
     generateTextures() {
+        const OFFSET = 10
+
         // Se crea un objeto grafico, que sirve para formas primitivas (resulta muy util para dibujar elementos con bordes redondeados)
         // Ademas, si el objeto grafico no va a modificar durante el tiempo es recomendable convertirlo en una textura y usarla
         // para mejorar el rendimiento
@@ -277,12 +273,12 @@ export default class GameManager {
             border: {
                 name: "borderTextBox",
                 color: 0x000000,
-                width: 4
+                width: 4.5
             },
             width: 345,
             height: 105,
-            arc: 20,
-            offset: 10
+            arc: 15,
+            offset: OFFSET
         }
         this.generateBox(this.textBox);
 
@@ -295,14 +291,32 @@ export default class GameManager {
             border: {
                 name: "borderInputBox",
                 color: 0x000000,
-                width: 4
+                width: 4.5
             },
-            width: 420,
-            height: 100,
-            arc: 10,
-            offset: 10
+            width: 335,
+            height: 90,
+            arc: 15,
+            offset: OFFSET
         }
         this.generateBox(this.inputBox);
+
+        // Se crea un cuadrado con bordes redondeados
+        this.roundedSquare = {
+            fill: {
+                name: 'fillSquare',
+                color: 0xffffff
+            },
+            border: {
+                name: "borderSquare",
+                color: 0x000000,
+                width: 4.5
+            },
+            width: 100,
+            height: 100,
+            arc: 10,
+            offset: OFFSET
+        }
+        this.generateBox(this.roundedSquare);
         
         this.graphics.destroy();
     }

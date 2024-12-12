@@ -122,8 +122,10 @@ export default class BootScene extends Phaser.Scene {
 
     loadComputerAssets() {
         this.load.setPath('assets/UI/computer');
-        this.load.image('loginScreen', 'login.png')
+        this.load.image('computer', 'computer.png')
         this.load.image('powerIcon', 'powerIcon.png')
+        this.load.image('manIcon', 'manIcon.png')
+        this.load.image('womanIcon', 'womanIcon.png')
     }
 
     loadPhoneAssets() {
@@ -274,6 +276,9 @@ export default class BootScene extends Phaser.Scene {
             "names",
             "transitions",
             "deviceInfo",
+            "phoneInfo",
+            "titleScene",
+            "loginScene"
         ]
 
         this.loadUIAssets();

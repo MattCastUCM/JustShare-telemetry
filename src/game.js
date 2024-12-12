@@ -21,7 +21,7 @@ import Scene2Bedroom from "./scenes/gameLoop/scene2/scene2Bedroom.js";
 import UIManager from './managers/UIManager.js';
 // Menus
 import TitleScene from "./scenes/titleScene.js";
-// import LoginScene from "./scenes/loginScene.js";
+import LoginScene from "./scenes/loginScene.js";
 
 const max_w = 1600, max_h = 900, min_w = 320, min_h = 240;
 const config = {
@@ -44,7 +44,7 @@ const config = {
         // Scene3Break,
 
         // Menus
-        TitleScene, /*LoginScene,*/
+        TitleScene, LoginScene,
         
         // UI
         UIManager, TextOnlyScene
@@ -73,4 +73,7 @@ const config = {
 
 const game = new Phaser.Game(config);
 // Propiedad debug
-game.debug = false;
+game.debug = {
+    enable: true,
+    color: '0x00ff00'
+}

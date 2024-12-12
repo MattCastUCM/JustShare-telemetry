@@ -50,8 +50,9 @@ export default class VerticalListView extends Phaser.GameObjects.Container {
         // El scrolling esta por encima de cualquier asset
         // De esta forma, se va a poder scrollear sobre la propia listiview
         this.boundedZone.setDepth(1);
-        if (this.scene.sys.game.debug) {
-            this.scene.input.enableDebug(this.boundedZone, '0x000000');
+        let debug = this.scene.sys.game.debug;
+        if (debug.enable) {
+            this.scene.input.enableDebug(this.boundedZone, debug.color);
         }
         this.add(this.boundedZone);
         // Final de los limites de la listview
