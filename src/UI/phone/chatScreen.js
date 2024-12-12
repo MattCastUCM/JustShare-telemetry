@@ -49,8 +49,8 @@ export default class ChatScreen extends BaseScreen {
         this.currNode = null;
 
         // Lista con los mensajes
-        this.messagesListView = new VerticalListView(this.scene, this.BG_X, this.HEADER_Y * 1.2,
-            1, -40, { width: this.bg.displayWidth * 0.8, height: this.bg.displayHeight * 0.75 }, null, true, 50, true);
+        this.messagesListView = new VerticalListView(this.scene, this.BG_X, 141,
+            1, -40, { width: this.bg.displayWidth * 0.85, height: 605 }, null, true, 50, true);
 
         this.add(this.nameText);
         this.add(this.iconImage);
@@ -254,8 +254,7 @@ export default class ChatScreen extends BaseScreen {
     // Procesa el nodo de dialogo
     processNode() {
         this.canAnswer = true;
-        this.scene.dialogManager.setTalking(false);
-        this.scene.dialogManager.bgBlock.disableInteractive();
+        this.scene.dialogManager.setNode(null, []);
         
         if (this.currNode) {
             // Si el nodo es de tipo mensaje, con el retardo indicado, anade
@@ -272,7 +271,8 @@ export default class ChatScreen extends BaseScreen {
             // Si el nodo es de tipo condicion, hace que el dialogManager lo procese y obtiene el siguiente nodo
             else if (this.currNode.type === "condition") {
                 let i = this.scene.dialogManager.processConditionNode(this.currNode);
-
+                this.scene.dialogManager.currNode = this.currNode;
+                
                 // El indice del siguiente nodo sera el primero que cumpla una de las condiciones
                 this.currNode = this.currNode.next[i];
 

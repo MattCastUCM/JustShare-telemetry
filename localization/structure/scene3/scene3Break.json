@@ -9,6 +9,17 @@
         "character": "",
         "chat": "chat2",
         "replyDelay": 0,
+        "next": "processChoice"
+    },
+    "processChoice": {
+        "type": "event",
+        "events": [
+            {
+                "processChoice": {
+                    "delay": 500
+                }
+            }
+        ],
         "next": "choices"
     },
     "choices": {
@@ -23,7 +34,10 @@
         "events": [
             {
                 "answerPhone": {
-                    "delay": 500
+                    "variable": "answered",
+                    "global": false,
+                    "value": true,
+                    "delay": 0
                 }
             }
         ],
@@ -39,7 +53,41 @@
         "character": "",
         "chat": "chat2",
         "replyDelay": 0,
-        "next": "choices2"
+        "next": "processChoice2"
+    },
+    "processChoice2": {
+        "type": "event",
+        "events": [
+            {
+                "processChoice": {
+                    "delay": 500
+                }
+            }
+        ],
+        "next": "checkAnswered"
+    },
+    "checkAnswered": {
+        "type": "condition", 
+            "conditions": [
+                {
+                    "next": "choices2",
+                    "answered": {
+                        "value": false,
+                        "operator": "equal",
+                        "global": false,
+                        "default": false
+                    }
+                },
+                {
+                    "next": "listen2",
+                    "answered": {
+                        "value": true,
+                        "operator": "equal",
+                        "global": false,
+                        "default": false
+                    }
+                }
+            ]
     },
     "choices2": {
         "type": "choice",
@@ -47,6 +95,20 @@
             { "next": "answerPhone2" },
             { "next": "listen2" }
         ]
+    },
+    "answerPhone2": {
+        "type": "event",
+        "events": [
+            {
+                "answerPhone": {
+                    "variable": "answered",
+                    "global": false,
+                    "value": true,
+                    "delay": 500
+                }
+            }
+        ],
+        "next": "listen2"
     },
     "listen2": {
         "type": "text",
@@ -58,13 +120,50 @@
         "character": "",
         "chat": "chat2",
         "replyDelay": 0,
-        "next": "answerPhone"
+        "next": "processChoice3"
     },
-    "answerPhone2": {
+    "processChoice3": {
+        "type": "event",
+        "events": [
+            {
+                "processChoice": {
+                    "delay": 500
+                }
+            }
+        ],
+        "next": "checkAnswered2"
+    },
+    "checkAnswered2": {
+        "type": "condition", 
+            "conditions": [
+                {
+                    "next": "answerPhone3",
+                    "answered": {
+                        "value": false,
+                        "operator": "equal",
+                        "global": false,
+                        "default": false
+                    }
+                },
+                {
+                    "next": "msg4",
+                    "answered": {
+                        "value": true,
+                        "operator": "equal",
+                        "global": false,
+                        "default": false
+                    }
+                }
+            ]
+    },
+    "answerPhone3": {
         "type": "event",
         "events": [
             {
                 "answerPhone": {
+                    "variable": "answered",
+                    "global": false,
+                    "value": true,
                     "delay": 500
                 }
             }
@@ -132,6 +231,50 @@
     "thoughts": {
         "type": "text",
         "character": "player",
-        "next": "choices"
+        "next": "choices3"
+    },
+    "choices3": {
+        "type": "choice",
+        "choices":[
+            { "next": "teacher" },
+            { "next": "homework" }
+        ]
+    },
+
+    "teacher": {
+        "type": "text",
+        "character": "player",
+        "next": "notListening"
+    },
+    "homework": {
+        "type": "text",
+        "character": "player",
+        "next": "notListening"
+    },
+
+    "notListening": {
+        "type": "text",
+        "character": "laura",
+        "next": "sorry"
+    },
+    "sorry": {
+        "type": "text",
+        "character": "player",
+        "next": "whatever"
+    },
+    "whatever": {
+        "type": "text",
+        "character": "laura",
+        "next": "endBreak"
+    },
+    "endBreak": {
+        "type": "event",
+        "events": [
+            {
+                "endBreak": {
+                    "delay": 500
+                }
+            }
+        ]
     }
 }

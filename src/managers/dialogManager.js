@@ -152,7 +152,7 @@ export default class DialogManager {
             this.bgBlock.disableInteractive();
             this.setTalking(false);
             
-            portraits.forEach((value) => {
+            this.portraits.forEach((value) => {
                 let key = value.getKey()
                 this.portraits.set(key, value);
                 value.setTalking(false, this.PORTRAIT_ANIM_TIME);
@@ -160,7 +160,7 @@ export default class DialogManager {
 
             // Desactiva los personajes (despues de que haya desaparecido la caja de texto)
             setTimeout(() => {
-                portraits.forEach((value) => {
+                this.portraits.forEach((value) => {
                     value.activate(false, this.PORTRAIT_ANIM_TIME);
                 });
             }, animTime);
@@ -324,7 +324,6 @@ export default class DialogManager {
             }
             else if (this.currNode.type === "chatMessage") {
                 this.scene.phoneManager.phone.setChatNode(this.currNode.chat, this.currNode);
-                this.setNode(null, [])
             }
             else if (this.currNode.type === "socialNetMessage") {
                 // Funcion comun (se anade el comentario al post y se procesa el nodo)

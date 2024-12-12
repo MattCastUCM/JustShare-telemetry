@@ -268,6 +268,9 @@ export default class BootScene extends Phaser.Scene {
 
             "scene2/scene2Break",
             "scene2/scene2Bedroom",
+
+            "scene3/scene3Break",
+
         ]
         // Solo son namespaces del plugin i18next
         // Namespace --> test\\dialog.json
@@ -276,7 +279,6 @@ export default class BootScene extends Phaser.Scene {
             "names",
             "transitions",
             "deviceInfo",
-            "phoneInfo",
             "titleScene",
             "loginScene"
         ]

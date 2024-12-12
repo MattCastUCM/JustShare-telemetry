@@ -49,7 +49,7 @@ export default class Scene2Bedroom extends BaseScene {
         // aparezca el icono del telefono y se reciba un mensaje
         this.dispatcher.add("endConversation", this, () => {
             this.phoneManager.activatePhoneIcon(true);
-            // PENDIENTE
+            // PENDIENTE / TEST
             let chatName = this.gameManager.translate("textMessages.chat2", { ns: "deviceInfo", returnObjects: true });
             let phoneNode = super.readNodes(nodes, "scene2\\scene2Bedroom", "phone", true);
             this.phoneManager.phone.addChat(chatName, "");

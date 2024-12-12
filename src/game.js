@@ -15,7 +15,7 @@ import Scene2Break from "./scenes/gameLoop/scene2/scene2Break.js";
 import Scene2Bedroom from "./scenes/gameLoop/scene2/scene2Bedroom.js";
 
 // Escena 3
-// import Scene3Break from "./scenes/scene3/scene3Break.js";
+import Scene3Break from "./scenes/gameLoop/scene3/scene3Break.js";
 
 // UI
 import UIManager from './managers/UIManager.js';
@@ -41,8 +41,8 @@ const config = {
         // Escena 2
         Scene2Break, Scene2Bedroom,
         // Escena 3
-        // Scene3Break,
-
+        Scene3Break,
+        
         // Menus
         TitleScene, LoginScene,
         
@@ -74,6 +74,6 @@ const config = {
 const game = new Phaser.Game(config);
 // Propiedad debug
 game.debug = {
-    enable: true,
+    enable: false,
     color: '0x00ff00'
 }

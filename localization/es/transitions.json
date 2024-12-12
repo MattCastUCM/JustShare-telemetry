@@ -13,6 +13,7 @@
     },
 
     "scene3": {
-        "startWeek": "Unos días más tarde..."
+        "startWeek": "Unos días más tarde...",
+        "classEnd": ""
     }
 }

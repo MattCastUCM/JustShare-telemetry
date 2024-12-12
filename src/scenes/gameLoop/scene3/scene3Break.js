@@ -26,39 +26,44 @@ export default class Scene3Break extends BaseScene {
         lauraPortrait.setFlipX(true);
         this.portraits.set("laura", lauraPortrait);
 
-        // Retrato de paula
-        let paulaTr = this.portraitTr;
-        paulaTr.x = this.CANVAS_WIDTH / 2 + this.CANVAS_WIDTH / 5;
-        let paulaPortrait = new Portrait(this, "paula", paulaTr, "paula")
-        this.portraits.set("paula", paulaPortrait);
-
-        
         // Lee el archivo de nodos
         let nodes = this.cache.json.get('scene3Break');
-        let node = super.readNodes(nodes, "scene2\\scene3Break", "part1", true);
+        let node = super.readNodes(nodes, "scene3\\scene3Break", "", true);
         
         // Callback que al llamarse cambiara el nodo de dialogo
         this.setNode = () => {
             this.dialogManager.setNode(node, [lauraPortrait]);
         }
 
+        this.phoneManager.activatePhoneIcon(true);
+        // PENDIENTE / TEST
+        let chatName = this.gameManager.translate("textMessages.chat2", { ns: "deviceInfo", returnObjects: true });
+        this.phoneManager.phone.addChat(chatName, "");
 
-        // Anade el evento paulaAppear para que, al producirse, el retrato de laura se desplace, 
-        // aparezca el retrato de paula, y se cambie el dialogo a la segunda parte
-        this.dispatcher.add("paulaAppear", this, () => {
-            lauraTr.x = this.CANVAS_WIDTH / 2 - this.CANVAS_WIDTH / 5;
-            lauraPortrait.setPosX(lauraTr.x);
-            node = super.readNodes(nodes, "scene2\\scene3Break", "part2", true);
-            this.dialogManager.setNode(node, [lauraPortrait, paulaPortrait]);
+
+        this.dispatcher.add("processChoice", this, () => {
+            this.dialogManager.processNode();
+
         });
-    
+        
+        this.dispatcher.add("answerPhone", this, () => {
+            setTimeout(() => {
+                this.phoneManager.togglePhone();
+                this.phoneManager.phone.toChatScreen(chatName);
+            }, 500);
+        });
+
+        this.dispatcher.add("closePhone", this, () => {
+            this.phoneManager.togglePhone();
+        });
+
         // Anade el evento endBreak para que, al producirse, se cambie a la escena de transicion y luego a la
         this.dispatcher.add("endBreak", this, () => {
             let sceneName = 'TextOnlyScene';
             let params = {
-                text: this.gameManager.translate("scene2.classEnd", { ns: "transitions", returnObjects: true }),
+                text: this.gameManager.translate("scene3.classEnd", { ns: "transitions", returnObjects: true }),
                 onComplete: () => {
-                    this.gameManager.changeScene("Scene2Bedroom");
+                    this.gameManager.changeScene("TitleScene");
                 },
             };
             this.gameManager.changeScene(sceneName, params);
