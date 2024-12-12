@@ -194,18 +194,17 @@ export default class PhoneManager {
                 // Una vez terminada la animacion, se oculta el telefono, se indica que ya ha terminado, se 
                 // reactiva la interaccion con los elementos del fondo y vuelve a la pantalla de inicio
                 deactivate.on('complete', () => {
-                    this.phone.visible = false;
-                    this.toggling = false;
-                    this.bgBlock.visible = false;
-                    this.bgBlock.disableInteractive();
+                    this.activatePhone(false);
                     this.phone.toMessagesListScreen();
+
+                    setTimeout(() => {
+                        this.toggling = false;                        
+                    }, 50);
                 });
             }
             // Si el telefono no es visible
             else {
-                this.phone.visible = true;
-                this.bgBlock.visible = true;
-                this.bgBlock.setInteractive();
+                this.activatePhone(true);
                 
                 // Se mueve hacia el centro de la pantalla
                 let activate = this.scene.tweens.add({
@@ -217,7 +216,9 @@ export default class PhoneManager {
 
                 // Una vez terminada la animacion, se indica que ya ha terminado
                 activate.on('complete', () => {
-                    this.toggling = false;
+                    setTimeout(() => {
+                        this.toggling = false;                        
+                    }, 50);
                 });
             }
         }

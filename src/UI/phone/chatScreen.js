@@ -21,6 +21,11 @@ export default class ChatScreen extends BaseScreen {
         this.HEADER_X = 640;
         this.HEADER_Y = 105;
         
+        // Configuracion de las animaciones
+        this.tintFadeTime = 50;
+        this.noTint = Phaser.Display.Color.HexStringToColor('#ffffff');
+        this.pointerOverColor = Phaser.Display.Color.HexStringToColor('#8c8c8c');
+
         // Crea la caja de respuesta y el boton de volver hacia atras y los guarda
         // en las variables this.textBox y this.returnButton respectivamente
         this.createTextBox();
@@ -76,10 +81,7 @@ export default class ChatScreen extends BaseScreen {
         this.textBox = this.scene.add.image(this.BG_X, TEXT_BOX_Y, 'chatTextBox');
         this.textBox.setInteractive({ useHandCursor: true });
 
-        // Configuracion de las animaciones
-        let tintFadeTime = 50;
-        let noTint = Phaser.Display.Color.HexStringToColor('#ffffff');
-        let pointerOverColor = Phaser.Display.Color.HexStringToColor('#c9c9c9');
+        
 
         // Hace fade del color de la caja al pasar o quitar el raton por encima
         this.textBox.on('pointerover', () => {
@@ -90,11 +92,11 @@ export default class ChatScreen extends BaseScreen {
                     to: 100,
                     onUpdate: (tween) => {
                         const value = tween.getValue();
-                        let col = Phaser.Display.Color.Interpolate.ColorWithColor(noTint, pointerOverColor, 100, value);
+                        let col = Phaser.Display.Color.Interpolate.ColorWithColor(this.noTint, this.pointerOverColor, 100, value);
                         let colInt = Phaser.Display.Color.GetColor(col.r, col.g, col.b);
                         this.textBox.setTint(colInt);
                     },
-                    duration: tintFadeTime,
+                    duration: this.tintFadeTime,
                     repeat: 0,
                 });
             }
@@ -108,11 +110,11 @@ export default class ChatScreen extends BaseScreen {
                     to: 100,
                     onUpdate: (tween) => {
                         const value = tween.getValue();
-                        let col = Phaser.Display.Color.Interpolate.ColorWithColor(pointerOverColor, noTint, 100, value);
+                        let col = Phaser.Display.Color.Interpolate.ColorWithColor(this.pointerOverColor, this.noTint, 100, value);
                         let colInt = Phaser.Display.Color.GetColor(col.r, col.g, col.b);
                         this.textBox.setTint(colInt);
                     },
-                    duration: tintFadeTime,
+                    duration: this.tintFadeTime,
                     repeat: 0,
                 });
             }
@@ -127,11 +129,11 @@ export default class ChatScreen extends BaseScreen {
                     to: 100,
                     onUpdate: (tween) => {
                         const value = tween.getValue();
-                        let col = Phaser.Display.Color.Interpolate.ColorWithColor(noTint, pointerOverColor, 100, value);
+                        let col = Phaser.Display.Color.Interpolate.ColorWithColor(this.noTint, this.pointerOverColor, 100, value);
                         let colInt = Phaser.Display.Color.GetColor(col.r, col.g, col.b);
                         this.textBox.setTint(colInt);
                     },
-                    duration: tintFadeTime,
+                    duration: this.tintFadeTime,
                     repeat: 0,
                     yoyo: true
                 });
@@ -139,9 +141,14 @@ export default class ChatScreen extends BaseScreen {
                 // el dialogManager cree las opciones para responder y las active
                 if (fadeColor && this.currNode) {
                     fadeColor.on('complete', () => {
+                        // Elimina la animacion de que se podia hacer click en la caja
+                        this.scene.tweens.remove(this.canAnswerAnim);
+                        
+                        // Si es un mensaje de chat, lo procesa
                         if (this.currNode.type === "chatMessage") {
                             this.processNode();
                         }
+                        // Si no, lo procesa el dialogManager
                         else {
                             this.scene.dialogManager.setNode(this.currNode, []);
                             this.setNode(null);
@@ -208,34 +215,28 @@ export default class ChatScreen extends BaseScreen {
         });
 
         this.add(this.returnButton);
+    }   
+
+    // Anade una animacion a la caja de respuesta para saber que se puede escribir
+    setCanAnswer() {
+        this.canAnswerAnim = this.scene.tweens.addCounter({
+            targets: [this.textBox],
+            from: 0,
+            to: 100,
+            onUpdate: (tween) => {
+                const value = tween.getValue();
+                let col = Phaser.Display.Color.Interpolate.ColorWithColor(this.noTint, this.pointerOverColor, 100, value);
+                let colInt = Phaser.Display.Color.GetColor(col.r, col.g, col.b);
+                this.textBox.setTint(colInt);
+            },
+            duration: this.tintFadeTime * 15,
+            repeat: -1,
+            yoyo: true
+        });
+
+        this.canAnswer = true;
     }
 
-
-    // Borra todas las notificaciones de este chat
-    // (genera -notificationAmount para quitarlas todas)
-    clearNotifications() {
-        this.generateNotifications(-this.notificationAmount);
-    }
-
-    /**
-     * Genera notificaciones para el chat
-     * @param {Number} amount - cantidad de notificaciones a generar 
-     */
-    generateNotifications(amount) {
-        // Actualiza la cantidad de notificaciones tanto del chat, como en general
-        this.notificationAmount += amount;
-        this.phone.phoneManager.addNotifications(amount);
-
-        // Si ya no hay notificaciones, se oculta el icono
-        if (this.notificationAmount === 0) {
-            this.notifications.container.visible = false;
-        }
-        // Si hay notificaciones, se muestra el icono y actualiza el texto
-        else {
-            this.notifications.container.visible = true;
-            this.notifications.text.setText(this.notificationAmount);
-        }
-    }
 
     /**
      * Cambia el nodo de dialogo
@@ -308,4 +309,32 @@ export default class ChatScreen extends BaseScreen {
         this.messagesListView.addLastItem(msg);
         //this.messagesListView.cropItems();
     }
+
+    // Borra todas las notificaciones de este chat
+    // (genera -notificationAmount para quitarlas todas)
+    clearNotifications() {
+        this.generateNotifications(-this.notificationAmount);
+    }
+
+    /**
+     * Genera notificaciones para el chat
+     * @param {Number} amount - cantidad de notificaciones a generar 
+     */
+    generateNotifications(amount) {
+        // Actualiza la cantidad de notificaciones tanto del chat, como en general
+        this.notificationAmount += amount;
+        this.phone.phoneManager.addNotifications(amount);
+
+        // Si ya no hay notificaciones, se oculta el icono
+        if (this.notificationAmount === 0) {
+            this.notifications.container.visible = false;
+        }
+        // Si hay notificaciones, se muestra el icono y actualiza el texto
+        else {
+            this.notifications.container.visible = true;
+            this.notifications.text.setText(this.notificationAmount);
+        }
+    }
+
+    
 }

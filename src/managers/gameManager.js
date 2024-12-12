@@ -84,7 +84,7 @@ export default class GameManager {
         this.day = 0;
         this.userInfo = userInfo;
 
-        /*
+        //*
         // IMPORTANTE: Hay que lanzar primero el UIManager para que se inicialice
         // el DialogManager y las escenas puedan crear los dialogos correctamente
         let UIsceneName = 'UIManager';
@@ -103,7 +103,7 @@ export default class GameManager {
         this.changeScene("Scene1Bedroom1", {});
         //*/
 
-        this.startGame();
+        // this.startGame();
     }
 
 
