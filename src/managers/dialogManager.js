@@ -323,9 +323,8 @@ export default class DialogManager {
                 this.processNode();
             }
             else if (this.currNode.type === "chatMessage") {
-                this.setTalking(false);
                 this.scene.phoneManager.phone.setChatNode(this.currNode.chat, this.currNode);
-                this.bgBlock.disableInteractive();
+                this.setNode(null, [])
             }
             else if (this.currNode.type === "socialNetMessage") {
                 // Funcion comun (se anade el comentario al post y se procesa el nodo)

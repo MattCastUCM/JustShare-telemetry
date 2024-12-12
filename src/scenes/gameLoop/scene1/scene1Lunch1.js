@@ -54,17 +54,18 @@ export default class Scene1Lunch1 extends BaseScene {
         this.dispatcher.add("receiveMsg", this, () => {
             this.phoneManager.activatePhoneIcon(true);
             // PENDIENTE
-            let chatName = this.gameManager.translate("textMessages.chat1", { ns: "phoneInfo", returnObjects: true });
+            let chatName = this.gameManager.translate("textMessages.chat1", { ns: "deviceInfo", returnObjects: true });
             let phoneNode = super.readNodes(nodes, "scene1\\scene1Lunch1", "phone", true);
             this.phoneManager.phone.addChat(chatName, "");
-            this.phoneManager.phone.setChatNode(chatName, phoneNode);
+            this.dialogManager.setNode(phoneNode, []);
         })
 
         let msgAnswered = false;
         // Anade el evento spawnInteractions para que, al producirse, se creen los elementos interactuables de la escena
         this.dispatcher.add("spawnInteractions", this, () => {
-            let doorNode = super.readNodes(nodes, "scene1\\scene1Lunch1", "door", true);
-            super.createInteractiveElement(890, 380, "pointer", 0.4, () => {
+            let generalNodes = this.cache.json.get('generalDialogs');
+            let doorNode = super.readNodes(generalNodes, "generalDialogs", "door", true);
+            super.createInteractiveElement(890, 380, "pointer", 0.3, () => {
                 this.dialogManager.setNode(doorNode, []);
             }, false);
             

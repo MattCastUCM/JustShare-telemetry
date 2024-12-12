@@ -50,7 +50,7 @@ export default class Scene1Lunch2 extends BaseScene {
         // Anade el evento parentsLeave para que, al producirse, se creen los elementos interactuables de la escena
         this.dispatcher.add("parentsLeave", this, () => {
             let doorNode = super.readNodes(nodes, "scene1\\scene1Lunch2", "door", true);
-            super.createInteractiveElement(890, 380, "pointer", 0.4, () => {
+            super.createInteractiveElement(890, 380, "pointer", 0.3, () => {
                 this.dialogManager.setNode(doorNode, []);
             }, false);
 

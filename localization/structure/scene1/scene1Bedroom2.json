@@ -11,5 +11,202 @@
             "type": "text",
             "character": "player"
         }
+    },
+
+    "computer": {
+        "root": {
+            "type": "chatMessage",
+            "character": "",
+            "chat": "harasserUsername",
+            "replyDelay": 0,
+            "next": "choices"
+        },
+        "choices": {
+            "type": "choice",
+            "choices":[
+                { "next": "helloTell" },
+                { "next": "helloNoTell" }
+            ]
+        },
+        
+        "helloTell": {
+            "type": "chatMessage",
+            "character": "player",
+            "chat": "harasserUsername",
+            "replyDelay": 0,
+            "next": "helloTell2"
+        },
+        "helloTell2": {
+            "type": "chatMessage",
+            "character": "player",
+            "chat": "harasserUsername",
+            "replyDelay": 1000,
+            "next": "msg3"
+        },
+
+        "helloNoTell": {
+            "type": "chatMessage",
+            "character": "player",
+            "chat": "harasserUsername",
+            "replyDelay": 0,
+            "next": "helloNoTell2"
+        },
+        "helloNoTell2": {
+            "type": "chatMessage",
+            "character": "player",
+            "chat": "harasserUsername",
+            "replyDelay": 1000,
+            "next": "msg3"
+        },
+
+        "msg3": {
+            "type": "chatMessage",
+            "character": "player",
+            "chat": "harasserUsername",
+            "replyDelay": 1000,
+            "next": "msg4"
+        },
+
+        "msg4": {
+            "type": "chatMessage",
+            "character": "",
+            "chat": "harasserUsername",
+            "replyDelay": 2000,
+            "next": "msg5"
+        },
+        "msg5": {
+            "type": "chatMessage",
+            "character": "",
+            "chat": "harasserUsername",
+            "replyDelay": 1500,
+            "next": "choices2"
+        },
+        "choices2": {
+            "type": "choice",
+            "choices":[
+                { "next": "ask" },
+                { "next": "noAsk" }
+            ]
+        },
+
+        "ask": {
+            "type": "chatMessage",
+            "character": "player",
+            "chat": "harasserUsername",
+            "replyDelay": 0,
+            "next": "ask2"
+        },
+        "ask2": {
+            "type": "chatMessage",
+            "character": "",
+            "chat": "harasserUsername",
+            "replyDelay": 1000,
+            "next": "msg6"
+        },
+        "ask3": {
+            "type": "chatMessage",
+            "character": "",
+            "chat": "harasserUsername",
+            "replyDelay": 2000,
+            "next": "msg6"
+        },
+
+        "noAsk": {
+            "type": "chatMessage",
+            "character": "player",
+            "chat": "harasserUsername",
+            "replyDelay": 0,
+            "next": "noAsk2"
+        },
+        "noAsk2": {
+            "type": "chatMessage",
+            "character": "",
+            "chat": "harasserUsername",
+            "replyDelay": 1000,
+            "next": "msg6"
+        },
+
+        "msg6": {
+            "type": "chatMessage",
+            "character": "player",
+            "chat": "harasserUsername",
+            "replyDelay": 2000,
+            "next": "msg7"
+        },
+        "msg7": {
+            "type": "chatMessage",
+            "character": "",
+            "chat": "harasserUsername",
+            "replyDelay": 2000,
+            "next": "msg8"
+        },
+        "msg8": {
+            "type": "chatMessage",
+            "character": "player",
+            "chat": "harasserUsername",
+            "replyDelay": 2000,
+            "next": "msg9"
+        },
+        "msg9": {
+            "type": "chatMessage",
+            "character": "",
+            "chat": "harasserUsername",
+            "replyDelay": 2000,
+            "next": "choices3"
+        },
+        "choices3": {
+            "type": "choice",
+            "choices":[
+                { "next": "sleep" },
+                { "next": "video" }
+            ]
+        },
+
+        "sleep": {
+            "type": "chatMessage",
+            "character": "player",
+            "chat": "harasserUsername",
+            "replyDelay": 0,
+            "next": "msg10"
+        },
+        "video": {
+            "type": "chatMessage",
+            "character": "player",
+            "chat": "harasserUsername",
+            "replyDelay": 0,
+            "next": "msg10"
+        },
+
+        "msg10": {
+            "type": "chatMessage",
+            "character": "",
+            "chat": "harasserUsername",
+            "replyDelay": 2000,
+            "next": "msg11"
+        },
+        "msg11": {
+            "type": "chatMessage",
+            "character": "",
+            "chat": "harasserUsername",
+            "replyDelay": 2000,
+            "next": "msg12"
+        },
+        "msg12": {
+            "type": "chatMessage",
+            "character": "player",
+            "chat": "harasserUsername",
+            "replyDelay": 2000,
+            "next": "endConversation"
+        },
+        "endConversation": {
+            "type": "event",
+            "events": [
+                {
+                    "endConversation": {
+                        "delay": 500
+                    }
+                }
+            ]
+        }
     }
 }

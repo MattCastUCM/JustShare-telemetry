@@ -7,9 +7,7 @@
             "text": "Ya sabes que siempre lo hago."
         },
         "sure": {
-            "text": "",
-            "text_male": "Ya... Ten cuidado, anda. Listillo.",
-            "text_female": "Ya... Ten cuidado, anda. Listilla."
+            "text": "Ya... Ten cuidado, anda. <player, Listillo, Listilla>."
         },
         "call": {
             "text": "Mamá, cualquier cosa, llámanos inmediatamente. Por favor."

@@ -9,5 +9,107 @@
         "root": {
             "text": "(Debería ordenarlo en algún momento.)"
         }
+    },
+
+    "computer": {
+        "root": {
+            "text": "Eyy, ¿qué tal hoy en clase?"
+        },
+        "choices": [
+            {
+                "text": "Contarle mi día"
+            },
+            {
+                "text": "No contarle mi día"
+            }
+        ],
+        
+        "helloTell": {
+            "text": "Holaa."
+        },
+        "helloTell2": {
+            "text": "Bien bienn, hoy ha sido un día chill en clase, no hemos hecho mucho solo repaso del temario del año pasado."
+        },
+
+        "helloNoTell": {
+            "text": "Holaa."
+        },
+        "helloNoTell2": {
+            "text": "Bien, un poco aburrido pero bien."
+        },
+
+        "msg3": {
+            "text": "¿Tu qué tal?"
+        },
+
+        "msg4": {
+            "text": "Guayy guay."
+        },
+        "msg5": {
+            "text": "Ya hoy no he ido a clase, me dolía un poco la cabeza, pero ya estoy perfe."
+        },
+        "choices2": [
+            {
+                "text": "¿Estás bien?"
+            },
+            {
+                "text": "Guay."
+            }
+        ],
+
+        "ask": {
+            "text": "Ay, ¿estás <harasser, enfermo, enferma>?"
+        },
+        "ask2": {
+            "text": "Na tranqui,solo necesitaba dormir un poco más y beber agua."
+        },
+        "ask3": {
+            "text": "No te preocupes de verdad."
+        },
+
+        "noAsk": {
+            "text": "Bueno, guay entonces."
+        },
+        "noAsk2": {
+            "text": "Yess."
+        },
+
+        "msg6": {
+            "text": "¿Y qué has estado haciendo?"
+        },
+        "msg7": {
+            "text": "Nada, he estado viendo videos de ToniVlogs mientras jugaba con el ordenador y luego he terminado unos deberes que tenía."
+        },
+        "msg8": {
+            "text": "Día productivo entonces jaja"
+        },
+        "msg9": {
+            "text": "Sii, ¿tú qué harás ahora?"
+        },
+        "choices3": [
+            {
+                "text": "Irme a la cama."
+            },
+            {
+                "text": "Ver un vídeo."
+            }
+        ],
+
+        "sleep": {
+            "text": "Me voy a ir ya que es bastante tarde."
+        },
+        "video": {
+            "text": "Me pondré a ver algún video de Toni."
+        },
+
+        "msg10": {
+            "text": "Nicee, pues aprovecha y descansaa."
+        },
+        "msg11": {
+            "text": "Hasta mañanaa {{name}}."
+        },
+        "msg12": {
+            "text": "Chaoo <harasser, Pablo, Lucía>."
+        }
     }
 }

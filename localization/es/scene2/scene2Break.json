@@ -4,7 +4,7 @@
             "text": "Oye, {{name}}, ya llevas una semana en el insti, ¿no? ¿Qué te va pareciendo? ¿Ya te llevas bien con alguien de clase?"
         },
         "noTalk": {
-            "text": "Pues… la verdad es que todavía no he hablado mucho con nuestros compañeros, pero he conocido a <harasser, un chico, una chica> de otro instituto de la ciudad y llevamos unos cuántos días hablando."
+            "text": "Pues... la verdad es que todavía no he hablado mucho con nuestros compañeros, pero he conocido a <harasser, un chico, una chica> de otro instituto de la ciudad y llevamos unos cuántos días hablando."
         },
         "glad": {
             "text": "Me alegro por ti. Mudarse a otra ciudad y cambiarse de instituto tiene que ser un rollo..."
@@ -32,7 +32,7 @@
                 "text": "Suena divertido."
             },
             {
-                "text": "Bueno… Pero solo porque tú también vas."
+                "text": "Bueno... Pero solo porque tú también vas."
             }
         ],
 
@@ -43,9 +43,7 @@
             "text": ""
         },
         "unsure": {
-            "text": "",
-            "text_male": "No pienses así, hombre, si seguro que te haces amigo de alguien.",
-            "text_female": "No pienses así, mujer, si seguro que te haces amiga de alguien."
+            "text": "No pienses así, <player, hombre, mujer>, si seguro que te haces <player, amigo, amiga> de alguien."
         },
 
         "bye": {

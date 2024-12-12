@@ -13,7 +13,6 @@
         }
     },
 
-    
     "bedUnanswered": {
         "root": {
             "type": "text",
@@ -28,10 +27,157 @@
         }
     },
 
+    
+    "computer": {
+        "root": {
+            "type": "chatMessage",
+            "character": "",
+            "chat": "harasserUsername",
+            "replyDelay": 0,
+            "next": "msg2"
+        },
+        "msg2": {
+            "type": "chatMessage",
+            "character": "player",
+            "chat": "harasserUsername",
+            "replyDelay": 0,
+            "next": "msg3"
+        },
+        "msg3": {
+            "type": "chatMessage",
+            "character": "",
+            "chat": "harasserUsername",
+            "replyDelay": 0,
+            "next": "msg4"
+        },
+        "msg4": {
+            "type": "chatMessage",
+            "character": "player",
+            "chat": "harasserUsername",
+            "replyDelay": 0,
+            "next": "msg5"
+        },
+        "msg5": {
+            "type": "chatMessage",
+            "character": "",
+            "chat": "harasserUsername",
+            "replyDelay": 3000,
+            "next": "msg6"
+        },
+        "msg6": {
+            "type": "chatMessage",
+            "character": "player",
+            "chat": "harasserUsername",
+            "replyDelay": 2000,
+            "next": "msg7"
+        },
+        "msg7": {
+            "type": "chatMessage",
+            "character": "",
+            "chat": "harasserUsername",
+            "replyDelay": 1000,
+            "next": "msg8"
+        },
+        "msg8": {
+            "type": "chatMessage",
+            "character": "player",
+            "chat": "harasserUsername",
+            "replyDelay": 2000,
+            "next": "msg9"
+        },
+        "msg9": {
+            "type": "chatMessage",
+            "character": "player",
+            "chat": "harasserUsername",
+            "replyDelay": 1000,
+            "next": "msg10"
+        },
+        "msg10": {
+            "type": "chatMessage",
+            "character": "",
+            "chat": "harasserUsername",
+            "replyDelay": 2000,
+            "next": "msg11"
+        },
+        "msg11": {
+            "type": "chatMessage",
+            "character": "player",
+            "chat": "harasserUsername",
+            "replyDelay": 2000,
+            "next": "msg12"
+        },
+        "msg12": {
+            "type": "chatMessage",
+            "character": "",
+            "chat": "harasserUsername",
+            "replyDelay": 2000,
+            "next": "msg13"
+        },
+        "msg13": {
+            "type": "chatMessage",
+            "character": "player",
+            "chat": "harasserUsername",
+            "replyDelay": 2000,
+            "next": "msg14"
+        },
+        "msg14": {
+            "type": "chatMessage",
+            "character": "player",
+            "chat": "harasserUsername",
+            "replyDelay": 1000,
+            "next": "msg15"
+        },
+        "msg15": {
+            "type": "chatMessage",
+            "character": "",
+            "chat": "harasserUsername",
+            "replyDelay": 2000,
+            "next": "msg16"
+        },
+        "msg16": {
+            "type": "chatMessage",
+            "character": "player",
+            "chat": "harasserUsername",
+            "replyDelay": 2000,
+            "next": "msg17"
+        },
+        "msg17": {
+            "type": "chatMessage",
+            "character": "player",
+            "chat": "harasserUsername",
+            "replyDelay": 1000,
+            "next": "msg18"
+        },
+        "msg18": {
+            "type": "chatMessage",
+            "character": "player",
+            "chat": "harasserUsername",
+            "replyDelay": 1000,
+            "next": "msg19"
+        },
+        "msg19": {
+            "type": "chatMessage",
+            "character": "",
+            "chat": "harasserUsername",
+            "replyDelay": 2000,
+            "next": "endConversation"
+        },
+        "endConversation": {
+            "type": "event",
+            "events": [
+                {
+                    "endConversation": {
+                        "delay": 500
+                    }
+                }
+            ]
+        }
+    },
+
     "phone": {
         "root": {
             "type": "chatMessage",
-            "character": "harasser",
+            "character": "",
             "chat": "chat2",
             "replyDelay": 0,
             "next": "choices"
@@ -59,7 +205,7 @@
         },
         "bye": {
             "type": "chatMessage",
-            "character": "harasser",
+            "character": "",
             "chat": "chat2",
             "replyDelay": 1500,
             "next": "chatEnded"

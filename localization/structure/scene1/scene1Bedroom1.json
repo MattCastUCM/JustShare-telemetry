@@ -1,20 +1,199 @@
 {
     "bed": {
         "root": {
+            "type": "condition", 
+            "conditions": [
+                {
+                    "next": "noInterruption",
+                    "interrupted": {
+                        "value": false,
+                        "operator": "equal",
+                        "global": false,
+                        "default": false
+                    }
+                },
+                {
+                    "next": "noHomework",
+                    "interrupted": {
+                        "value": true,
+                        "operator": "equal",
+                        "global": false,
+                        "default": false
+                    },
+                    "homework": {
+                        "value": false,
+                        "operator": "equal",
+                        "global": false,
+                        "default": false
+                    }
+                },
+                {
+                    "next": "noAnswer",
+                    "interrupted": {
+                        "value": true,
+                        "operator": "equal",
+                        "global": false,
+                        "default": false
+                    },
+                    "homework": {
+                        "value": true,
+                        "operator": "equal",
+                        "global": false,
+                        "default": false
+                    }
+                }
+            ]
+        },
+        "noInterruption": {
+            "type": "text",
+            "character": "player"
+        },
+        "noHomework": {
+            "type": "text",
+            "character": "player"
+        },
+        "noAnswer": {
             "type": "text",
             "character": "player"
         }
+        
+        
     },
 
-    "closet": {
+    "computer1": {
         "root": {
-            "type": "text",
-            "character": "player"
-        }
-    },
+            "type": "chatMessage",
+            "character": "",
+            "chat": "harasserUsername",
+            "replyDelay": 0,
+            "next": "msg2"
+        },
+        "msg2": {
+            "type": "chatMessage",
+            "character": "",
+            "chat": "harasserUsername",
+            "replyDelay": 0,
+            "next": "msg3"
+        },
+        "msg3": {
+            "type": "chatMessage",
+            "character": "",
+            "chat": "harasserUsername",
+            "replyDelay": 0,
+            "next": "choices"
+        },
+        "choices": {
+            "type": "choice",
+            "choices":[
+                { "next": "niceResponse" },
+                { "next": "neutralResponse" }
+            ]
+        },
+        
+        "niceResponse": {
+            "type": "chatMessage",
+            "character": "player",
+            "chat": "harasserUsername",
+            "replyDelay": 0,
+            "next": "niceResponse2"
+        },
+        "niceResponse2": {
+            "type": "chatMessage",
+            "character": "player",
+            "chat": "harasserUsername",
+            "replyDelay": 1000,
+            "next": "msg4"
+        },
 
-    "interruption": {
-        "root": {
+        "neutralResponse": {
+            "type": "chatMessage",
+            "character": "player",
+            "chat": "harasserUsername",
+            "replyDelay": 0,
+            "next": "neutralResponse2"
+        },
+        "neutralResponse2": {
+            "type": "chatMessage",
+            "character": "player",
+            "chat": "harasserUsername",
+            "replyDelay": 1000,
+            "next": "msg4"
+        },
+
+        "msg4": {
+            "type": "chatMessage",
+            "character": "",
+            "chat": "harasserUsername",
+            "replyDelay": 2000,
+            "next": "msg5"
+        },
+        "msg5": {
+            "type": "chatMessage",
+            "character": "",
+            "chat": "harasserUsername",
+            "replyDelay": 1500,
+            "next": "choices2"
+        },
+        "choices2": {
+            "type": "choice",
+            "choices":[
+                { "next": "doggo" },
+                { "next": "attitude" }
+            ]
+        },
+
+        "doggo": {
+            "type": "chatMessage",
+            "character": "player",
+            "chat": "harasserUsername",
+            "replyDelay": 0,
+            "next": "doggo2"
+        },
+        "doggo2": {
+            "type": "chatMessage",
+            "character": "player",
+            "chat": "harasserUsername",
+            "replyDelay": 1500,
+            "next": "msg6"
+        },
+
+        "attitude": {
+            "type": "chatMessage",
+            "character": "player",
+            "chat": "harasserUsername",
+            "replyDelay": 0,
+            "next": "attitude2"
+        },
+        "attitude2": {
+            "type": "chatMessage",
+            "character": "player",
+            "chat": "harasserUsername",
+            "replyDelay": 1500,
+            "next": "msg6"
+        },
+
+        "msg6": {
+            "type": "chatMessage",
+            "character": "",
+            "chat": "harasserUsername",
+            "replyDelay": 2500,
+            "next": "msg7"
+        },
+        "msg7": {
+            "type": "chatMessage",
+            "character": "",
+            "chat": "harasserUsername",
+            "replyDelay": 2000,
+            "next": "msg8"
+        },
+        "msg8": {
+            "type": "chatMessage",
+            "character": "",
+            "chat": "harasserUsername",
+            "replyDelay": 2000,
+            "next": "knock"
+        },
+        "knock": {
             "type": "text",
             "character": "door",
             "next": "ask"
@@ -22,9 +201,22 @@
         "ask": {
             "type": "text",
             "character": "player",
-            "next": "enter"
+            "next": "answerDoor"
         },
-        "enter": {
+        "answerDoor": {
+            "type": "event",
+            "events": [
+                {
+                    "answerDoor": {
+                        "delay": 500
+                    }
+                }
+            ]
+        }
+    },
+
+    "interruption": {
+        "root": {
             "type": "text",
             "character": "mom",
             "next": "lazy"
@@ -49,17 +241,13 @@
             "events": [
                 {
                     "setInterruption": {
+                        "variable": "interrupted", 
+                        "global": false,
+                        "value": true, 
                         "delay": 500
                     }
                 }
             ]
-        }
-    },
-
-    "bedAfterInterruption": {
-        "root": {
-            "type": "text",
-            "character": "player"
         }
     },
 
@@ -74,6 +262,9 @@
             "events": [
                 {
                     "endHomework": {
+                        "variable": "homework", 
+                        "global": false,
+                        "value": true, 
                         "delay": 500
                     }
                 }
@@ -81,35 +272,152 @@
         }
     },
 
-    "bedAfterHomework": {
+    "computer2": {
         "root": {
-            "type": "text",
-            "character": "player"
-        }
-    },
-
-    "bedFinal": {
-        "root": {
-            "type": "text",
-            "character": "player",
-            "next": "goToSleep"
-        },
-        "goToSleep": {
             "type": "choice",
-            "choices": [
-                { "next": "sleep" },
-                { }
+            "choices":[
+                { "next": "2years" },
+                { "next": "littleAgo" }
             ]
         },
-        "sleep": {
-           "type": "event",
+        "2years": {
+            "type": "chatMessage",
+            "character": "player",
+            "chat": "harasserUsername",
+            "replyDelay": 0,
+            "next": "sorry"
+        },
+        "littleAgo": {
+            "type": "chatMessage",
+            "character": "player",
+            "chat": "harasserUsername",
+            "replyDelay": 0,
+            "next": "sorry"
+        },
+        "sorry": {
+            "type": "chatMessage",
+            "character": "player",
+            "chat": "harasserUsername",
+            "replyDelay": 1500,
+            "next": "msg2"
+        },
+        "msg2": {
+            "type": "chatMessage",
+            "character": "",
+            "chat": "harasserUsername",
+            "replyDelay": 2000,
+            "next": "msg3"
+        },
+        "msg3": {
+            "type": "chatMessage",
+            "character": "",
+            "chat": "harasserUsername",
+            "replyDelay": 1500,
+            "next": "choices2"
+        },
+
+        "choices2": {
+            "type": "choice",
+            "choices":[
+                { "next": "1" },
+                { "next": "2" },
+                { "next": "3" },
+                { "next": "4" }
+            ]
+        },
+        "1": {
+            "type": "chatMessage",
+            "character": "player",
+            "chat": "harasserUsername",
+            "replyDelay": 0,
+            "next": "msg4"
+        },
+        "2": {
+            "type": "chatMessage",
+            "character": "player",
+            "chat": "harasserUsername",
+            "replyDelay": 0,
+            "next": "msg4"
+        },
+        "3": {
+            "type": "chatMessage",
+            "character": "player",
+            "chat": "harasserUsername",
+            "replyDelay": 0,
+            "next": "msg4"
+        },
+        "4": {
+            "type": "chatMessage",
+            "character": "player",
+            "chat": "harasserUsername",
+            "replyDelay": 0,
+            "next": "msg4"
+        },
+
+        "msg4": {
+            "type": "chatMessage",
+            "character": "",
+            "chat": "harasserUsername",
+            "replyDelay": 2000,
+            "next": "msg5"
+        },
+        "msg5": {
+            "type": "chatMessage",
+            "character": "",
+            "chat": "harasserUsername",
+            "replyDelay": 1500,
+            "next": "msg6"
+        },
+        "msg6": {
+            "type": "chatMessage",
+            "character": "player",
+            "chat": "harasserUsername",
+            "replyDelay": 1500,
+            "next": "tellOff"
+        },
+        "tellOff": {
+            "type": "text",
+            "character": "dad",
+            "next": "choices3"
+        },
+
+        "choices3": {
+            "type": "choice",
+            "choices":[
+                { "next": "scold" },
+                { "next": "late" }
+            ]
+        },
+        "scold": {
+            "type": "chatMessage",
+            "character": "player",
+            "chat": "harasserUsername",
+            "replyDelay": 0,
+            "next": "msg7"
+        },
+        "late": {
+            "type": "chatMessage",
+            "character": "player",
+            "chat": "harasserUsername",
+            "replyDelay": 0,
+            "next": "msg7"
+        },
+        "msg7": {
+            "type": "chatMessage",
+            "character": "",
+            "chat": "harasserUsername",
+            "replyDelay": 2000,
+            "next": "endConversation"
+        },
+        "endConversation": {
+            "type": "event",
             "events": [
                 {
-                    "sleep": {
+                    "endConversation": {
                         "delay": 500
                     }
                 }
-            ] 
+            ]
         }
     },
 

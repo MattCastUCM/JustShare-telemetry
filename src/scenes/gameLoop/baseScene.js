@@ -410,7 +410,7 @@ export default class BaseScene extends Phaser.Scene {
 
             // Guarda el chat en el que tiene que ir la respuesta y el retardo con el que se envia
             node.chat = this.gameManager.translate("textMessages" + "." + fileObj[id].chat, {
-                ns: "phoneInfo" 
+                ns: "deviceInfo" 
             });
 
             if (fileObj[id].replyDelay) {
@@ -615,7 +615,7 @@ export default class BaseScene extends Phaser.Scene {
         // Al pulsar el icono
         button.on('pointerdown', () => {
             // Si es valida, se ejecuta la funcion onClick
-            if (onClick !== null && typeof onClick === 'function' && !this.gameManager.isInFadeAnimation()) {
+            if (onClick !== null && typeof onClick === 'function' && !this.gameManager.isInFadeAnimation() && this.UIManager.lidAnim == null) {
                 onClick();
             }
 

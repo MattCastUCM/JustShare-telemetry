@@ -5,9 +5,7 @@
                 "text": "Buenos días chicos, espero que hayáis pasado un buen verano."
             },
             {
-                "text": "",
-                "text_male": "Este año se une a nosotros {{name}}, espero que seáis buenos con él.",
-                "text_female": "Este año se une a nosotros {{name}}, espero que seáis buenos con ella."
+                "text": "Este año se une a nosotros {{name}}, espero que seáis buenos con <player, él, ella>."
             },
             {
                 "text": "{{name}} por favor siéntate ahí al lado de Laura."
@@ -20,9 +18,7 @@
         },
         "thanks": [
             {
-                "text": "",
-                "text_male": "Igualmente, encantado de conocerte *sonríes*.",
-                "text_female": "Igualmente, encantada de conocerte *sonríes*."
+                "text": "Igualmente, <player, encantado, encantada> de conocerte *sonríes*."
             },
             {
                 "text": "Gracias, ya te iré diciendo."
@@ -33,17 +29,13 @@
         ],
 
         "friendly": {
-            "text": "",
-            "text_male": "Pareces majo. Si necesitas cualquier cosa, no dudes en preguntarme.",
-            "text_female": "Pareces maja. Si necesitas cualquier cosa, no dudes en preguntarme."
+            "text": "Pareces <player, majo, maja>. Si necesitas cualquier cosa, no dudes en preguntarme."
         },
         "neutral": {
             "text": "Espero que nos llevemos bien. Si necesitas cualquier cosa, no dudes en preguntarme."
         },
         "shy": {
-            "text": "",
-            "text_male": "Venga, no seas tímido. Si necesitas cualquier cosa, no dudes en preguntarme.",
-            "text_female": "Venga, no seas tímida. Si necesitas cualquier cosa, no dudes en preguntarme."
+            "text": "Venga, no seas <player, tímido, tímida>. Si necesitas cualquier cosa, no dudes en preguntarme."
         }
     }
 

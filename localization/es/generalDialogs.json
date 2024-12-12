@@ -1,0 +1,40 @@
+{
+    "door": {
+        "root": {
+            "text": "(Ahora mismo no tengo nada que hacer fuera)"
+        }
+    },
+
+    "closet": {
+        "root": {
+            "text": "(Debería ordenar esto en algún momento)"
+        }
+    },
+    
+    "bed": {
+        "root": {
+            "text": "(¿Debería irme ya a dormir?)"
+        },
+        "goToSleep": [
+            { 
+                "text": "Sí." 
+            },
+            {
+                "text": "No."
+            }
+        ]
+    },
+
+
+    "noComment": {
+        "root": {
+            "text": "(No tengo nada que comentar)"
+        }
+    },
+
+    "noReply": {
+        "root": {
+            "text": "(No tengo nada que responder)"
+        }
+    }
+}

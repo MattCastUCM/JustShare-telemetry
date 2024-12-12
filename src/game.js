@@ -1,6 +1,7 @@
 import BootScene from "./scenes/bootScene.js";
 
 import TextOnlyScene from "./scenes/gameLoop/textOnlyScene.js";
+
 // Escena 1
 import Scene1Classroom from "./scenes/gameLoop/scene1/scene1Classroom.js";
 import Scene1Break from "./scenes/gameLoop/scene1/scene1Break.js";
@@ -8,14 +9,19 @@ import Scene1Lunch1 from "./scenes/gameLoop/scene1/scene1Lunch1.js";
 import Scene1Bedroom1 from "./scenes/gameLoop/scene1/scene1Bedroom1.js";
 import Scene1Lunch2 from "./scenes/gameLoop/scene1/scene1Lunch2.js";
 import Scene1Bedroom2 from "./scenes/gameLoop/scene1/scene1Bedroom2.js";
+
 // Escena 2
 import Scene2Break from "./scenes/gameLoop/scene2/scene2Break.js";
 import Scene2Bedroom from "./scenes/gameLoop/scene2/scene2Bedroom.js";
+
+// Escena 3
+// import Scene3Break from "./scenes/scene3/scene3Break.js";
+
 // UI
 import UIManager from './managers/UIManager.js';
 // Menus
 import TitleScene from "./scenes/titleScene.js";
-import LoginScene from "./scenes/loginScene.js";
+// import LoginScene from "./scenes/loginScene.js";
 
 const max_w = 1600, max_h = 900, min_w = 320, min_h = 240;
 const config = {
@@ -34,9 +40,11 @@ const config = {
         Scene1Classroom, Scene1Break, Scene1Lunch1, Scene1Bedroom1, Scene1Lunch2, Scene1Bedroom2,
         // Escena 2
         Scene2Break, Scene2Bedroom,
+        // Escena 3
+        // Scene3Break,
 
         // Menus
-        TitleScene, LoginScene,
+        TitleScene, /*LoginScene,*/
         
         // UI
         UIManager, TextOnlyScene

@@ -27,26 +27,24 @@ export default class MessageBox extends Phaser.GameObjects.Container {
 
         // Configuracion de la burbuja de texto si es un mensaje de chat y el personaje 
         // que escribe no es el jugador O si es un comentario de la red social
-        if ((character !== "player" && character && type === 0) || type === 1) {
+        if ((character !== "player" && type === 0) || type === 1) {
             if (type === 0) {
                 img = "othersBubble";
                 leftWidth = 50;
                 rightWidth = 65;
-                topHeight = 25;
-                bottomHeight = 44;
             }
             else {
                 img = "commentBubble";
                 leftWidth = 50;
                 rightWidth = 65;
-                topHeight = 25;
                 bottomHeight = 36;
             }
-
-            heightMultiplier = 3.5;
+            
+            if (character != null && name != "") {
+                heightMultiplier = 3.5;
+            }
             charName = name;
         }
-
 
         // Configuracion de texto para la el texto del mensaje
         let textConfig = { ...scene.gameManager.textConfig };
@@ -64,8 +62,8 @@ export default class MessageBox extends Phaser.GameObjects.Container {
         nameTextConfig.color = '#5333bb';
 
         // Crea el texto y el nombre
-        let text = this.scene.add.text(0, - TEXT_PADDING * 0.25, msgText, textConfig).setOrigin(0, 0.5);
-        let nameText = this.scene.add.text(0, - TEXT_PADDING * 0.25, charName, nameTextConfig).setOrigin(0, 0.5);
+        let text = this.scene.add.text(-5, - TEXT_PADDING * 0.25 + 5, msgText, textConfig).setOrigin(0, 0.5);
+        let nameText = this.scene.add.text(-5, - TEXT_PADDING * 0.25, charName, nameTextConfig).setOrigin(0, 0.5);
 
         // Crea la imagen de la burbuja de texto para obtener su ancho y calcula el ancho que deberia tener la caja
         // (el ancho de lo que ocupe mas espacio entre el nombre, el texto, o la propia caja)
@@ -79,14 +77,16 @@ export default class MessageBox extends Phaser.GameObjects.Container {
         ).setOrigin(0.5, 0.5);
 
         // Mueve la burbuja a la izquierda o a la derecha dependiendo de quien es la burbuja de texto
-        if (type === 0 && (character === "player" || !character)) {
+        if (type === 0 && (character === "player")) {
             box.x = box.x + (maxWidth / 2) - (box.displayWidth / 2) - BOX_PADDING;
-            text.x = box.x - box.displayWidth / 2 + TEXT_PADDING;
+            text.x += box.x - box.displayWidth / 2 + TEXT_PADDING;
         }
         else {
             box.x = box.x - (maxWidth / 2) + (box.displayWidth / 2) + BOX_PADDING;
-            text.x = box.x - box.displayWidth / 2 + TEXT_PADDING * 2.3;
-            text.y += TEXT_PADDING / 2;
+            text.x += box.x - box.displayWidth / 2 + TEXT_PADDING * 2.3;
+            if (character != null && name != "") {
+                text.y += TEXT_PADDING / 2;
+            }
         }
 
         // Mueve hacia abajo el mensaje (ya que posteriormente se anadira a una listView cuyos objetos

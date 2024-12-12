@@ -137,8 +137,8 @@ export default class BootScene extends Phaser.Scene {
         this.load.image('chatBg', 'chatBg.png');
         this.load.image('chatTextBox', 'chatTextBox.png');
         this.load.image('chatReturnButton', 'chatReturnButton.png');
-        this.load.image('myBubble', '9slicePlayer.png');
-        this.load.image('othersBubble', '9sliceOthers.png');
+        this.load.image('myBubble', 'myBubble.png');
+        this.load.image('othersBubble', 'othersBubble.png');
     }
 
     loadFlags() {
@@ -182,7 +182,7 @@ export default class BootScene extends Phaser.Scene {
             // Namespaces que se cargan para cada uno de los idiomas
             ns: namespaces,
             // Mostrar informacion de ayuda por consola
-            debug: true,
+            debug: false,
             // Cargar las traducciones de un servidor especificado en vez de ponerlas directamente
             backend: {
                 // La ruta desde donde cargamos las traducciones
@@ -256,6 +256,7 @@ export default class BootScene extends Phaser.Scene {
         // Id archivo dialogo --> dialog
         // Namespace --> test\\dialog.json
         let dialogsAndNamespaces = [
+            "generalDialogs",
             "scene1/scene1Classroom",
             "scene1/scene1Break",
             "scene1/scene1Lunch1",
@@ -269,10 +270,10 @@ export default class BootScene extends Phaser.Scene {
         // Solo son namespaces del plugin i18next
         // Namespace --> test\\dialog.json
         let onlyNamespaces = [
+            "titleScene",
             "names",
             "transitions",
-            "phoneInfo",
-            "titleScene"
+            "deviceInfo",
         ]
 
         this.loadUIAssets();
@@ -310,7 +311,6 @@ export default class BootScene extends Phaser.Scene {
     create() {
         this.events.once('start', () => {
             let gameManager = GameManager.create(this);
-
             gameManager.changeScene("TitleScene")
         })
     }

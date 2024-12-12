@@ -98,15 +98,15 @@ export default class GameManager {
         this.UIManager = this.currentScene.scene.get(UIsceneName);
 
         // Pasa a la escena inicial con los parametros text, onComplete y onCompleteDelay
-        let sceneName = 'TextOnlyScene';
-        let params = {
-            text: this.translate("scene1.classroom", { ns: "transitions", returnObjects: true }),
-            onComplete: () => {
-                this.changeScene("Scene2Bedroom", null);
-            },
-        };
+        // let sceneName = 'TextOnlyScene';
+        // let params = {
+        //     text: this.translate("scene1.classroom", { ns: "transitions", returnObjects: true }),
+        //     onComplete: () => {
+        //         this.changeScene("Scene2Bedroom", null);
+        //     },
+        // };
         
-        this.changeScene(sceneName, params);
+        this.changeScene("Scene1Bedroom1", {});
         //*/
 
         // this.startGame();
@@ -125,7 +125,7 @@ export default class GameManager {
         let params = {
             text: this.translate("scene1.classroom", { ns: "transitions", returnObjects: true }),
             onComplete: () => {
-                 this.UIManager.phoneManager.activatePhoneIcon(false);
+                this.UIManager.phoneManager.activatePhoneIcon(false);
                 this.changeScene("Scene1Classroom", null);
             },
         };
@@ -184,7 +184,7 @@ export default class GameManager {
 
             // Se anade la escena a las escenas que estan ejecutandose
             this.runningScenes.add(this.currentScene);
-  
+            
             // Cuando se termina de crear la escena, se reproduce el fade in
             this.currentScene.events.on('create', () => {
                 this.currentScene.cameras.main.fadeIn(FADE_TIME, 0, 0, 0); 

@@ -22,7 +22,7 @@ export default class PhoneManager {
         // Anade un rectangulo para bloquear la interaccion con los elementos del fondo
         this.bgBlock = scene.add.rectangle(0, 0, this.scene.CANVAS_WIDTH, this.scene.CANVAS_HEIGHT, 0xfff, 0).setOrigin(0, 0);
         this.bgBlock.setInteractive({ useHandCursor: true });
-        this.bgBlock.setDepth(this.icon.depth - 1);
+        this.bgBlock.setDepth(this.icon.depth - 3);
 
         // Si se pulsa fuera del telefono cuando esta sacado, se guarda
         this.bgBlock.on('pointerdown', () => {
@@ -176,7 +176,7 @@ export default class PhoneManager {
         if (!speed && speed !== 0) {
             speed = 100;
         }
-
+        
         // Si no hay una animacion reproduciendose
         if (!this.toggling) {
             // Se indica que va a empezar una
@@ -196,14 +196,15 @@ export default class PhoneManager {
                 deactivate.on('complete', () => {
                     this.phone.visible = false;
                     this.toggling = false;
+                    this.bgBlock.visible = false;
                     this.bgBlock.disableInteractive();
                     this.phone.toMessagesListScreen();
-                    
                 });
             }
             // Si el telefono no es visible
             else {
                 this.phone.visible = true;
+                this.bgBlock.visible = true;
                 this.bgBlock.setInteractive();
                 
                 // Se mueve hacia el centro de la pantalla
@@ -224,6 +225,7 @@ export default class PhoneManager {
 
     activatePhone(active) {
         this.phone.visible = active;
+        this.bgBlock.visible = active;
         if (active) {
             this.bgBlock.setInteractive();
         }

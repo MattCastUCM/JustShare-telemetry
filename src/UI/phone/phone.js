@@ -141,9 +141,11 @@ export default class Phone extends Phaser.GameObjects.Container {
      *                          Nota: la id del personaje corresponde con su icono
      */
     addChat(name, icon) {
-        this.messagesScreen.addChat(name, icon);
-        this.bringToTop(this.phone);
-        this.bringToTop(this.returnButton);
+        if (!this.chats.has(name)) {
+            this.messagesScreen.addChat(name, icon);
+            this.bringToTop(this.phone);
+            this.bringToTop(this.returnButton);
+        }
     }
 
     /**

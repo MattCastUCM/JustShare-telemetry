@@ -1,0 +1,137 @@
+{
+    "root": {
+        "type": "text",
+        "character": "laura",
+        "next": "msg1"
+    },
+    "msg1": {
+        "type": "chatMessage",
+        "character": "",
+        "chat": "chat2",
+        "replyDelay": 0,
+        "next": "choices"
+    },
+    "choices": {
+        "type": "choice",
+        "choices":[
+            { "next": "answerPhone1" },
+            { "next": "listen" }
+        ]
+    },
+    "answerPhone1": {
+        "type": "event",
+        "events": [
+            {
+                "answerPhone": {
+                    "delay": 500
+                }
+            }
+        ],
+        "next": "listen"
+    },
+    "listen": {
+        "type": "text",
+        "character": "laura",
+        "next": "msg2"
+    },
+    "msg2": {
+        "type": "chatMessage",
+        "character": "",
+        "chat": "chat2",
+        "replyDelay": 0,
+        "next": "choices2"
+    },
+    "choices2": {
+        "type": "choice",
+        "choices":[
+            { "next": "answerPhone2" },
+            { "next": "listen2" }
+        ]
+    },
+    "listen2": {
+        "type": "text",
+        "character": "laura",
+        "next": "msg3"
+    },
+    "msg3": {
+        "type": "chatMessage",
+        "character": "",
+        "chat": "chat2",
+        "replyDelay": 0,
+        "next": "answerPhone"
+    },
+    "answerPhone2": {
+        "type": "event",
+        "events": [
+            {
+                "answerPhone": {
+                    "delay": 500
+                }
+            }
+        ],
+        "next": "msg4"
+    },
+    "msg4": {
+        "type": "chatMessage",
+        "character": "player",
+        "chat": "chat2",
+        "replyDelay": 2000,
+        "next": "msg5"
+    },
+    "msg5": {
+        "type": "chatMessage",
+        "character": "player",
+        "chat": "chat2",
+        "replyDelay": 1000,
+        "next": "msg6"
+    },
+    "msg6": {
+        "type": "chatMessage",
+        "character": "",
+        "chat": "chat2",
+        "replyDelay": 2000,
+        "next": "msg7"
+    },
+    "msg7": {
+        "type": "chatMessage",
+        "character": "player",
+        "chat": "chat2",
+        "replyDelay": 2000,
+        "next": "msg8"
+    },
+    "msg8": {
+        "type": "chatMessage",
+        "character": "",
+        "chat": "chat2",
+        "replyDelay": 2000,
+        "next": "msg9"
+    },
+    "msg9": {
+        "type": "chatMessage",
+        "character": "player",
+        "chat": "chat2",
+        "replyDelay": 2000,
+        "next": "closePhone"
+    },
+    "closePhone": {
+        "type": "event",
+        "events": [
+            {
+                "closePhone": {
+                    "delay": 2000
+                }
+            }
+        ],
+        "next": "ask"
+    },
+    "ask": {
+        "type": "text",
+        "character": "laura",
+        "next": "thoughts"
+    },
+    "thoughts": {
+        "type": "text",
+        "character": "player",
+        "next": "choices"
+    }
+}

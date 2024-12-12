@@ -4,9 +4,7 @@
             "text": "¡{{name}}! ¡Ven aquí, siéntate conmigo!"
         },
         "thanks": {
-            "text": "",
-            "text_male": "Gracias por compartir mesa conmigo. Como soy nuevo no sabía donde sentarme.",
-            "text_female": "Gracias por compartir mesa conmigo. Como soy nueva no sabía donde sentarme."
+            "text": "Gracias por compartir mesa conmigo. Como soy <player, nuevo, nueva> no sabía donde sentarme."
         },
         "welcome": {
            "text": "Sin problema. Justo estaba viendo el último video de ToniVlogs hablando de su viaje a Japón."
@@ -35,9 +33,7 @@
             "text": "Gracias, luego al llegar a casa te envío la foto de Mila."
         },
         "lauraThanks": {
-            "text": "",
-            "text_male": "¡Eres el mejor!",
-            "text_female": "¡Eres la mejor!"
+            "text": "¡Eres <player, el mejor, la mejor>!"
         }
     },
 

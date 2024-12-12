@@ -144,6 +144,7 @@ export default class ChatScreen extends BaseScreen {
                         }
                         else {
                             this.scene.dialogManager.setNode(this.currNode, []);
+                            this.setNode(null);
                         }
                     });
 
@@ -242,8 +243,6 @@ export default class ChatScreen extends BaseScreen {
      */
     setNode(node) {
         this.canAnswer = true;
-        this.scene.dialogManager.setTalking(false);
-        this.scene.dialogManager.bgBlock.disableInteractive();
 
         // Si el nodo a poner es valido, cambia el nodo por el indicado
         if (node) {
@@ -288,10 +287,6 @@ export default class ChatScreen extends BaseScreen {
                 // EL SIGUIENTE NODO SERA EL PRIMER NODO DEL ARRAY DE NODOS SIGUIENTES
                 this.currNode = this.currNode.next[0];
                 this.processNode();
-            }
-            // Si no, si es de cualquier otro tipo excepto de eleccion multiple, lo gestiona el dialogManager
-            else if (this.currNode.type !== "choice") {
-                this.scene.dialogManager.setNode(this.currNode, []);
             }
         }
     }

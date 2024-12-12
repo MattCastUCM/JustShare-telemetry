@@ -1,14 +1,14 @@
 import BaseScene from '../baseScene.js';
 import Portrait from '../../../UI/dialog/portrait.js';
 
-export default class Scene2Break extends BaseScene {
+export default class Scene3Break extends BaseScene {
     /**
      * Escena base para el salon. Coloca los elementos que se mantienen igual todos los dias
      * @extends BaseScene
      * @param {String} name - id de la escena
      */
     constructor(name) {
-        super("Scene2Break", 'Scene2Break');
+        super("Scene3Break", 'Scene3Break');
     }
 
     create(params) {
@@ -34,8 +34,8 @@ export default class Scene2Break extends BaseScene {
 
         
         // Lee el archivo de nodos
-        let nodes = this.cache.json.get('scene2Break');
-        let node = super.readNodes(nodes, "scene2\\scene2Break", "part1", true);
+        let nodes = this.cache.json.get('scene3Break');
+        let node = super.readNodes(nodes, "scene2\\scene3Break", "part1", true);
         
         // Callback que al llamarse cambiara el nodo de dialogo
         this.setNode = () => {
@@ -48,7 +48,7 @@ export default class Scene2Break extends BaseScene {
         this.dispatcher.add("paulaAppear", this, () => {
             lauraTr.x = this.CANVAS_WIDTH / 2 - this.CANVAS_WIDTH / 5;
             lauraPortrait.setPosX(lauraTr.x);
-            node = super.readNodes(nodes, "scene2\\scene2Break", "part2", true);
+            node = super.readNodes(nodes, "scene2\\scene3Break", "part2", true);
             this.dialogManager.setNode(node, [lauraPortrait, paulaPortrait]);
         });
     
@@ -68,9 +68,6 @@ export default class Scene2Break extends BaseScene {
     // Se hace esto porque si se establece un dialogo en la constructora,
     // no funciona el bloqueo del fondo del DialogManager
     onCreate() {
-        // TEST
-        this.phoneManager.togglePhone();
-        
         setTimeout(() => {
             this.setNode();
         }, 500);

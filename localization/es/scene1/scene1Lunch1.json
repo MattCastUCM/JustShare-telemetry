@@ -1,9 +1,7 @@
 {
     "main": {
         "root": {
-            "text": "",
-            "text_male": "Bueno hijo, ¿qué tal te ha ido tú primer día? ¿Has hecho muchos amigos?",
-            "text_female": "Bueno hija, ¿qué tal te ha ido tú primer día? ¿Has hecho muchos amigos?"
+            "text": "Bueno <player, hijo, hija>, ¿qué tal te ha ido tú primer día? ¿Has hecho muchos amigos?"
         },
         "choices": [
             {
@@ -50,9 +48,7 @@
             "text": "Por cierto cariño, a tu padre y a mí nos ha surgido un viaje de trabajo y vamos a estar unas semanas fuera."
         },
         "alone": {
-            "text": "",
-            "text_male": "¿Eso significa que me quedo solo y a cargo de la casa por fin?",
-            "text_female": "¿Eso significa que me quedo sola y a cargo de la casa por fin?"
+            "text": "¿Eso significa que me quedo <player, solo, sola> y a cargo de la casa por fin?"
         },
         "bet": [
             {
