@@ -22,7 +22,6 @@ export default class TitleScene extends ComputerBaseScene {
 
         let creditsButton = this.createButton(playButton.x, playButton.y + BUTTON_HEIGHT + BUTTON_OFFSET, 
             "creditsButton", BUTTON_SCALE, () => {
-                
         });
     }
 }

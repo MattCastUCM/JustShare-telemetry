@@ -62,7 +62,7 @@ export default class LoginScene extends ComputerBaseScene {
                     gender: contGender.group.getIndexSelButton() === 0 ? "male" : "female",
                     harasser: harasserGender
                 }
-                this.gameManager.startTestScene(userInfo)
+                this.gameManager.startGame(userInfo);
             }
         });
         container.add(acceptButton);

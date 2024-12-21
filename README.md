@@ -21,6 +21,7 @@ Para los fondos, se ha aplicado una combinación de distintos filtros usando Pho
     * [Mesa](https://www.freepik.com/free-vector/kitchen-wooden-table-with-cutting-board-knife_8189041.htm#fromView=search&page=1&position=0&uuid=ee26ab23-88da-4515-8db1-e4195f971588)
     * [Pared](https://www.freepik.es/foto-gratis/texturas-pared-blanca_3775096.htm#fromView=search&page=1&position=0&uuid=4e70de2d-fc8d-4c83-b87b-bd016f556252)
     * [Teléfono](https://www.freepik.es/vector-gratis/mujer-rica-sentada-usando-smartphone-moneda-dinero-inversion-ilustracion-vectorial-plana-plantilla-aplicacion-movil-concepto-finanzas-transacciones_11541808.htm#fromView=search&page=1&position=16&uuid=42fb0cfc-9de9-4c5f-93e8-586eee35a802)
+    * [Fondo de los chats](https://www.freepik.com/free-vector/hand-drawn-doodle-icons-set_24097127.htm#fromView=search&page=1&position=44&uuid=297fa8d2-abde-47cb-a861-132d7423b5f7&new_detail=true)
     * [Iconos](https://tabler.io/icons)
         * antenna-bars-5
         * arrow-back-up
@@ -56,7 +57,8 @@ Para los fondos, se ha aplicado una combinación de distintos filtros usando Pho
     * [Habitación](https://xn--mueblesocaa-beb.es/juveniles-modernos/1685-dormitorio-juvenil-030.html)
 
 
-<br><br>
+<br>
 
 ---
+<br>
 <p xmlns:cc="http://creativecommons.org/ns" >This work is licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/?ref=chooser-v1" target="_blank" rel="license noopener noreferrer" style="display:inline-block;">CC BY-NC-SA 4.0<img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/cc.svg?ref=chooser-v1" alt=""><img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/by.svg?ref=chooser-v1" alt=""><img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/nc.svg?ref=chooser-v1" alt=""><img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/sa.svg?ref=chooser-v1" alt=""></a></p>

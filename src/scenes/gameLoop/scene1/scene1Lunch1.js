@@ -86,8 +86,7 @@ export default class Scene1Lunch1 extends BaseScene {
         });
     }
 
-    // Se hace esto porque si se establece un dialogo en la constructora,
-    // no funciona el bloqueo del fondo del DialogManager
+    // Se hace esto porque si se establece un dialogo en la constructora, no funciona el bloqueo del fondo del DialogManager
     onCreate() {
         setTimeout(() => {
             this.setNode();

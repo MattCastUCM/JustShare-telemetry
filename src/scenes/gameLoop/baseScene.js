@@ -468,6 +468,9 @@ export default class BaseScene extends Phaser.Scene {
         nodesMap.set(translationId, node);
         node.id = nodeId;
         node.fullId = translationId;
+        if (fileObj[id].nextDelay != null) {
+            node.nextDelay = fileObj[id].nextDelay;
+        }
 
         return node;
     }

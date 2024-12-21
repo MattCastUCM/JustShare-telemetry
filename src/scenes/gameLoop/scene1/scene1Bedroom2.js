@@ -74,8 +74,7 @@ export default class Scene1Bedroom2 extends BaseScene {
         });
     }
 
-    // Se hace esto porque si se establece un dialogo en la constructora,
-    // no funciona el bloqueo del fondo del DialogManager
+    // Se hace esto porque si se establece un dialogo en la constructora, no funciona el bloqueo del fondo del DialogManager
     onCreate() {
         // this.dispatcher.dispatch("sleep", { });
     }

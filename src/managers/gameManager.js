@@ -79,35 +79,32 @@ export default class GameManager {
     /// Metodos para cambiar de escena ///
     //////////////////////////////////////
     
-    startTestScene(userInfo) {
+    startTestScene() {
         this.blackboard.clear();
-        this.day = 0;
-        this.userInfo = userInfo;
+        this.userInfo = {
+            name: "Paco",
+            gender: "male",
+            harasser: "male"
+        }
 
-        //*
         // IMPORTANTE: Hay que lanzar primero el UIManager para que se inicialice
         // el DialogManager y las escenas puedan crear los dialogos correctamente
         let UIsceneName = 'UIManager';
         this.currentScene.scene.launch(UIsceneName);
         this.UIManager = this.currentScene.scene.get(UIsceneName);
 
-        // Pasa a la escena inicial con los parametros text, onComplete y onCompleteDelay
-        // let sceneName = 'TextOnlyScene';
-        // let params = {
-        //     text: this.translate("scene1.classroom", { ns: "transitions", returnObjects: true }),
-        //     onComplete: () => {
-        //         this.changeScene("Scene2Bedroom", null);
-        //     },
-        // };
-        
-        this.changeScene("Scene1Bedroom1", {});
-        //*/
-
-        // this.startGame();
+        this.changeScene("Scene3Break", {});
     }
 
 
-    startGame() {
+    startGame(userInfo) {
+        // TEST
+        this.startTestScene();
+        return;
+        
+        this.blackboard.clear();
+        this.userInfo = userInfo;
+
         // IMPORTANTE: Hay que lanzar primero el UIManager para que se inicialice
         // el DialogManager y las escenas puedan crear los dialogos correctamente
         let UIsceneName = 'UIManager';

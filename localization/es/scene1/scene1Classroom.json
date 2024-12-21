@@ -21,7 +21,7 @@
                 "text": "Igualmente, <player, encantado, encantada> de conocerte *sonríes*."
             },
             {
-                "text": "Gracias, ya te iré diciendo."
+                "text": "Gracias, si necesito algo ya te iré diciendo."
             },
             {
                 "text": "... Ah, sí, hola."
@@ -32,7 +32,7 @@
             "text": "Pareces <player, majo, maja>. Si necesitas cualquier cosa, no dudes en preguntarme."
         },
         "neutral": {
-            "text": "Espero que nos llevemos bien. Si necesitas cualquier cosa, no dudes en preguntarme."
+            "text": "Espero que nos llevemos bien. Tú no dudes en preguntarme."
         },
         "shy": {
             "text": "Venga, no seas <player, tímido, tímida>. Si necesitas cualquier cosa, no dudes en preguntarme."

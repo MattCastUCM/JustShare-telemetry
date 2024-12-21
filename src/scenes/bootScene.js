@@ -25,6 +25,11 @@ export default class BootScene extends Phaser.Scene {
         let width = this.cameras.main.width;
         let height = this.cameras.main.height;
 
+        // Fondo escalado en cuanto al canvas
+        let bg = this.add.image(width / 2, height / 2, 'basePC');
+        let scale = width / bg.width;
+        bg.setScale(scale);
+
         let progressBox = this.add.graphics();
         let progressBar = this.add.graphics();
 
@@ -33,52 +38,48 @@ export default class BootScene extends Phaser.Scene {
         let BAR_OFFSET = 40;
         let FILL_OFFSET = 20;
         let TEXT_OFFSET = 70;
-        let bgCol = 0xFF408E86;
-        let fillCol = 0xFF004E46;
+        let bgCol = 0x9c9edf;
+        let fillCol = 0x7274b3;
         let borderCol = 0xFF004E46;
         let borderThickness = 2;
         let radius = Math.min(BAR_W, BAR_H) * 0.25;
 
         progressBox.fillStyle(bgCol, 1).fillRoundedRect(width / 2 - BAR_W / 2, height / 2 - BAR_H / 2 - BAR_OFFSET, BAR_W, BAR_H, radius)
             .lineStyle(borderThickness, borderCol, 1).strokeRoundedRect(width / 2 - BAR_W / 2, height / 2 - BAR_H / 2 - BAR_OFFSET, BAR_W, BAR_H, radius)
-
-
+        
+        let textStyle = {
+            fontFamily: 'roboto-regular',
+            fontSize: '30px',
+            fill: '#000000',
+            fontStyle: 'bold'
+        }
         // Texto de la palabra cargando
         let loadingText = this.make.text({
             x: width / 2,
             y: height / 2 - TEXT_OFFSET - BAR_OFFSET,
             text: 'Loading...',
-            style: {
-                fontFamily: 'gidole-regular',
-                fontSize: '30px',
-                fill: '#ffffff'
-            }
+            style: textStyle
         });
         loadingText.setOrigin(0.5, 0.5);
 
         // Texto con el porcentaje de los assets cargados
+        textStyle.fontSize = '20px';
+        textStyle.fill = '#ffffff';
         let percentText = this.make.text({
             x: width / 2,
             y: height / 2 - BAR_OFFSET,
             text: '0%',
-            style: {
-                fontFamily: 'gidole-regular',
-                fontSize: '20px',
-                fill: '#ffffff'
-            }
+            style: textStyle
         });
         percentText.setOrigin(0.5, 0.5);
 
         // Texto para el nombre de los archivos
+        textStyle.fill = '#000000';
         let assetText = this.make.text({
             x: width / 2,
             y: height / 2 + TEXT_OFFSET - BAR_OFFSET,
             text: '',
-            style: {
-                fontFamily: 'gidole-regular',
-                fontSize: '20px',
-                fill: '#ffffff'
-            }
+            style: textStyle
         });
         assetText.setOrigin(0.5, 0.5);
 
@@ -90,6 +91,7 @@ export default class BootScene extends Phaser.Scene {
             progressBar.fillStyle(fillCol, 1);
             progressBar.fillRoundedRect(width / 2 - (BAR_W - FILL_OFFSET) / 2, height / 2 - (BAR_H - FILL_OFFSET) / 2 - BAR_OFFSET, (BAR_W - FILL_OFFSET) * value, BAR_H - FILL_OFFSET, radius);
         });
+        
         // Cuando carga un archivo, muestra el nombre del archivo debajo de la barra
         this.load.on('fileprogress', function (file) {
             // console.log(file.key);
@@ -103,12 +105,14 @@ export default class BootScene extends Phaser.Scene {
             loadingText.destroy();
             percentText.destroy();
             assetText.destroy();
+            bg.destroy();
         });
     }
 
     loadLoadingBarAssets() {
         this.load.setPath('assets/UI/computer');
 
+        this.load.image('basePC', 'basePC.png');
     }
 
     loadUIAssets() {
@@ -118,10 +122,13 @@ export default class BootScene extends Phaser.Scene {
         this.load.image('pointer', 'pointer.png');
         this.load.image('enter', 'door-enter.png');
         this.load.image('exit', 'door-exit.png');
+        this.load.image('myBubble', 'myBubble.png');
+        this.load.image('othersBubble', 'othersBubble.png');
     }
 
     loadComputerAssets() {
         this.load.setPath('assets/UI/computer');
+
         this.load.image('computer', 'computer.png')
         this.load.image('powerIcon', 'powerIcon.png')
         this.load.image('manIcon', 'manIcon.png')
@@ -139,8 +146,6 @@ export default class BootScene extends Phaser.Scene {
         this.load.image('chatBg', 'chatBg.png');
         this.load.image('chatTextBox', 'chatTextBox.png');
         this.load.image('chatReturnButton', 'chatReturnButton.png');
-        this.load.image('myBubble', 'myBubble.png');
-        this.load.image('othersBubble', 'othersBubble.png');
     }
 
     loadFlags() {
@@ -318,6 +323,8 @@ export default class BootScene extends Phaser.Scene {
     create() {
         this.events.once('start', () => {
             let gameManager = GameManager.create(this);
+            // TEST
+            // gameManager.startTestScene();
             gameManager.changeScene("TitleScene")
         })
     }

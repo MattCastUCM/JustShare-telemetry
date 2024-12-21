@@ -33,12 +33,6 @@ export default class Scene1Bedroom1 extends BaseScene {
         momPortrait.setFlipX(true);
         this.portraits.set("mom", momPortrait);
 
-
-        // Elemento interactuable que permite volver al salon
-        super.createInteractiveElement(120, 790, "exit", 0.4, () => {
-            this.gameManager.changeScene("Scene1Lunch1", null, true);
-        }, false);
-
         
         // Lee el archivo de nodos
         let nodes = this.cache.json.get('scene1Bedroom1');
@@ -115,8 +109,7 @@ export default class Scene1Bedroom1 extends BaseScene {
         });
     }
 
-    // Se hace esto porque si se establece un dialogo en la constructora,
-    // no funciona el bloqueo del fondo del DialogManager
+    // Se hace esto porque si se establece un dialogo en la constructora, no funciona el bloqueo del fondo del DialogManager
     onCreate() {
     }
     

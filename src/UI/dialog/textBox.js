@@ -78,17 +78,11 @@ export default class TextBox extends DialogObject {
         this.nameText.alpha = 0;
     }
 
-    getTransform() {
-        return {
-            x: this.box.x,
-            y: this.box.y,
-            originX: this.box.originX,
-            originY: this.box.originY,
-            scaleX: this.box.scaleX,
-            scaleY: this.box.scaleY
-        }
+    setDepth(depth) {
+        this.box.setDepth(depth);
+        this.currText.setDepth(depth);
+        this.nameText.setDepth(depth);
     }
-
 
     /**
     * Cambia el texto de la caja

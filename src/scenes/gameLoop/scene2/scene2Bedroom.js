@@ -75,7 +75,7 @@ export default class Scene2Bedroom extends BaseScene {
                         text: this.gameManager.translate("scene3.startWeek", { ns: "transitions", returnObjects: true }),
                         onComplete: () => {
                             this.UIManager.moveLids(true);
-                            this.gameManager.changeScene("TitleScene");
+                            this.gameManager.changeScene("Scene3Break");
                         },
                     };
                     this.gameManager.changeScene(sceneName, params);
@@ -84,8 +84,7 @@ export default class Scene2Bedroom extends BaseScene {
         });
     }
 
-    // Se hace esto porque si se establece un dialogo en la constructora,
-    // no funciona el bloqueo del fondo del DialogManager
+    // Se hace esto porque si se establece un dialogo en la constructora, no funciona el bloqueo del fondo del DialogManager
     onCreate() {
 
     }

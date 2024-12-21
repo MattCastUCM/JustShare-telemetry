@@ -24,7 +24,7 @@ export default class ChatScreen extends BaseScreen {
         // Configuracion de las animaciones
         this.tintFadeTime = 50;
         this.noTint = Phaser.Display.Color.HexStringToColor('#ffffff');
-        this.pointerOverColor = Phaser.Display.Color.HexStringToColor('#8c8c8c');
+        this.pointerOverColor = Phaser.Display.Color.HexStringToColor('#9c9edf');
 
         // Crea la caja de respuesta y el boton de volver hacia atras y los guarda
         // en las variables this.textBox y this.returnButton respectivamente
@@ -54,7 +54,7 @@ export default class ChatScreen extends BaseScreen {
         this.currNode = null;
 
         // Lista con los mensajes
-        this.messagesListView = new VerticalListView(this.scene, this.BG_X, 141,
+        this.messagesListView = new VerticalListView(this.scene, this.BG_X, 142,
             1, -40, { width: this.bg.displayWidth * 0.85, height: 605 }, null, true, 50, true);
 
         this.add(this.nameText);
@@ -81,11 +81,13 @@ export default class ChatScreen extends BaseScreen {
         this.textBox = this.scene.add.image(this.BG_X, TEXT_BOX_Y, 'chatTextBox');
         this.textBox.setInteractive({ useHandCursor: true });
 
-        
-
         // Hace fade del color de la caja al pasar o quitar el raton por encima
         this.textBox.on('pointerover', () => {
             if (!this.scene.dialogManager.isTalking()) {
+                if (this.canAnswerAnim != null) {
+                    this.scene.tweens.remove(this.canAnswerAnim);
+                }
+
                 this.scene.tweens.addCounter({
                     targets: [this.textBox],
                     from: 0,
@@ -104,7 +106,7 @@ export default class ChatScreen extends BaseScreen {
         });
         this.textBox.on('pointerout', () => {
             if (!this.scene.dialogManager.isTalking()) {
-                this.scene.tweens.addCounter({
+                let anim = this.scene.tweens.addCounter({
                     targets: [this.textBox],
                     from: 0,
                     to: 100,
@@ -116,6 +118,11 @@ export default class ChatScreen extends BaseScreen {
                     },
                     duration: this.tintFadeTime,
                     repeat: 0,
+                });
+                
+                // Al poner el color normal, vuelve a poner la animacion para indicar que se puede responder
+                anim.on('complete', () => {
+                    this.setCanAnswer();
                 });
             }
         });
@@ -215,7 +222,7 @@ export default class ChatScreen extends BaseScreen {
         });
 
         this.add(this.returnButton);
-    }   
+    }
 
     // Anade una animacion a la caja de respuesta para saber que se puede escribir
     setCanAnswer() {
@@ -233,10 +240,9 @@ export default class ChatScreen extends BaseScreen {
             repeat: -1,
             yoyo: true
         });
-
+        this.textBox.setInteractive();
         this.canAnswer = true;
     }
-
 
     /**
      * Cambia el nodo de dialogo
@@ -254,10 +260,18 @@ export default class ChatScreen extends BaseScreen {
 
     // Procesa el nodo de dialogo
     processNode() {
-        this.canAnswer = true;
-        this.scene.dialogManager.setNode(null, []);
-        
+        // this.scene.dialogManager.currNode = this.currNode;
+        // this.scene.dialogManager.setNode(null, []);
+        this.textBox.disableInteractive();
+        if (this.canAnswerAnim != null) {
+            this.scene.tweens.remove(this.canAnswerAnim);
+        }
+
         if (this.currNode) {
+            let delay = 0;
+            if (this.currNode.nextDelay == null) {
+                delay = this.currNode.nextDelay;
+            }
             // Si el nodo es de tipo mensaje, con el retardo indicado, anade
             //  el mensaje al chat, pasa al siguiente nodo, y lo procesa.
             if (this.currNode.type === "chatMessage") {
@@ -265,7 +279,7 @@ export default class ChatScreen extends BaseScreen {
                 setTimeout(() => {
                     this.addMessage(this.currNode.text, this.currNode.character, this.currNode.name);
                     this.currNode = this.currNode.next[0];
-                    this.processNode();
+                    this.processNextNode(delay);
                 }, this.currNode.replyDelay);
 
             }
@@ -273,12 +287,12 @@ export default class ChatScreen extends BaseScreen {
             else if (this.currNode.type === "condition") {
                 let i = this.scene.dialogManager.processConditionNode(this.currNode);
                 this.scene.dialogManager.currNode = this.currNode;
-                
+
                 // El indice del siguiente nodo sera el primero que cumpla una de las condiciones
                 this.currNode = this.currNode.next[i];
 
                 // Pasa al siguiente nodo
-                this.processNode();
+                this.processNextNode(delay);
             }
             // Si el nodo es de tipo evento, hace que el dialogManager lo procese y pasa al siguiente nodo
             else if (this.currNode.type === "event") {
@@ -287,9 +301,18 @@ export default class ChatScreen extends BaseScreen {
                 // IMPORTANTE: DESPUES DE UN NODO DE EVENTO SOLO HAY UN NODO, POR LO QUE 
                 // EL SIGUIENTE NODO SERA EL PRIMER NODO DEL ARRAY DE NODOS SIGUIENTES
                 this.currNode = this.currNode.next[0];
-                this.processNode();
+                this.processNextNode(delay);
+            }
+            else {
+                this.setCanAnswer();
             }
         }
+    }
+
+    processNextNode(delay) {
+        setTimeout(() => {
+            this.processNode();
+        }, delay);
     }
 
     /**

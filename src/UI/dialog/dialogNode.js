@@ -8,6 +8,8 @@ export default class DialogNode {
         this.id = null;                 // id de este nodo dentro del objeto en el que se encuentra
         this.next = [];                 // posibles nodos siguientes
         this.fullId = null;             // id completa del nodo en el archivo en general
+
+        this.nextDelay = 0;             // retardo con el que se procesara el siguiente nodo
     }
 }
 
@@ -115,7 +117,7 @@ export class EventNode extends DialogNode {
                         "variable": "talked", 
                         "global": false,
                         "value": true, 
-                        "delay": 20 
+                        "delay": 20,
                     } 
                 }
             ]

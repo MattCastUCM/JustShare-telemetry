@@ -28,37 +28,66 @@ export default class Scene3Break extends BaseScene {
 
         // Lee el archivo de nodos
         let nodes = this.cache.json.get('scene3Break');
-        let node = super.readNodes(nodes, "scene3\\scene3Break", "", true);
+        let node = super.readNodes(nodes, "scene3\\scene3Break", "conversation1", true);
+        this.chatName = this.gameManager.translate("textMessages.chat2", { ns: "deviceInfo", returnObjects: true });
         
+
         // Callback que al llamarse cambiara el nodo de dialogo
         this.setNode = () => {
             this.dialogManager.setNode(node, [lauraPortrait]);
         }
 
         this.phoneManager.activatePhoneIcon(true);
-        // PENDIENTE / TEST
-        let chatName = this.gameManager.translate("textMessages.chat2", { ns: "deviceInfo", returnObjects: true });
-        this.phoneManager.phone.addChat(chatName, "");
-
-
-        this.dispatcher.add("processChoice", this, () => {
-            this.dialogManager.processNode();
-
-        });
         
+        // Ajusta las posiciones de la caja de texto para que esten por debajo del movil (solo en esta escena)
+        let textboxDepth = this.dialogManager.textbox.box.depth;
+        let bgBlockDepth = this.dialogManager.bgBlock.depth;
+        this.dialogManager.textbox.setDepth(this.phoneManager.phone.depth - 2);
+        this.dialogManager.bgBlock.setDepth(this.phoneManager.bgBlock.depth - 2);
+
+
+        // Anade el evento answerPhone para que, al producirse, se abra el telefono, se desactive el bloqueo de fondo 
+        // y el boton de volver para atras (para no poder cerrarlo) y va directo a la pantalla del chat del acosador)
         this.dispatcher.add("answerPhone", this, () => {
-            setTimeout(() => {
-                this.phoneManager.togglePhone();
-                this.phoneManager.phone.toChatScreen(chatName);
-            }, 500);
+            this.phoneManager.togglePhone();
+            this.phoneManager.bgBlock.disableInteractive();
+            this.phoneManager.phone.returnButton.disableInteractive();
+            this.phoneManager.phone.toChatScreen(this.chatName);
         });
 
+        // Cuando llegan los eventos de enviar mensajes, se anade el mensaje correspondiente a la pantalla del chat
+        this.dispatcher.add("sendMsg1", this, () => {
+            this.sendMsg(nodes, "1");
+        });
+        this.dispatcher.add("sendMsg2", this, () => {
+            this.sendMsg(nodes, "2");
+        }); 
+        // Cuando llega el ultimo mensaje, se hace tambien que la caja de texto desaparezca
+        this.dispatcher.add("sendMsg3", this, () => {
+            this.sendMsg(nodes, "3");
+
+            setTimeout(() => {
+                this.dialogManager.textbox.activate(false);
+            }, 1000);
+
+        });
+
+        //
         this.dispatcher.add("closePhone", this, () => {
+            this.phoneManager.toggling = false;
             this.phoneManager.togglePhone();
+
+            node = super.readNodes(nodes, "scene3\\scene3Break", "conversation2", true);
+            this.dialogManager.setNode(node, [lauraPortrait], false);
         });
 
         // Anade el evento endBreak para que, al producirse, se cambie a la escena de transicion y luego a la
         this.dispatcher.add("endBreak", this, () => {
+            // Se vuelve a poner la caja de texto a la profundidad original
+            this.dialogManager.textbox.setDepth(textboxDepth);
+            this.dialogManager.bgBlock.setDepth(bgBlockDepth);
+            this.phoneManager.phone.returnButton.setInteractive();
+
             let sceneName = 'TextOnlyScene';
             let params = {
                 text: this.gameManager.translate("scene3.classEnd", { ns: "transitions", returnObjects: true }),
@@ -70,11 +99,18 @@ export default class Scene3Break extends BaseScene {
         });
     }
 
-    // Se hace esto porque si se establece un dialogo en la constructora,
-    // no funciona el bloqueo del fondo del DialogManager
+    // Se hace esto porque si se establece un dialogo en la constructora, no funciona el bloqueo del fondo del DialogManager
     onCreate() {
         setTimeout(() => {
             this.setNode();
         }, 500);
+    }
+
+    sendMsg(nodes, msg) {
+        let nodeName = "phone" + msg; 
+        let phoneNode = super.readNodes(nodes, "scene3\\scene3Break", nodeName, true);
+
+        this.phoneManager.phone.addChat(this.chatName, "");
+        this.phoneManager.phone.setChatNode(this.chatName, phoneNode);
     }
 }
