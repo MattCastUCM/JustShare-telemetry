@@ -45,7 +45,7 @@ export default class MessageBox extends Phaser.GameObjects.Container {
             }
             charName = name;
         }
-
+        
         // Configuracion de texto para la el texto del mensaje
         let textConfig = { ...scene.gameManager.textConfig };
         textConfig.fontFamily = 'roboto-regular';
@@ -57,6 +57,18 @@ export default class MessageBox extends Phaser.GameObjects.Container {
             useAdvancedWrap: true
         }
 
+
+        // id de la imagen (todo lo que haya entre [])
+        let regex = /\[([^\]]+)\]/g;
+
+        // Encuentra todos los elementos entre <>
+        let matches = [...msgText.matchAll(regex)];
+        let isPhoto = false;
+        if (matches[0] != null && matches[0][1] != null) {
+            msgText = ""
+            isPhoto = true;
+        }
+
         // Configuracion de texto para el nombre del contacto
         let nameTextConfig = { ...textConfig };
         nameTextConfig.color = '#5333bb';
@@ -65,27 +77,50 @@ export default class MessageBox extends Phaser.GameObjects.Container {
         let text = this.scene.add.text(-5, - TEXT_PADDING * 0.25 + 5, msgText, textConfig).setOrigin(0, 0.5);
         let nameText = this.scene.add.text(-5, - TEXT_PADDING * 0.25, charName, nameTextConfig).setOrigin(0, 0.5);
 
-        // Crea la imagen de la burbuja de texto para obtener su ancho y calcula el ancho que deberia tener la caja
-        // (el ancho de lo que ocupe mas espacio entre el nombre, el texto, o la propia caja)
-        let boxImg = scene.add.image(0, 0, img);
-        let boxWidth = Math.max(text.displayWidth + TEXT_PADDING * 3, nameText.displayWidth + TEXT_PADDING * 3, boxImg.displayWidth)
-        boxImg.destroy();
+        let box = null;
+        let photo = null;
 
-        // Crea la burbuja como un nineslice para que se redimensione de acuerdo al tamano del texto
-        let box = scene.add.nineslice(
-            0, 0, img, "", boxWidth, text.displayHeight + TEXT_PADDING * heightMultiplier, leftWidth, rightWidth, topHeight, bottomHeight
-        ).setOrigin(0.5, 0.5);
+        // Crea la burbuja de texto como un nineslice
+        if (isPhoto) {
+            let IMG_SIZE = 300;
+            let boxSize = IMG_SIZE + TEXT_PADDING;
+            
+            box = scene.add.nineslice(
+                0, 0, img, "", boxSize, boxSize, leftWidth, rightWidth, topHeight, bottomHeight
+            ).setOrigin(0.5, 0.5);
+
+            photo = scene.add.image(text.x + leftWidth - TEXT_PADDING * 1.63, text.y + topHeight + TEXT_PADDING * 3.2, matches[0][1]).setOrigin(0.5, 0);
+            photo.displayWidth = IMG_SIZE - TEXT_PADDING * 3;
+            photo.displayHeight = IMG_SIZE - TEXT_PADDING * 3;
+        }
+        else {
+            // Crea la imagen de la burbuja de texto para obtener su ancho y calcula el ancho que deberia tener la caja
+            // (el ancho de lo que ocupe mas espacio entre el nombre, el texto, o la propia caja)
+            let boxImg = scene.add.image(0, 0, img);
+            let boxWidth = Math.max(text.displayWidth + TEXT_PADDING * 3, nameText.displayWidth + TEXT_PADDING * 3, boxImg.displayWidth)
+            boxImg.destroy();
+
+            box = scene.add.nineslice(
+                0, 0, img, "", boxWidth, text.displayHeight + TEXT_PADDING * heightMultiplier, leftWidth, rightWidth, topHeight, bottomHeight
+            ).setOrigin(0.5, 0.5);
+        }
+        
 
         // Mueve la burbuja a la izquierda o a la derecha dependiendo de quien es la burbuja de texto
-        if (type === 0 && (character === "player")) {
+        if (type === 0 && character === "player") {
             box.x = box.x + (maxWidth / 2) - (box.displayWidth / 2) - BOX_PADDING;
             text.x += box.x - box.displayWidth / 2 + TEXT_PADDING;
         }
         else {
             box.x = box.x - (maxWidth / 2) + (box.displayWidth / 2) + BOX_PADDING;
             text.x += box.x - box.displayWidth / 2 + TEXT_PADDING * 2.3;
-            if (character != null && name != "") {
-                text.y += TEXT_PADDING / 2;
+        }
+
+        if (character != null && name != "" && character != "player") {
+            text.y += TEXT_PADDING / 2;
+
+            if (photo != null) {
+                photo.y += TEXT_PADDING / 2;
             }
         }
 
@@ -101,6 +136,11 @@ export default class MessageBox extends Phaser.GameObjects.Container {
         this.add(box);
         this.bringToTop(text);
         this.bringToTop(nameText);
+
+        if (photo != null) {
+            this.add(photo);
+            this.bringToTop(photo);
+        }
 
         this.h = box.displayHeight + BOX_PADDING;
 

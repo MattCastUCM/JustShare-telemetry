@@ -1,5 +1,4 @@
 import BaseScene from '../baseScene.js';
-import Portrait from '../../../UI/dialog/portrait.js';
 
 export default class Scene2Bedroom extends BaseScene {
     /**
@@ -18,6 +17,7 @@ export default class Scene2Bedroom extends BaseScene {
         let bg = this.add.image(0, 0, 'bedroomNightBg').setOrigin(0, 0);
         this.scale = this.CANVAS_HEIGHT / bg.height;
         bg.setScale(this.scale);
+        
         
         // Lee el archivo de nodos
         let nodes = this.cache.json.get('scene2Bedroom');

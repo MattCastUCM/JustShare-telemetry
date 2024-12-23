@@ -1,0 +1,37 @@
+{
+    "root": {
+        "type": "text",
+        "character": "paula",
+        "next": "congrats"
+    },
+    "congrats": {
+        "type": "text",
+        "character": "player",
+        "next": "thanks"
+    },
+    "thanks": {
+        "type": "text",
+        "character": "paula",
+        "next": "laura"
+    },
+    "laura": {
+        "type": "text",
+        "character": "player",
+        "next": "msg"
+    },
+    "msg": {
+        "type": "chatMessage",
+        "character": "",
+        "chat": "chat2",
+        "replyDelay": 0,
+        "next": "end"
+    },
+    "end": {
+        "type": "event",
+        "events": [
+            {
+                "endConversation": { }
+            }
+        ]
+    }
+}

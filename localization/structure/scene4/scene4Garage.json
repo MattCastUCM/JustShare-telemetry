@@ -1,0 +1,78 @@
+{
+    "gifts": {
+        "root": {
+            "type": "text",
+            "character": "paula",
+            "next": "thanks"
+        },
+        "thanks": {
+            "type": "text",
+            "character": "classmate1",
+            "next": "amazing"
+        },
+        "amazing": {
+            "type": "text",
+            "character": "classmate2",
+            "next": "woohoo"
+        },
+        "woohoo": {
+            "type": "text",
+            "character": "classmate1",
+            "next": "returnThanks"
+        },
+        "returnThanks": {
+            "type": "text",
+            "character": "player",
+            "next": "wow"
+        },
+        "wow": {
+            "type": "text",
+            "character": "paula",
+            "next": "endGifts"
+        },
+        "endGifts": {
+            "type": "event",
+            "events": [
+                {
+                    "endGifts": { }
+                }
+            ],
+            "next": "msg"
+        },
+        "msg": {
+            "type": "chatMessage",
+            "character": "",
+            "chat": "chat2",
+            "replyDelay": 0,
+            "next": "thoughts"
+        },
+        "thoughts": {
+            "type": "text",
+            "character": "player"
+        }
+    },
+    
+    "phone": {
+        "root": {
+            "type": "choice",
+            "choices":[
+                { "next": "amazing" },
+                { "next": "love" }
+            ]
+        },
+        "amazing": {
+            "type": "chatMessage",
+            "character": "player",
+            "chat": "chat2",
+            "replyDelay": 0
+        },
+        "love": {
+            "type": "chatMessage",
+            "character": "player",
+            "chat": "chat2",
+            "replyDelay": 0
+        }
+    }
+
+    
+}

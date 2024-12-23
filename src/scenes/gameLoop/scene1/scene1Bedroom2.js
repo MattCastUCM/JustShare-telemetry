@@ -1,5 +1,4 @@
 import BaseScene from '../baseScene.js';
-import Portrait from '../../../UI/dialog/portrait.js';
 
 export default class Scene1Bedroom2 extends BaseScene {
     /**
@@ -18,12 +17,6 @@ export default class Scene1Bedroom2 extends BaseScene {
         let bg = this.add.image(0, 0, 'bedroomBg').setOrigin(0, 0);
         this.scale = this.CANVAS_HEIGHT / bg.height;
         bg.setScale(this.scale);
-
-
-        // Elemento interactuable que permite volver al salon
-        super.createInteractiveElement(1400, 800, 0.4, () => {
-            this.gameManager.changeScene("Scene1Lunch2", null, true);
-        }, false);
 
         
         // Lee el archivo de nodos

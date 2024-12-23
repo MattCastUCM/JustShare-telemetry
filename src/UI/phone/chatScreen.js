@@ -122,7 +122,7 @@ export default class ChatScreen extends BaseScreen {
                 
                 // Al poner el color normal, vuelve a poner la animacion para indicar que se puede responder
                 anim.on('complete', () => {
-                    this.setCanAnswer();
+                    this.setInteractive();
                 });
             }
         });
@@ -130,6 +130,8 @@ export default class ChatScreen extends BaseScreen {
         // Al hacer click, vuelve a cambiar el color de la caja al original
         this.textBox.on('pointerdown', () => {
             if (!this.scene.dialogManager.isTalking() && this.canAnswer) {
+                this.disableInteractive();
+
                 let fadeColor = this.scene.tweens.addCounter({
                     targets: [this.textBox],
                     from: 0,
@@ -148,9 +150,6 @@ export default class ChatScreen extends BaseScreen {
                 // el dialogManager cree las opciones para responder y las active
                 if (fadeColor && this.currNode) {
                     fadeColor.on('complete', () => {
-                        // Elimina la animacion de que se podia hacer click en la caja
-                        this.scene.tweens.remove(this.canAnswerAnim);
-                        
                         // Si es un mensaje de chat, lo procesa
                         if (this.currNode.type === "chatMessage") {
                             this.processNode();
@@ -225,7 +224,7 @@ export default class ChatScreen extends BaseScreen {
     }
 
     // Anade una animacion a la caja de respuesta para saber que se puede escribir
-    setCanAnswer() {
+    setInteractive() {
         this.canAnswerAnim = this.scene.tweens.addCounter({
             targets: [this.textBox],
             from: 0,
@@ -244,6 +243,15 @@ export default class ChatScreen extends BaseScreen {
         this.canAnswer = true;
     }
 
+    disableInteractive() {
+        // Elimina la animacion de que se podia hacer click en la caja
+        this.textBox.disableInteractive();
+        if (this.canAnswerAnim != null) {
+            this.scene.tweens.remove(this.canAnswerAnim);
+        }
+        this.canAnswer = false;
+    }
+
     /**
      * Cambia el nodo de dialogo
      * @param {DialogNode} node - nodo de dialogo que se va a reproducir
@@ -260,14 +268,9 @@ export default class ChatScreen extends BaseScreen {
 
     // Procesa el nodo de dialogo
     processNode() {
-        // this.scene.dialogManager.currNode = this.currNode;
-        // this.scene.dialogManager.setNode(null, []);
-        this.textBox.disableInteractive();
-        if (this.canAnswerAnim != null) {
-            this.scene.tweens.remove(this.canAnswerAnim);
-        }
-
         if (this.currNode) {
+            this.disableInteractive();
+            
             let delay = 0;
             if (this.currNode.nextDelay == null) {
                 delay = this.currNode.nextDelay;
@@ -303,8 +306,11 @@ export default class ChatScreen extends BaseScreen {
                 this.currNode = this.currNode.next[0];
                 this.processNextNode(delay);
             }
+            else if (this.currNode.type === "text") {
+                this.scene.dialogManager.currNode = this.currNode;
+            }
             else {
-                this.setCanAnswer();
+                this.setInteractive();
             }
         }
     }
@@ -314,6 +320,7 @@ export default class ChatScreen extends BaseScreen {
             this.processNode();
         }, delay);
     }
+
 
     /**
      * Anade el mensaje a la listView de mensajes

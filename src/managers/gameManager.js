@@ -93,7 +93,7 @@ export default class GameManager {
         this.currentScene.scene.launch(UIsceneName);
         this.UIManager = this.currentScene.scene.get(UIsceneName);
 
-        this.changeScene("Scene3Break", {});
+        this.changeScene("Scene4Garage", {});
     }
 
 
@@ -149,11 +149,19 @@ export default class GameManager {
     */
     changeScene(scene, params, canReturn = false) {
         // Reproduce un fade out al cambiar de escena
-        let FADE_TIME = 200;
-        if (params && params.fadeTime != null) {
-            FADE_TIME = params.fadeTime;
+        let FADE_OUT_TIME = 200;
+        let FADE_IN_TIME = 200;
+
+        if (params != null) {
+            if (params.fadeOutTime != null) {
+                FADE_OUT_TIME = params.fadeOutTime;
+            }
+            if (params.fadeInTime != null) {
+                FADE_IN_TIME = params.fadeInTime;
+            }
         }
-        this.currentScene.cameras.main.fadeOut(FADE_TIME, 0, 0, 0);
+
+        this.currentScene.cameras.main.fadeOut(FADE_OUT_TIME, 0, 0, 0);
         this.fading = true;
 
         // Cuando acaba el fade out de la escena actual se cambia a la siguiente
@@ -178,11 +186,11 @@ export default class GameManager {
             
             // Cuando se termina de crear la escena, se reproduce el fade in
             this.currentScene.events.on('create', () => {
-                this.currentScene.cameras.main.fadeIn(FADE_TIME, 0, 0, 0); 
+                this.currentScene.cameras.main.fadeIn(FADE_IN_TIME, 0, 0, 0); 
                 this.fading = false;   
             });
             this.currentScene.events.on('wake', () => {
-                this.currentScene.cameras.main.fadeIn(FADE_TIME, 0, 0, 0);    
+                this.currentScene.cameras.main.fadeIn(FADE_IN_TIME, 0, 0, 0);    
                 this.fading = false;   
             });
         });

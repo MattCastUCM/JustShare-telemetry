@@ -1,0 +1,18 @@
+
+{
+    "root": {
+        "text": "Hey, {{name}}, me alegro de que hayas venido."
+    },
+    "congrats": {
+        "text": "Sí, gracias por invitarme y felicidades"
+    },
+    "thanks": {
+        "text": "Gracias, siéntete <player, cómodo, cómoda>, el resto de la clase ya está por aquí."
+    },
+    "laura": {
+        "text": "(Debería buscar a Laura)"
+    },
+    "msg": {
+        "text": "Ey, has llegado ya a la fiesta esa?"
+    }
+}

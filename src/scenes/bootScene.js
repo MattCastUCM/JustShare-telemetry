@@ -275,7 +275,11 @@ export default class BootScene extends Phaser.Scene {
             "scene2/scene2Bedroom",
 
             "scene3/scene3Break",
+            "scene3/scene3Bedroom",
 
+            "scene4/scene4Frontyard",
+            "scene4/scene4Backyard",
+            "scene4/scene4Garage",
         ]
         // Solo son namespaces del plugin i18next
         // Namespace --> test\\dialog.json
@@ -324,8 +328,8 @@ export default class BootScene extends Phaser.Scene {
         this.events.once('start', () => {
             let gameManager = GameManager.create(this);
             // TEST
-            // gameManager.startTestScene();
-            gameManager.changeScene("TitleScene")
+            gameManager.startTestScene();
+            // gameManager.changeScene("TitleScene")
         })
     }
 }

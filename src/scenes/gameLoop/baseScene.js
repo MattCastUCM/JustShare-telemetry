@@ -617,11 +617,6 @@ export default class BaseScene extends Phaser.Scene {
 
         // Al pulsar el icono
         button.on('pointerdown', () => {
-            // Si es valida, se ejecuta la funcion onClick
-            if (onClick !== null && typeof onClick === 'function' && !this.gameManager.isInFadeAnimation() && this.UIManager.lidAnim == null) {
-                onClick();
-            }
-
             // Si hay que desactivar el boton al hacer click, deja de ser 
             // interactivo y se reproduce la animacion de desaparecer
             if (deactivateOnClick) {
@@ -634,6 +629,11 @@ export default class BaseScene extends Phaser.Scene {
                     repeat: 0,
                 });
             }
+            // Si es valida, se ejecuta la funcion onClick
+            if (onClick !== null && typeof onClick === 'function' && !this.gameManager.isInFadeAnimation() && this.UIManager.lidAnim == null) {
+                onClick();
+            }
+
         });
         
         // Se reproduce la animacion de encogerse y agrandarse

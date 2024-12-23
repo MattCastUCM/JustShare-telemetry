@@ -126,7 +126,7 @@ export default class DialogManager {
         }
 
         // Si no hay ningun dialogo/nodo activo y el nodo a poner es valido
-        if (!this.isTalking() && /*this.currNode == null &&*/ node != null) {
+        if (!this.isTalking() && node != null) {
             this.setPortraits(portraits);
 
             // Desactiva la caja de texto y las opciones (por si acaso)
@@ -489,6 +489,6 @@ export default class DialogManager {
     * @returns {boolean} - true si hay un dialogo activo, false en caso contrario
     */
     isTalking() {
-        return this.textbox.box.visible && this.textbox.box.alpha > 0;
+        return this.textbox.box.visible && this.textbox.box.alpha > 0 && this.currNode != null;
     }
 }

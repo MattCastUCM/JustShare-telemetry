@@ -1,0 +1,52 @@
+{
+    "gifts": {
+        "root": {
+            "text": "Gracias a todos por venir hoy, lo estoy pasando genial."
+        },
+        "thanks": {
+            "text": "Gracias a ti por invitarnos."
+        },
+        "amazing": {
+            "text": "Está siendo increíble."
+        },
+        "woohoo": {
+            "text": "¡Fiestón!"
+        },
+        "returnThanks": {
+            "text": "Gracias a ti."
+        },
+        "wow": [
+            {
+                "text": "Wow, ¡me encantan mis regalos!"
+            },
+            {
+                "text": "Muchas gracias, ¡sois los mejores!"
+            }
+        ],
+        "msg": {
+            "text": "¿Qué tal han ido los regalos?¿Le han gustado a Paula?"
+        },
+        "thoughts": {
+            "text": "(<harasser, Pablo, Lucía> me está escribiendo...)"
+        }
+    },
+    
+    "phone": {
+        "root": [
+            {
+                "text": "Sí, son increíbles."
+            },
+            {
+                "text": "Le han encantado."
+            }
+        ],
+        "amazing": {
+            "text": "Sii, la verdad que son increibles"
+        },
+        "love": {
+            "text": "Le han encantado"
+        }
+    }
+
+    
+}

@@ -1,0 +1,100 @@
+import BaseScene from '../baseScene.js';
+import Portrait from '../../../UI/dialog/portrait.js';
+
+export default class Scene4Backyard extends BaseScene {
+    /**
+     * Escena base para el salon. Coloca los elementos que se mantienen igual todos los dias
+     * @extends BaseScene
+     * @param {String} name - id de la escena
+     */
+    constructor(name) {
+        super("Scene4Backyard", 'Scene4Backyard');
+    }
+
+    create(params) {
+        super.create(params)
+
+        // Pone la imagen de fondo con las dimensiones del canvas
+        let bg = this.add.image(0, 0, 'backyardBg').setOrigin(0, 0);
+        this.scale = this.CANVAS_HEIGHT / bg.height;
+        bg.setScale(this.scale);
+
+        // Retrato de laura
+        let lauraTr = this.portraitTr;
+        lauraTr.x = this.CANVAS_WIDTH / 2;
+        let lauraPortrait = new Portrait(this, "laura", lauraTr, "laura")
+        lauraPortrait.setFlipX(true);
+        this.portraits.set("laura", lauraPortrait);
+
+        // PENDIENTE / TEST
+        this.phoneManager.activatePhoneIcon(true);
+
+        this.chatName = this.gameManager.translate("textMessages.chat2", { ns: "deviceInfo", returnObjects: true });
+        this.phoneManager.phone.addChat(this.chatName, "");
+        
+        
+        // Lee el archivo de nodos
+        this.nodes = this.cache.json.get('scene4Backyard');
+        
+        this.addClassmates();
+
+        // Anade el evento receiveMsg para que, al producirse, oculte la caja de texto
+        this.dispatcher.add("receiveMsg", this, () => {
+            setTimeout(() => {
+                this.dialogManager.setNode(null, []);
+            }, 1);
+        });
+
+        // Anade el evento endConversation para que, al producirse, haga aparecer el icono de cambiar de escenario
+        this.dispatcher.add("endConversation", this, () => {
+            // PENDIENTE
+            super.createInteractiveElement(100, 100, "enter", 0.4, () => {
+                this.gameManager.changeScene("Scene4Garage");
+            }, true);
+        });
+    }
+
+    // Crea a los companeros como objetos interactuables
+    addClassmates() {
+        this.interactedClassmates = 0;
+
+        let nodeClassmate1 = super.readNodes(this.nodes, "scene4\\scene4Backyard", "classmate1", true);
+        super.createInteractiveElement(550, 480, "pointer", 0.3, () => {
+            this.dialogManager.setNode(nodeClassmate1, []);
+            this.interactedClassmates++;
+        }, true);
+
+        let nodeClassmate2 = super.readNodes(this.nodes, "scene4\\scene4Backyard", "classmate2", true);
+        super.createInteractiveElement(980, 460, "pointer", 0.3, () => {
+            this.dialogManager.setNode(nodeClassmate2, []);
+            this.interactedClassmates++;
+        }, true);
+        
+        let nodeClassmate3 = super.readNodes(this.nodes, "scene4\\scene4Backyard", "classmate3", true);
+        super.createInteractiveElement(1300, 520, "pointer", 0.4, () => {
+            this.dialogManager.setNode(nodeClassmate3, []);
+            this.interactedClassmates++;
+        }, true);
+
+        let nodeClassmate4 = super.readNodes(this.nodes, "scene4\\scene4Backyard", "classmate4", true);
+        super.createInteractiveElement(100, 100, "pointer", 0.4, () => {
+            this.dialogManager.setNode(nodeClassmate4, []);
+            this.interactedClassmates++;
+        }, true);
+
+        // Anade el evento checkAllClassmates para que, al producirse, compruebe si se ha interactuado con todos los companeros
+        this.dispatcher.add("checkAllClassmates", this, () => {
+            this.checkAllClassmates();
+        });
+    }
+
+    // Comprueba si se ha interactuado con todos los companeros y si es asi, cambia el nodo de dialogo
+    checkAllClassmates() {
+        if (this.interactedClassmates >= 4) {
+            let node = super.readNodes(this.nodes, "scene4\\scene4Backyard", "mainConversation", true);
+            setTimeout(() => {
+                this.dialogManager.setNode(node, [this.portraits.get("laura")]); 
+            }, 500);
+        }
+    }
+}

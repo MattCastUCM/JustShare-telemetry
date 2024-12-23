@@ -14,6 +14,10 @@
 
     "scene3": {
         "startWeek": "Unos días más tarde...",
-        "classEnd": ""
+        "classEnd": "Terminan las clases y vuelves a tu casa. Te pones con el móvil, y, cuando quieres darte cuenta, ya se ha hecho de noche."
+    },
+
+    "scene4": {
+        "party": "Ya ha llegado el fin de semana, y tal y como prometiste, vas a la fiesta de cumpleaños de Paula."
     }
 }
