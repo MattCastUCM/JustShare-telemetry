@@ -49,7 +49,8 @@ export default class TextBox extends DialogObject {
         this.defaultNormalTextConfig.fontFamily = 'roboto-regular';
         this.defaultNormalTextConfig.fontSize = 35 + 'px';
         this.defaultNormalTextConfig.color = '#000000';
-
+        this.defaultNormalTextConfig.lineSpacing = 10;
+        
         // Inicialmente la configuracion del texto de la caja es la de por defecto
         this.normalTextConfig = { ...this.defaultNormalTextConfig };
 

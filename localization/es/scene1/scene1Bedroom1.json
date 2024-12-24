@@ -1,10 +1,10 @@
 {
     "bed": {
         "noInterruption": {
-            "text": "(Antes de tumbarme quiero echarle un ojo al ordenador.)" 
+            "text": "(Antes de tumbarme quiero echarle un ojo al ordenador)." 
         },
         "noHomework": {
-            "text": "(Antes de tumbarme tengo que hacer los deberes.)"
+            "text": "(Antes de tumbarme tengo que hacer los deberes)."
         },
         "noAnswer": {
             "text": "(Antes de tumbarme voy a contestar a <harasser, Pablo, Lucía>)"
@@ -110,16 +110,16 @@
     "homework": {
         "root": [
             {
-                "text": "(Muevo la X al otro lado...)"
+                "text": "(Muevo la X al otro lado..)."
             },
             {
                 "text": "..."
             },
             {
-                "text": "(Despejo esto...)"
+                "text": "(Despejo esto..)."
             },
             {
-                "text": "(Como odio las funciones...)"
+                "text": "(Como odio las funciones..)."
             },
             {
                 "text": "..."

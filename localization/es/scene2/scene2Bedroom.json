@@ -1,26 +1,26 @@
 {
     "bed": {
         "root": {
-            "text": "(Antes de irme a dormir quiero hablar un rato más con <harasser, Pablo, Lucía>.)"
+            "text": "(Antes de irme a dormir quiero hablar un rato más con <harasser, Pablo, Lucía>)."
         }
     },
 
     "closet": {
         "root": {
-            "text": "(Ya lo ordenaré otro día, ahora quiero hablar rato más con <harasser, Pablo, Lucía>.)"
+            "text": "(Ya lo ordenaré otro día, ahora quiero hablar rato más con <harasser, Pablo, Lucía>)."
         }
     },
 
 
     "closetNight": {
         "root": {
-            "text": "(Ya es muy tarde, ya lo ordenaré otro día.)"
+            "text": "(Ya es muy tarde, ya lo ordenaré otro día)."
         }
     },
 
     "bedUnanswered": {
         "root": {
-            "text": "(Antes de irme a dormir tengo que ver que he recibido el mensaje de <harasser, Pablo, Lucía>.)"
+            "text": "(Antes de irme a dormir tengo que ver que he recibido el mensaje de <harasser, Pablo, Lucía>)."
         }
     },
 

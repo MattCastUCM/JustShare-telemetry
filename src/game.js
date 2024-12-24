@@ -26,6 +26,11 @@ import Scene4Bedroom from "./scenes/gameLoop/scene4/scene4Bedroom.js";
 
 // Escena 5
 import Scene5Livingroom from "./scenes/gameLoop/scene5/scene5Livingroom.js";
+import Scene5Bedroom from "./scenes/gameLoop/scene5/scene5Bedroom.js";
+
+
+// Escena 6
+import Scene6Livingroom from "./scenes/gameLoop/scene6/scene6Livingroom.js";
 
 // UI
 import UIManager from './managers/UIManager.js';
@@ -55,8 +60,10 @@ const config = {
         // Escena 4
         Scene4Frontyard, Scene4Backyard, Scene4Garage, Scene4Bedroom,
         // Escena 5
-        Scene5Livingroom,
-        
+        Scene5Livingroom, Scene5Bedroom,
+        // Escena 6
+        Scene6Livingroom,
+
         // Menus
         TitleScene, LoginScene,
         

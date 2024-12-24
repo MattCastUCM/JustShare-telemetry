@@ -23,6 +23,10 @@
     },
 
     "scene5": {
-        "startWeek": ""
+        "startWeek": "Ya han pasado un par de semanas. Desde entonces, <harasser, Pablo, Lucía> y tú habéis estado estrechando vuestra amistad cada día más, hasta que, hace poco, habéis comenzado una relación amorosa."
+    },
+
+    "scene6": {
+        "startWeek": "Unos días después..."
     }
 }

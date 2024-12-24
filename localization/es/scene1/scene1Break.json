@@ -39,19 +39,19 @@
 
     "tables1": {
         "root": {
-            "text": "(Esa mesa parece llena, mejor busco otra.)"
+            "text": "(Esa mesa parece llena, mejor busco otra)."
         }
     },
 
     "tables2": {
         "root": {
-            "text": "(Parece que todos los de esa mesa ya se conocen, qué vergüenza sentarme con ellos.)"
+            "text": "(Parece que todos los de esa mesa ya se conocen, qué vergüenza sentarme con ellos)."
         }
     },
 
     "tables3": {
         "root": {
-            "text": "(Los de ahí no me dan muy buena espina...)"
+            "text": "(Los de ahí no me dan muy buena espina..)."
         }
     }
 }

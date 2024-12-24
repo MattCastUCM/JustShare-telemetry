@@ -281,6 +281,11 @@ export default class BootScene extends Phaser.Scene {
             "scene4/scene4Backyard",
             "scene4/scene4Garage",
             "scene4/scene4Bedroom",
+
+            "scene5/scene5Livingroom",
+            "scene5/scene5Bedroom",
+
+            "scene6/scene6Livingroom",
             
         ]
         // Solo son namespaces del plugin i18next
