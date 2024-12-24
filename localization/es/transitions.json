@@ -18,6 +18,11 @@
     },
 
     "scene4": {
-        "party": "Ya ha llegado el fin de semana, y tal y como prometiste, vas a la fiesta de cumpleaños de Paula."
+        "party": "Ya ha llegado el fin de semana, y tal y como prometiste, vas a la fiesta de cumpleaños de Paula.",
+        "partyEnd": "El cumpleaños termina y todos vuelven a sus casas."
+    },
+
+    "scene5": {
+        "startWeek": ""
     }
 }

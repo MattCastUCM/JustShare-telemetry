@@ -43,8 +43,7 @@ export default class Scene2Break extends BaseScene {
         }
 
 
-        // Anade el evento paulaAppear para que, al producirse, el retrato de laura se desplace, 
-        // aparezca el retrato de paula, y se cambie el dialogo a la segunda parte
+        // Al producirse, el retrato de laura se desplaza, aparece el retrato de paula, y se cambia el dialogo a la segunda parte
         this.dispatcher.add("paulaAppear", this, () => {
             lauraTr.x = this.CANVAS_WIDTH / 2 - this.CANVAS_WIDTH / 5;
             lauraPortrait.setPosX(lauraTr.x);
@@ -52,7 +51,7 @@ export default class Scene2Break extends BaseScene {
             this.dialogManager.setNode(node, [lauraPortrait, paulaPortrait]);
         });
     
-        // Anade el evento endBreak para que, al producirse, se cambie a la escena de transicion y luego a la
+        // Al producirse, se cambia a la escena de transicion y luego a la de la habitacion
         this.dispatcher.add("endBreak", this, () => {
             let sceneName = 'TextOnlyScene';
             let params = {

@@ -23,7 +23,7 @@
             "type": "choice",
             "choices": [
                 { "next": "sleep" },
-                { }
+                {  }
             ]
         },
         "sleep": {

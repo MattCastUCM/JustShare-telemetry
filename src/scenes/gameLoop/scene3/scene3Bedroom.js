@@ -34,7 +34,7 @@ export default class Scene3Bedroom extends BaseScene {
         this.phoneManager.phone.toChatScreen(this.chatName);
         
         
-        // Anade el evento endConversation para que, al producirse, se pase a la siguiente escena
+        // Al producirse, se pasa a la siguiente escena
         this.dispatcher.add("endConversation", this, () => {
             setTimeout(() => {
                 let sceneName = 'TextOnlyScene';

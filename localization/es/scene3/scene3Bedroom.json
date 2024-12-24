@@ -68,7 +68,7 @@
     ],
 
     "smiling": {
-        "text": "<player, [playerPhoto1SimilingMale], [playerPhoto1SimilingFemale]>"
+        "text": "<player, [playerPhoto1SmileMale], [playerPhoto1SmileFemale]>"
     },
     "tongueOut": {
         "text": "<player, [playerPhoto1TongueMale], [playerPhoto1TongueFemale]>"

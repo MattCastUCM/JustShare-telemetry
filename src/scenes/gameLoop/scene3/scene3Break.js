@@ -46,8 +46,8 @@ export default class Scene3Break extends BaseScene {
         this.dialogManager.bgBlock.setDepth(this.phoneManager.bgBlock.depth - 2);
 
 
-        // Anade el evento answerPhone para que, al producirse, se abra el telefono, se desactive el bloqueo de fondo 
-        // y el boton de volver para atras (para no poder cerrarlo) y va directo a la pantalla del chat del acosador)
+        // Al producirse, se abre el telefono, se desactiva el bloqueo de fondo y el boton de 
+        // volver atras (para no poder cerrarlo) y va directo a la pantalla del chat del acosador)
         this.dispatcher.add("answerPhone", this, () => {
             this.phoneManager.togglePhone();
             this.phoneManager.bgBlock.disableInteractive();
@@ -81,7 +81,7 @@ export default class Scene3Break extends BaseScene {
             this.dialogManager.setNode(node, [lauraPortrait], false);
         });
 
-        // Anade el evento endBreak para que, al producirse, se cambie a la escena de transicion y luego a la
+        // Al producirse, se cambia a la escena de transicion y luego a la de la habitacion
         this.dispatcher.add("endBreak", this, () => {
             // Se vuelve a poner la caja de texto a la profundidad original
             this.dialogManager.textbox.setDepth(textboxDepth);

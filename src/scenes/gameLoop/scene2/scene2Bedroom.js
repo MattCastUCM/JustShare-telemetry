@@ -21,6 +21,7 @@ export default class Scene2Bedroom extends BaseScene {
         
         // Lee el archivo de nodos
         let nodes = this.cache.json.get('scene2Bedroom');
+        let generalNodes = this.cache.json.get('generalDialogs');
 
         // Armario
         let closetNode = super.readNodes(nodes, "scene2\\scene2Bedroom", "closet", true);
@@ -45,8 +46,7 @@ export default class Scene2Bedroom extends BaseScene {
         }, false);
         
 
-        // Anade el evento endConversation para que, al producirse, 
-        // aparezca el icono del telefono y se reciba un mensaje
+        // Al producirse, aparece el icono del telefono y se recibe un mensaje
         this.dispatcher.add("endConversation", this, () => {
             this.phoneManager.activatePhoneIcon(true);
             // PENDIENTE / TEST
@@ -58,17 +58,17 @@ export default class Scene2Bedroom extends BaseScene {
             this.dialogManager.setNode(null, []);
         })
         
-        // 
+        // Al producirse, se cambian los nodos de la cama y el armario
         this.dispatcher.add("chatEnded", this, () =>{
-            bedNode = super.readNodes(nodes, "scene2\\scene2Bedroom", "bedFinal", true);
+            bedNode = super.readNodes(generalNodes, "generalDialogs", "bed", true);
             closetNode = super.readNodes(nodes, "scene2\\scene2Bedroom", "closetNight", true);
         });
 
-        // Anade el evento sleep para que, al producirse, se haga la animacion de cerrar los ojos
+        // Al producirse, se hace la animacion de cerrar los ojos
         this.dispatcher.add("sleep", this, () => {
             this.UIManager.closeEyes(() => {
                 // Una vez termina la animacion, se introduce un retardo y cuando acaba,
-                // se cambia a la escena de transicion y luego a la escena del comedor del dia siguiente
+                // se cambia a la escena de transicion y luego a la escena del recreo del dia siguiente
                 setTimeout(() => {
                     let sceneName = 'TextOnlyScene';
                     let params = {
@@ -84,9 +84,5 @@ export default class Scene2Bedroom extends BaseScene {
         });
     }
 
-    // Se hace esto porque si se establece un dialogo en la constructora, no funciona el bloqueo del fondo del DialogManager
-    onCreate() {
-
-    }
     
 }

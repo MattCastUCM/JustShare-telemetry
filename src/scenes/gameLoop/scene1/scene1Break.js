@@ -34,7 +34,7 @@ export default class Scene1Break extends BaseScene {
         this.addTables();
 
 
-        // Anade el evento endBreak para que, al producirse, se cambie a la escena de transicion y luego a la escena del salon
+        // Al producirse, se cambia a la escena de transicion y luego a la escena del salon
         this.dispatcher.add("endBreak", this, () => {
             let sceneName = 'TextOnlyScene';
             let params = {
@@ -71,7 +71,7 @@ export default class Scene1Break extends BaseScene {
         }, true);
 
 
-        // Anade el evento checkAllTables para que, al producirse, compruebe si se ha interactuado con todas las mesas
+        // Al producirse, comprueba si se ha interactuado con todas las mesas
         this.dispatcher.add("checkAllTables", this, () => {
             this.checkAllTables();
         });

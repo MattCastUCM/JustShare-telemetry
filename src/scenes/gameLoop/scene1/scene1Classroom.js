@@ -41,13 +41,13 @@ export default class Scene1Classroom extends BaseScene {
             this.dialogManager.setNode(node, [teacherPortrait]);
         }
 
-        // Anade el evento appearLaura para que, al producirse, cambie de dialogo
+        // Al producirse, cambia de dialogo
         this.dispatcher.add("appearLaura", this, () => {
             node = super.readNodes(nodes, "scene1\\scene1Classroom", "part2", true);
             this.dialogManager.setNode(node, [lauraPortrait]);
         });
 
-        // Anade el evento startBreak para que, al producirse, se cambie a la escena de transicion y luego a la escena del comedor
+        // Al producirse, se cambiaa la escena de transicion y luego a la escena del comedor
         this.dispatcher.add("startBreak", this, () => {
             let sceneName = 'TextOnlyScene';
             let params = {

@@ -220,30 +220,5 @@
                 }
             ]
         }
-    },
-
-    "bedFinal": {
-        "root": {
-            "type": "text",
-            "character": "player",
-            "next": "goToSleep"
-        },
-        "goToSleep": {
-            "type": "choice",
-            "choices": [
-                { "next": "sleep" },
-                { }
-            ]
-        },
-        "sleep": {
-           "type": "event",
-            "events": [
-                {
-                    "sleep": {
-                        "delay": 500
-                    }
-                }
-            ] 
-        }
     }
 }

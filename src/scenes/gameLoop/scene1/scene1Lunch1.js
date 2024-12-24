@@ -43,14 +43,13 @@ export default class Scene1Lunch1 extends BaseScene {
             this.dialogManager.setNode(node, [dadPortrait, momPortrait]);
         }
 
-        // Anade el evento endLunch para que, al producirse, cambie de dialogo
+        // Al producirse, cambia de dialogo
         this.dispatcher.add("endLunch", this, () => {
             let thoughtNode = super.readNodes(nodes, "scene1\\scene1Lunch1", "endLunch", true);
             this.dialogManager.setNode(thoughtNode, []);
         });
         
-        // Anade el evento receiveMsg para que, al producirse, 
-        // aparezca el icono del telefono y se reciba un mensaje
+        // Al producirse, aparece el icono del telefono y se recibe un mensaje
         this.dispatcher.add("receiveMsg", this, () => {
             this.phoneManager.activatePhoneIcon(true);
             // PENDIENTE
@@ -61,7 +60,7 @@ export default class Scene1Lunch1 extends BaseScene {
         })
 
         let msgAnswered = false;
-        // Anade el evento spawnInteractions para que, al producirse, se creen los elementos interactuables de la escena
+        // Al producirse, se crean los elementos interactuables de la escena
         this.dispatcher.add("spawnInteractions", this, () => {
             let generalNodes = this.cache.json.get('generalDialogs');
             let doorNode = super.readNodes(generalNodes, "generalDialogs", "door", true);

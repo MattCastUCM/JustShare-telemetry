@@ -478,7 +478,7 @@ export default class DialogManager {
         this.currNode = next;
 
         let delay = 0;
-        if (this.currNode.nextDelay != null) {
+        if (this.currNode && this.currNode.nextDelay != null) {
             delay = this.currNode.nextDelay;
         }
         this.processNextNode(delay);

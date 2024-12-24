@@ -38,14 +38,14 @@ export default class Scene4Backyard extends BaseScene {
         
         this.addClassmates();
 
-        // Anade el evento receiveMsg para que, al producirse, oculte la caja de texto
+        // Al producirse, oculta la caja de texto
         this.dispatcher.add("receiveMsg", this, () => {
             setTimeout(() => {
                 this.dialogManager.setNode(null, []);
             }, 1);
         });
 
-        // Anade el evento endConversation para que, al producirse, haga aparecer el icono de cambiar de escenario
+        // Al producirse, hace aparecer el icono de cambiar de escenario
         this.dispatcher.add("endConversation", this, () => {
             // PENDIENTE
             super.createInteractiveElement(100, 100, "enter", 0.4, () => {
@@ -82,7 +82,7 @@ export default class Scene4Backyard extends BaseScene {
             this.interactedClassmates++;
         }, true);
 
-        // Anade el evento checkAllClassmates para que, al producirse, compruebe si se ha interactuado con todos los companeros
+        // Al producirse, comprueba si se ha interactuado con todos los companeros
         this.dispatcher.add("checkAllClassmates", this, () => {
             this.checkAllClassmates();
         });

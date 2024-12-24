@@ -42,7 +42,7 @@ export default class Scene4Frontyard extends BaseScene {
         }
 
 
-        // Anade el evento checkAllClassmates para que, al producirse, compruebe si se ha interactuado con todos los companeros
+        // Al producirse, hace que se reciba un mensaje en el movil
         this.dispatcher.add("endConversation", this, () => {
             this.dialogManager.setNode(null, []);
 

@@ -72,7 +72,7 @@ export default class Scene1Bedroom1 extends BaseScene {
             pcNode = super.readNodes(nodes, "scene1\\scene1Bedroom1", "homework", true);
         });
 
-        // Anade el evento homework para que, al producirse, se cambie el dialogo de la cama
+        // Al producirse, se cambia el dialogo de la cama
         this.dispatcher.add("endHomework", this, () => {
             let node = super.readNodes(nodes, "scene1\\scene1Bedroom1", "computer2", true);
             let chatName = this.gameManager.translate("textMessages.harasserUsername", { ns: "deviceInfo", returnObjects: true });
@@ -81,7 +81,7 @@ export default class Scene1Bedroom1 extends BaseScene {
             this.phoneManager.phone.setChatNode(chatName, node);
         });
 
-        // Anade el evento endConversation para que, al producirse, se cambie el dialogo de la cama
+        // Al producirse, se cambia el dialogo de la cama
         this.dispatcher.add("endConversation", this, () => {
             let depth = bg.depth;
             bg.destroy();
@@ -89,7 +89,7 @@ export default class Scene1Bedroom1 extends BaseScene {
             bedNode = super.readNodes(generalNodes, "generalDialogs", "bed", true);
         });
 
-        // Anade el evento sleep para que, al producirse, se haga la animacion de cerrar los ojos
+        // Al producirse, se hace la animacion de cerrar los ojos
         this.dispatcher.add("sleep", this, () => {
             this.UIManager.closeEyes(() => {
                 // Una vez termina la animacion, se introduce un retardo y cuando acaba,
@@ -107,10 +107,6 @@ export default class Scene1Bedroom1 extends BaseScene {
                 }, 1000);
             });
         });
-    }
-
-    // Se hace esto porque si se establece un dialogo en la constructora, no funciona el bloqueo del fondo del DialogManager
-    onCreate() {
     }
     
 }

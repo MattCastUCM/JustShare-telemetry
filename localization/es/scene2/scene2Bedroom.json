@@ -105,19 +105,5 @@
         "bye": {
             "text": "chau"
         }
-    },
-
-    "bedFinal": {
-        "root": {
-            "text": "(¿Debería irme ya a dormir?)"
-        },
-        "goToSleep": [
-            { 
-                "text": "Sí." 
-            },
-            {
-                "text": "No."
-            }
-        ]
     }
 }
