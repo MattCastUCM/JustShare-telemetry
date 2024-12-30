@@ -61,7 +61,7 @@ export default class Scene2Bedroom extends BaseScene {
         // Al producirse, se cambian los nodos de la cama y el armario
         this.dispatcher.add("chatEnded", this, () =>{
             bedNode = super.readNodes(generalNodes, "generalDialogs", "bed", true);
-            closetNode = super.readNodes(nodes, "scene2\\scene2Bedroom", "closetNight", true);
+            closetNode = super.readNodes(generalNodes, "generalDialogs", "closetNight", true);
         });
 
         // Al producirse, se hace la animacion de cerrar los ojos

@@ -1,0 +1,28 @@
+{
+    "dad": {
+        "root": {
+            "text": "<player, hijo, hija>"
+        },
+        "msg2": {
+            "text": "donde estas?"
+        },
+        "msg3": {
+            "text": "tu madre y yo estamos muy preocupados por ti"
+        }
+    },
+    "mom": {
+        "root": {
+            "text": "cariño, estas bien?"
+        },
+        "msg2": {
+            "text": "ya es muy tarde y aun no sabemos nada de ti"
+        },
+        "msg3": {
+            "text": "laura nos ha dicho que no te ha visto en todo el dia"
+        },
+        "msg4": {
+            "text": "por favor contesta"
+        }
+    }
+    
+}

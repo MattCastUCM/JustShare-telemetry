@@ -217,7 +217,8 @@ export default class PhoneManager {
                 // Una vez terminada la animacion, se indica que ya ha terminado
                 activate.on('complete', () => {
                     setTimeout(() => {
-                        this.toggling = false;                        
+                        this.toggling = false;
+                        this.phone.toMessagesListScreen();                   
                     }, 50);
                 });
             }

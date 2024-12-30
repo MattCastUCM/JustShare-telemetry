@@ -1,13 +1,13 @@
 import BaseScene from '../baseScene.js';
 
-export default class Scene5Bedroom extends BaseScene {
+export default class Scene6Bedroom extends BaseScene {
     /**
      * Escena base para el salon. Coloca los elementos que se mantienen igual todos los dias
      * @extends BaseScene
      * @param {String} name - id de la escena
      */
     constructor(name) {
-        super("Scene5Bedroom", 'Scene5Bedroom');
+        super("Scene6Bedroom", 'Scene6Bedroom');
     }
 
     create(params) {
@@ -20,17 +20,17 @@ export default class Scene5Bedroom extends BaseScene {
         
         
         // Lee el archivo de nodos
-        let nodes = this.cache.json.get('scene5Bedroom');
+        let nodes = this.cache.json.get('scene6Bedroom');
         let generalNodes = this.cache.json.get('generalDialogs');
 
         // Armario
-        let closetNode = super.readNodes(nodes, "scene5\\scene5Bedroom", "closet", true);
+        let closetNode = super.readNodes(nodes, "scene6\\scene6Bedroom", "closet", true);
         super.createInteractiveElement(240, 400, "pointer", 0.3, () => {
             this.dialogManager.setNode(closetNode, []);
         }, false);
         
         // Cama
-        let bedNode = super.readNodes(nodes, "scene5\\scene5Bedroom", "bed", true);
+        let bedNode = super.readNodes(nodes, "scene6\\scene6Bedroom", "bed", true);
         super.createInteractiveElement(790, 550, "pointer", 0.3, () => {
             this.dialogManager.setNode(bedNode, []);
         }, false);
@@ -42,7 +42,7 @@ export default class Scene5Bedroom extends BaseScene {
         this.chatName = this.gameManager.translate("textMessages.chat2", { ns: "deviceInfo", returnObjects: true });
         this.phoneManager.phone.addChat(this.chatName, "");
 
-        let phoneNode = super.readNodes(nodes, "scene5\\scene5Bedroom", "phone", true);
+        let phoneNode = super.readNodes(nodes, "scene6\\scene6Bedroom", "phone", true);
         this.dialogManager.setNode(phoneNode, []);
         
 
@@ -59,13 +59,31 @@ export default class Scene5Bedroom extends BaseScene {
                 // se cambia a la escena de transicion y luego a la escena de la comida del dia siguiente
                 setTimeout(() => {
                     let sceneName = 'TextOnlyScene';
-                    let params = {
-                        text: this.gameManager.translate("scene6.startWeek", { ns: "transitions", returnObjects: true }),
-                        onComplete: () => {
-                            this.UIManager.moveLids(true);
-                            this.gameManager.changeScene("Scene6Livingroom");
-                        },
-                    };
+                    let params = {};
+
+                    // Si se va por la ruta A (seguir enviando fotos)
+                    if (this.gameManager.getValue("routeA")) {
+                        params = {
+                            text: this.gameManager.translate("scene6.routeAStart", { ns: "transitions", returnObjects: true }),
+                            onComplete: () => {
+                                this.UIManager.moveLids(true);
+                                this.gameManager.changeScene("Scene6BedroomRouteA1");
+                            },
+                        };
+    
+                    }
+                    // Si se va por la ruta B (negarse a enviar mas)
+                    else {
+                        params = {
+                            text: this.gameManager.translate("scene6.routeBStart", { ns: "transitions", returnObjects: true }),
+                            onComplete: () => {
+                                this.UIManager.moveLids(true);
+                                // PENDIENTE
+                                this.gameManager.changeScene("Scene6LivingroomRouteB1");
+                            },
+                        };
+    
+                    }
                     this.gameManager.changeScene(sceneName, params);
                 }, 1000);
             });

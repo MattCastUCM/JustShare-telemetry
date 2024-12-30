@@ -31,6 +31,14 @@ import Scene5Bedroom from "./scenes/gameLoop/scene5/scene5Bedroom.js";
 
 // Escena 6
 import Scene6Livingroom from "./scenes/gameLoop/scene6/scene6Livingroom.js";
+import Scene6Bedroom from "./scenes/gameLoop/scene6/scene6Bedroom.js";
+    import Scene6BedroomRouteA1 from "./scenes/gameLoop/scene6/scene6BedroomRouteA1.js";
+    import scene6BedroomRouteA2 from "./scenes/gameLoop/scene6/scene6BedroomRouteA2.js";
+    import Scene6LunchRouteA from "./scenes/gameLoop/scene6/scene6LunchRouteA.js";
+    import Scene6PortalRouteA from "./scenes/gameLoop/scene6/scene6PortalRouteA.js";
+    import Scene6EndingRouteA from "./scenes/gameLoop/scene6/scene6EndingRouteA.js";
+
+    
 
 // UI
 import UIManager from './managers/UIManager.js';
@@ -62,7 +70,8 @@ const config = {
         // Escena 5
         Scene5Livingroom, Scene5Bedroom,
         // Escena 6
-        Scene6Livingroom,
+        Scene6Livingroom, Scene6Bedroom, 
+            Scene6BedroomRouteA1, scene6BedroomRouteA2, Scene6LunchRouteA, Scene6PortalRouteA, Scene6EndingRouteA,
 
         // Menus
         TitleScene, LoginScene,

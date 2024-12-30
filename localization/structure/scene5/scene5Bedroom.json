@@ -66,7 +66,7 @@
             "type": "choice",
             "choices":[
                 { "next": "photo" },
-                { "next": "msg8-b" }
+                { "next": "msg8B" }
             ]
         },
 
@@ -75,31 +75,31 @@
             "character": "player",
             "chat": "chat2",
             "replyDelay": 0,
-            "next": "msg8-a"
+            "next": "msg8A"
         },
-        "msg8-a": {
+        "msg8A": {
             "type": "chatMessage",
             "character": "",
             "chat": "chat2",
             "replyDelay": 2000,
-            "next": "msg9-a"
+            "next": "msg9A"
         },
-        "msg9-a": {
+        "msg9A": {
             "type": "chatMessage",
             "character": "player",
             "chat": "chat2",
             "replyDelay": 2000,
-            "next": "msg8-b"
+            "next": "msg8B"
         },
 
-        "msg8-b": {
+        "msg8B": {
             "type": "chatMessage",
             "character": "",
             "chat": "chat2",
             "replyDelay": 2000,
-            "next": "msg9-b"
+            "next": "msg9B"
         },
-        "msg9-b": {
+        "msg9B": {
             "type": "chatMessage",
             "character": "player",
             "chat": "chat2",

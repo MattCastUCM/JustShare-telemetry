@@ -148,7 +148,6 @@ export default class DialogManager {
             this.currNode = null;
             this.textbox.resetTextConfig();
             this.textbox.activate(false);
-            this.bgBlock.disableInteractive();
             
             this.portraits.forEach((value) => {
                 let key = value.getKey()
@@ -162,7 +161,11 @@ export default class DialogManager {
                     this.portraits.forEach((value) => {
                         value.activate(false, this.PORTRAIT_ANIM_TIME);
                     });
+                    this.bgBlock.disableInteractive();
                 }, animTime);
+            }
+            else {
+                this.bgBlock.disableInteractive();
             }
         }
     }

@@ -19,14 +19,6 @@
             "character": "player"
         }
     },
-
-    "closetNight": {
-        "root": {
-            "type": "text",
-            "character": "player"
-        }
-    },
-
     
     "computer": {
         "root": {

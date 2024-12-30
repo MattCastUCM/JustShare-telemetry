@@ -31,7 +31,7 @@ import PhoneManager from "./phoneManager.js";
     }
 
     // Animacion de abrir los ojos
-    openEyes() {
+    openEyes(onComplete) {
         this.moveLids(false);
         let speed = 1000;
         let lastTopPos = this.topLid.y;
@@ -132,6 +132,9 @@ import PhoneManager from "./phoneManager.js";
                         });
 
                         this.lidAnim.on('complete', () => {
+                            if (onComplete !== null && typeof onComplete === 'function') {
+                                onComplete();
+                            }
                             this.lidAnim = null;
                         });
                     });

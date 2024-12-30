@@ -11,6 +11,12 @@
         }
     },
     
+    "closetNight": {
+        "root": {
+            "text": "(Ya es muy tarde, ya lo ordenaré otro día)."
+        }
+    },
+    
     "bed": {
         "root": {
             "text": "(¿Debería irme ya a dormir?)"

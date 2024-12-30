@@ -47,17 +47,17 @@
         "photo": {
             "text": "<player, [playerPhoto3Male], [playerPhoto3Female]>"
         },
-        "msg8-a": {
+        "msg8A": {
             "text": "Ayy si es que eres <player, guapisimoo, guapisimaa>"
         },
-        "msg9-a": {
+        "msg9A": {
             "text": "No tanto como tuu"
         },
 
-        "msg8-b": {
+        "msg8B": {
             "text": "<harasser, [harasserPhoto2Male], [harasserPhoto2Female]>"
         },
-        "msg9-b": {
+        "msg9B": {
             "text": "Si es que mirateee, que <harasser, guapoo, guapaa>"
         },
         "msg10": {

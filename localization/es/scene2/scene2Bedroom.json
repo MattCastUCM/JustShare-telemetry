@@ -11,13 +11,6 @@
         }
     },
 
-
-    "closetNight": {
-        "root": {
-            "text": "(Ya es muy tarde, ya lo ordenaré otro día)."
-        }
-    },
-
     "bedUnanswered": {
         "root": {
             "text": "(Antes de irme a dormir tengo que ver que he recibido el mensaje de <harasser, Pablo, Lucía>)."

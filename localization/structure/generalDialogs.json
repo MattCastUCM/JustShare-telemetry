@@ -13,6 +13,13 @@
         }
     },
 
+    "closetNight": {
+        "root": {
+            "type": "text",
+            "character": "player"
+        }
+    },
+
     "bed": {
         "root": {
             "type": "text",
