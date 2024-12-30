@@ -40,7 +40,7 @@ export default class Scene6BedroomRouteA1 extends BaseScene {
         this.phoneManager.activatePhoneIcon(true);
 
         this.chatName = this.gameManager.translate("textMessages.chat2", { ns: "deviceInfo", returnObjects: true });
-        this.phoneManager.phone.addChat(this.chatName, "");
+        this.phoneManager.phone.addChat(this.chatName, "harasserPfp");
 
         let phoneNode = super.readNodes(nodes, "scene6\\scene6BedroomRouteA1", "phone", true);
         this.dialogManager.setNode(phoneNode, []);

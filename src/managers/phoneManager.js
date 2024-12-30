@@ -92,6 +92,17 @@ export default class PhoneManager {
 
     activatePhoneIcon(active) {
         this.icon.visible = active;
+
+        // Si son mas de 0, activa las notificaciones si el icono esta activo y cambia el texto
+        if (this.notificationAmount > 0) {
+            this.notifications.visible = this.icon.visible;
+            this.notificationText.setText(this.notificationAmount);
+        }
+        // Si no, las desactiva
+        else {
+            this.notifications.visible = false;
+            this.notificationText.setText("");
+        }
     }
 
     /**
@@ -165,7 +176,6 @@ export default class PhoneManager {
             this.notifications.visible = false;
             this.notificationText.setText("");
         }
-        // this.phone.setNotifications(this.notificationAmount);
     }
 
     /**

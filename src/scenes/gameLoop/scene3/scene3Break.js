@@ -110,7 +110,7 @@ export default class Scene3Break extends BaseScene {
         let nodeName = "phone" + msg; 
         let phoneNode = super.readNodes(nodes, "scene3\\scene3Break", nodeName, true);
 
-        this.phoneManager.phone.addChat(this.chatName, "");
+        this.phoneManager.phone.addChat(this.chatName, "harasserPfp");
         this.phoneManager.phone.setChatNode(this.chatName, phoneNode);
     }
 }

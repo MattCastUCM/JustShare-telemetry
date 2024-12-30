@@ -36,7 +36,7 @@ export default class Scene4Garage extends BaseScene {
         this.phoneManager.activatePhoneIcon(true);
 
         let chatName = this.gameManager.translate("textMessages.chat2", { ns: "deviceInfo", returnObjects: true });
-        this.phoneManager.phone.addChat(chatName, "");
+        this.phoneManager.phone.addChat(chatName, "harasserPfp");
 
         // Lee el archivo de nodos
         let nodes = this.cache.json.get('scene4Garage');

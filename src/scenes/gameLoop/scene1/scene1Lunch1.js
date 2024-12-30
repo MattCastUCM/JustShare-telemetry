@@ -55,7 +55,7 @@ export default class Scene1Lunch1 extends BaseScene {
             // PENDIENTE
             let chatName = this.gameManager.translate("textMessages.chat1", { ns: "deviceInfo", returnObjects: true });
             let phoneNode = super.readNodes(nodes, "scene1\\scene1Lunch1", "phone", true);
-            this.phoneManager.phone.addChat(chatName, "");
+            this.phoneManager.phone.addChat(chatName, "lauraPfp");
             this.dialogManager.setNode(phoneNode, []);
         })
 

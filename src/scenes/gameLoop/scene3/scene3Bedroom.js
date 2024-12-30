@@ -25,7 +25,7 @@ export default class Scene3Bedroom extends BaseScene {
         let node = super.readNodes(nodes, "scene3\\scene3Bedroom", "", true);
 
         this.chatName = this.gameManager.translate("textMessages.chat2", { ns: "deviceInfo", returnObjects: true });
-        this.phoneManager.phone.addChat(this.chatName, "");
+        this.phoneManager.phone.addChat(this.chatName, "harasserPfp");
         this.phoneManager.phone.setChatNode(this.chatName, node);
 
         this.phoneManager.togglePhone();

@@ -41,14 +41,14 @@ export default class Scene6EndingRouteA extends BaseScene {
             // PENDIENTE
             setTimeout(() => {
                 let chatName = this.gameManager.translate("textMessages.chat3", { ns: "deviceInfo", returnObjects: true });
-                this.phoneManager.phone.addChat(chatName, "");
+                this.phoneManager.phone.addChat(chatName, "dadPfp");
                 let phoneNode = super.readNodes(nodes, "scene6\\scene6EndingRouteA", "dad", true);
                 this.phoneManager.phone.setChatNode(chatName, phoneNode);
             }, 2000);
             
             setTimeout(() => {
                 let chatName = this.gameManager.translate("textMessages.chat4", { ns: "deviceInfo", returnObjects: true });
-                this.phoneManager.phone.addChat(chatName, "");
+                this.phoneManager.phone.addChat(chatName, "momPfp");
                 let phoneNode = super.readNodes(nodes, "scene6\\scene6EndingRouteA", "mom", true);
                 this.phoneManager.phone.setChatNode(chatName, phoneNode);
             }, 7000);

@@ -41,7 +41,7 @@ export default class Scene1Bedroom2 extends BaseScene {
             // PENDIENTE / TEST
             this.phoneManager.activatePhoneIcon(true);
             let chatName = this.gameManager.translate("textMessages.harasserUsername", { ns: "deviceInfo", returnObjects: true });
-            this.phoneManager.phone.addChat(chatName, "");
+            this.phoneManager.phone.addChat(chatName, "harasserPfp");
             this.dialogManager.setNode(pcNode, []);
         }, false);
 

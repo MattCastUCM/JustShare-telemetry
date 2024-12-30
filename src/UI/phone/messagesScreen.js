@@ -41,8 +41,9 @@ export default class MessagesScreen extends BaseScreen {
 
         // Anade el texto
         let nameText = this.scene.add.text(button.x - button.displayWidth / 3.5, button.y, name, textConfig).setOrigin(0, 0.5);
+        // this.iconImage = this.scene.add.image(button.x - button.displayWidth / 2, button.y, 'avatars', icon);
         let iconImage = this.scene.add.image(button.x - button.displayWidth / 2, button.y, icon);
-        iconImage.setScale((button.displayHeight / iconImage.displayHeight) * 0.8);
+        iconImage.setScale((button.displayHeight / iconImage.displayHeight) * 0.85);
         iconImage.x += iconImage.displayWidth  * 0.6;
 
         // Configuracion de las animaciones

@@ -19,7 +19,7 @@ export default class ChatScreen extends BaseScreen {
         super(scene, phone, 'chatBg', prevScreen);
 
         this.HEADER_X = 640;
-        this.HEADER_Y = 105;
+        this.HEADER_Y = 107;
         
         // Configuracion de las animaciones
         this.tintFadeTime = 50;
@@ -42,9 +42,10 @@ export default class ChatScreen extends BaseScreen {
         this.nameText = this.scene.add.text(this.HEADER_X + nameTextOffsetX, this.HEADER_Y, name, textConfig).setOrigin(0, 0.5);
 
         // Crea el icono
-        this.iconImage = this.scene.add.image(this.nameText.x, this.nameText.y, 'avatars', icon);
-        this.iconImage.setScale((this.nameText.displayHeight / this.iconImage.displayHeight) * 1.35);
-        this.iconImage.x -= this.iconImage.displayWidth;
+        // this.iconImage = this.scene.add.image(this.nameText.x, this.nameText.y, 'avatars', icon);
+        this.iconImage = this.scene.add.image(this.nameText.x, this.nameText.y, icon);
+        this.iconImage.setScale((this.nameText.displayHeight / this.iconImage.displayHeight) * 2);
+        this.iconImage.x -= this.iconImage.displayWidth * 0.7;
 
         // Icono de las notificaciones y cantidad de notificaciones
         this.notifications = null;

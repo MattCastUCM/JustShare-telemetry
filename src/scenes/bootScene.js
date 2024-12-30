@@ -146,6 +146,12 @@ export default class BootScene extends Phaser.Scene {
         this.load.image('chatBg', 'chatBg.png');
         this.load.image('chatTextBox', 'chatTextBox.png');
         this.load.image('chatReturnButton', 'chatReturnButton.png');
+
+        this.load.image('dadPfp', 'dadPfp.png');
+        this.load.image('harasserPfp', 'harasserPfp.png');
+        this.load.image('lauraPfp', 'lauraPfp.png');
+        this.load.image('momPfp', 'momPfp.png');
+
     }
 
     loadFlags() {

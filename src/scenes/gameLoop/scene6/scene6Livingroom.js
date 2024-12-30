@@ -42,7 +42,7 @@ export default class Scene6Livingroom extends BaseScene {
         this.phoneManager.activatePhoneIcon(true);
 
         this.chatName = this.gameManager.translate("textMessages.chat2", { ns: "deviceInfo", returnObjects: true });
-        this.phoneManager.phone.addChat(this.chatName, "");
+        this.phoneManager.phone.addChat(this.chatName, "harasserPfp");
         this.phoneManager.icon.disableInteractive();
 
         
