@@ -49,10 +49,11 @@ export default class Scene3Break extends BaseScene {
         // Al producirse, se abre el telefono, se desactiva el bloqueo de fondo y el boton de 
         // volver atras (para no poder cerrarlo) y va directo a la pantalla del chat del acosador)
         this.dispatcher.add("answerPhone", this, () => {
-            this.phoneManager.togglePhone();
+            this.phoneManager.togglePhone(100, () => {
+                this.phoneManager.phone.toChatScreen(this.chatName);
+            });
             this.phoneManager.bgBlock.disableInteractive();
             this.phoneManager.phone.returnButton.disableInteractive();
-            this.phoneManager.phone.toChatScreen(this.chatName);
         });
 
         // Cuando llegan los eventos de enviar mensajes, se anade el mensaje correspondiente a la pantalla del chat
@@ -88,14 +89,13 @@ export default class Scene3Break extends BaseScene {
             this.dialogManager.bgBlock.setDepth(bgBlockDepth);
             this.phoneManager.phone.returnButton.setInteractive();
 
-            let sceneName = 'TextOnlyScene';
             let params = {
                 text: this.gameManager.translate("scene3.classEnd", { ns: "transitions", returnObjects: true }),
                 onComplete: () => {
                     this.gameManager.changeScene("Scene3Bedroom");
                 },
             };
-            this.gameManager.changeScene(sceneName, params);
+            this.gameManager.changeScene("TextOnlyScene", params);
         });
     }
 

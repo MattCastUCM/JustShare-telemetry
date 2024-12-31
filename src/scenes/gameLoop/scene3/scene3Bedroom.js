@@ -28,16 +28,16 @@ export default class Scene3Bedroom extends BaseScene {
         this.phoneManager.phone.addChat(this.chatName, "harasserPfp");
         this.phoneManager.phone.setChatNode(this.chatName, node);
 
-        this.phoneManager.togglePhone();
+        this.phoneManager.togglePhone(100, () => {
+            this.phoneManager.phone.toChatScreen(this.chatName);
+        });
         this.phoneManager.bgBlock.disableInteractive();
         this.phoneManager.phone.returnButton.disableInteractive();
-        this.phoneManager.phone.toChatScreen(this.chatName);
         
         
         // Al producirse, se pasa a la siguiente escena
         this.dispatcher.add("endConversation", this, () => {
             setTimeout(() => {
-                let sceneName = 'TextOnlyScene';
                 let params = {
                     fadeOutTime: 1000,
                     text: this.gameManager.translate("scene4.party", { ns: "transitions", returnObjects: true }),
@@ -47,7 +47,7 @@ export default class Scene3Bedroom extends BaseScene {
                 };
                 this.phoneManager.togglePhone();
                 this.phoneManager.phone.returnButton.setInteractive();
-                this.gameManager.changeScene(sceneName, params);
+                this.gameManager.changeScene("TextOnlyScene", params);
             }, 3000);
         });
     }

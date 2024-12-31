@@ -58,7 +58,6 @@ export default class Scene6Bedroom extends BaseScene {
                 // Una vez termina la animacion, se introduce un retardo y cuando acaba,
                 // se cambia a la escena de transicion y luego a la escena de la comida del dia siguiente
                 setTimeout(() => {
-                    let sceneName = 'TextOnlyScene';
                     let params = {};
 
                     // Si se va por la ruta A (seguir enviando fotos)
@@ -78,13 +77,12 @@ export default class Scene6Bedroom extends BaseScene {
                             text: this.gameManager.translate("scene6.routeBStart", { ns: "transitions", returnObjects: true }),
                             onComplete: () => {
                                 this.UIManager.moveLids(true);
-                                // PENDIENTE
-                                this.gameManager.changeScene("Scene6LivingroomRouteB1");
+                                this.gameManager.changeScene("Scene6LunchRouteB");
                             },
                         };
-    
                     }
-                    this.gameManager.changeScene(sceneName, params);
+                    
+                    this.gameManager.changeScene("TextOnlyScene", params);
                 }, 1000);
             });
         });

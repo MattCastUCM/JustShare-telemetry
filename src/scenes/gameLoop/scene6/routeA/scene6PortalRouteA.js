@@ -1,5 +1,5 @@
-import BaseScene from '../baseScene.js';
-import Portrait from '../../../UI/dialog/portrait.js';
+import BaseScene from '../../baseScene.js';
+import Portrait from '../../../../UI/dialog/portrait.js';
 
 export default class Scene6PortalRouteA extends BaseScene {
     /**
@@ -59,22 +59,22 @@ export default class Scene6PortalRouteA extends BaseScene {
     
     // PENDIENTE
     addDoors() {
-        let nodeDoor1 = super.readNodes(this.nodes, "scene6\\scene6PortalRouteA", "incorrectDoor1", true);
+        let nodeDoor1 = super.readNodes(this.nodes, "scene6\\routeA\\scene6PortalRouteA", "incorrectDoor1", true);
         super.createInteractiveElement(550, 480, "pointer", 0.3, () => {
             this.dialogManager.setNode(nodeDoor1, []);
         }, true);
 
-        let nodeDoor2 = super.readNodes(this.nodes, "scene6\\scene6PortalRouteA", "incorrectDoor2", true);
+        let nodeDoor2 = super.readNodes(this.nodes, "scene6\\routeA\\scene6PortalRouteA", "incorrectDoor2", true);
         super.createInteractiveElement(650, 480, "pointer", 0.3, () => {
             this.dialogManager.setNode(nodeDoor2, []);
         }, true);
 
-        let nodeDoor3 = super.readNodes(this.nodes, "scene6\\scene6PortalRouteA", "incorrectDoor3", true);
+        let nodeDoor3 = super.readNodes(this.nodes, "scene6\\routeA\\scene6PortalRouteA", "incorrectDoor3", true);
         super.createInteractiveElement(750, 480, "pointer", 0.3, () => {
             this.dialogManager.setNode(nodeDoor3, []);
         }, true);
 
-        let nodeDoor4 = super.readNodes(this.nodes, "scene6\\scene6PortalRouteA", "main", true);
+        let nodeDoor4 = super.readNodes(this.nodes, "scene6\\routeA\\scene6PortalRouteA", "main", true);
         super.createInteractiveElement(850, 480, "pointer", 0.3, () => {
             this.dialogManager.setNode(nodeDoor4, [this.portraits.get("harasser")]);
         }, true);

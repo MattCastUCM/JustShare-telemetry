@@ -1,0 +1,77 @@
+{
+    "bedStart": {
+        "root": {
+            "text": "(<harasser, Pablo, Lucía> me está escribiendo, debería contestar)."
+        }
+    },
+    
+    "bed": {
+        "root": {
+            "text": "(No puedo echarme a dormir ahora, ¡tengo que entrar a JustShare rápido!)"
+        }
+    },
+    
+    "closet": {
+        "root": {
+            "text": "(Ya ordenaré esto en otro momento, ¡ahora tengo que entrar a JustShare!)"
+        }
+    },
+    
+    "harasserChat": {
+        "root": {
+            "text": "He sido paciente y te he dejado tiempo, pero ya estoy cansado de esperar"
+        },
+        "choices": [
+            {
+                "text": "Dame más tiempo."
+            }
+        ],
+        "msg2": {
+            "text": "De verdad que me importas mucho pero por favor, déjame pensármelo un poco más."
+        },
+        "msg3": {
+            "text": "Solo inventas excusas para no contestarme"
+        },
+        "msg4": {
+            "text": "Espero que te gusten mis nuevas publicaciones <player, niñato, niñata>"
+        }
+    },
+
+    "chat2": {
+        "root": {
+            "text": "Haciendo cosas así no vas a llegar a nada"
+        },
+        "msg2": {
+            "text": "Mucha clase sisi"
+        }
+    },
+
+    "chat3": {
+        "root": {
+            "text": "Tú madre estará super contenta"
+        },
+        "msg2": {
+            "text": "El futuro del planeta..."
+        }
+    },
+
+    "lauraChat": {
+        "root": {
+            "text": "QUÉ HA PASADO??"
+        },
+        "msg2": {
+            "text": "ALGUIEN HA SUBIDO FOTOS TUYAS A JUSTSHARE!!"
+        },
+        "choices": [
+            {
+                "text": "Ha sido <harasser, Pablo, Lucía>"
+            }
+        ],
+        "msg3": {
+            "text": "Ha sido <harasser, Pablo, Lucía>"
+        },
+        "msg4": {
+            "text": "Perdón por no escucharte, tenías razón"
+        }
+    }
+}

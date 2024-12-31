@@ -151,6 +151,7 @@ export default class BootScene extends Phaser.Scene {
         this.load.image('harasserPfp', 'harasserPfp.png');
         this.load.image('lauraPfp', 'lauraPfp.png');
         this.load.image('momPfp', 'momPfp.png');
+        this.load.image('unknownPfp', 'unknownPfp.png');
 
     }
 
@@ -169,7 +170,7 @@ export default class BootScene extends Phaser.Scene {
 
         for (let i = 0; i < namespaces.length; ++i) {
             // IMPORTANTE: EN EL PLUGIN I18NEXT PARA LAS RUTAS HAY QUE USAR '\\' EN VEZ DE '/'
-            namespaces[i] = namespaces[i].replace('/', '\\');
+            namespaces[i] = namespaces[i].replace(/\//g, '\\');
         }
 
         // i18next es un framework de internalizacion ampiamente usado en javascript
@@ -293,11 +294,16 @@ export default class BootScene extends Phaser.Scene {
 
             "scene6/scene6Livingroom",
             "scene6/scene6Bedroom",
-                "scene6/scene6BedroomRouteA1",
-                "scene6/scene6BedroomRouteA2",
-                "scene6/scene6LunchRouteA",
-                "scene6/scene6PortalRouteA",
-                "scene6/scene6EndingRouteA",
+                "scene6/routeA/scene6BedroomRouteA1",
+                "scene6/routeA/scene6BedroomRouteA2",
+                "scene6/routeA/scene6LunchRouteA",
+                "scene6/routeA/scene6PortalRouteA",
+                "scene6/routeA/scene6EndingRouteA",
+
+                "scene6/routeB/scene6LunchRouteB",
+                "scene6/routeB/scene6BedroomRouteB",
+
+            "scene7/scene7Bedroom",
             
         ]
         // Solo son namespaces del plugin i18next

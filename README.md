@@ -41,7 +41,7 @@ Para los fondos, se ha aplicado una combinación de distintos filtros usando Pho
     * [Burbujas de chat](https://www.freepik.com/free-vector/different-shape-message-bubbles-blue-grey_77988500.htm#fromView=search&page=1&position=1&uuid=ba9c721f-b2ff-44c3-b46e-2e8680285d1b)
     * [Fuente del logo](https://font.download/font/corpid-light)
     * [Fuente de los diálogos](https://fonts.google.com/specimen/Roboto)
-
+    * [Fotos de perfil por defecto](https://www.freepik.es/vector-gratis/circulos-usuarios-blanco_134996379.htm#fromView=search&page=1&position=4&uuid=dd0f32ad-fa89-406d-a854-53066bbcb378&new_detail=true)
 * Personajes:
     * [Madre](https://www.freepik.com/free-psd/flat-design-woman-character-isolated_158212343.htm#fromView=image_search_similar&page=2&position=12&uuid=28b09b97-a183-4cdb-92a0-fc8e91e565b0)
     * [Padre](https://www.freepik.com/free-vector/elegant-businessman-standing-position-character_73261815.htm#fromView=image_search_similar&page=3&position=16&uuid=718d9d14-2873-4f8d-99da-973c0bd3d1fd)
@@ -50,6 +50,7 @@ Para los fondos, se ha aplicado una combinación de distintos filtros usando Pho
     * [Paula](https://www.freepik.es/psd-gratis/diseno-plano-mujer-caracter-aislado_158212338.htm)
     * [Acosador](https://www.freepik.es/vector-gratis/diseno-coleccion-personas-seguras_6543322.htm)
     * [Perro](https://www.freepik.es/vector-gratis/paquete-pitbull-diseno-plano_13961980.htm#fromView=search&page=1&position=31&uuid=c1221efd-fe66-455a-abfc-1eb70079105a&new_detail=true)
+
 * Fondos:
     * [Clase](https://www.lavozdigital.es/cadiz/provincia/lvdi-mas-140000-alumnos-arrancan-este-lunes-clases-institutos-cadiz-201909141400_noticia.html?ref=https%3A%2F%2Fwww.lavozdigital.es%2Fcadiz%2Fprovincia%2Flvdi-mas-140000-alumnos-arrancan-este-lunes-clases-institutos-cadiz-201909141400_noticia.html)
     * [Cafetería](https://oxfordhigh.gdst.net/senior-school/school-life/food-in-the-senior-school/)

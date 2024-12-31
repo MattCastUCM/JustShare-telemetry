@@ -182,7 +182,7 @@ export default class PhoneManager {
      * Reproduce la animacion de ocultar/mostrar el movil
      * @param {Number} speed - velolcidad a la que se reproduce la animacion (en ms) 
      */
-    togglePhone(speed) {
+    togglePhone(speed, onComplete) {
         if (!speed && speed !== 0) {
             speed = 100;
         }
@@ -191,10 +191,11 @@ export default class PhoneManager {
         if (!this.toggling) {
             // Se indica que va a empezar una
             this.toggling = true;
+            let anim = null;
 
             // Si el telefono es visible
             if (this.phone.visible) {
-                let deactivate = this.scene.tweens.add({
+                anim = this.scene.tweens.add({
                     targets: [this.phone],
                     alpha: { from: 1, to: 0 },
                     duration: speed,
@@ -203,13 +204,11 @@ export default class PhoneManager {
 
                 // Una vez terminada la animacion, se oculta el telefono, se indica que ya ha terminado, se 
                 // reactiva la interaccion con los elementos del fondo y vuelve a la pantalla de inicio
-                deactivate.on('complete', () => {
+                anim.on('complete', () => {
                     this.activatePhone(false);
                     this.phone.toMessagesListScreen();
 
-                    setTimeout(() => {
-                        this.toggling = false;                        
-                    }, 50);
+                    this.toggling = false;
                 });
             }
             // Si el telefono no es visible
@@ -217,7 +216,7 @@ export default class PhoneManager {
                 this.activatePhone(true);
                 
                 // Se mueve hacia el centro de la pantalla
-                let activate = this.scene.tweens.add({
+                anim = this.scene.tweens.add({
                     targets: [this.phone],
                     alpha: { from: 0, to: 1 },
                     duration: speed,
@@ -225,13 +224,16 @@ export default class PhoneManager {
                 });
 
                 // Una vez terminada la animacion, se indica que ya ha terminado
-                activate.on('complete', () => {
-                    setTimeout(() => {
-                        this.toggling = false;
-                        this.phone.toMessagesListScreen();                   
-                    }, 50);
+                anim.on('complete', () => {
+                    this.toggling = false;
+                    this.phone.toMessagesListScreen();
                 });
             }
+            anim.on('complete', () => {
+                if (onComplete !== null && typeof onComplete === 'function') {
+                    onComplete();
+                }
+            });
         }
     }
 

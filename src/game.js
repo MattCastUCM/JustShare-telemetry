@@ -32,13 +32,17 @@ import Scene5Bedroom from "./scenes/gameLoop/scene5/scene5Bedroom.js";
 // Escena 6
 import Scene6Livingroom from "./scenes/gameLoop/scene6/scene6Livingroom.js";
 import Scene6Bedroom from "./scenes/gameLoop/scene6/scene6Bedroom.js";
-    import Scene6BedroomRouteA1 from "./scenes/gameLoop/scene6/scene6BedroomRouteA1.js";
-    import scene6BedroomRouteA2 from "./scenes/gameLoop/scene6/scene6BedroomRouteA2.js";
-    import Scene6LunchRouteA from "./scenes/gameLoop/scene6/scene6LunchRouteA.js";
-    import Scene6PortalRouteA from "./scenes/gameLoop/scene6/scene6PortalRouteA.js";
-    import Scene6EndingRouteA from "./scenes/gameLoop/scene6/scene6EndingRouteA.js";
+    import Scene6BedroomRouteA1 from "./scenes/gameLoop/scene6/routeA/scene6BedroomRouteA1.js";
+    import scene6BedroomRouteA2 from "./scenes/gameLoop/scene6/routeA/scene6BedroomRouteA2.js";
+    import Scene6LunchRouteA from "./scenes/gameLoop/scene6/routeA/scene6LunchRouteA.js";
+    import Scene6PortalRouteA from "./scenes/gameLoop/scene6/routeA/scene6PortalRouteA.js";
+    import Scene6EndingRouteA from "./scenes/gameLoop/scene6/routeA/scene6EndingRouteA.js";
 
-    
+    import Scene6LunchRouteB from "./scenes/gameLoop/scene6/routeB/scene6LunchRouteB.js";
+    import Scene6BedroomRouteB from "./scenes/gameLoop/scene6/routeB/scene6BedroomRouteB.js";
+
+// Escena 7
+import Scene7Bedroom from "./scenes/gameLoop/scene7/scene7Bedroom.js";
 
 // UI
 import UIManager from './managers/UIManager.js';
@@ -72,7 +76,10 @@ const config = {
         // Escena 6
         Scene6Livingroom, Scene6Bedroom, 
             Scene6BedroomRouteA1, scene6BedroomRouteA2, Scene6LunchRouteA, Scene6PortalRouteA, Scene6EndingRouteA,
+            Scene6LunchRouteB, Scene6BedroomRouteB,
 
+        // Escena 7
+        Scene7Bedroom,
         // Menus
         TitleScene, LoginScene,
         

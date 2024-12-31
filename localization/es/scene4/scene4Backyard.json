@@ -2,7 +2,7 @@
     "mainConversation": {
         "root": [
             {
-                "text": "¡Que guay tu primera fiesta con nosotros!"
+                "text": "¡Que guay! ¡Tu primera fiesta con nosotros!"
             },
             {
                 "text": "Eso si llegas un poco tarde. ¿Todo bien?"
@@ -17,7 +17,7 @@
                 "text": "Ah bueno, supongo que cada uno tiene sus prioridades."
             },
             {
-                "text": "Pero venga, vamos al garaje con el resto que Paula va a abrir los regalos dentro de poco."
+                "text": "Pero venga, vamos al garaje con el resto, que Paula va a abrir los regalos dentro de poco."
             }
         ],
         "msg1": {

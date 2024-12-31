@@ -49,14 +49,13 @@ export default class Scene1Classroom extends BaseScene {
 
         // Al producirse, se cambiaa la escena de transicion y luego a la escena del comedor
         this.dispatcher.add("startBreak", this, () => {
-            let sceneName = 'TextOnlyScene';
             let params = {
                 text: this.gameManager.translate("scene1.break", { ns: "transitions", returnObjects: true }),
                 onComplete: () => {
                     this.gameManager.changeScene("Scene1Break", null);
                 },
             };
-            this.gameManager.changeScene(sceneName, params);
+            this.gameManager.changeScene("TextOnlyScene", params);
         });
     }
 

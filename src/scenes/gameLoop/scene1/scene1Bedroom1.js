@@ -95,7 +95,6 @@ export default class Scene1Bedroom1 extends BaseScene {
                 // Una vez termina la animacion, se introduce un retardo y cuando acaba,
                 // se cambia a la escena de transicion y luego a la escena del comedor del dia siguiente
                 setTimeout(() => {
-                    let sceneName = 'TextOnlyScene';
                     let params = {
                         text: this.gameManager.translate("scene1.nextDay", { ns: "transitions", returnObjects: true }),
                         onComplete: () => {
@@ -103,7 +102,7 @@ export default class Scene1Bedroom1 extends BaseScene {
                             this.gameManager.changeScene("Scene1Lunch2");
                         },
                     };
-                    this.gameManager.changeScene(sceneName, params);
+                    this.gameManager.changeScene("TextOnlyScene", params);
                 }, 1000);
             });
         });

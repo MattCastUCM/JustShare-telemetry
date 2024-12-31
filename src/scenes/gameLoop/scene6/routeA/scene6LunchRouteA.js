@@ -1,5 +1,5 @@
-import BaseScene from '../baseScene.js';
-import Portrait from '../../../UI/dialog/portrait.js';
+import BaseScene from '../../baseScene.js';
+import Portrait from '../../../../UI/dialog/portrait.js';
 
 export default class Scene6LunchRouteA extends BaseScene {
     /**
@@ -36,7 +36,7 @@ export default class Scene6LunchRouteA extends BaseScene {
 
         // Lee el archivo de nodos
         let nodes = this.cache.json.get('scene6LunchRouteA');
-        let node = super.readNodes(nodes, "scene6\\scene6LunchRouteA", "main", true);
+        let node = super.readNodes(nodes, "scene6\\routeA\\scene6LunchRouteA", "main", true);
         
         // Callback que al llamarse cambiara el nodo de dialogo
         this.setNode = () => {
@@ -46,7 +46,6 @@ export default class Scene6LunchRouteA extends BaseScene {
 
         // Al producirse, cambia a la escena de transicion y vuelve a la misma escena
         this.dispatcher.add("endLunch", this, () => {
-            let sceneName = 'TextOnlyScene';
             let params = {
                 text: this.gameManager.translate("scene6.routeALunch", { ns: "transitions", returnObjects: true }),
                 onComplete: () => {
@@ -54,13 +53,13 @@ export default class Scene6LunchRouteA extends BaseScene {
                     this.endLunch();
                 },
             };
-            this.gameManager.changeScene(sceneName, params, true);
+            this.gameManager.changeScene("TextOnlyScene", params, true);
         });
 
         // Se crean los elementos interactuables
         this.endLunch = () => {
-            let doorNodePrepared = super.readNodes(nodes, "scene6\\scene6LunchRouteA", "doorPrepared", true);
-            let doorNodeUnprepared = super.readNodes(nodes, "scene6\\scene6LunchRouteA", "doorUnprepared", true);
+            let doorNodePrepared = super.readNodes(nodes, "scene6\\routeA\\scene6LunchRouteA", "doorPrepared", true);
+            let doorNodeUnprepared = super.readNodes(nodes, "scene6\\routeA\\scene6LunchRouteA", "doorUnprepared", true);
             
             // Puerta a la calle
             super.createInteractiveElement(890, 380, "pointer", 0.3, () => {
@@ -83,7 +82,6 @@ export default class Scene6LunchRouteA extends BaseScene {
 
         // Al producirse, cambia a la escena de la calle
         this.dispatcher.add("exitHome", this, () => {
-            let sceneName = 'TextOnlyScene';
             let params = {
                 text: this.gameManager.translate("scene5.startWeek", { ns: "transitions", returnObjects: true }),
                 onComplete: () => {
@@ -91,7 +89,7 @@ export default class Scene6LunchRouteA extends BaseScene {
                     this.gameManager.changeScene("Scene6PortalRouteA");
                 },
             };
-            this.gameManager.changeScene(sceneName, params);
+            this.gameManager.changeScene("TextOnlyScene", params);
         });
     }
 

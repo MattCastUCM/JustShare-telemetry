@@ -1,0 +1,99 @@
+{
+    "phone": {
+        "root": {
+            "text": "Pensé que igual te apetecía dar el siguiente paso juntos"
+        },
+        "msg16": {
+            "text": "Como no nos podemos ver todavía, las fotos son buena opción no creess?"
+        },
+        "msg17": {
+            "text": "Pues me gustas mucho y creeme que tengo muchas ganas de verte, pero ns si está bien enviar estás cosas, no?"
+        },
+        "msg18": {
+            "text": "No te preocupes, esto es solo para nosotros."
+        },
+        "msg19": {
+            "text": "Así podemos calmar un poco las ganas de vernos hasta que podamoss"
+        },
+        "choices4": [
+            {
+                "text": "No quiero mandarte ese tipo de fotos."
+            }
+        ],
+        "msg20": {
+            "text": "No se, aun no me siento <player, comodo, comoda> mandando ese tipo de fotos"
+        },
+        "msg21": {
+            "text": "Y eso? No me quieres?"
+        },
+        "msg22": {
+            "text": "O me pasas la foto o lo nuestro ha terminado"
+        },
+        "msg23": {
+            "text": "No intentes hacerme chantaje, no voy a enviarte nada así."
+        },
+        "msg24": {
+            "text": "Ya veo porqué no tienes muchos amigos, eres <player, un niñato, una niñata> que solo piensa en sí <player, mismo, misma>"
+        },
+        "thoughts": {
+            "text": "(Debería contárselo a papá y mamá...)"
+        },
+        "msg25": {
+            "text": "Laura tenía razón contigo."
+        }
+    },
+
+    "call": {
+        "root": [
+            {
+                "text": "..."
+            },
+            {
+                "text": "..."
+            },
+            {
+                "text": "..."
+            }
+        ],
+        "pickUp": {
+            "text": "Hola cariño, ¿qué pasa?"
+        },
+        "explain": [
+            {
+                "text": "Pues..."
+            },
+            {
+                "text": "Desde que empezaron las clases he estado hablando con <harasser, un chico, una chica> por internet."
+            },
+            {
+                "text": "Todo iba bien y me gustaba mucho, hasta que me ha empezado a pedir que le envíe fotos..."
+            },
+            {
+                "text": "... fotos explícitas."
+            },
+            {
+                "text": "Obviamente me he negado y <harasser, lo, la> he bloqueado."
+            }
+        ],
+        "scold": [
+            {
+                "text": "Tendrías que haber tenido mucho más cuidado, no puedes confiarte tanto con alguien que no conoces de nada."
+
+            },
+            {
+                "text": "Pero has hecho lo correcto en <harasser, bloquearlo, bloquearla> y contárnoslo."
+            }
+        ],
+        "reflect": [
+            {
+                "text": "Hoy estamos todos conectados a las redes y cualquiera puede hacerse pasar por otra persona. Por eso hay que ir con mucho más cuidado y no ir compartiendo información privada a la ligera."
+            },
+            {
+                "text": "Por mucho que pienses que conoces a alguien, si no estás <player, seguro, segura> al 100% de quién es, tienes que prestar atención a qué información compartes y de qué tipo."
+            }
+        ],
+        "thanks": {
+            "text": "A partir de ahora tendré más cuidado, gracias mamá, gracias papá."
+        }
+    }
+}

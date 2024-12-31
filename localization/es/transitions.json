@@ -30,6 +30,14 @@
         "startWeek": "Unos días después...",
         "routeAStart": "Han pasado varios días, y <harasser, Pablo, Lucía> y tú os intercambiáis fotos casi todas las noches.",
         "routeALunch": "Después de la comida...",
-        "routeAWalking": "Tras un rato caminando por la ciudad, llegas finalmente al portal en el que vive <harasser, Pablo, Lucía>."
+        "routeAWalking": "Tras un rato caminando por la ciudad, llegas finalmente al portal en el que vive <harasser, Pablo, Lucía>.",
+        "routeBStart": "A la hora de comer del día siguiente...",
+        "routeBExplained": "",
+        "routeBNotExplained": "A los pocos días..."
+    },
+
+    "scene7": {
+        "start": "",
+        "end": "Fin"
     }
 }

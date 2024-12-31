@@ -93,14 +93,14 @@ export default class GameManager {
         this.currentScene.scene.launch(UIsceneName);
         this.UIManager = this.currentScene.scene.get(UIsceneName);
 
-        this.changeScene("Scene6EndingRouteA", {});
+        this.changeScene("Scene7Bedroom", {});
     }
 
 
     startGame(userInfo) {
-        // TEST
-        this.startTestScene();
-        return;
+        // // TEST
+        // this.startTestScene();
+        // return;
         
         this.blackboard.clear();
         this.userInfo = userInfo;
@@ -112,7 +112,6 @@ export default class GameManager {
         this.UIManager = this.currentScene.scene.get(UIsceneName);
 
         // Pasa a la escena inicial con los parametros text, onComplete y onCompleteDelay
-        let sceneName = 'TextOnlyScene';
         let params = {
             text: this.translate("scene1.classroom", { ns: "transitions", returnObjects: true }),
             onComplete: () => {
@@ -121,7 +120,7 @@ export default class GameManager {
             },
         };
         
-        this.changeScene(sceneName, params);
+        this.changeScene("TextOnlyScene", params);
     }
 
     /**

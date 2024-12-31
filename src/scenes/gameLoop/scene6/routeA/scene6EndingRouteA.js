@@ -1,4 +1,4 @@
-import BaseScene from '../baseScene.js';
+import BaseScene from '../../baseScene.js';
 
 export default class Scene6EndingRouteA extends BaseScene {
     /**
@@ -15,10 +15,8 @@ export default class Scene6EndingRouteA extends BaseScene {
 
         // Al producirse, se cambian los dialogos de la cama y el armario
         this.dispatcher.add("end", this, () => {
-            if (this.phoneManager.phone.visible) {
-                this.phoneManager.togglePhone();
-                this.phoneManager.activatePhoneIcon(false);
-            }
+            this.phoneManager.togglePhone();
+            this.phoneManager.activatePhoneIcon(false);
             
             let params = {
                 fadeOutTime: 1000,
@@ -38,18 +36,17 @@ export default class Scene6EndingRouteA extends BaseScene {
             this.phoneManager.bgBlock.disableInteractive();
             this.phoneManager.phone.returnButton.disableInteractive();
 
-            // PENDIENTE
             setTimeout(() => {
                 let chatName = this.gameManager.translate("textMessages.chat3", { ns: "deviceInfo", returnObjects: true });
                 this.phoneManager.phone.addChat(chatName, "dadPfp");
-                let phoneNode = super.readNodes(nodes, "scene6\\scene6EndingRouteA", "dad", true);
+                let phoneNode = super.readNodes(nodes, "scene6\\routeA\\scene6EndingRouteA", "dad", true);
                 this.phoneManager.phone.setChatNode(chatName, phoneNode);
             }, 2000);
             
             setTimeout(() => {
                 let chatName = this.gameManager.translate("textMessages.chat4", { ns: "deviceInfo", returnObjects: true });
                 this.phoneManager.phone.addChat(chatName, "momPfp");
-                let phoneNode = super.readNodes(nodes, "scene6\\scene6EndingRouteA", "mom", true);
+                let phoneNode = super.readNodes(nodes, "scene6\\routeA\\scene6EndingRouteA", "mom", true);
                 this.phoneManager.phone.setChatNode(chatName, phoneNode);
             }, 7000);
 

@@ -309,6 +309,7 @@ export default class ChatScreen extends BaseScreen {
             }
             else if (this.currNode.type === "text") {
                 this.scene.dialogManager.currNode = this.currNode;
+                this.setInteractive();
             }
             else {
                 this.setInteractive();

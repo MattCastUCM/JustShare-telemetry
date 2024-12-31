@@ -1,5 +1,5 @@
-import BaseScene from '../baseScene.js';
-import Portrait from '../../../UI/dialog/portrait.js';
+import BaseScene from '../../baseScene.js';
+import Portrait from '../../../../UI/dialog/portrait.js';
 
 export default class Scene6BedroomRouteA2 extends BaseScene {
     /**
