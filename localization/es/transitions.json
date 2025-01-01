@@ -32,12 +32,13 @@
         "routeALunch": "Después de la comida...",
         "routeAWalking": "Tras un rato caminando por la ciudad, llegas finalmente al portal en el que vive <harasser, Pablo, Lucía>.",
         "routeBStart": "A la hora de comer del día siguiente...",
-        "routeBExplained": "",
-        "routeBNotExplained": "A los pocos días..."
+        "routeBAfterLunch": "A los pocos días...",
+        "routeBPoliceStation": "Tus padres y tú vais a la comisaría, donde le cuentas todo lo sucedido a los agentes.",
+        "routeBEnd": "Ya han pasado varios días. Apenas has salido a la calle, y los mensajes de odio no parecen dejar de llegar."
     },
 
     "scene7": {
-        "start": "",
+        "start": "Pero... ¿y si no hubieras mandado esas fotos aquel día?",
         "end": "Fin"
     }
 }

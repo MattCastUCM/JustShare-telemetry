@@ -50,12 +50,14 @@ Para los fondos, se ha aplicado una combinación de distintos filtros usando Pho
     * [Paula](https://www.freepik.es/psd-gratis/diseno-plano-mujer-caracter-aislado_158212338.htm)
     * [Acosador](https://www.freepik.es/vector-gratis/diseno-coleccion-personas-seguras_6543322.htm)
     * [Perro](https://www.freepik.es/vector-gratis/paquete-pitbull-diseno-plano_13961980.htm#fromView=search&page=1&position=31&uuid=c1221efd-fe66-455a-abfc-1eb70079105a&new_detail=true)
+    * [Policía](https://www.freepik.es/vector-gratis/concepto-recogida-policia_8621529.htm#fromView=search&page=1&position=43&uuid=32b0ac4b-a32f-49ac-80fa-f7d4051e5314)
 
 * Fondos:
     * [Clase](https://www.lavozdigital.es/cadiz/provincia/lvdi-mas-140000-alumnos-arrancan-este-lunes-clases-institutos-cadiz-201909141400_noticia.html?ref=https%3A%2F%2Fwww.lavozdigital.es%2Fcadiz%2Fprovincia%2Flvdi-mas-140000-alumnos-arrancan-este-lunes-clases-institutos-cadiz-201909141400_noticia.html)
     * [Cafetería](https://oxfordhigh.gdst.net/senior-school/school-life/food-in-the-senior-school/)
     * [Salón](https://www.booking.com/hotel/gr/tinker-bell-by-halu-colorful-family-apt.es.html)
     * [Habitación](https://xn--mueblesocaa-beb.es/juveniles-modernos/1685-dormitorio-juvenil-030.html)
+    * [Nubes](https://www.freepik.es/vector-gratis/fondo-nubes-humo-profundidad_26443430.htm#fromView=search&page=1&position=20&uuid=407cd797-1ef7-489d-86fc-eea3f61efb6b&new_detail=true)
 
 
 <br>

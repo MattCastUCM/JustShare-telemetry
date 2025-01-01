@@ -15,6 +15,11 @@ export default class Scene7Bedroom extends BaseScene {
         super.create(params)
 
         // Pone la imagen de fondo con las dimensiones del canvas
+        let dreamBg = this.add.image(0, 0, 'dream').setOrigin(0, 0);
+        this.scale = this.CANVAS_HEIGHT / dreamBg.height;
+        dreamBg.setScale(this.scale);
+        dreamBg.depth = 100;
+        
         let bg = this.add.image(0, 0, 'bedroomNightBg').setOrigin(0, 0);
         this.scale = this.CANVAS_HEIGHT / bg.height;
         bg.setScale(this.scale);
@@ -23,26 +28,31 @@ export default class Scene7Bedroom extends BaseScene {
         // Lee el archivo de nodos
         let nodes = this.cache.json.get('scene7Bedroom');
 
-        // PENDIENTE / TEST
         this.phoneManager.activatePhoneIcon(true);
 
-        this.chatName = this.gameManager.translate("textMessages.chat2", { ns: "deviceInfo", returnObjects: true });
-        this.phoneManager.phone.addChat(this.chatName, "harasserPfp");
+        let chatName = this.gameManager.translate("textMessages.chat2", { ns: "deviceInfo", returnObjects: true });
+        this.phoneManager.phone.reset();
 
-        let phoneNode = super.readNodes(nodes, "scene7\\scene7Bedroom", "phone", true);
-        this.dialogManager.setNode(phoneNode, []);
+        this.resetPhone = () => {
+            this.phoneManager.phone.addChat(chatName, "harasserPfp");
+
+            let phoneNode = super.readNodes(nodes, "scene7\\scene7Bedroom", "phone", true);
+            this.dialogManager.setNode(phoneNode, []);
+            
+            this.phoneManager.togglePhone(100, () => {
+                this.phoneManager.phone.toChatScreen(chatName);
+            });
+            this.phoneManager.bgBlock.disableInteractive();
+            this.phoneManager.phone.returnButton.disableInteractive();
+            this.phoneManager.phone.chats.get(chatName).returnButton.disableInteractive();
+        };
         
-        this.phoneManager.togglePhone(100, () => {
-            this.phoneManager.phone.toChatScreen(this.chatName);
-        });
-        this.phoneManager.bgBlock.disableInteractive();
-        this.phoneManager.phone.returnButton.disableInteractive();
-
         // Al producirse, se cambian los dialogos de la cama y el armario
         this.dispatcher.add("chatEnded", this, () => {
             this.dialogManager.textbox.activate(false);
             this.phoneManager.bgBlock.setInteractive();
             this.phoneManager.phone.returnButton.setInteractive();
+            this.phoneManager.phone.chats.get(chatName).returnButton.setInteractive();
 
             super.createInteractiveElement(1390, 400, "pointer", 0.3, () => {
                 this.phoneManager.activatePhoneIcon(false);
@@ -84,5 +94,7 @@ export default class Scene7Bedroom extends BaseScene {
         });
     }
 
-    
+    onCreate() {
+        this.resetPhone();
+    }
 }

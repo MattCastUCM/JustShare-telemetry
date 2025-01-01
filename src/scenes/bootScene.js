@@ -255,7 +255,7 @@ export default class BootScene extends Phaser.Scene {
         // Habitacion
         this.load.image('bedroomBg', 'bedroom.png');
         this.load.image('bedroomNightBg', 'bedroomNight.png');
-
+        this.load.image('dream', 'dream.png');
     }
 
     loadCreditsSceneAssets() {
@@ -302,6 +302,8 @@ export default class BootScene extends Phaser.Scene {
 
                 "scene6/routeB/scene6LunchRouteB",
                 "scene6/routeB/scene6BedroomRouteB",
+                "scene6/routeB/scene6PoliceStationRouteB",
+                "scene6/routeB/scene6EndingRouteB",
 
             "scene7/scene7Bedroom",
             

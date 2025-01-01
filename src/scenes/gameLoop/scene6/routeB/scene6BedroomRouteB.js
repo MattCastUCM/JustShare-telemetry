@@ -1,4 +1,5 @@
 import BaseScene from '../../baseScene.js';
+import Portrait from '../../../../UI/dialog/portrait.js';
 
 export default class Scene6BedroomRouteB extends BaseScene {
     /**
@@ -33,11 +34,17 @@ export default class Scene6BedroomRouteB extends BaseScene {
         let phoneNode = super.readNodes(nodes, "scene6\\routeB\\scene6BedroomRouteB", "harasserChat", true);
         this.dialogManager.setNode(phoneNode, []);
 
+        this.phoneManager.togglePhone(100, () => {
+            this.phoneManager.phone.toChatScreen(chatName);
+        });
+        
 
         // Armario
         let closetNode = super.readNodes(generalNodes, "generalDialogs", "closet", true);
         super.createInteractiveElement(240, 400, "pointer", 0.3, () => {
-            this.dialogManager.setNode(closetNode, []);
+            // this.dialogManager.setNode(closetNode, []);
+            this.gameManager.changeScene("Scene7Bedroom");
+
         }, false);
 
         // Cama
@@ -47,7 +54,6 @@ export default class Scene6BedroomRouteB extends BaseScene {
         }, false);
 
 
-        // Al producirse, se cambian los nodos de la cama y el armario
         this.dispatcher.add("harasserChatEnded", this, () => {
             chatName = this.gameManager.translate("textMessages.chat5", { ns: "deviceInfo", returnObjects: true });
             this.phoneManager.phone.addChat(chatName, "unknownPfp");
@@ -63,7 +69,6 @@ export default class Scene6BedroomRouteB extends BaseScene {
         });
 
         this.dispatcher.add("chat3Ended", this, () => {
-            // PENDIENTE
             chatName = this.gameManager.translate("textMessages.chat1", { ns: "deviceInfo", returnObjects: true });
             this.phoneManager.phone.addChat(chatName, "lauraPfp");
             phoneNode = super.readNodes(nodes, "scene6\\routeB\\scene6BedroomRouteB", "lauraChat", true);
@@ -77,8 +82,49 @@ export default class Scene6BedroomRouteB extends BaseScene {
 
             // Ordenador
             super.createInteractiveElement(1390, 400, "pointer", 0.3, () => {
-                // PENDIENTE
+                // PENDIENTE / TEST
+                let node = super.readNodes(nodes, "scene6\\routeB\\scene6BedroomRouteB", "stress", true);
+                this.dialogManager.setNode(node, []);
             }, false);
+        });
+
+        this.dispatcher.add("panic", this, () => {
+            // Retrato del padre
+            let dadTr = this.portraitTr;
+            dadTr.x = this.CANVAS_WIDTH / 2 + this.CANVAS_WIDTH / 5;
+            let dadPortrait = new Portrait(this, "dad", dadTr, "dad");
+            this.portraits.set("dad", dadPortrait);
+
+            // Retrato de la madre
+            let momTr = this.portraitTr;
+            momTr.x = this.CANVAS_WIDTH / 2 - this.CANVAS_WIDTH / 5;
+            let momPortrait = new Portrait(this, "mom", momTr, "mom")
+            momPortrait.setFlipX(true);
+            this.portraits.set("mom", momPortrait);
+            
+            // PENDIENTE EFECTO DE CAMARA
+
+            let node = null;
+            if (this.gameManager.getValue("explained")) {
+                node = super.readNodes(nodes, "scene6\\routeB\\scene6BedroomRouteB", "interruptionExplained", true);
+            }
+            else {
+                node = super.readNodes(nodes, "scene6\\routeB\\scene6BedroomRouteB", "interruptionNotExplained", true);
+            }
+            setTimeout(() => {
+                this.dialogManager.setNode(node, [dadPortrait, momPortrait]);
+            }, 500);
+        });
+
+        this.dispatcher.add("end", this, () => {
+            let params = {
+                fadeOutTime: 1000,
+                text: this.gameManager.translate("scene6.routeBPoliceStation", { ns: "transitions", returnObjects: true }),
+                onComplete: () => {
+                    this.gameManager.changeScene("Scene6PoliceStationRouteB");
+                },
+            };
+            this.gameManager.changeScene("TextOnlyScene", params);             
         });
     }
 

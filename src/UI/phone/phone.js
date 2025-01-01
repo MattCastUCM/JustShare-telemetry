@@ -15,24 +15,38 @@ export default class Phone extends Phaser.GameObjects.Container {
         this.animateButton(this.returnButton, () => {
             this.toPrevScreen();
         })
-
-        this.messagesScreen = new MessagesScreen(scene, this, null);
         
-        // Se crea el mapa que guardara las pantallas de chat
-        this.chats = new Map();
+        this.messagesScreen = null;
 
         // Se anade la imagen del telefono y las pantallas a la escena
         this.add(this.phone);
         this.add(this.returnButton);
-        this.add(this.messagesScreen);
         
+        // Se crea el mapa que guardara las pantallas de chat
+        this.chats = new Map();
+
+        this.reset();
+        scene.add.existing(this);
+    }
+
+    reset() {
+        if (this.messagesScreen != null) {
+            this.messagesScreen.destroy();
+        }
+        this.messagesScreen = new MessagesScreen(this.scene, this, null);
+        
+        this.chats.forEach((chat) => {
+            chat.setNode(null);
+        });
+
+        this.add(this.messagesScreen);
+
         // Se pone la imagen del telefono por encima de todo
         this.sendToBack(this.messagesScreen);
         this.bringToTop(this.phone);
         this.bringToTop(this.returnButton);
 
         this.currScreen = this.messagesScreen;
-        scene.add.existing(this);
     }
 
     /**

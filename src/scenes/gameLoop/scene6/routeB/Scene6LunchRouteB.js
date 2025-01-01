@@ -64,24 +64,12 @@ export default class Scene6LunchRouteB extends BaseScene {
 
         // Al producirse, cambia a la escena de la calle
         this.dispatcher.add("endInterruption", this, () => {
-            let params = {}
-            if (this.gameManager.getValue("explained")) {
-                params = {
-                    text: this.gameManager.translate("scene6.routeBExplained", { ns: "transitions", returnObjects: true }),
-                    onComplete: () => {
-                        // PENDIENTE
-                        this.gameManager.changeScene("TitleScene");
-                    },
-                };
-            }
-            else {
-                params = {
-                    text: this.gameManager.translate("scene6.routeBNotExplained", { ns: "transitions", returnObjects: true }),
-                    onComplete: () => {
-                        this.gameManager.changeScene("Scene6BedroomRouteB");
-                    },
-                };
-            }
+            let params = {
+                text: this.gameManager.translate("scene6.routeBAfterLunch", { ns: "transitions", returnObjects: true }),
+                onComplete: () => {
+                    this.gameManager.changeScene("Scene6BedroomRouteB");
+                },
+            };
             this.gameManager.changeScene("TextOnlyScene", params);
         });
     }

@@ -166,5 +166,133 @@
                 }
             ]
         }
+    },
+
+    "stress": {
+        "root": {
+            "type": "text",
+            "character": "player",
+            "next": "worry"
+        },
+        "worry": {
+            "type": "text",
+            "character": "player",
+            "next": "wish"
+        },
+        "wish": {
+            "type": "text",
+            "character": "player",
+            "next": "checkExplained"
+        },
+        
+        "checkExplained": {
+            "type": "condition", 
+                "conditions": [
+                    {
+                        "next": "notExplained",
+                        "explained": {
+                            "value": false,
+                            "operator": "equal",
+                            "global": true,
+                            "default": false
+                        }
+                    },
+                    {
+                        "next": "panic",
+                        "explained": {
+                            "value": true,
+                            "operator": "equal",
+                            "global": true,
+                            "default": false
+                        }
+                    }
+                ]
+        },
+        "notExplained": {
+            "type": "text",
+            "character": "player",
+            "next": "panic"
+        },
+        "panic": {
+            "type": "event",
+            "events": [
+                {
+                    "panic": {
+                        "delay": 0
+                    }
+                }
+            ]
+        }
+    },
+
+    "interruptionExplained": {
+        "root": {
+            "type": "text",
+            "character": "dad",
+            "next": "sorry"
+        },
+        "sorry": {
+            "type": "text",
+            "character": "player",
+            "next": "comfort"
+        },
+        "comfort": {
+            "type": "text",
+            "character": "mom",
+            "next": "report"
+        },
+        "report": {
+            "type": "text",
+            "character": "dad",
+            "next": "end"
+        },
+        "end": {
+            "type": "event",
+            "events": [
+                {
+                    "end": {
+                        "delay": 0
+                    }
+                }
+            ]
+        }
+    },
+
+    "interruptionNotExplained": {
+        "root": {
+            "type": "text",
+            "character": "dad",
+            "next": "ask"
+        },
+        "ask": {
+            "type": "text",
+            "character": "mom",
+            "next": "explain"
+        },
+        "explain": {
+            "type": "text",
+            "character": "player",
+            "next": "scold"
+        },
+        "scold": {
+            "type": "text",
+            "character": "dad",
+            "next": "report"
+        },
+        "report": {
+            "type": "text",
+            "character": "mom",
+            "next": "end"
+        },
+        "end": {
+            "type": "event",
+            "events": [
+                {
+                    "end": {
+                        "delay": 0
+                    }
+                }
+            ]
+        }
     }
 }

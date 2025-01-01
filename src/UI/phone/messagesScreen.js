@@ -22,6 +22,8 @@ export default class MessagesScreen extends BaseScreen {
         this.chatTextConfig.fontSize = 25 + 'px';
         this.chatTextConfig.style = 'normal';
 
+        this.chatButtons = new Map();
+
         this.add(titleText);
     }
 
@@ -122,7 +124,7 @@ export default class MessagesScreen extends BaseScreen {
         let notifObj = this.phone.phoneManager.createNotificationsIcon(this.BG_X + this.bg.displayWidth * 0.3, button.y, true);
         this.add(notifObj.container);
         notifObj.container.visible = false;
-
+        
         return notifObj;
     }
 

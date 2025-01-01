@@ -41,7 +41,7 @@ export default class DialogManager {
             if (this.textbox.box.input.enabled && this.textbox.box.alpha > 0.9) {
                 this.nextDialog();
             }
-            else if (this.textbox.box.input.enabled) {
+            else if (this.textbox.box.input.enabled && this.currNode.type === "text") {
                 this.setNode(null, this.portraits);
             }
         });
@@ -210,7 +210,6 @@ export default class DialogManager {
                 else if (operator === "different") {
                     conditionMet = variableValue !== expectedValue;
                 }
-
                 // Se habran cumplido todas las condiciones si todas las condiciones
                 // se han cumplido anteriormente y esta tambien se ha cumplido
                 allConditionsMet &= conditionMet;
@@ -266,10 +265,8 @@ export default class DialogManager {
 
                 if (this.currNode.type === "condition") {
                     let i = this.processConditionNode(this.currNode);
-    
                     // El indice del siguiente nodo sera el primero que cumpla una de las condiciones
                     this.currNode = this.currNode.next[i];
-    
                     // Pasa al siguiente nodo
                     this.processNextNode(delay);
                 }

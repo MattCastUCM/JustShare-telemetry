@@ -40,6 +40,8 @@ import Scene6Bedroom from "./scenes/gameLoop/scene6/scene6Bedroom.js";
 
     import Scene6LunchRouteB from "./scenes/gameLoop/scene6/routeB/scene6LunchRouteB.js";
     import Scene6BedroomRouteB from "./scenes/gameLoop/scene6/routeB/scene6BedroomRouteB.js";
+    import Scene6PoliceStationRouteB from "./scenes/gameLoop/scene6/routeB/Scene6PoliceStationRouteB.js";
+    import Scene6EndingRouteB from "./scenes/gameLoop/scene6/routeB/scene6EndingRouteB.js";
 
 // Escena 7
 import Scene7Bedroom from "./scenes/gameLoop/scene7/scene7Bedroom.js";
@@ -76,7 +78,7 @@ const config = {
         // Escena 6
         Scene6Livingroom, Scene6Bedroom, 
             Scene6BedroomRouteA1, scene6BedroomRouteA2, Scene6LunchRouteA, Scene6PortalRouteA, Scene6EndingRouteA,
-            Scene6LunchRouteB, Scene6BedroomRouteB,
+            Scene6LunchRouteB, Scene6BedroomRouteB, Scene6PoliceStationRouteB, Scene6EndingRouteB,
 
         // Escena 7
         Scene7Bedroom,
