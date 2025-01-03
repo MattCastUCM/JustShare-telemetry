@@ -93,7 +93,7 @@ export default class GameManager {
         this.currentScene.scene.launch(UIsceneName);
         this.UIManager = this.currentScene.scene.get(UIsceneName);
 
-        this.changeScene("Scene6LunchRouteB", {});
+        this.changeScene("Scene6BedroomRouteB", {});
     }
 
 

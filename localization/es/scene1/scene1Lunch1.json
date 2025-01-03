@@ -77,18 +77,30 @@
 
     "phone": {
         "root": {
-            "text": "Socorro"
+            "text": "No te olvides de mandarme la foto de Toni ;)"
         },
         "choices": [
             {
-                "text": "Respuesta 1"
+                "text": "Mandar la foto de Toni y Mila."
             },
             {
-                "text": "Respuesta 2"
+                "text": "Mandar la foto de Mila sola."
             }
-        ]
+        ],
+        "photo1": {
+            "text": "[toniPhoto1A]"
+        },
+        "photo2": {
+            "text": "[toniPhoto1B]"
+        },
+        "msg3": {
+            "text": "Que envidia!"
+        },
+        "msg4": {
+            "text": "Gracias por la foto, ya no te molesto mas que tenemos que hacer deberes >_<"
+        }
     },
-
+    
     "unanswered": {
         "root": {
             "text": "(Debería contestar al teléfono)."

@@ -27,10 +27,11 @@ export default class Scene6PoliceStationRouteB extends BaseScene {
         let dadPortrait = new Portrait(this, "dad", dadTr, "dad");
         this.portraits.set("dad", dadPortrait);
         
-        // PENDIENTE
         // Retrato del agente
         let officerTr = this.portraitTr;
         officerTr.x =  this.CANVAS_WIDTH / 2 - this.CANVAS_WIDTH / 5;
+        officerTr.y += 100;
+        officerTr.scale *= 1.15;
         let officerPortrait = new Portrait(this, "officer", officerTr, "officer")
         officerPortrait.setFlipX(true);
         this.portraits.set("officer", officerPortrait);

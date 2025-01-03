@@ -14,6 +14,24 @@ Todos los assets utilizados están acreditados con sus enlaces. En caso de no es
 
 Para los fondos, se ha aplicado una combinación de distintos filtros usando Photoshop. Como cada imagen es diferente, no siempre se aplican todos los filtros o con los mismos parámetros, pero el filtro más importante es el de cuarteado, que es con el que se consigue dar un efecto de gráfico vectorizado al fondo, usando la mayoría de veces 8 niveles, simplicidad del borde de entre 3 y 5, y fidelidad del borde 1. Luego, dependiendo de la imagen, se aplican también por encima efectos para modificar el brillo/contraste, y si la imagen pierde demasiado color, se duplica por encima sin filtro y se le aplica el modo de fusión de Color.
 
+* Personajes:
+    * [Madre](https://www.freepik.com/free-psd/flat-design-woman-character-isolated_158212343.htm#fromView=image_search_similar&page=2&position=12&uuid=28b09b97-a183-4cdb-92a0-fc8e91e565b0)
+    * [Padre](https://www.freepik.com/free-vector/elegant-businessman-standing-position-character_73261815.htm#fromView=image_search_similar&page=3&position=16&uuid=718d9d14-2873-4f8d-99da-973c0bd3d1fd)
+    * [Profesor](https://www.freepik.com/free-vector/elegant-businessman-with-folder-character_73261784.htm#fromView=image_search_similar&page=1&position=0&uuid=b767bb75-f73a-4137-b8c5-f0db54f51024)
+    * [Laura](https://www.freepik.es/psd-gratis/diseno-plano-mujer-caracter-aislado_158212345.htm)
+    * [Paula](https://www.freepik.es/psd-gratis/diseno-plano-mujer-caracter-aislado_158212338.htm)
+    * [Acosador](https://www.freepik.es/vector-gratis/diseno-coleccion-personas-seguras_6543322.htm)
+    * [Perro](https://www.freepik.es/vector-gratis/paquete-pitbull-diseno-plano_13961980.htm#fromView=search&page=1&position=31&uuid=c1221efd-fe66-455a-abfc-1eb70079105a&new_detail=true)
+    * [Policía](https://www.freepik.es/vector-gratis/concepto-recogida-policia_8621529.htm#fromView=search&page=1&position=43&uuid=32b0ac4b-a32f-49ac-80fa-f7d4051e5314)
+
+* Fondos:
+    * [Clase](https://www.lavozdigital.es/cadiz/provincia/lvdi-mas-140000-alumnos-arrancan-este-lunes-clases-institutos-cadiz-201909141400_noticia.html?ref=https%3A%2F%2Fwww.lavozdigital.es%2Fcadiz%2Fprovincia%2Flvdi-mas-140000-alumnos-arrancan-este-lunes-clases-institutos-cadiz-201909141400_noticia.html)
+    * [Cafetería](https://oxfordhigh.gdst.net/senior-school/school-life/food-in-the-senior-school/)
+    * [Salón](https://www.booking.com/hotel/gr/tinker-bell-by-halu-colorful-family-apt.es.html)
+    * [Habitación](https://xn--mueblesocaa-beb.es/juveniles-modernos/1685-dormitorio-juvenil-030.html)
+    * [Nubes](https://www.freepik.es/vector-gratis/fondo-nubes-humo-profundidad_26443430.htm#fromView=search&page=1&position=20&uuid=407cd797-1ef7-489d-86fc-eea3f61efb6b&new_detail=true)
+    * [Estación de policía](https://www.laopiniondezamora.es/zamora-ciudad/2020/11/11/comisaria-policia-nacional-zamora-amplia-23041677.html)
+
 * UI:
     * [Portátil](https://www.freepik.es/psd-gratis/laptop-moderno-aislado_54999402.htm#fromView=search&page=1&position=28&uuid=531963f8-ac6a-4d74-8e2a-19fdb4186064&new_detail=true)
     * [Ventana](https://www.freepik.es/search?ai=excluded&format=search&last_filter=query&last_value=forest&query=forest&selection=1&type=psd)
@@ -42,23 +60,6 @@ Para los fondos, se ha aplicado una combinación de distintos filtros usando Pho
     * [Fuente del logo](https://font.download/font/corpid-light)
     * [Fuente de los diálogos](https://fonts.google.com/specimen/Roboto)
     * [Fotos de perfil por defecto](https://www.freepik.es/vector-gratis/circulos-usuarios-blanco_134996379.htm#fromView=search&page=1&position=4&uuid=dd0f32ad-fa89-406d-a854-53066bbcb378&new_detail=true)
-* Personajes:
-    * [Madre](https://www.freepik.com/free-psd/flat-design-woman-character-isolated_158212343.htm#fromView=image_search_similar&page=2&position=12&uuid=28b09b97-a183-4cdb-92a0-fc8e91e565b0)
-    * [Padre](https://www.freepik.com/free-vector/elegant-businessman-standing-position-character_73261815.htm#fromView=image_search_similar&page=3&position=16&uuid=718d9d14-2873-4f8d-99da-973c0bd3d1fd)
-    * [Profesor](https://www.freepik.com/free-vector/elegant-businessman-with-folder-character_73261784.htm#fromView=image_search_similar&page=1&position=0&uuid=b767bb75-f73a-4137-b8c5-f0db54f51024)
-    * [Laura](https://www.freepik.es/psd-gratis/diseno-plano-mujer-caracter-aislado_158212345.htm)
-    * [Paula](https://www.freepik.es/psd-gratis/diseno-plano-mujer-caracter-aislado_158212338.htm)
-    * [Acosador](https://www.freepik.es/vector-gratis/diseno-coleccion-personas-seguras_6543322.htm)
-    * [Perro](https://www.freepik.es/vector-gratis/paquete-pitbull-diseno-plano_13961980.htm#fromView=search&page=1&position=31&uuid=c1221efd-fe66-455a-abfc-1eb70079105a&new_detail=true)
-    * [Policía](https://www.freepik.es/vector-gratis/concepto-recogida-policia_8621529.htm#fromView=search&page=1&position=43&uuid=32b0ac4b-a32f-49ac-80fa-f7d4051e5314)
-
-* Fondos:
-    * [Clase](https://www.lavozdigital.es/cadiz/provincia/lvdi-mas-140000-alumnos-arrancan-este-lunes-clases-institutos-cadiz-201909141400_noticia.html?ref=https%3A%2F%2Fwww.lavozdigital.es%2Fcadiz%2Fprovincia%2Flvdi-mas-140000-alumnos-arrancan-este-lunes-clases-institutos-cadiz-201909141400_noticia.html)
-    * [Cafetería](https://oxfordhigh.gdst.net/senior-school/school-life/food-in-the-senior-school/)
-    * [Salón](https://www.booking.com/hotel/gr/tinker-bell-by-halu-colorful-family-apt.es.html)
-    * [Habitación](https://xn--mueblesocaa-beb.es/juveniles-modernos/1685-dormitorio-juvenil-030.html)
-    * [Nubes](https://www.freepik.es/vector-gratis/fondo-nubes-humo-profundidad_26443430.htm#fromView=search&page=1&position=20&uuid=407cd797-1ef7-489d-86fc-eea3f61efb6b&new_detail=true)
-
 
 <br>
 

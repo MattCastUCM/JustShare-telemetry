@@ -237,6 +237,7 @@ export default class BootScene extends Phaser.Scene {
         this.load.image('laura', 'laura.png');
         this.load.image('paula', 'paula.png');
         this.load.image('harasser', 'harasser.png');
+        this.load.image('officer', 'officer.png');
     }
 
     loadBackgrounds() {
@@ -256,6 +257,9 @@ export default class BootScene extends Phaser.Scene {
         this.load.image('bedroomBg', 'bedroom.png');
         this.load.image('bedroomNightBg', 'bedroomNight.png');
         this.load.image('dream', 'dream.png');
+
+        this.load.image('policeStationBg', 'policeStation.png');
+
     }
 
     loadCreditsSceneAssets() {
