@@ -93,7 +93,7 @@ export default class GameManager {
         this.currentScene.scene.launch(UIsceneName);
         this.UIManager = this.currentScene.scene.get(UIsceneName);
 
-        this.changeScene("Scene6BedroomRouteB", {});
+        this.changeScene("LoginScene", {});
     }
 
 
@@ -274,10 +274,10 @@ export default class GameManager {
                 name: "fillTextBox",
                 color: 0xffffff
             },
-            border: {
-                name: "borderTextBox",
+            edge: {
+                name: "edgeTextBox",
                 color: 0x000000,
-                width: 4.5
+                width: 3
             },
             width: 345,
             height: 105,
@@ -292,10 +292,10 @@ export default class GameManager {
                 name: "fillInputBox",
                 color: 0xffffff
             },
-            border: {
-                name: "borderInputBox",
+            edge: {
+                name: "edgeInputBox",
                 color: 0x000000,
-                width: 4.5
+                width: 3
             },
             width: 335,
             height: 90,
@@ -310,10 +310,10 @@ export default class GameManager {
                 name: 'fillSquare',
                 color: 0xffffff
             },
-            border: {
-                name: "borderSquare",
+            edge: {
+                name: "edgeSquare",
                 color: 0x000000,
-                width: 4.5
+                width: 3
             },
             width: 100,
             height: 100,
@@ -344,14 +344,41 @@ export default class GameManager {
         this.graphics.clear();
 
         // Borde
-        this.graphics.lineStyle(params.border.width, params.border.color, 1);
+        this.graphics.lineStyle(params.edge.width, params.edge.color, 1);
         this.graphics.strokeRoundedRect(params.offset, params.offset, params.width, params.height, params.arc);
-        this.graphics.generateTexture(params.border.name, params.width + params.offset * 2, params.height + params.offset * 2);
+        this.graphics.generateTexture(params.edge.name, params.width + params.offset * 2, params.height + params.offset * 2);
         this.graphics.clear();
     }
 
+    componentToHex(component) {
+        // Se convierte en un numero de base 16, en string
+        let hex = component.toString(16);
+        // Si el numero es menor que 16, solo tiene un digito, por lo que hay que anadir un 0 delante
+        return hex.length == 1 ? "0" + hex : hex;
+    }
 
+    rgbToHex(R, G, B) {
+        return "#" + componentToHex(R) + componentToHex(G) + componentToHex(B);
+    }
 
+    hexToRgb(hex) {
+        // ^ ---> tiene que comenzar por #
+        // a-f\d --> caracteres entre a-f y entre 0-9 (\d)
+        // {2} --> grupo de dos caracteres que cumplan la condicion de arriba
+        // $ --> final de la cadena. De modo que por ejemplo, "Some text #ffffff some more" no valdria
+        // i --> se permiten letras en minuscula y en mayuscula
+        let regex = /^#([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i
+        let result = regex.exec(hex);
+
+        if(result) {
+            return {
+                R: parseInt(result[1], 16),
+                G: parseInt(result[2], 16),
+                B: parseInt(result[3], 16)
+            }
+        }
+        return null;
+    }
 
     /**
      * Obtiene el texto traducido
