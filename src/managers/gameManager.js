@@ -48,7 +48,7 @@ export default class GameManager {
         // Configuracion de texto por defecto
         this.textConfig = {
             fontFamily: 'Arial',        // Fuente (tiene que estar precargada en el html o el css)
-            fontSize: 25 + 'px',        // Tamano de la fuente del dialogo
+            fontSize: '25px',        // Tamano de la fuente del dialogo
             fontStyle: 'normal',        // Estilo de la fuente
             backgroundColor: null,      // Color del fondo del texto
             color: '#ffffff',           // Color del texto
@@ -93,7 +93,7 @@ export default class GameManager {
         this.currentScene.scene.launch(UIsceneName);
         this.UIManager = this.currentScene.scene.get(UIsceneName);
 
-        this.changeScene("LoginScene", {});
+        this.changeScene("Computer", {});
     }
 
 
@@ -277,7 +277,7 @@ export default class GameManager {
             edge: {
                 name: "edgeTextBox",
                 color: 0x000000,
-                width: 3
+                width: 2.5
             },
             width: 345,
             height: 105,
@@ -295,7 +295,7 @@ export default class GameManager {
             edge: {
                 name: "edgeInputBox",
                 color: 0x000000,
-                width: 3
+                width: 2.5
             },
             width: 335,
             height: 90,
@@ -313,7 +313,7 @@ export default class GameManager {
             edge: {
                 name: "edgeSquare",
                 color: 0x000000,
-                width: 3
+                width: 2.5
             },
             width: 100,
             height: 100,
@@ -321,6 +321,13 @@ export default class GameManager {
             offset: OFFSET
         }
         this.generateBox(this.roundedSquare);
+
+        // Se crea un cuadrado con bordes redondeados
+        this.widerRoundedSquare = JSON.parse(JSON.stringify(this.roundedSquare));
+        this.widerRoundedSquare.fill.name = "fillWiderSquare"
+        this.widerRoundedSquare.edge.name = "edgeWiderSqaure"
+        this.widerRoundedSquare.edge.width = 5
+        this.generateBox(this.widerRoundedSquare);
         
         this.graphics.destroy();
     }

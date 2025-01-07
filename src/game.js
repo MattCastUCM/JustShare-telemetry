@@ -48,9 +48,13 @@ import Scene7Bedroom from "./scenes/gameLoop/scene7/scene7Bedroom.js";
 
 // UI
 import UIManager from './managers/UIManager.js';
+
 // Menus
-import TitleScene from "./scenes/titleScene.js";
-import LoginScene from "./scenes/loginScene.js";
+import TitleScene from "./scenes/menus/titleScene.js";
+import LoginScene from "./scenes/menus/loginScene.js";
+
+// Ordenador
+import Computer from "./computer/computer.js";
 
 const max_w = 1600, max_h = 900, min_w = 320, min_h = 240;
 const config = {
@@ -84,6 +88,9 @@ const config = {
         Scene7Bedroom,
         // Menus
         TitleScene, LoginScene,
+
+        // Ordenador
+        Computer,
         
         // UI
         UIManager, TextOnlyScene
@@ -113,6 +120,6 @@ const config = {
 const game = new Phaser.Game(config);
 // Propiedad debug
 game.debug = {
-    enable: false,
+    enable: true,
     color: '0x00ff00'
 }

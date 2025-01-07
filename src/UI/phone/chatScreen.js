@@ -367,6 +367,4 @@ export default class ChatScreen extends BaseScreen {
             this.notifications.text.setText(this.notificationAmount);
         }
     }
-
-    
 }

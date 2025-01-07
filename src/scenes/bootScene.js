@@ -15,7 +15,8 @@ export default class BootScene extends Phaser.Scene {
                     key: 'rextexttranslationplugin',
                     url: 'https://raw.githubusercontent.com/rexrainbow/phaser3-rex-notes/master/dist/rextexttranslationplugin.min.js',
                     start: true,
-                    mapping: 'translation'  // Add text-translation plugin to `scene.translation`
+                    // Add text-translation plugin to `scene.translation`
+                    mapping: 'translation'
                 }]
             }
         });
@@ -26,21 +27,21 @@ export default class BootScene extends Phaser.Scene {
         let height = this.cameras.main.height;
 
         // Fondo escalado en cuanto al canvas
-        let bg = this.add.image(width / 2, height / 2, 'basePC');
+        let bg = this.add.image(width / 2, height / 2, 'loadscreen');
         let scale = width / bg.width;
         bg.setScale(scale);
 
         let progressBox = this.add.graphics();
         let progressBar = this.add.graphics();
 
-        let BAR_W = width * 0.6;
-        let BAR_H = 70;
-        let BAR_OFFSET = 40;
-        let FILL_OFFSET = 20;
-        let TEXT_OFFSET = 70;
+        const BAR_W = width * 0.6;
+        const BAR_H = 70;
+        const BAR_OFFSET = 40;
+        const FILL_OFFSET = 20;
+        const TEXT_OFFSET = 70;
         let bgCol = 0x9c9edf;
         let fillCol = 0x7274b3;
-        let borderCol = 0xFF004E46;
+        let borderCol = 0x000000;
         let borderThickness = 2;
         let radius = Math.min(BAR_W, BAR_H) * 0.25;
 
@@ -110,9 +111,9 @@ export default class BootScene extends Phaser.Scene {
     }
 
     loadLoadingBarAssets() {
-        this.load.setPath('assets/UI/computer');
+        this.load.setPath('assets/computer');
 
-        this.load.image('basePC', 'basePC.png');
+        this.load.image('loadscreen', 'loadscreen.png');
     }
 
     loadUIAssets() {
@@ -127,12 +128,21 @@ export default class BootScene extends Phaser.Scene {
     }
 
     loadComputerAssets() {
-        this.load.setPath('assets/UI/computer');
+        this.load.setPath('assets/computer');
 
-        this.load.image('computer', 'computer.png')
+        this.load.image('login', 'login.png')
+        this.load.image('title', 'title.png')
+        this.load.image('socialMedia', 'socialMedia.png')
         this.load.image('powerIcon', 'powerIcon.png')
-        this.load.image('manIcon', 'manIcon.png')
-        this.load.image('womanIcon', 'womanIcon.png')
+        this.load.image('heartIcon', 'heartIcon.png')
+        this.load.image('heartIconFilled', 'heartIconFilled.png')
+        this.load.image('messageIcon', 'messageIcon.png')
+        this.load.image('messageIconFilled', 'messageIconFilled.png')
+        this.load.image('manIcon', 'man.png')
+        this.load.image('womanIcon', 'woman.png')
+        this.load.image('sendComment', 'sendComment.png')
+        this.load.image('sendDirectMessage', 'sendDirectMessage.png')
+        this.load.image('chatBar', 'chatBar.png')
     }
 
     loadPhoneAssets() {
@@ -315,12 +325,11 @@ export default class BootScene extends Phaser.Scene {
         // Solo son namespaces del plugin i18next
         // Namespace --> test\\dialog.json
         let onlyNamespaces = [
-            "titleScene",
             "names",
             "transitions",
             "deviceInfo",
-            "titleScene",
-            "loginScene"
+            "menus/titleScene",
+            "menus/loginScene"
         ]
 
         this.loadUIAssets();
@@ -360,7 +369,6 @@ export default class BootScene extends Phaser.Scene {
             let gameManager = GameManager.create(this);
             // TEST
             gameManager.startTestScene();
-            // gameManager.changeScene("TitleScene")
         })
     }
 }

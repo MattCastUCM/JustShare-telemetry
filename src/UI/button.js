@@ -34,10 +34,10 @@ export default class Button extends Phaser.GameObjects.Container {
 
         this.nCol = Phaser.Display.Color.GetColor(normalCol.R, normalCol.G, normalCol.B);
         this.nCol = Phaser.Display.Color.IntegerToRGB(this.nCol);
-        let hCol = Phaser.Display.Color.GetColor(highlightedCol.R, highlightedCol.G, highlightedCol.B);
-        hCol = Phaser.Display.Color.IntegerToRGB(hCol);
-        let pCol = Phaser.Display.Color.GetColor(pressedCol.R, pressedCol.G, pressedCol.B);
-        pCol = Phaser.Display.Color.IntegerToRGB(pCol);
+        this.hCol = Phaser.Display.Color.GetColor(highlightedCol.R, highlightedCol.G, highlightedCol.B);
+        this.hCol = Phaser.Display.Color.IntegerToRGB(this.hCol);
+        this.pCol = Phaser.Display.Color.GetColor(pressedCol.R, pressedCol.G, pressedCol.B);
+        this.pCol = Phaser.Display.Color.IntegerToRGB(this.pCol);
 
         this.fillImg.setTint(Phaser.Display.Color.GetColor(this.nCol.r, this.nCol.g, this.nCol.b));
 
@@ -56,7 +56,7 @@ export default class Button extends Phaser.GameObjects.Container {
             this.scene.input.enableDebug(this.fillImg, debug.color);
         }
 
-        let tintFadeTime = 25;
+        const TINT_FADE_TIME = 25;
 
         this.fillImg.on('pointerover', () => {
             scene.tweens.addCounter({
@@ -65,11 +65,11 @@ export default class Button extends Phaser.GameObjects.Container {
                 to: 100,
                 onUpdate: (tween) => {
                     const value = tween.getValue();
-                    let col = Phaser.Display.Color.Interpolate.ColorWithColor(this.nCol, hCol, 100, value);
+                    let col = Phaser.Display.Color.Interpolate.ColorWithColor(this.nCol, this.hCol, 100, value);
                     let colInt = Phaser.Display.Color.GetColor(col.r, col.g, col.b);
                     this.fillImg.setTint(colInt);
                 },
-                duration: tintFadeTime,
+                duration: TINT_FADE_TIME,
                 repeat: 0,
             });
         });
@@ -81,11 +81,11 @@ export default class Button extends Phaser.GameObjects.Container {
                 to: 100,
                 onUpdate: (tween) => {
                     const value = tween.getValue();
-                    let col = Phaser.Display.Color.Interpolate.ColorWithColor(hCol, this.nCol, 100, value);
+                    let col = Phaser.Display.Color.Interpolate.ColorWithColor(this.hCol, this.nCol, 100, value);
                     let colInt = Phaser.Display.Color.GetColor(col.r, col.g, col.b);
                     this.fillImg.setTint(colInt);
                 },
-                duration: tintFadeTime,
+                duration: TINT_FADE_TIME,
                 repeat: 0,
             });
         });
@@ -98,11 +98,11 @@ export default class Button extends Phaser.GameObjects.Container {
                 to: 100,
                 onUpdate: (tween) => {
                     const value = tween.getValue();
-                    let col = Phaser.Display.Color.Interpolate.ColorWithColor(hCol, pCol, 100, value);
+                    let col = Phaser.Display.Color.Interpolate.ColorWithColor(this.hCol, this.pCol, 100, value);
                     let colInt = Phaser.Display.Color.GetColor(col.r, col.g, col.b);
                     this.fillImg.setTint(colInt);
                 },
-                duration: tintFadeTime,
+                duration: TINT_FADE_TIME,
                 repeat: 0,
                 yoyo: true,
             });

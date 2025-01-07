@@ -96,8 +96,8 @@ export default class MessagesScreen extends BaseScreen {
                     let col = Phaser.Display.Color.Interpolate.ColorWithColor(noTint, pointerOverColor, 100, value);
                     let colInt = Phaser.Display.Color.GetColor(col.r, col.g, col.b);
                     button.setTint(colInt);
-                    yoyo: true
                 },
+                yoyo: true,
                 duration: tintFadeTime,
                 repeat: 0,
             });

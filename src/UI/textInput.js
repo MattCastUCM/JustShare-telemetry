@@ -15,7 +15,7 @@ export default class TextInput extends Phaser.GameObjects.Container {
     * @param {String} font - tipografia (opcional). En caso de que no se especifique ninguna, se usa 'Arial'
     * @param {String} hitArea - cambiar el area de colision para que corresponda con el del relleno del boton (opcional)
     */
-    constructor(scene, x, y, scale, defaultText, offset, pressedColor, fill, edge, font, hitArea, blockInput = false) {
+    constructor(scene, x, y, scale, defaultText, offset, pressedColor, fill, edge, font, hitArea, writeLocked = false) {
         super(scene, x, y);
 
         this.scene.add.existing(this);
@@ -93,7 +93,7 @@ export default class TextInput extends Phaser.GameObjects.Container {
         let pCol = Phaser.Display.Color.GetColor(pressedColor.R, pressedColor.G, pressedColor.B);
         pCol = Phaser.Display.Color.IntegerToRGB(pCol);
 
-        // Se cambia el color de la caja al pasar y sacar el raton por encima
+        // Se cambia el color de la caja al pasar el raton
         this.fillImg.on('pointerover', () => {
             scene.tweens.addCounter({
                 targets: this.fillImg,
@@ -109,6 +109,8 @@ export default class TextInput extends Phaser.GameObjects.Container {
                 repeat: 0,
             });
         });
+
+        // Se cambia el color de la caja al sacar el raton
         this.fillImg.on('pointerout', () => {
             scene.tweens.addCounter({
                 targets: this.fillImg,
@@ -125,6 +127,7 @@ export default class TextInput extends Phaser.GameObjects.Container {
             });
         });
 
+        // Se clica en la caja
         this.fillImg.on('pointerup', () => {
             // Si se clica en la caja de texto, es que el usuario quiere escribir en la caja
             if (!this.isEnteringName) {
@@ -154,7 +157,7 @@ export default class TextInput extends Phaser.GameObjects.Container {
                     yoyo: true
                 });
 
-                if (IS_TOUCH && !blockInput) {
+                if (IS_TOUCH && this.hiddenInput) {
                     // Aparece el teclado en pantalla
                     this.hiddenInput.focus();
                 }
@@ -165,7 +168,7 @@ export default class TextInput extends Phaser.GameObjects.Container {
                 // Se tiene que hacer con un pequeño temporizador porque sino saltarian los dos eventos
                 // de pointerup a la vez y entonces, no se podria llegar a escribir
                 setTimeout(() => {
-                    this.deactiveInput(blockInput);
+                    this.deactiveInput();
                 }, 10);
 
             }
@@ -173,7 +176,7 @@ export default class TextInput extends Phaser.GameObjects.Container {
 
         this.setScale(scale);
 
-        if(!blockInput) {
+        if(!writeLocked) {
             this.typeWithOnScreenKeyboard();
             this.typeWithKeyboard();
             
@@ -274,7 +277,7 @@ export default class TextInput extends Phaser.GameObjects.Container {
         }
     }
 
-    deactiveInput(blockInput) {
+    deactiveInput() {
         // Se desactiva cualquier evento de pointerup que pudiera haber en la escena
         // (No es necesario, pero se hace por si acaso)
         this.scene.input.off('pointerup');
@@ -288,7 +291,7 @@ export default class TextInput extends Phaser.GameObjects.Container {
             if (this.isEnteringName) {
                 this.deactiveBox();
 
-                if (IS_TOUCH && !blockInput) {
+                if (IS_TOUCH && this.hiddenInput) {
                     // Desaparece el teclado en pantalla
                     this.hiddenInput.blur();
                 }

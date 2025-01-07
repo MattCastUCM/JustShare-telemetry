@@ -411,14 +411,14 @@ export default class VerticalListView extends Phaser.GameObjects.Container {
      * @param {Array} listviews - listviews que tiene el item (y sus elementos) (opcional)
      *                              Nota: el propio item podria ser una listview
      */
-    addLastItem(item, hits, listviews) {
+    addLastItem(item, hits, listviews, x = 0) {
         if (item.hasOwnProperty('h')) {
             // ?. --> si la funcion no existe, no se llama
             item.setOrigin?.(0.5, 0);
             this.itemsCont.add(item);
             // Colocar el item
             // El primero se coloca al borde los limities
-            item.x = 0;
+            item.x = x;
             item.y = 0;
             if (this.lastItem !== null) {
                 item.y = this.lastItem.y + this.lastItem.h + this.padding;
@@ -446,14 +446,14 @@ export default class VerticalListView extends Phaser.GameObjects.Container {
      * @param {Array} listviews - listviews que tiene el item (y sus elementos) (opcional)
      *                              Nota: el propio item podria ser una listview
      */
-    addFirstItem(item, hits, listviews) {
+    addFirstItem(item, hits, listviews, x = 0) {
         if (item.hasOwnProperty('h')) {
             // ?. --> si la funcion no existe, no se llama
             item.setOrigin?.(0.5, 0);
             this.itemsCont.add(item);
             // Colocar el item
             // El primero se coloca al borde los limities
-            item.x = 0;
+            item.x = x;
             item.y = 0;
             if (this.lastItem !== null) {
                 // Se recolocan todos los items
