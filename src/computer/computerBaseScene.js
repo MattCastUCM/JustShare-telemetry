@@ -3,7 +3,7 @@ import Button from '../UI/button.js'
 import TextInput from '../UI/textInput.js'
 
 export default class ComputerBaseScene extends BaseScene {
-    constructor(name, namespace, bg) {
+    constructor(name, namespace, bg = 'loadscreen') {
         super(name, null);
 
         this.namespace = namespace.replace(/\//g, '\\');
@@ -54,6 +54,24 @@ export default class ComputerBaseScene extends BaseScene {
         this.imageBg.setScale(scale);
     }
 
+    createPowerIcon(onClick) {
+        const POS_X = 265;
+        const POS_Y = 760;        
+        const SCALE = 0.13;
+
+        let powerIcon = this.add.image(POS_X, POS_Y, 'powerIcon');
+        powerIcon.setScale(SCALE)
+        powerIcon.setTintFill(0xffffff);
+
+        this.turnIntoButtonSizeAnim(powerIcon, powerIcon, onClick)
+
+        return powerIcon
+    }
+
+    ///////////////////////////////////////
+    //////// Metodos de utilidad /////////
+    //////////////////////////////////////
+
     setBackground(bg) {
         this.imageBg.setTexture(bg)
         let scale = this.CANVAS_WIDTH / this.imageBg.width;
@@ -72,6 +90,15 @@ export default class ComputerBaseScene extends BaseScene {
         value = Math.min(max, value)
         return value
     }
+
+    getRandomInt(minIncluded, maxIncluded) {
+        // Math.random() -> genera valores entre 0 y 0,999...
+        return Math.floor(Math.random() * (maxIncluded - minIncluded + 1) + minIncluded);
+    }
+
+    ///////////////////////////////////////
+    ///// Metodos para crear objetos //////
+    //////////////////////////////////////
 
     addSideText(container, x, transId) {
         const MAX_N_CHARACTERES = 10 + 1
@@ -159,19 +186,9 @@ export default class ComputerBaseScene extends BaseScene {
         return container
     }
 
-    createPowerIcon(onClick) {
-        const POS_X = 265;
-        const POS_Y = 760;        
-        const SCALE = 0.13;
-
-        let powerIcon = this.add.image(POS_X, POS_Y, 'powerIcon');
-        powerIcon.setScale(SCALE)
-        powerIcon.setTintFill(0xffffff);
-
-        this.turnIntoButtonSizeAnim(powerIcon, powerIcon, onClick)
-
-        return powerIcon
-    }
+    ///////////////////////////////////////////
+    /// Metodos para convertir en botones ////
+    //////////////////////////////////////////
 
     turnIntoButtonSizeAnim(animTarget, hitTarget, onClick) {
         const SCALE_MULTIPLIER = 1.2;
@@ -287,6 +304,10 @@ export default class ComputerBaseScene extends BaseScene {
         });
     }
 
+    ///////////////////////////////////////
+    ////// Metodos para animar texto //////
+    //////////////////////////////////////
+
     changeText(target, duration, transId, transParams) {
         let translation = this.translate(transId, transParams)
 
@@ -348,13 +369,6 @@ export default class ComputerBaseScene extends BaseScene {
                 duration: duration,
                 repeat: 0,
             });
-            return true
         }
-        return false
-    }
-
-    getRandomInt(minIncluded, maxIncluded) {
-        // Math.random() -> genera valores entre 0 y 0,999...
-        return Math.floor(Math.random() * (maxIncluded - minIncluded + 1) + minIncluded);
     }
 }

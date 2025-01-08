@@ -43,9 +43,10 @@ export default class Chat extends Phaser.GameObjects.Container {
         container.add(bar)
 
         const PROFILE_OFFSET_X = 10
+        const PROFILE_SCALE = 0.63
 
         let profile = this.socialMediaScreen.createImageWithSideText(-bar.displayWidth / 2 + PROFILE_OFFSET_X, 
-            bar.displayHeight / 2, pfp, username, 0.63)
+            bar.displayHeight / 2, pfp, username, PROFILE_SCALE)
         profile.x += profile.width / 2
         container.add(profile)
 

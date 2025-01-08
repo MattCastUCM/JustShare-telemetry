@@ -26,7 +26,7 @@ export default class SelectedPost extends Post {
         const COMMENTARIES_Y = this.sendComment.y + this.sendComment.displayHeight + COMMENTARIES_OFFSET_Y
         const COMMENTARIES_HEIGHT = this.zoneBottomY - (COMMENTARIES_Y + this.y)
 
-        this.createCommentaries(this.sendComment.x, COMMENTARIES_Y, 
+        this.listView = this.createCommentariesSection(this.sendComment.x, COMMENTARIES_Y, 
             bounds.width, COMMENTARIES_HEIGHT)
     }
 
@@ -50,7 +50,7 @@ export default class SelectedPost extends Post {
         this.sendComment = sendComment
     }
 
-    createCommentaries(x, y, width, height) {
+    createCommentariesSection(x, y, width, height) {
         const PADDING = 10
         const END_PADDING = 15
 
@@ -60,18 +60,16 @@ export default class SelectedPost extends Post {
 
         listView.init()
 
-        // Test
-        let commentary = new TextHeader(this.socialMediaScreen, this.params.width, this.params.pfp, 
-            this.params.username, this.params.bioId, 0.85)
-        listView.addLastItem(commentary)
+        return listView
+    }
 
-        commentary = new TextHeader(this.socialMediaScreen, this.params.width, this.params.pfp, 
-            this.params.username, this.params.bioId, 0.85)
-        listView.addLastItem(commentary)
+    addCommentary(pfp, username, commentaryId) {
+        const COMMENTARY_SCALE = 0.85
 
-        commentary = new TextHeader(this.socialMediaScreen, this.params.width, this.params.pfp, 
-            this.params.username, this.params.bioId, 0.85)
-        listView.addLastItem(commentary)
+        let commentary = new TextHeader(this.socialMediaScreen, this.params.width, pfp, 
+            username, commentaryId, COMMENTARY_SCALE)
+        this.listView.addLastItem(commentary)
+        super.addCommentary()
     }
 
     addHit(animTarget, onClick) {

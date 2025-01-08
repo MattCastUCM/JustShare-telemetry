@@ -13,10 +13,6 @@ export default class DirectChat {
         })
 
         this.setChatVisible(false)
-
-        // Test
-        this.addMessage("Hola, juan", "player", "Jose")
-        this.addMessage("Lindo dia, juan", "Juan", "Jose")
     }
 
     addMessage(text, character, name) {

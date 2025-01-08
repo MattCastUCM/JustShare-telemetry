@@ -10,7 +10,9 @@ export default class Computer extends ComputerBaseScene {
     create(params) {
         super.create(params)
 
-        this.createPowerIcon(null);
+        this.createPowerIcon(() => {
+            this.currentScreen.reset()
+        });
 
         const N_RANDOM_DIGITS = 3
         this.username = this.gameManager.userInfo.name

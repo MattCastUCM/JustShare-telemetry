@@ -24,7 +24,7 @@ export default class DirectMessage extends Phaser.GameObjects.Container {
     }
 
     createNotificationIcon(x, y) {
-        const RADIUS = 20
+        const RADIUS = 16
         const BORDER_WIDTH = 2
         const LIMIT = 99
 
@@ -37,7 +37,7 @@ export default class DirectMessage extends Phaser.GameObjects.Container {
 
         // Configuracion de texto para las notificaciones
         let style = { ...this.scene.style }
-        style.fontSize = '21px'
+        style.fontSize = '19px'
 
         let numberText = this.scene.add.text(0, 0, '+' + LIMIT, style)
         numberText.setOrigin(0.5, 0.5);

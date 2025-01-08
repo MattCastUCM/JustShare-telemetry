@@ -2,60 +2,129 @@ import VerticalListView from '../UI/listView/verticalListView.js';
 import DualPost from './dualPost.js';
 import BaseScreen from './baseScreen.js'
 import DirectChat from './directChat.js';
-import DirectMessage from './directMessage.js';
 
 export default class SocialMediaScreen extends BaseScreen {
     constructor(scene) {
         super(scene, 'socialMedia')
 
-        this.FIRST_LINE_X = 467
+        this.SCREEN_LEFT_SIDE_X = 246
+        this.FIRST_LINE_X = 468
         this.SECOND_LINE_X = 1046
-        this.FEED_WIDTH = (this.SECOND_LINE_X - this.FIRST_LINE_X)
-        this.FEED_CENTER_X = this.FIRST_LINE_X + this.FEED_WIDTH / 2
 
         this.TOP_BAR_BOTTOM_Y = 111
-        this.FEED_HEIGHT = 629
-        this.TASK_BAR_TOP_Y = this.TOP_BAR_BOTTOM_Y + this.FEED_HEIGHT
+        this.SCREEN_HEIGHT = 629
+        this.TASK_BAR_TOP_Y = this.TOP_BAR_BOTTOM_Y + this.SCREEN_HEIGHT
+        
+        this.FEED_WIDTH = (this.SECOND_LINE_X - this.FIRST_LINE_X)
+        this.FEED_CENTER_X = this.FIRST_LINE_X + this.FEED_WIDTH / 2
+        
+        this.ZONE_HEADER_HEIGHT = 55
+        this.ZONE_HEADER_BOTTOM_Y = this.TOP_BAR_BOTTOM_Y + this.ZONE_HEADER_HEIGHT
+        this.ZONE_HEADER_CENTER_Y = this.ZONE_HEADER_BOTTOM_Y - this.ZONE_HEADER_HEIGHT / 2
 
-        this.DM_TITLE_HEIGHT = 55
-        this.DM_TITLE_BOTTOM_Y = this.TOP_BAR_BOTTOM_Y + this.DM_TITLE_HEIGHT
-        this.DM_TITLE_CENTER_Y = this.DM_TITLE_BOTTOM_Y - this.DM_TITLE_HEIGHT / 2
-        this.DM_ZONE_HEIGHT = this.TASK_BAR_TOP_Y - this.DM_TITLE_BOTTOM_Y
+        this.ZONE_HEIGHT = this.TASK_BAR_TOP_Y - this.ZONE_HEADER_BOTTOM_Y
+
+        this.MENU_ZONE_WIDTH = this.FIRST_LINE_X - this.SCREEN_LEFT_SIDE_X
+        this.MENU_ZONE_CENTER_X = this.SCREEN_LEFT_SIDE_X + this.MENU_ZONE_WIDTH / 2
+
         this.DM_ZONE_WIDTH = 307
         this.DM_ZONE_CENTER_X = this.SECOND_LINE_X + this.DM_ZONE_WIDTH / 2
 
-        this.selectedPosts = new Map();
-        this.chats = new Map();
-
         // Feed
+        this.posts = new Map();
+
         this.feedListView = this.createFeed(this.FEED_CENTER_X, this.TOP_BAR_BOTTOM_Y, this.FEED_WIDTH, 
-            this.FEED_HEIGHT, this.POST_WIDTH)
-
+            this.SCREEN_HEIGHT, this.POST_WIDTH)
+            
         this.addPost(1, 'unknownPfp', "Manuel", "Hola, mi nombre es juan, mucho gusto en conocerte uwu", 'loadscreen')
-
+        this.addCommentary(1, "unknownPfp", "Juanecillo", "HOla criaturitas del seññor")
+        this.addPost(2, 'unknownPfp', "Juan", "Hola, mi nombre es juan, mucho gus")
+            
         // Mensajes directos
-        this.createDirectMessageTitle(this.DM_ZONE_CENTER_X, this.DM_TITLE_CENTER_Y, [0.5, 0.5])
+        this.directChats = new Map();
 
-        this.dmZone = this.createDmZone(this.DM_ZONE_CENTER_X, this.DM_TITLE_BOTTOM_Y, 
-            this.DM_ZONE_WIDTH, this.DM_ZONE_HEIGHT)
+        this.createDirectMessageTitle(this.DM_ZONE_CENTER_X, this.ZONE_HEADER_CENTER_Y, [0.5, 0.5])
 
-        this.addChat(1, "unknownPfp", "Js232")
+        this.dmZoneListView = this.createDmZone(this.DM_ZONE_CENTER_X, this.ZONE_HEADER_BOTTOM_Y, 
+            this.DM_ZONE_WIDTH, this.ZONE_HEIGHT)
+
+        this.addChat(1, "unknownPfp", "Tonilover")
+        this.addMessage(1, "Holaaa", "p", "Juan")
+        this.addChat(2, "unknownPfp", "Toni")
+
+        // Iconos menu izquierda
+        this.createMenu(() => {
+            this.reset()
+        })
     }
 
-    addChat(id, pfp, username) {
-        const DIRECT_MESSAGE_HEIGHT = 80
+    reset() {
+        this.setSelectedPostsVisible(false)
+        this.setChatsVisible(false)
+        this.setFeedVisible(true)   
+    }
 
-        if(!this.chats.has(id)) {        
-            let directChat = new DirectChat(this, this.FEED_CENTER_X, this.TOP_BAR_BOTTOM_Y, pfp, username, 
-                [this.FEED_WIDTH, this.FEED_HEIGHT], [this.DM_ZONE_WIDTH, DIRECT_MESSAGE_HEIGHT])
-                
-            this.add(directChat.chat)
+    /////////////////////////////////////////////
+    //////// Metodos para zona del menu /////////
+    /////////////////////////////////////////////
 
-            this.chats.set(id, directChat.chat)
+    createMenu(homeOnClick) {
+        const PROFILE_SCALE = 0.75
+        const PROFILE_OFFSET_Y = 30
+        
+        let profile = this.createImageWithSideText(this.MENU_ZONE_CENTER_X, this.TOP_BAR_BOTTOM_Y + this.ZONE_HEADER_HEIGHT + PROFILE_OFFSET_Y, 
+            "unknownPfp", this.username, PROFILE_SCALE)
+            profile.y += profile.height / 2
 
-            this.dmZone.addLastItem(directChat.dm, directChat.dm.hits)
+        const ICON_SCALE = 0.64
+        const ICON_OFFSET_Y = 18
+        const HOME_ICON_HEIGHT = 70
+
+        let homeIcon = this.createHomeIcon(profile.x, profile.y + profile.height / 2 + HOME_ICON_HEIGHT / 2 + ICON_OFFSET_Y, 
+            "Inicio", ICON_SCALE, this.MENU_ZONE_WIDTH, HOME_ICON_HEIGHT, homeOnClick)
+
+        let optionsIcon = this.createImageWithSideText(homeIcon.x, homeIcon.y + homeIcon.height / 2, "optionsIcon", "Opciones", ICON_SCALE)
+        optionsIcon.y += optionsIcon.height / 2
+
+        let diffWidth = optionsIcon.width - homeIcon.icon.width
+        homeIcon.icon.x -=  diffWidth / 2
+
+        const BUTTON_SCALE = 0.48
+        const BUTTON_OFFSET_Y = 80
+
+        let button = this.scene.createButton(profile.x, this.TASK_BAR_TOP_Y - BUTTON_OFFSET_Y, "Tweet", null, BUTTON_SCALE)
+        button.y -= button.height / 2
+    }
+
+    createHomeIcon(x, y, transId, iconScale, width, height, onClick) {
+        let container = this.scene.add.container(x, y)
+
+        let icon = this.createImageWithSideText(0, 0, "homeIcon", transId, iconScale)
+        container.add(icon)
+
+        let bg = this.scene.add.rectangle(0, 0, width, height, this.scene.colors.white.hex.get0x)
+        bg.setTint = function(color) {
+            this.setFillStyle(color)
         }
+        bg.setOrigin(0.5, 0.5)
+        this.scene.turnIntoButtonColorAnim(bg, bg, onClick, this.scene.colors.white.rgb, this.scene.colors.blue0.rgb, this.scene.colors.blue1.rgb)
+
+        container.add(bg)
+
+        container.bringToTop(icon)
+
+        this.add(container)
+
+        // Propiedades
+        container.setSize(width, bg.displayHeight)
+        container.icon = icon
+
+        return container
     }
+
+    ///////////////////////////////////////
+    //////// Metodos para los dms /////////
+    //////////////////////////////////////
 
     createDirectMessageTitle(x, y, origin = [0, 0]) {
         let style = { ...this.scene.style }
@@ -79,6 +148,38 @@ export default class SocialMediaScreen extends BaseScreen {
         return listView
     }
 
+    addChat(id, pfp, username) {
+        const DIRECT_MESSAGE_HEIGHT = 80
+
+        if(!this.directChats.has(id)) {        
+            let directChat = new DirectChat(this, this.FEED_CENTER_X, this.TOP_BAR_BOTTOM_Y, pfp, username, 
+                [this.FEED_WIDTH, this.SCREEN_HEIGHT], [this.DM_ZONE_WIDTH, DIRECT_MESSAGE_HEIGHT])
+                
+            this.add(directChat.chat)
+
+            this.directChats.set(id, directChat)
+
+            this.dmZoneListView.addLastItem(directChat.dm, directChat.dm.hits)
+        }
+    }
+
+    addMessage(id, text, character, name) {
+        if(this.directChats.has(id)) {
+            let directchat = this.directChats.get(id)
+            directchat.addMessage(text, character, name)
+        }
+    }
+
+    setChatsVisible(enable) {
+        this.directChats.forEach((value, key) => {
+            value.chat.setVisible(enable)
+        });
+    }
+
+    ///////////////////////////////////////
+    //////// Metodos para el feed /////////
+    //////////////////////////////////////
+
     createFeed(x, y, width, height) {
         const PADDING = 50
         const END_PADDING = 20
@@ -95,11 +196,11 @@ export default class SocialMediaScreen extends BaseScreen {
         const POST_WIDTH = 430
         const SELECTED_POST_OFFSET_Y = 10
 
-        if(!this.selectedPosts.has(id)) {            
+        if(!this.posts.has(id)) {            
             let post = new DualPost(this, this.FEED_CENTER_X, this.TOP_BAR_BOTTOM_Y + SELECTED_POST_OFFSET_Y, pfp, username,
                 bioId, picture, POST_WIDTH, this.TASK_BAR_TOP_Y)
                 
-            this.selectedPosts.set(id, post.selected)
+            this.posts.set(id, post)
 
             this.add(post.selected)
             
@@ -107,9 +208,16 @@ export default class SocialMediaScreen extends BaseScreen {
         }
     }
 
+    addCommentary(id, pfp, username, commentaryId) {
+        if(this.posts.has(id)) {
+            let post = this.posts.get(id)
+            post.addCommentary(pfp, username, commentaryId)
+        }
+    }
+
     setSelectedPostsVisible(enable) {
-        this.selectedPosts.forEach((value, key) => {
-            value.setVisible(enable)
+        this.posts.forEach((value, key) => {
+            value.selected.setVisible(enable)
         });
     }
 
@@ -122,30 +230,44 @@ export default class SocialMediaScreen extends BaseScreen {
         this.setSelectedPostsVisible(enable)
     }
 
+    ///////////////////////////////////////
+    ///////// Metodos de utilidad /////////
+    //////////////////////////////////////
+
     createImageWithSideText(x, y, img, transId, scale = 1) {
+        const OFFSET_X = 10
+        const IMAGE_SCALE_MULTIPLIER = 1.6
+        
         let container = this.scene.add.container(x, y)
-
-        let image = this.scene.add.image(0, 0, img)
-        image.setOrigin(0, 0)
-        container.add(image)
-
-        const TEXT_OFFSET_X = 12
 
         let style = { ...this.scene.style }
         style.fontSize = '37px'
 
-        let translate = this.scene.translate(transId)
-        let text = this.scene.add.text(image.displayWidth + TEXT_OFFSET_X, image.displayHeight / 2, translate, style);
-        text.setOrigin(0, 0.5);
+        let translate = this.translate(transId)
+        let text = this.scene.add.text(0, 0, translate, style);
+        text.setOrigin(0, 0)
         container.add(text)
+
+        let image = this.scene.add.image(text.x - OFFSET_X, text.y + text.displayHeight / 2, img)
+        image.setOrigin(1, 0.5)
+        let imageHeight = text.displayHeight * IMAGE_SCALE_MULTIPLIER
+        let imageScale = imageHeight / image.displayHeight
+        image.setScale(imageScale)
+        container.add(image)
 
         container.setScale(scale)
 
         // Propiedades
         let bounds = container.getBounds()
-        container.setSize(bounds.width, bounds.height)
+        let width = (image.displayWidth + OFFSET_X + text.displayWidth) * scale
+        container.setSize(width, bounds.height)
+        container.image = image
+        container.text = text
 
-        this.centerContainerItems(container, 0, bounds.width / 2, 0, bounds.height / 2)
+        let oldCenterX = (image.displayWidth + OFFSET_X) * scale
+        let newCenterX = width / 2
+        let oldCenterY = (Math.abs(imageHeight - text.displayHeight)) / 2 * scale
+        this.centerContainerItems(container, oldCenterX, newCenterX, oldCenterY, bounds.height / 2)
 
         return container
     }

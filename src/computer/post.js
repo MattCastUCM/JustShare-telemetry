@@ -17,6 +17,7 @@ export default class Post extends Phaser.GameObjects.Container {
         }
 
         this.messageIcon = messageIcon
+        this.nCommentaries = 0
         
         this.likes = likes
         this.heartChecked = false
@@ -34,12 +35,12 @@ export default class Post extends Phaser.GameObjects.Container {
 
         let lastItemX = this.textHeader.bio.x
         let lastItemY = this.textHeader.bio.y
-        let lastItemHeight = this.textHeader.bio.displayHeight
+        let lastItemHeight = this.textHeader.bio.height
 
         if(this.params.picture) {
             this.addToUpdateList();
 
-            this.createImage(lastItemX, lastItemY + lastItemHeight + IMAGE_OFFSET_Y, this.params.picture, this.params.width)
+            this.createPicture(lastItemX, lastItemY + lastItemHeight + IMAGE_OFFSET_Y, this.params.picture, this.params.width)
             
             lastItemX = this.image.x
             lastItemY = this.image.y
@@ -62,7 +63,7 @@ export default class Post extends Phaser.GameObjects.Container {
         }
     }
 
-    createImage(x, y, imageId, width, origin = [0, 0]) {
+    createPicture(x, y, imageId, width, origin = [0, 0]) {
         let image = this.scene.add.image(x, y, imageId)
         let scale = width / image.width
         image.setScale(scale)
@@ -143,6 +144,11 @@ export default class Post extends Phaser.GameObjects.Container {
         this.addHit(this.messageContainer.icon, () => {
             if(onClick) onClick()
         })
+    }
+
+    addCommentary() {
+        ++this.nCommentaries
+        this.messageContainer.numberText.setNumber(this.nCommentaries)
     }
 
     toggleLike() {

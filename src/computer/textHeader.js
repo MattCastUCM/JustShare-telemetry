@@ -45,7 +45,9 @@ export default class TextHeader extends Phaser.GameObjects.Container {
         return name
     }
 
-    createBio(x, y, width, bioId, origin = [0, 0]) {
+    createBio(x, y, width, bioId) {
+        let container = this.scene.add.container(x, y)
+
         let style = { ...this.scene.style }
         style.fontSize = '23px';
         style.wordWrap = {
@@ -54,18 +56,29 @@ export default class TextHeader extends Phaser.GameObjects.Container {
         }
 
         let translate = this.socialMediaScreen.translate(bioId)
-        let bio = this.scene.add.text(x, y, translate, style);
-        bio.setOrigin(origin[0], origin[1]);
-        this.add(bio)
+        let text = this.scene.add.text(0, 0, translate, style);
+        text.setOrigin(0, 0);
+        container.add(text)
+
+        let rect = this.scene.add.zone(text.x, text.y, width, text.displayHeight);
+        rect.setOrigin(text.originX, text.originY);
+        container.add(rect)
+
+        container.bringToTop(text)
 
         let debug = this.scene.sys.game.debug;
         if(debug.enable) {
-            let rect = this.scene.add.rectangle(bio.x, bio.y, width, bio.displayHeight, debug.color);
-            rect.alpha = 0.5
-            rect.setOrigin(bio.originX, bio.originY);
-            this.add(rect)
+            let debugRect = this.scene.add.rectangle(rect.x, rect.y, rect.width, rect.height, debug.color);
+            debugRect.alpha = 0.5
+            debugRect.setOrigin(rect.originX, rect.originY);
+            container.add(debugRect)
         }
 
-        return bio
+        this.add(container)
+
+        // Propiedades
+        container.setSize(rect.width, rect.height)
+
+        return container
     }
 }

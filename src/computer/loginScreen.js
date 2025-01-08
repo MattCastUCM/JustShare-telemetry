@@ -11,7 +11,7 @@ export default class LoginScreen extends BaseScreen {
 
         let translation = this.translate("Nombre de usuario")
         let nameInput = this.scene.createTextInputWithSideText(80, 0, translation, 1, true)
-        nameInput.textInput.addText(this.scene.username);
+        nameInput.textInput.addText(this.username);
         this.add(nameInput);
 
         translation = this.translate("Contraseña")

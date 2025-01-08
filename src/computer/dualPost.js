@@ -37,4 +37,9 @@ export default class DualPost {
         this.selected.setVisible(enable)
         this.feed.setVisible(enable)
     }
+
+    addCommentary(pfp, username, commentaryId) {
+        this.selected.addCommentary(pfp, username, commentaryId)
+        this.feed.addCommentary()
+    }
 }

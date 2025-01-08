@@ -138,11 +138,13 @@ export default class BootScene extends Phaser.Scene {
         this.load.image('heartIconFilled', 'heartIconFilled.png')
         this.load.image('messageIcon', 'messageIcon.png')
         this.load.image('messageIconFilled', 'messageIconFilled.png')
-        this.load.image('manIcon', 'man.png')
-        this.load.image('womanIcon', 'woman.png')
+        this.load.image('manIcon', 'manIcon.png')
+        this.load.image('womanIcon', 'womanIcon.png')
         this.load.image('sendComment', 'sendComment.png')
         this.load.image('sendDirectMessage', 'sendDirectMessage.png')
         this.load.image('chatBar', 'chatBar.png')
+        this.load.image('homeIcon', 'homeIcon.png')
+        this.load.image('optionsIcon', 'optionsIcon.png')
     }
 
     loadPhoneAssets() {
