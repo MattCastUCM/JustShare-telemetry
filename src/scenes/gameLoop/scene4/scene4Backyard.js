@@ -28,7 +28,6 @@ export default class Scene4Backyard extends BaseScene {
 
         // TEST
         this.phoneManager.activatePhoneIcon(true);
-
         this.chatName = this.gameManager.translate("textMessages.chat2", { ns: "deviceInfo", returnObjects: true });
         this.phoneManager.phone.addChat(this.chatName, "harasserPfp");
         

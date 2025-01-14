@@ -39,6 +39,7 @@ export default class Scene7Bedroom extends BaseScene {
             let phoneNode = super.readNodes(nodes, "scene7\\scene7Bedroom", "phone", true);
             this.dialogManager.setNode(phoneNode, []);
             
+            // Quitar notificaciones de los mensajes anteriores
             this.phoneManager.togglePhone(0, () => {
                 this.phoneManager.phone.toChatScreen(chatName);
             });

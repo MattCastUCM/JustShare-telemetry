@@ -13,6 +13,22 @@
 
     "phone": {
         "root": {
+            "text": "Y luego qué harás?"
+        },
+        "fill2": {
+            "text": "Luego llegan mis padres del viaje"
+        },
+        "fill3": {
+            "text": "Ah bueno chilling"
+        },
+        "fill4": {
+            "text": "Sipp"
+        },
+        "fill5": {
+            "text": "Pues ve contándomee :)"
+        },
+
+        "msg1": {
             "text": "Llevo todo el diaa pensando en la foto que me pasaste ayer"
         },
         "choices1": [

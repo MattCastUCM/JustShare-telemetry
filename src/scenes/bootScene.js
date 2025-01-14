@@ -158,13 +158,6 @@ export default class BootScene extends Phaser.Scene {
         this.load.image('chatBg', 'chatBg.png');
         this.load.image('chatTextBox', 'chatTextBox.png');
         this.load.image('chatReturnButton', 'chatReturnButton.png');
-
-        this.load.image('dadPfp', 'dadPfp.png');
-        this.load.image('harasserPfp', 'harasserPfp.png');
-        this.load.image('lauraPfp', 'lauraPfp.png');
-        this.load.image('momPfp', 'momPfp.png');
-        this.load.image('unknownPfp', 'unknownPfp.png');
-
     }
 
     loadFlags() {
@@ -175,6 +168,11 @@ export default class BootScene extends Phaser.Scene {
     loadAvatars() {
         this.load.setPath('assets/UI/avatars');
 
+        this.load.image('dadPfp', 'dadPfp.png');
+        this.load.image('harasserPfp', 'harasserPfp.png');
+        this.load.image('lauraPfp', 'lauraPfp.png');
+        this.load.image('momPfp', 'momPfp.png');
+        this.load.image('unknownPfp', 'unknownPfp.png');
     }
 
     loadi18next(dialogsAndNamespaces, onlyNamespaces) {
@@ -283,6 +281,41 @@ export default class BootScene extends Phaser.Scene {
 
     }
 
+    loadPhotos() {
+        this.load.setPath('assets/photos');
+
+        this.load.image('harasserPhoto1Male', 'harasserPhoto1Male.png');
+        this.load.image('harasserPhoto1Female', 'harasserPhoto1Female.png');
+
+        this.load.image('harasserPhoto2Male', 'harasserPhoto2Male.png');
+        this.load.image('harasserPhoto2Female', 'harasserPhoto2Female.png');
+
+        this.load.image('harasserPhoto3Male', 'harasserPhoto3Male.png');
+        this.load.image('harasserPhoto3Female', 'harasserPhoto3Female.png');
+
+        this.load.image('harasserPhoto4Male', 'harasserPhoto4Male.png');
+        this.load.image('harasserPhoto4Female', 'harasserPhoto4Female.png');
+
+        this.load.image('playerPhoto1SmileMale', 'playerPhoto1SmileMale.png');
+        this.load.image('playerPhoto1SmileFemale', 'playerPhoto1SmileFemale.png');
+        this.load.image('playerPhoto1TongueMale', 'playerPhoto1TongueMale.png');
+        this.load.image('playerPhoto1TongueFemale', 'playerPhoto1TongueFemale.png');
+
+        this.load.image('playerPhoto2SmileMale', 'playerPhoto2SmileMale.png');
+        this.load.image('playerPhoto2SmileFemale', 'playerPhoto2SmileFemale.png');
+        this.load.image('playerPhoto2TongueMale', 'playerPhoto2TongueMale.png');
+        this.load.image('playerPhoto2TongueFemale', 'playerPhoto2TongueFemale.png');
+
+        this.load.image('playerPhoto3Male', 'playerPhoto3Male.png');
+        this.load.image('playerPhoto3Female', 'playerPhoto3Female.png');
+        this.load.image('playerPhoto4Male', 'playerPhoto4Male.png');
+        this.load.image('playerPhoto4Female', 'playerPhoto4Female.png');
+        // this.load.image('playerPhoto5Male', 'playerPhoto5Male.png');
+        // this.load.image('playerPhoto5Female', 'playerPhoto5Female.png');
+        // this.load.image('playerPhoto6Male', 'playerPhoto6Male.png');
+        // this.load.image('playerPhoto6Female', 'playerPhoto6Female.png');
+    }
+
     loadCreditsSceneAssets() {
         this.load.setPath('assets/UI/creditsScene');
     }
@@ -351,7 +384,9 @@ export default class BootScene extends Phaser.Scene {
         this.loadDialogs(dialogsAndNamespaces);
         this.loadCharacters();
         this.loadBackgrounds();
+        this.loadPhotos();
         this.loadCreditsSceneAssets();
+      
 
         this.load.setPath('assets');
 

@@ -118,18 +118,10 @@
         "choices2": {
             "type": "choice",
             "choices":[
-                { "next": "pout" },
                 { "next": "smile" },
                 { "next": "tongueOut" }
 
             ]
-        },
-        "pout": {
-            "type": "chatMessage",
-            "character": "player",
-            "chat": "chat2",
-            "replyDelay": 0,
-            "next": "msg14"
         },
         "smile": {
             "type": "chatMessage",

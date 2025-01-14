@@ -1,4 +1,22 @@
 {
+    "fill": {
+        "root": {
+            "text": "Pues no me apetece nada mañana ir a clase la verdad…"
+        },
+        "fill2": {
+            "text": "Ya la verdad que a mi tampoco, pero es lo que toca xdd"
+        },
+        "fill3": {
+            "text": "Me voy ya que es tarde"
+        },
+        "fill4": {
+            "text": "Hasta mañanaa"
+        },
+        "fill5": {
+            "text": "Chaoo"
+        }
+    },
+    
     "conversation1": {
         "root": {
             "text": "... Por dónde iba... Ah, sí, ten cuidado cuando te cruces con ese profesor. Me han contado que una vez castigó a un alumno por solo chocarse con él."

@@ -18,6 +18,42 @@
             "type": "chatMessage",
             "character": "",
             "chat": "chat2",
+            "replyDelay": 0,
+            "next": "fill2"
+        },
+        "fill2": {
+            "type": "chatMessage",
+            "character": "player",
+            "chat": "chat2",
+            "replyDelay": 0,
+            "next": "fill3"
+        },
+        "fill3": {
+            "type": "chatMessage",
+            "character": "",
+            "chat": "chat2",
+            "replyDelay": 0,
+            "next": "fill4"
+        },
+        "fill4": {
+            "type": "chatMessage",
+            "character": "player",
+            "chat": "chat2",
+            "replyDelay": 0,
+            "next": "fill5"
+        },
+        "fill5": {
+            "type": "chatMessage",
+            "character": "",
+            "chat": "chat2",
+            "replyDelay": 0,
+            "next": "msg1"
+        },
+        
+        "msg1": {
+            "type": "chatMessage",
+            "character": "",
+            "chat": "chat2",
             "replyDelay": 1000,
             "next": "msg2"
         },

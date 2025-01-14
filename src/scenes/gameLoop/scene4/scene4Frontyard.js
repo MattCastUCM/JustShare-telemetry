@@ -25,16 +25,19 @@ export default class Scene4Frontyard extends BaseScene {
         let paulaPortrait = new Portrait(this, "paula", paulaTr, "paula")
         this.portraits.set("paula", paulaPortrait);
 
-        // TEST
-        this.phoneManager.activatePhoneIcon(true);
-
-        this.chatName = this.gameManager.translate("textMessages.chat2", { ns: "deviceInfo", returnObjects: true });
-        this.phoneManager.phone.addChat(this.chatName, "harasserPfp");
-        
         
         // Lee el archivo de nodos
         let nodes = this.cache.json.get('scene4Frontyard');
-        let node = super.readNodes(nodes, "scene4\\scene4Frontyard", "", true);
+        let node = super.readNodes(nodes, "scene4\\scene4Frontyard", "main", true);
+
+        // TEST
+        this.phoneManager.activatePhoneIcon(true);
+        this.chatName = this.gameManager.translate("textMessages.chat2", { ns: "deviceInfo", returnObjects: true });
+        this.phoneManager.phone.addChat(this.chatName, "harasserPfp");
+        
+        let phoneNode = super.readNodes(nodes, "scene4\\scene4Frontyard", "fill", true);
+        this.dialogManager.setNode(phoneNode, []);
+        
 
         // Callback que al llamarse cambiara el nodo de dialogo
         this.setNode = () => {
@@ -43,7 +46,17 @@ export default class Scene4Frontyard extends BaseScene {
 
 
         // Al producirse, hace que se reciba un mensaje en el movil
-        this.dispatcher.add("endConversation", this, () => {
+        this.dispatcher.add("end", this, () => {
+            this.dialogManager.setNode(null, []);
+
+            super.createInteractiveElement(840, 350, "enter", 0.4, () => {
+                this.gameManager.changeScene("Scene4Backyard");
+            }, true);
+        });
+
+
+        // Al producirse, hace que se reciba un mensaje en el movil
+        this.dispatcher.add("end", this, () => {
             this.dialogManager.setNode(null, []);
 
             super.createInteractiveElement(840, 350, "enter", 0.4, () => {
@@ -57,5 +70,11 @@ export default class Scene4Frontyard extends BaseScene {
         setTimeout(() => {
             this.setNode();
         }, 500);
+
+        // Quitar notificaciones de los mensajes anteriores
+        this.phoneManager.phone.toChatScreen(this.chatName);
+        setTimeout(() => {
+            this.phoneManager.phone.toMessagesListScreen();
+        }, 50);
     }
 }

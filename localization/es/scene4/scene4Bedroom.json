@@ -65,18 +65,12 @@
         },
         "choices2": [
             {
-                "text": "Foto poniendo morritos."
-            },
-            {
                 "text": "Foto sonriendo."
             },
             {
                 "text": "Foto sacando la lengua."
             }
         ],
-        "pout": {
-            "text": "<player, [playerPhoto2PoutMale], [playerPhoto2PoutFemale]>"
-        },
         "smile": {
             "text": "<player, [playerPhoto2SmileMale], [playerPhoto2SmileFemale]>"
         },

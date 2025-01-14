@@ -13,6 +13,22 @@
 
     "phone": {
         "root": {
+            "text": "El otro día me salió un video de Toni que me recordó un monton a ti"
+        },
+        "fill2": {
+            "text": "Ah sii?"
+        },
+        "fill3": {
+            "text": "Sii, era jugando con su perrita y se que te encantaa"
+        },
+        "fill4": {
+            "text": "Ayy, es que es la mejorrr"
+        },
+        "fill5": {
+            "text": "Jajajja"
+        },
+
+        "msg1": {
             "text": "Me encanta hablar contigo {{name}}"
         },
         "msg2": {

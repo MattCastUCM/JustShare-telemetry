@@ -37,13 +37,21 @@ export default class Scene3Break extends BaseScene {
             this.dialogManager.setNode(node, [lauraPortrait]);
         }
 
+        // TEST
         this.phoneManager.activatePhoneIcon(true);
-        
+        this.chatName = this.gameManager.translate("textMessages.chat2", { ns: "deviceInfo", returnObjects: true });
+        this.phoneManager.phone.addChat(this.chatName, "harasserPfp");
+
+        let phoneNode = super.readNodes(nodes, "scene3\\scene3Break", "fill", true);
+        this.dialogManager.setNode(phoneNode, []);
+
         // Ajusta las posiciones de la caja de texto para que esten por debajo del movil (solo en esta escena)
         let textboxDepth = this.dialogManager.textbox.box.depth;
         let bgBlockDepth = this.dialogManager.bgBlock.depth;
         this.dialogManager.textbox.setDepth(this.phoneManager.phone.depth - 2);
         this.dialogManager.bgBlock.setDepth(this.phoneManager.bgBlock.depth - 2);
+
+        
 
 
         // Al producirse, se abre el telefono, se desactiva el bloqueo de fondo y el boton de 
@@ -104,6 +112,12 @@ export default class Scene3Break extends BaseScene {
         setTimeout(() => {
             this.setNode();
         }, 500);
+
+        // Quitar notificaciones de los mensajes anteriores
+        this.phoneManager.phone.toChatScreen(this.chatName);
+        setTimeout(() => {
+            this.phoneManager.phone.toMessagesListScreen();
+        }, 50);
     }
 
     sendMsg(nodes, msg) {

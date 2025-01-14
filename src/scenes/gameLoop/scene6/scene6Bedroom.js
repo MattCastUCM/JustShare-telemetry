@@ -38,7 +38,6 @@ export default class Scene6Bedroom extends BaseScene {
 
         // TEST
         this.phoneManager.activatePhoneIcon(true);
-
         this.chatName = this.gameManager.translate("textMessages.chat2", { ns: "deviceInfo", returnObjects: true });
         this.phoneManager.phone.addChat(this.chatName, "harasserPfp");
 
@@ -88,5 +87,11 @@ export default class Scene6Bedroom extends BaseScene {
         });
     }
 
-    
+    // Quitar notificaciones de los mensajes anteriores
+    onCreate() {
+        this.phoneManager.phone.toChatScreen(this.chatName);
+        setTimeout(() => {
+            this.phoneManager.phone.toMessagesListScreen();
+        }, 50);
+    }
 }
