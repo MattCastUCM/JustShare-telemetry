@@ -36,7 +36,7 @@ export default class Scene6BedroomRouteA1 extends BaseScene {
         }, false);
         
 
-        // PENDIENTE / TEST
+        // TEST
         this.phoneManager.activatePhoneIcon(true);
 
         this.chatName = this.gameManager.translate("textMessages.chat2", { ns: "deviceInfo", returnObjects: true });
@@ -68,7 +68,6 @@ export default class Scene6BedroomRouteA1 extends BaseScene {
                             text: this.gameManager.translate("scene6.routeBStart", { ns: "transitions", returnObjects: true }),
                             onComplete: () => {
                                 this.UIManager.moveLids(true);
-                                // PENDIENTE
                                 this.gameManager.changeScene("Scene6LunchRouteB");
                             },
                         };

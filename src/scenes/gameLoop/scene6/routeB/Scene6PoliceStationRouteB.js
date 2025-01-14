@@ -14,7 +14,6 @@ export default class Scene6PoliceStationRouteB extends BaseScene {
     create(params) {
         super.create(params)
 
-        // PENDIENTE
         // Pone la imagen de fondo con las dimensiones del canvas
         let bg = this.add.image(0, 0, 'policeStationBg').setOrigin(0, 0);
         this.scale = this.CANVAS_HEIGHT / bg.height;

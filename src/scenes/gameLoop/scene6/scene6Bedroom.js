@@ -36,7 +36,7 @@ export default class Scene6Bedroom extends BaseScene {
         }, false);
         
 
-        // PENDIENTE / TEST
+        // TEST
         this.phoneManager.activatePhoneIcon(true);
 
         this.chatName = this.gameManager.translate("textMessages.chat2", { ns: "deviceInfo", returnObjects: true });

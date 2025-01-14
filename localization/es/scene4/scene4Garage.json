@@ -24,7 +24,7 @@
             }
         ],
         "msg": {
-            "text": "¿Qué tal han ido los regalos?¿Le han gustado a Paula?"
+            "text": "Que tal han ido los regalos? Le han gustado a Paula?"
         },
         "thoughts": {
             "text": "(<harasser, Pablo, Lucía> me está escribiendo..)."
@@ -56,7 +56,7 @@
 
     "photo": {
         "root": {
-            "text": "{{name}}, ¿por qué quieres una foto de mis regalos?"
+            "text": "{{name}}, ¿qué vas a hacer con esa foto de mis regalos?"
         },
         "explain": {
             "text": "Nada, es para <harasser, un amigo mío, una amiga mía>."
@@ -82,7 +82,7 @@
 
         "dont": [
             {
-                "text": "Preferiría que no le envies una foto de mis regalos donde encima salen mis amigos a una persona desconocida."
+                "text": "Preferiría que no le envies una foto de mis regalos a una persona desconocida, que encima salimos mis amigos y yo."
             },
             {
                 "text": "No me siento cómoda con ello."

@@ -25,7 +25,7 @@ export default class Scene4Frontyard extends BaseScene {
         let paulaPortrait = new Portrait(this, "paula", paulaTr, "paula")
         this.portraits.set("paula", paulaPortrait);
 
-        // PENDIENTE / TEST
+        // TEST
         this.phoneManager.activatePhoneIcon(true);
 
         this.chatName = this.gameManager.translate("textMessages.chat2", { ns: "deviceInfo", returnObjects: true });
@@ -46,8 +46,7 @@ export default class Scene4Frontyard extends BaseScene {
         this.dispatcher.add("endConversation", this, () => {
             this.dialogManager.setNode(null, []);
 
-            // PENDIENTE
-            super.createInteractiveElement(100, 100, "enter", 0.4, () => {
+            super.createInteractiveElement(840, 350, "enter", 0.4, () => {
                 this.gameManager.changeScene("Scene4Backyard");
             }, true);
         });

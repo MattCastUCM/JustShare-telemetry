@@ -39,7 +39,7 @@ export default class Scene7Bedroom extends BaseScene {
             let phoneNode = super.readNodes(nodes, "scene7\\scene7Bedroom", "phone", true);
             this.dialogManager.setNode(phoneNode, []);
             
-            this.phoneManager.togglePhone(100, () => {
+            this.phoneManager.togglePhone(0, () => {
                 this.phoneManager.phone.toChatScreen(chatName);
             });
             this.phoneManager.bgBlock.disableInteractive();

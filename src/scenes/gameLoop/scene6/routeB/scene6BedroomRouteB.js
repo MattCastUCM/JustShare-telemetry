@@ -25,7 +25,7 @@ export default class Scene6BedroomRouteB extends BaseScene {
         let generalNodes = this.cache.json.get('generalDialogs');
 
 
-        // PENDIENTE / TEST
+        // TEST
         this.phoneManager.activatePhoneIcon(true);
 
         let chatName = this.gameManager.translate("textMessages.chat2", { ns: "deviceInfo", returnObjects: true });

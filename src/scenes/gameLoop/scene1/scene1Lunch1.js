@@ -52,7 +52,7 @@ export default class Scene1Lunch1 extends BaseScene {
         // Al producirse, aparece el icono del telefono y se recibe un mensaje
         this.dispatcher.add("receiveMsg", this, () => {
             this.phoneManager.activatePhoneIcon(true);
-            // PENDIENTE
+            
             let chatName = this.gameManager.translate("textMessages.chat1", { ns: "deviceInfo", returnObjects: true });
             let phoneNode = super.readNodes(nodes, "scene1\\scene1Lunch1", "phone", true);
             this.phoneManager.phone.addChat(chatName, "lauraPfp");
@@ -68,7 +68,6 @@ export default class Scene1Lunch1 extends BaseScene {
                 this.dialogManager.setNode(doorNode, []);
             }, false);
             
-            // PENDIENTE
             let bedroomNode = super.readNodes(nodes, "scene1\\scene1Lunch1", "unanswered", true);
             super.createInteractiveElement(1140, 380, "enter", 0.4, () => {
                 if (msgAnswered) {

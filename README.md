@@ -29,8 +29,13 @@ Para los fondos, se ha aplicado una combinación de distintos filtros usando Pho
     * [Cafetería](https://oxfordhigh.gdst.net/senior-school/school-life/food-in-the-senior-school/)
     * [Salón](https://www.booking.com/hotel/gr/tinker-bell-by-halu-colorful-family-apt.es.html)
     * [Habitación](https://xn--mueblesocaa-beb.es/juveniles-modernos/1685-dormitorio-juvenil-030.html)
+    * [Patio delantero](https://www.freepik.es/foto-gratis/entrada-casa-minimalista-japon_23676521.htm#fromView=search&page=1&position=37&uuid=3bc27763-bc34-447f-a893-69e62e8a5eef)
+    * [Patio trasero](https://www.freepik.es/foto-gratis/amigos-felices-estan-tomando-cerveza-fiesta-barbacoa-dia-soleado_10583050.htm#fromView=search&page=2&position=15&uuid=ad537fe0-a55b-4d99-8e6b-001e15d7447d)
+    * [Regalos](https://uk.pinterest.com/pin/peytons-mermaid-birthday-party--484770347376747684/)
     * [Nubes](https://www.freepik.es/vector-gratis/fondo-nubes-humo-profundidad_26443430.htm#fromView=search&page=1&position=20&uuid=407cd797-1ef7-489d-86fc-eea3f61efb6b&new_detail=true)
     * [Estación de policía](https://www.laopiniondezamora.es/zamora-ciudad/2020/11/11/comisaria-policia-nacional-zamora-amplia-23041677.html)
+    * [Portal de apartamentos](https://sygrove.com/westchester-county-2/)
+    * [Entrada de la casa](https://unsplash.com/es/fotos/mesa-de-centro-de-madera-marron-cerca-de-la-puerta-de-madera-blanca-xJ14RuLV9zI)
 
 * UI:
     * [Portátil](https://www.freepik.es/psd-gratis/laptop-moderno-aislado_54999402.htm#fromView=search&page=1&position=28&uuid=531963f8-ac6a-4d74-8e2a-19fdb4186064&new_detail=true)
@@ -48,12 +53,23 @@ Para los fondos, se ha aplicado una combinación de distintos filtros usando Pho
         * device-mobile
         * door-enter
         * door-exit
+        * file list
+        * heartIcon
+        * heartIconFilled
         * home-2
+        * homeIcon
+        * manIcon
         * menu-2
+        * messageIcon
+        * messageIconFilled
+        * optionsIcon
         * pointer
         * power
+        * powerIcon
         * send
+        * temp_filenames
         * wifi
+        * womanIcon
         * world-www
 
     * [Burbujas de chat](https://www.freepik.com/free-vector/different-shape-message-bubbles-blue-grey_77988500.htm#fromView=search&page=1&position=1&uuid=ba9c721f-b2ff-44c3-b46e-2e8680285d1b)

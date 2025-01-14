@@ -19,7 +19,7 @@ export default class Scene4Bedroom extends BaseScene {
         bg.setScale(this.scale);
         
 
-        // PENDIENTE / TEST
+        // TEST
         this.phoneManager.activatePhoneIcon(true);
 
         this.chatName = this.gameManager.translate("textMessages.chat2", { ns: "deviceInfo", returnObjects: true });

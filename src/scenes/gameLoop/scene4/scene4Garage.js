@@ -1,6 +1,7 @@
 import BaseScene from '../baseScene.js';
 import Portrait from '../../../UI/dialog/portrait.js';
 
+// Ya no es el garaje, pero se mantiene el nombre de la escena 
 export default class Scene4Garage extends BaseScene {
     /**
      * Escena base para el salon. Coloca los elementos que se mantienen igual todos los dias
@@ -32,7 +33,7 @@ export default class Scene4Garage extends BaseScene {
         lauraPortrait.setFlipX(true);
         this.portraits.set("laura", lauraPortrait);
 
-        // PENDIENTE / TEST
+        // TEST
         this.phoneManager.activatePhoneIcon(true);
 
         let chatName = this.gameManager.translate("textMessages.chat2", { ns: "deviceInfo", returnObjects: true });
@@ -61,8 +62,7 @@ export default class Scene4Garage extends BaseScene {
 
         // Al producirse, aparece el icono para interactuar con los regalos
         this.dispatcher.add("takePhoto", this, () => {
-            // PENDIENTE
-            super.createInteractiveElement(100, 100, "pointer", 0.4, () => {
+            super.createInteractiveElement(800, 430, "pointer", 0.4, () => {
                 let node = super.readNodes(nodes, "scene4\\scene4Garage", "photo", true);
                 this.dialogManager.setNode(node, [paulaPortrait]);
             }, true);

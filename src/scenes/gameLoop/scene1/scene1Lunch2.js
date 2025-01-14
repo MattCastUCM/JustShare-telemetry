@@ -33,9 +33,6 @@ export default class Scene1Lunch2 extends BaseScene {
         momPortrait.setFlipX(true);
         this.portraits.set("mom", momPortrait);
 
-        // Retrato de la abuela
-        // PENDIENTE
-
         
         // Lee el archivo de nodos
         let nodes = this.cache.json.get('scene1Lunch2');

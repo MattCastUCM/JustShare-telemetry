@@ -50,7 +50,7 @@ export default class LoginScene extends ComputerBaseScene {
         if(sexualityContainer.manBox.checkBox.checked && sexualityContainer.womanBox.checkBox.checked) {
             harasserGender = this.getRandomInt(0, 1) === 0 ? "male" : "female"
         }
-        else if(contSexuality.manBox.checkBox.checked) {
+        else if(sexualityContainer.manBox.checkBox.checked) {
             harasserGender = "male"
         }
 

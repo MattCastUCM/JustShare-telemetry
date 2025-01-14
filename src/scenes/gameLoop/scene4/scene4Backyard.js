@@ -26,7 +26,7 @@ export default class Scene4Backyard extends BaseScene {
         lauraPortrait.setFlipX(true);
         this.portraits.set("laura", lauraPortrait);
 
-        // PENDIENTE / TEST
+        // TEST
         this.phoneManager.activatePhoneIcon(true);
 
         this.chatName = this.gameManager.translate("textMessages.chat2", { ns: "deviceInfo", returnObjects: true });
@@ -44,11 +44,10 @@ export default class Scene4Backyard extends BaseScene {
                 this.dialogManager.setNode(null, []);
             }, 1);
         });
-
+        
         // Al producirse, hace aparecer el icono de cambiar de escenario
         this.dispatcher.add("endConversation", this, () => {
-            // PENDIENTE
-            super.createInteractiveElement(100, 100, "enter", 0.4, () => {
+            super.createInteractiveElement(130, 770, "exit", 0.4, () => {
                 this.gameManager.changeScene("Scene4Garage");
             }, true);
         });
@@ -59,25 +58,25 @@ export default class Scene4Backyard extends BaseScene {
         this.interactedClassmates = 0;
 
         let nodeClassmate1 = super.readNodes(this.nodes, "scene4\\scene4Backyard", "classmate1", true);
-        super.createInteractiveElement(550, 480, "pointer", 0.3, () => {
+        super.createInteractiveElement(560, 380, "pointer", 0.3, () => {
             this.dialogManager.setNode(nodeClassmate1, []);
             this.interactedClassmates++;
         }, true);
 
         let nodeClassmate2 = super.readNodes(this.nodes, "scene4\\scene4Backyard", "classmate2", true);
-        super.createInteractiveElement(980, 460, "pointer", 0.3, () => {
+        super.createInteractiveElement(1030, 460, "pointer", 0.3, () => {
             this.dialogManager.setNode(nodeClassmate2, []);
             this.interactedClassmates++;
         }, true);
         
         let nodeClassmate3 = super.readNodes(this.nodes, "scene4\\scene4Backyard", "classmate3", true);
-        super.createInteractiveElement(1300, 520, "pointer", 0.4, () => {
+        super.createInteractiveElement(270, 420, "pointer", 0.3, () => {
             this.dialogManager.setNode(nodeClassmate3, []);
             this.interactedClassmates++;
         }, true);
 
         let nodeClassmate4 = super.readNodes(this.nodes, "scene4\\scene4Backyard", "classmate4", true);
-        super.createInteractiveElement(100, 100, "pointer", 0.4, () => {
+        super.createInteractiveElement(1370, 380, "pointer", 0.3, () => {
             this.dialogManager.setNode(nodeClassmate4, []);
             this.interactedClassmates++;
         }, true);

@@ -645,6 +645,8 @@ export default class BaseScene extends Phaser.Scene {
             repeat: -1,
             yoyo: true
         });
+
+        return button;
     }
 
 }

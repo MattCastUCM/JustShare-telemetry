@@ -270,6 +270,15 @@ export default class BootScene extends Phaser.Scene {
         this.load.image('bedroomNightBg', 'bedroomNight.png');
         this.load.image('dream', 'dream.png');
 
+        // Casa de la amiga
+        this.load.image('frontyardBg', 'frontyard.png');
+        this.load.image('backyardBg', 'backyard.png');
+        this.load.image('garageBg', 'garage.png');
+
+        // Casa del acosador
+        this.load.image('portalBg', 'portal.png');
+        this.load.image('harasserHouseBg', 'harasserHouse.png');
+        
         this.load.image('policeStationBg', 'policeStation.png');
 
     }

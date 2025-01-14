@@ -15,8 +15,7 @@ export default class Scene6PortalRouteA extends BaseScene {
         super.create(params)
 
         // Pone la imagen de fondo con las dimensiones del canvas
-        // PENDIENTE
-        let bg = this.add.image(0, 0, '').setOrigin(0, 0);
+        let bg = this.add.image(0, 0, 'portalBg').setOrigin(0, 0);
         this.scale = this.CANVAS_HEIGHT / bg.height;
         bg.setScale(this.scale);
         
@@ -35,8 +34,7 @@ export default class Scene6PortalRouteA extends BaseScene {
         this.dispatcher.add("enter", this, () => {
             let bgDepth = bg.depth;
             bg.setDepth(bgDepth - 1);
-            // PENDIENTE
-            let bg2 = this.add.image(0, 0, 'bedroomBg').setOrigin(0, 0).setDepth(bgDepth - 1);
+            let bg2 = this.add.image(0, 0, 'harasserHouseBg').setOrigin(0, 0).setDepth(bgDepth - 1);
             bg2.alpha = 0;
             // Hace la animacion de fade in para todos los objetos
             this.tweens.add({
@@ -57,26 +55,38 @@ export default class Scene6PortalRouteA extends BaseScene {
         });
     }
     
-    // PENDIENTE
     addDoors() {
         let nodeDoor1 = super.readNodes(this.nodes, "scene6\\routeA\\scene6PortalRouteA", "incorrectDoor1", true);
-        super.createInteractiveElement(550, 480, "pointer", 0.3, () => {
+        let door1 = super.createInteractiveElement(260, 380, "pointer", 0.3, () => {
             this.dialogManager.setNode(nodeDoor1, []);
         }, true);
 
         let nodeDoor2 = super.readNodes(this.nodes, "scene6\\routeA\\scene6PortalRouteA", "incorrectDoor2", true);
-        super.createInteractiveElement(650, 480, "pointer", 0.3, () => {
+        let door2 = super.createInteractiveElement(820, 330, "pointer", 0.3, () => {
             this.dialogManager.setNode(nodeDoor2, []);
         }, true);
 
         let nodeDoor3 = super.readNodes(this.nodes, "scene6\\routeA\\scene6PortalRouteA", "incorrectDoor3", true);
-        super.createInteractiveElement(750, 480, "pointer", 0.3, () => {
+        let door3 = super.createInteractiveElement(990, 330, "pointer", 0.3, () => {
             this.dialogManager.setNode(nodeDoor3, []);
         }, true);
 
         let nodeDoor4 = super.readNodes(this.nodes, "scene6\\routeA\\scene6PortalRouteA", "main", true);
-        super.createInteractiveElement(850, 480, "pointer", 0.3, () => {
+        let door4 = super.createInteractiveElement(490, 330, "pointer", 0.3, () => {
             this.dialogManager.setNode(nodeDoor4, [this.portraits.get("harasser")]);
         }, true);
+
+
+        this.dispatcher.add("enter", this, () => {
+            if (door1 != null) {
+                door1.destroy();
+            }
+            if (door2 != null) {
+                door2.destroy();
+            }
+            if (door3 != null) {
+                door3.destroy();
+            }
+        });
     }
 }
