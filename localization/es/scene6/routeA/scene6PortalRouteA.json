@@ -4,10 +4,10 @@
             "text": "Hola, vengo a ver a <harasser, Pablo, Lucía>"
         },
         "comeIn": {
-            "text": "Ahh tu debes de ser {{name}}. Entra entra."
+            "text": "Ah, tú debes de ser {{name}}. Entra, entra."
         },
         "thanks": {
-            "text": "Gracias"
+            "text": "Gracias."
         },
         "ask": {
             "text": "Usted debe ser el padre de <harasser, Pablo, Lucía>, ¿no?"

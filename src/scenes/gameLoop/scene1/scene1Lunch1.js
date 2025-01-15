@@ -64,6 +64,7 @@ export default class Scene1Lunch1 extends BaseScene {
         this.dispatcher.add("spawnInteractions", this, () => {
             let generalNodes = this.cache.json.get('generalDialogs');
             let doorNode = super.readNodes(generalNodes, "generalDialogs", "door", true);
+            
             super.createInteractiveElement(890, 380, "pointer", 0.3, () => {
                 this.dialogManager.setNode(doorNode, []);
             }, false);
@@ -79,9 +80,6 @@ export default class Scene1Lunch1 extends BaseScene {
             }, false);
         });
 
-        this.dispatcher.add("chatEnded", this, () =>{
-            msgAnswered = true;
-        });
     }
 
     // Se hace esto porque si se establece un dialogo en la constructora, no funciona el bloqueo del fondo del DialogManager

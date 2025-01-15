@@ -43,20 +43,28 @@
         }
     },
 
-    "call": {
+    "callButton": {
         "root": [
             {
-                "text": "..."
-            },
-            {
-                "text": "..."
-            },
-            {
-                "text": "..."
+                "text": "Llamar."
             }
         ],
-        "pickUp": {
-            "text": "Hola cariño, ¿qué pasa?"
+        "wait": [
+            {
+                "text": "Beep..."
+            },
+            {
+                "text": "Beep..."
+            },
+            {
+                "text": "Beep..."
+            }
+        ]
+    },
+
+    "call": {
+        "root": {
+            "text": "Hola cariño, ¿qué pasa? ¿Todo bien?"
         },
         "explain": [
             {

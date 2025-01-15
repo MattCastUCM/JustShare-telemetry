@@ -209,7 +209,7 @@ export default class BootScene extends Phaser.Scene {
             // Namespaces que se cargan para cada uno de los idiomas
             ns: namespaces,
             // Mostrar informacion de ayuda por consola
-            debug: true,
+            debug: false,
             // Cargar las traducciones de un servidor especificado en vez de ponerlas directamente
             backend: {
                 // La ruta desde donde cargamos las traducciones
@@ -287,36 +287,45 @@ export default class BootScene extends Phaser.Scene {
     loadPhotos() {
         this.load.setPath('assets/photos');
 
-        this.load.image('harasserPhoto1Male', 'harasserPhoto1Male.png');
-        this.load.image('harasserPhoto1Female', 'harasserPhoto1Female.png');
+        // Influencer
+        this.load.image('toniPhoto', 'toniPhoto.png');
 
-        this.load.image('harasserPhoto2Male', 'harasserPhoto2Male.png');
-        this.load.image('harasserPhoto2Female', 'harasserPhoto2Female.png');
+        // Escena 3
+        this.load.image('harasserPhoto1Male', 'scene3/harasserPhoto1Male.png');
+        this.load.image('harasserPhoto1Female', 'scene3/harasserPhoto1Female.png');
 
-        this.load.image('harasserPhoto3Male', 'harasserPhoto3Male.png');
-        this.load.image('harasserPhoto3Female', 'harasserPhoto3Female.png');
+        this.load.image('playerPhoto1SmileMale', 'scene3/playerPhoto1SmileMale.png');
+        this.load.image('playerPhoto1SmileFemale', 'scene3/playerPhoto1SmileFemale.png');
+        this.load.image('playerPhoto1TongueMale', 'scene3/playerPhoto1TongueMale.png');
+        this.load.image('playerPhoto1TongueFemale', 'scene3/playerPhoto1TongueFemale.png');
+        
+        // Escena 4
+        this.load.image('harasserPhoto2Male', 'scene4/harasserPhoto2Male.png');
+        this.load.image('harasserPhoto2Female', 'scene4/harasserPhoto2Female.png');
 
-        this.load.image('harasserPhoto4Male', 'harasserPhoto4Male.png');
-        this.load.image('harasserPhoto4Female', 'harasserPhoto4Female.png');
+        this.load.image('playerPhoto2SmileMale', 'scene4/playerPhoto2SmileMale.png');
+        this.load.image('playerPhoto2SmileFemale', 'scene4/playerPhoto2SmileFemale.png');
+        this.load.image('playerPhoto2TongueMale', 'scene4/playerPhoto2TongueMale.png');
+        this.load.image('playerPhoto2TongueFemale', 'scene4/playerPhoto2TongueFemale.png');
 
-        this.load.image('playerPhoto1SmileMale', 'playerPhoto1SmileMale.png');
-        this.load.image('playerPhoto1SmileFemale', 'playerPhoto1SmileFemale.png');
-        this.load.image('playerPhoto1TongueMale', 'playerPhoto1TongueMale.png');
-        this.load.image('playerPhoto1TongueFemale', 'playerPhoto1TongueFemale.png');
 
-        this.load.image('playerPhoto2SmileMale', 'playerPhoto2SmileMale.png');
-        this.load.image('playerPhoto2SmileFemale', 'playerPhoto2SmileFemale.png');
-        this.load.image('playerPhoto2TongueMale', 'playerPhoto2TongueMale.png');
-        this.load.image('playerPhoto2TongueFemale', 'playerPhoto2TongueFemale.png');
+        // Escena 5
+        this.load.image('harasserPhoto3Male', 'scene5/harasserPhoto3Male.png');
+        this.load.image('harasserPhoto3Female', 'scene5/harasserPhoto3Female.png');
+        this.load.image('harasserPhoto4Male', 'scene5/harasserPhoto4Male.png');
+        this.load.image('harasserPhoto4Female', 'scene5/harasserPhoto4Female.png');
 
-        this.load.image('playerPhoto3Male', 'playerPhoto3Male.png');
-        this.load.image('playerPhoto3Female', 'playerPhoto3Female.png');
-        this.load.image('playerPhoto4Male', 'playerPhoto4Male.png');
-        this.load.image('playerPhoto4Female', 'playerPhoto4Female.png');
-        // this.load.image('playerPhoto5Male', 'playerPhoto5Male.png');
-        // this.load.image('playerPhoto5Female', 'playerPhoto5Female.png');
-        // this.load.image('playerPhoto6Male', 'playerPhoto6Male.png');
-        // this.load.image('playerPhoto6Female', 'playerPhoto6Female.png');
+        this.load.image('playerPhoto3Male', 'scene5/playerPhoto3Male.png');
+        this.load.image('playerPhoto3Female', 'scene5/playerPhoto3Female.png');
+        this.load.image('playerPhoto4Male', 'scene5/playerPhoto4Male.png');
+        this.load.image('playerPhoto4Female', 'scene5/playerPhoto4Female.png');
+        this.load.image('playerPhoto5Male', 'scene5/playerPhoto5Male.png');
+        this.load.image('playerPhoto5Female', 'scene5/playerPhoto5Female.png');
+
+        
+        // Escena 6
+        this.load.image('playerPhoto6Male', 'scene6/playerPhoto6Male.png');
+        this.load.image('playerPhoto6Female', 'scene6/playerPhoto6Female.png');
     }
 
     loadCreditsSceneAssets() {
@@ -425,8 +434,10 @@ export default class BootScene extends Phaser.Scene {
     create() {
         this.events.once('start', () => {
             let gameManager = GameManager.create(this);
+            
             // TEST
             gameManager.startTestScene();
+            // gameManager.changeScene("TitleScene");
         })
     }
 }

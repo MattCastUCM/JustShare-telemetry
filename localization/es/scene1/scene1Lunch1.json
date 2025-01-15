@@ -82,16 +82,10 @@
         "choices": [
             {
                 "text": "Mandar la foto de Toni y Mila."
-            },
-            {
-                "text": "Mandar la foto de Mila sola."
             }
         ],
-        "photo1": {
-            "text": "[toniPhoto1A]"
-        },
-        "photo2": {
-            "text": "[toniPhoto1B]"
+        "photo": {
+            "text": "[toniPhoto]"
         },
         "msg3": {
             "text": "Que envidia!"

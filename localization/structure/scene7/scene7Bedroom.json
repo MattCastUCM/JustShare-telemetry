@@ -101,13 +101,32 @@
         }
     },
 
-    "call": {
+    "callButton": {
         "root": {
+            "type": "choice",
+            "choices":[
+                { "next": "wait" }
+            ]
+        },
+        "wait": {
             "type": "text",
             "character": "",
-            "next": "pickUp"
+            "next": "call"
         },
-        "pickUp": {
+        "call": {
+            "type": "event",
+            "events": [
+                {
+                    "call": {
+                        "delay": 500
+                    }
+                }
+            ]
+        }
+    },
+
+    "call": {
+        "root": {
             "type": "text",
             "character": "mom",
             "next": "explain"

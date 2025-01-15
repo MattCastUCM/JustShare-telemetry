@@ -135,11 +135,10 @@
         "choices": {
             "type": "choice",
             "choices":[
-                { "next": "photo1" },
-                { "next": "photo2" }
+                { "next": "photo" }
             ]
         },
-        "photo1": {
+        "photo": {
             "type": "chatMessage",
             "character": "player",
             "chat": "chat1",

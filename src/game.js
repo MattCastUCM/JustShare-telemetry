@@ -69,6 +69,9 @@ const config = {
         // Carga de assets
         BootScene,
         
+        // Menus
+        TitleScene, LoginScene,
+
         // Escena 1
         Scene1Classroom, Scene1Break, Scene1Lunch1, Scene1Bedroom1, Scene1Lunch2, Scene1Bedroom2,
         // Escena 2
@@ -83,15 +86,11 @@ const config = {
         Scene6Livingroom, Scene6Bedroom, 
             Scene6BedroomRouteA1, scene6BedroomRouteA2, Scene6LunchRouteA, Scene6PortalRouteA, Scene6EndingRouteA,
             Scene6LunchRouteB, Scene6BedroomRouteB, Scene6PoliceStationRouteB, Scene6EndingRouteB,
-
         // Escena 7
         Scene7Bedroom,
-        // Menus
-        TitleScene, LoginScene,
-
+        
         // Ordenador
         Computer,
-        
         // UI
         UIManager, TextOnlyScene
     ],

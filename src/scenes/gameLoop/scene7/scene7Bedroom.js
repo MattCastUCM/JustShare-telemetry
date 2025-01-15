@@ -48,40 +48,41 @@ export default class Scene7Bedroom extends BaseScene {
             this.phoneManager.phone.chats.get(chatName).returnButton.disableInteractive();
         };
         
-        // Al producirse, se cambian los dialogos de la cama y el armario
+
+        
         this.dispatcher.add("chatEnded", this, () => {
             this.dialogManager.textbox.activate(false);
-            this.phoneManager.bgBlock.setInteractive();
-            this.phoneManager.phone.returnButton.setInteractive();
             this.phoneManager.phone.chats.get(chatName).returnButton.setInteractive();
+            
+            chatName = this.gameManager.translate("textMessages.chat3", { ns: "deviceInfo", returnObjects: true });
+            this.phoneManager.phone.addChat(chatName, "dadPfp");
 
-            super.createInteractiveElement(1390, 400, "pointer", 0.3, () => {
-                this.phoneManager.activatePhoneIcon(false);
-
-                let bgDepth = bg.depth;
-                this.add.image(0, 0, 'basePC').setOrigin(0, 0).setDepth(bgDepth - 1);
-                bg.setDepth(bgDepth - 1);
-                
-                // Retrato del padre
-                let dadTr = this.portraitTr;
-                dadTr.x = this.CANVAS_WIDTH / 2 + this.CANVAS_WIDTH / 5;
-                let dadPortrait = new Portrait(this, "dad", dadTr, "dad");
-                this.portraits.set("dad", dadPortrait);
-        
-                // Retrato de la madre
-                let momTr = this.portraitTr;
-                momTr.x =  this.CANVAS_WIDTH / 2 - this.CANVAS_WIDTH / 5;
-                let momPortrait = new Portrait(this, "mom", momTr, "mom")
-                momPortrait.setFlipX(true);
-                this.portraits.set("mom", momPortrait);
-                
-                setTimeout(() => {
-                    let node = super.readNodes(nodes, "scene7\\scene7Bedroom", "call", true);
-                    this.dialogManager.setNode(node, [dadPortrait, momPortrait]);
-                }, 1000);
-            }, true);
+            let phoneNode = super.readNodes(nodes, "scene7\\scene7Bedroom", "callButton", true);
+            this.phoneManager.phone.setChatNode(chatName, phoneNode);
         });
 
+        this.dispatcher.add("call", this, () => {
+            if (this.phoneManager.phone.visible) {
+                this.phoneManager.togglePhone();
+            }
+
+            // Retrato del padre
+            let dadTr = this.portraitTr;
+            dadTr.x = this.CANVAS_WIDTH / 2 + this.CANVAS_WIDTH / 5;
+            let dadPortrait = new Portrait(this, "dad", dadTr, "dad");
+            this.portraits.set("dad", dadPortrait);
+
+            // Retrato de la madre
+            let momTr = this.portraitTr;
+            momTr.x =  this.CANVAS_WIDTH / 2 - this.CANVAS_WIDTH / 5;
+            let momPortrait = new Portrait(this, "mom", momTr, "mom")
+            momPortrait.setFlipX(true);
+            this.portraits.set("mom", momPortrait);
+
+            let node = super.readNodes(nodes, "scene7\\scene7Bedroom", "call", true);
+            this.dialogManager.setNode(node, [dadPortrait, momPortrait]);
+        });
+        
 
         this.dispatcher.add("end", this, () => {
             let params = {

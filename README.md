@@ -3,9 +3,9 @@ JustShare es una novela visual con elementos de aventura gráfica en la que el j
 
 [Enlace al GDD](https://docs.google.com/document/d/1pFwej-RuA3686JPJ4lKe8V8vfW62Uw7AUn3cTTdq_K0/edit?usp=drive_link)
 
-![Captura 1](assets/screenshots/ss1.png)
-![Captura 1](assets/screenshots/ss2.png)
-![Captura 1](assets/screenshots/ss3.png)
+![Captura 1](docs/screenshots/ss1.png)
+![Captura 1](docs/screenshots/ss2.png)
+![Captura 1](docs/screenshots/ss3.png)
 
 
 ## Assets
@@ -14,15 +14,9 @@ Todos los assets utilizados están acreditados con sus enlaces. En caso de no es
 
 Para los fondos, se ha aplicado una combinación de distintos filtros usando Photoshop. Como cada imagen es diferente, no siempre se aplican todos los filtros o con los mismos parámetros, pero el filtro más importante es el de cuarteado, que es con el que se consigue dar un efecto de gráfico vectorizado al fondo, usando la mayoría de veces 8 niveles, simplicidad del borde de entre 3 y 5, y fidelidad del borde 1. Luego, dependiendo de la imagen, se aplican también por encima efectos para modificar el brillo/contraste, y si la imagen pierde demasiado color, se duplica por encima sin filtro y se le aplica el modo de fusión de Color.
 
-* Personajes:
-    * [Madre](https://www.freepik.com/free-psd/flat-design-woman-character-isolated_158212343.htm#fromView=image_search_similar&page=2&position=12&uuid=28b09b97-a183-4cdb-92a0-fc8e91e565b0)
-    * [Padre](https://www.freepik.com/free-vector/elegant-businessman-standing-position-character_73261815.htm#fromView=image_search_similar&page=3&position=16&uuid=718d9d14-2873-4f8d-99da-973c0bd3d1fd)
-    * [Profesor](https://www.freepik.com/free-vector/elegant-businessman-with-folder-character_73261784.htm#fromView=image_search_similar&page=1&position=0&uuid=b767bb75-f73a-4137-b8c5-f0db54f51024)
-    * [Laura](https://www.freepik.es/psd-gratis/diseno-plano-mujer-caracter-aislado_158212345.htm)
-    * [Paula](https://www.freepik.es/psd-gratis/diseno-plano-mujer-caracter-aislado_158212338.htm)
-    * [Acosador](https://www.freepik.es/vector-gratis/diseno-coleccion-personas-seguras_6543322.htm)
-    * [Perro](https://www.freepik.es/vector-gratis/paquete-pitbull-diseno-plano_13961980.htm#fromView=search&page=1&position=31&uuid=c1221efd-fe66-455a-abfc-1eb70079105a&new_detail=true)
-    * [Policía](https://www.freepik.es/vector-gratis/concepto-recogida-policia_8621529.htm#fromView=search&page=1&position=43&uuid=32b0ac4b-a32f-49ac-80fa-f7d4051e5314)
+Para las fotos que se mandan los personajes por la aplicación de mensajería, se usan fotos de personas reales, editadas con desenfoque gaussiano para hacer que se vean muy borrosas y que no se aprecien muchos detalles del físico de los personajes. Las fotos explícitas están editadas de la misma manera, aplicándoles un desenfoque más fuerte para mostrar lo menos posible.
+
+<br>
 
 * Fondos:
     * [Clase](https://www.lavozdigital.es/cadiz/provincia/lvdi-mas-140000-alumnos-arrancan-este-lunes-clases-institutos-cadiz-201909141400_noticia.html?ref=https%3A%2F%2Fwww.lavozdigital.es%2Fcadiz%2Fprovincia%2Flvdi-mas-140000-alumnos-arrancan-este-lunes-clases-institutos-cadiz-201909141400_noticia.html)
@@ -36,6 +30,20 @@ Para los fondos, se ha aplicado una combinación de distintos filtros usando Pho
     * [Estación de policía](https://www.laopiniondezamora.es/zamora-ciudad/2020/11/11/comisaria-policia-nacional-zamora-amplia-23041677.html)
     * [Portal de apartamentos](https://sygrove.com/westchester-county-2/)
     * [Entrada de la casa](https://unsplash.com/es/fotos/mesa-de-centro-de-madera-marron-cerca-de-la-puerta-de-madera-blanca-xJ14RuLV9zI)
+
+<br>
+
+* Personajes:
+    * [Madre](https://www.freepik.com/free-psd/flat-design-woman-character-isolated_158212343.htm#fromView=image_search_similar&page=2&position=12&uuid=28b09b97-a183-4cdb-92a0-fc8e91e565b0)
+    * [Padre](https://www.freepik.com/free-vector/elegant-businessman-standing-position-character_73261815.htm#fromView=image_search_similar&page=3&position=16&uuid=718d9d14-2873-4f8d-99da-973c0bd3d1fd)
+    * [Profesor](https://www.freepik.com/free-vector/elegant-businessman-with-folder-character_73261784.htm#fromView=image_search_similar&page=1&position=0&uuid=b767bb75-f73a-4137-b8c5-f0db54f51024)
+    * [Laura](https://www.freepik.es/psd-gratis/diseno-plano-mujer-caracter-aislado_158212345.htm)
+    * [Paula](https://www.freepik.es/psd-gratis/diseno-plano-mujer-caracter-aislado_158212338.htm)
+    * [Acosador](https://www.freepik.es/vector-gratis/diseno-coleccion-personas-seguras_6543322.htm)
+    * [Perro](https://www.freepik.es/vector-gratis/paquete-pitbull-diseno-plano_13961980.htm#fromView=search&page=1&position=31&uuid=c1221efd-fe66-455a-abfc-1eb70079105a&new_detail=true)
+    * [Policía](https://www.freepik.es/vector-gratis/concepto-recogida-policia_8621529.htm#fromView=search&page=1&position=43&uuid=32b0ac4b-a32f-49ac-80fa-f7d4051e5314)
+
+<br>
 
 * UI:
     * [Portátil](https://www.freepik.es/psd-gratis/laptop-moderno-aislado_54999402.htm#fromView=search&page=1&position=28&uuid=531963f8-ac6a-4d74-8e2a-19fdb4186064&new_detail=true)
@@ -77,6 +85,30 @@ Para los fondos, se ha aplicado una combinación de distintos filtros usando Pho
     * [Fuente de los diálogos](https://fonts.google.com/specimen/Roboto)
     * [Fotos de perfil por defecto](https://www.freepik.es/vector-gratis/circulos-usuarios-blanco_134996379.htm#fromView=search&page=1&position=4&uuid=dd0f32ad-fa89-406d-a854-53066bbcb378&new_detail=true)
 
+<br>
+
+* Fotos:
+    * [Influencer con el perro](https://www.freepik.es/foto-gratis/vista-posterior-joven-perro-playa_12976449.htm#fromView=search&page=2&position=6&uuid=988ff075-2a59-470b-b4f0-96d3dbf829c1)
+
+    * Acosador:
+        * [Selfie 1 masculino](https://pixabay.com/es/photos/retrato-gente-adulto-hombre-rostro-3353699/)
+        * [Selfie 1 femenino](https://st2.depositphotos.com/1809585/7376/i/450/depositphotos_73762843-stock-photo-girl-smiling-with-perfect-smile.jpg)
+        * [Selfie 2 masculino](https://es.pinterest.com/pin/852869248192209713/)
+        * [Selfie 2 femenino](https://www.pexels.com/photo/woman-taking-selfie-while-smiling-1310522/)
+        * [Foto explícita masculino](https://i.pinimg.com/474x/ec/e9/eb/ece9ebe2ea9d64bab2cbd9f0a9cf934b.jpg)
+        * [Foto explícita femenino](https://www.hunkemoller.es/dw/image/v2/BCHL_PRD/on/demandware.static/-/Sites-hkm-master/default/dw919eb8e3/images/large/119846_1.jpg?q=100)
+
+    * Jugador:
+        * [Selfie 1-2 sonriendo masculino](https://www.istockphoto.com/es/foto/retrato-de-un-joven-caucásico-adolescente-de-18-o-19-años-al-aire-libre-gm1484631693-510817478?searchscope=image%2Cfilm)
+        * [Selfie 1-2 sonriendo femenino](https://st2.depositphotos.com/1010550/5217/i/450/depositphotos_52171453-stock-photo-pretty-student-girl-taking-a.jpg)
+        * [Selfie 1-2 sacando la lengua masculino](https://es.dreamstime.com/imágenes-de-archivo-libres-de-regalías-hombre-joven-y-su-lengüeta-image15058879)
+        * [Selfie 1-2 sacando la lengua femenino](https://www.freepik.es/foto-gratis/mujer-tiro-medio-sacando-lengua_38162335.htm#fromView=keyword&page=1&position=8&uuid=cb8c3052-5ea8-4ad6-97cc-ecfb92138a5e)
+        * [Selfie 3 masculino](https://media.istockphoto.com/id/1701143833/photo/portrait-of-teenage-boy-caucasian-teen-male-young-man-stand-at-home.jpg?s=612x612&w=0&k=20&c=9-EXaPBYNoJ4VPiwzOFvNFLSRw8LNNrGb4SmTgkTf3s=)
+        * [Selfie 3 femenino](https://www.shutterstock.com/es/image-photo/close-young-beautiful-woman-taking-selfie-402737050)
+        * [Foto explícita 1-2 masculino](https://depositphotos.com/mx/photo/shirtless-young-man-43000267.html)
+        * [Foto explícita 1-2 femenino](https://st3.depositphotos.com/10083680/12838/i/450/depositphotos_128381824-stock-photo-woman-in-sexy-black-lingerie.jpg)
+        * [Foto explícita 3 masculino](https://us.123rf.com/450wm/dmitryag/dmitryag2106/dmitryag210604563/174750416-deportista-en-pantalones-cortos-blancos-yace-sus-manos-en-el-cinturón-de-fitness-culturista.jpg?ver=6)
+        * [Foto explícita 3 femenino](https://st2.depositphotos.com/3035005/6971/i/450/depositphotos_69710229-stock-photo-beautiful-sexy-brunette-woman-posing.jpg)
 <br>
 
 ---
