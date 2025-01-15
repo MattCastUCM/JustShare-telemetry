@@ -4,22 +4,22 @@
             "text": "Esta semana no nos han puesto nada de tarea"
         },
         "fill2": {
-            "text": "Bua pues nosotros tenemos todos los días prácticamente"
+            "text": "Bua pues nosotros tenemos todos los dias practicamente"
         },
         "fill3": {
             "text": "Ufff que pringados xdd"
         },
         "fill4": {
-            "text": "No hace falta que me lo digas…"
+            "text": "No hace falta que me lo digas..."
         }
     },
     
     "main": {
         "root": {
-            "text": "Y encima hoy nos han dejado salir pronto de clase así que he estado de chill casi toda la tarde."
+            "text": "Y encima hoy nos han dejado salir pronto de clase asi que he estado de relax casi toda la tarde"
         },
         "msg2": {
-            "text": "Que guayy, yo hoy he tenido un día un poco ñe"
+            "text": "Que guayy, yo hoy he tenido un día un poco meh"
         },
         "msg3": {
             "text": "Creo que Laura se ha molestado un poco porque no la he escuchado cuando estaba hablando del ultimo video de Toni"
@@ -43,11 +43,11 @@
         ],
     
         "liked": {
-            "text": "Me gusto mucho, no sabía que existía tanta variedad de chuches ácidas."
+            "text": "Me gusto mucho, no sabía que existia tanta variedad de chuches acidas"
         },
     
         "disliked": {
-            "text": "Estuvo un poco meh, se notaba que las chuches las había elegido él."
+            "text": "Estuvo un poco meh, se notaba que las chuches las habia elegido el"
         },
         "msg8": {
             "text": "A mi me hacía mucha gracia las caras que ponía al probarlas xdd"
@@ -56,13 +56,13 @@
             "text": "Si eso si jajaja"
         },
         "msg10": {
-            "text": "Me gustaría verte a ti probando esas chuches xdd"
+            "text": "Me gustaria verte a ti probando esas chuches xdd"
         },
         "msg11": {
             "text": "Seguro que te pones <player, rojo, roja> como un tomate jajaja"
         },
         "msg12": {
-            "text": "Que vaa, estaría con una sonrisa chilling"
+            "text": "Que vaa, estaría tranqui con una sonrisa"
         },
         "msg13": {
             "text": "Asi?"
@@ -72,14 +72,14 @@
         }
         ,
         "msg15": {
-            "text": "Noo, más así"
+            "text": "Noo, mas asi"
         },
         "choices2": [
             {
-                "text": "Foto sonriendo"
+                "text": "Foto sonriendo."
             },
             {
-                "text": "Foto sacando la lengua"
+                "text": "Foto sacando la lengua."
             }
         ],
     
@@ -96,13 +96,13 @@
             "text": "Na, tampoco tanto xd"
         },
         "msg19": {
-            "text": "Nonono, después de esa foto no puedes negar nadaa"
+            "text": "Nonono, despues de esa foto no puedes negar nada"
         },
         "msg20": {
             "text": "Sales muy <player, guapo, guapa>"
         },
         "msg21": {
-            "text": "Graciass, tu también sales muy bienn en la tuya :)"
+            "text": "Graciass, tu tambien sales muy bien en la tuya :)"
         }
     }
 }

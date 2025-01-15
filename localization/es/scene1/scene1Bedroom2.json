@@ -13,40 +13,40 @@
 
     "computer": {
         "root": {
-            "text": "Eyy, ¿qué tal hoy en clase?"
+            "text": "Hey, que tal hoy en clase?"
         },
         "choices": [
             {
-                "text": "Contarle mi día"
+                "text": "Contarle mi día."
             },
             {
-                "text": "No contarle mi día"
+                "text": "No contarle mi día."
             }
         ],
         
         "helloTell": {
-            "text": "Holaa."
+            "text": "Holaa"
         },
         "helloTell2": {
-            "text": "Bien bienn, hoy ha sido un día chill en clase, no hemos hecho mucho solo repaso del temario del año pasado."
+            "text": "Bien, hoy ha sido un día tranquilo, no hemos hecho mucho, solo repaso del temario del año pasado"
         },
 
         "helloNoTell": {
-            "text": "Holaa."
+            "text": "Holaaa"
         },
         "helloNoTell2": {
-            "text": "Bien, un poco aburrido pero bien."
+            "text": "Bien, un poco aburrido pero bien"
         },
 
         "msg3": {
-            "text": "¿Tu qué tal?"
+            "text": "Tu que tal?"
         },
 
         "msg4": {
-            "text": "Guayy guay."
+            "text": "Guayyy"
         },
         "msg5": {
-            "text": "Ya hoy no he ido a clase, me dolía un poco la cabeza, pero ya estoy perfe."
+            "text": "Yo hoy no he ido a clase, me dolia un poco la cabeza, pero ya estoy perfe"
         },
         "choices2": [
             {
@@ -58,33 +58,33 @@
         ],
 
         "ask": {
-            "text": "Ay, ¿estás <harasser, enfermo, enferma>?"
+            "text": "Ay, estas <harasser, enfermo, enferma>?"
         },
         "ask2": {
-            "text": "Na tranqui,solo necesitaba dormir un poco más y beber agua."
+            "text": "Na tranqui, solo necesitaba dormir un poco mas y beber agua"
         },
         "ask3": {
-            "text": "No te preocupes de verdad."
+            "text": "No te preocupes de verdad"
         },
 
         "noAsk": {
-            "text": "Bueno, guay entonces."
+            "text": "Bueno, guay entonces"
         },
         "noAsk2": {
-            "text": "Yess."
+            "text": "Yess"
         },
 
         "msg6": {
-            "text": "¿Y qué has estado haciendo?"
+            "text": "Y que has estado haciendo?"
         },
         "msg7": {
-            "text": "Nada, he estado viendo videos de ToniVlogs mientras jugaba con el ordenador y luego he terminado unos deberes que tenía."
+            "text": "Nada, he estado viendo videos de toni mientras jugaba con el ordenador y luego he terminado unos deberes que tenia"
         },
         "msg8": {
-            "text": "Día productivo entonces jaja"
+            "text": "Dia productivo entonces jaja"
         },
         "msg9": {
-            "text": "Sii, ¿tú qué harás ahora?"
+            "text": "Sii, tu qué haras ahora?"
         },
         "choices3": [
             {
@@ -96,20 +96,20 @@
         ],
 
         "sleep": {
-            "text": "Me voy a ir ya que es bastante tarde."
+            "text": "Me voy a ir ya que es bastante tarde"
         },
         "video": {
-            "text": "Me pondré a ver algún video de Toni."
+            "text": "Me pondre a ver algún video de toni"
         },
 
         "msg10": {
-            "text": "Nicee, pues aprovecha y descansaa."
+            "text": "Nicee, pues aprovecha y descansaa"
         },
         "msg11": {
-            "text": "Hasta mañanaa {{name}}."
+            "text": "Hasta mañana {{name}}"
         },
         "msg12": {
-            "text": "Chaoo <harasser, Pablo, Lucía>."
+            "text": "Chaoo <harasser, Pablo, Lucia>"
         }
     }
 }

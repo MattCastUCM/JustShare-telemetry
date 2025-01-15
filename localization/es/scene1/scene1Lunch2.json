@@ -10,13 +10,13 @@
             "text": "Ya... Ten cuidado, anda. <player, Listillo, Listilla>."
         },
         "call": {
-            "text": "Mamá, cualquier cosa, llámanos inmediatamente. Por favor."
+            "text": "Mamá, cualquier cosa, llámanos inmediatamente, por favor."
         },
         "getOut": {
             "text": "Sí, sí. Anda, idos ya, que vais a perder el vuelo."
         },
         "bye": {
-            "text": "Chao, chao, chao."
+            "text": "Chao, chao."
         },
         "wave": {
             "text": "Adiós, buen viaje. *agitas la mano*"

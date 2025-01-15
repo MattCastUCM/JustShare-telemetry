@@ -19,67 +19,67 @@
 
     "computer": {
         "root": {
-            "text" : "as visto el nuevo video de tonivlogs???"
+            "text" : "Has visto el nuevo video de toni?"
         },
         "msg2": {
-            "text" : "siii! me meo que en los 10 menus le haya salido el mismo juguete"
+            "text" : "Siii! me meo que en los 10 menus le haya salido el mismo juguete"
         },
         "msg3": {
-            "text" : "no se puede tener mas mala suerte xd"
+            "text" : "No se puede tener mas mala suerte xd"
         },
         "msg4": {
-            "text" : "y la gente poniendo en los comentarios edits de los moñecos jajaja"
+            "text" : "Y la gente poniendo en los comentarios edits de los moñecos jajaja"
         },
         "msg5": {
-            "text" : "yo creo que eso me a hecho mas gracia que el video xd"
+            "text" : "Yo creo que eso me ha hecho mas gracia que el video xd"
         },
         "msg6": {
-            "text" : "ay madre"
+            "text" : "Ay madre"
         },
         "msg7": {
-            "text" : "que pasa?"
+            "text" : "Que pasa?"
         },
         "msg8": {
-            "text" : "se me a hecho super tarde"
+            "text" : "Se me ha hecho super tarde"
         },
         "msg9": {
-            "text" : "tendría que irme a dormir"
+            "text" : "Tendria que irme a dormir"
         },
         "msg10": {
-            "text" : "no te puedes quedar un rato mas? :("
+            "text" : "No te puedes quedar un rato mas? :("
         },
         "msg11": {
-            "text" : "tengo clase mañana no puedo quedarme mucho mas tiempo"
+            "text" : "Tengo clase mañana no puedo quedarme mucho mas tiempo"
         },
         "msg12": {
-            "text" : "al menos pasame tu numero y asi podremos hablar aunque no puedas estar con el ordena"
+            "text" : "Al menos pasame tu numero y asi podremos hablar aunque no puedas estar con el ordena"
         },
         "msg13": {
-            "text" : "es k nose"
+            "text" : "Es que no se"
         },
         "msg14": {
-            "text" : "no podemos seguir hablando por aqui?"
+            "text" : "No podemos seguir hablando por aqui?"
         },
         "msg15": {
-            "text" : "es que por el movil es mas comodo y asi nos enteramos antes si nos escribimos :))"
+            "text" : "Es que por el movil es mas comodo y asi nos enteramos antes si nos escribimos :)"
         },
         "msg16": {
-            "text" : "bueno..."
+            "text" : "Bueno..."
         },
         "msg17": {
-            "text" : "esta bien"
+            "text" : "Esta bien"
         },
         "msg18": {
             "text" : "XXX-XXX-XXX"
         },
         "msg19": {
-            "text" : "ahora te mando 1 mensaje"
+            "text" : "Ahora te mando 1 mensaje"
         }
     },
 
     "phone": {
         "root": {
-            "text": "helloooo :)"
+            "text": "Helloooo :)"
         },
         "choices": [
             {
@@ -90,13 +90,13 @@
             }
         ],
         "reply1": {
-            "text": "jajaja"
+            "text": "Bajaja"
         },
         "reply2": {
-            "text": "bueno, me voy a dormir"
+            "text": "Bueno, me voy a dormir"
         },
         "bye": {
-            "text": "chau"
+            "text": "Chau"
         }
     }
 }

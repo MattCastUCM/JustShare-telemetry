@@ -12,13 +12,13 @@
             }
         ],
         "arrived": {
-            "text": "Ya he llegado a casa."
+            "text": "Ya he llegado a casa"
         },
         "msg3": {
             "text": "Olee, que tal?"
         },
         "msg4": {
-            "text": "Ns, Laura se ha enfadado conmigo."
+            "text": "No se, Laura se ha enfadado conmigo"
         },
         "msg5": {
             "text": "y eso? que ha pasado?"
@@ -42,20 +42,20 @@
             "text": "No termina de entender que nos llevemos tan bien siendo amigos online"
         },
         "noTell": {
-            "text": "Ns, prefiero no hablar de eso"
+            "text": "No se, prefiero no hablar de eso"
         },
 
         "msg7": {
             "text": "Sinceramente pienso que esta celosa de lo bien que nos llevamos nosotros, y eso hace que salte a la minima y que este en contra de nuestra amistad"
         },
         "msg8": {
-            "text": "Pero no te preocupes por eso, siempre me vas a tener a mi para todo, y siempre voy a apoyarte."
+            "text": "Pero no te preocupes por eso, siempre me vas a tener a mi para todo, y siempre voy a apoyarte"
         },
         "msg9": {
-            "text": "Gracias, se que puedo contar contigo para lo que sea."
+            "text": "Gracias, se que puedo contar contigo para lo que sea"
         },
         "msg10": {
-            "text": "Yo creo que me voy ya a dormir."
+            "text": "Yo creo que me voy ya a dormir"
         },
         "msg11": {
             "text": "Una foto de buenas noches para tu  mejor <harasser, amigo, amiga>?"
@@ -81,10 +81,10 @@
             "text": "Ay que <player, guapoooo, guapaaaa>"
         },
         "msg15": {
-            "text": "Que descanses {{name}}, mañana hablamoss"
+            "text": "Que descanses {{name}}, mañana hablamos"
         },
         "msg16": {
-            "text": "Graciass <harasser, Pablo, Lucía>"
+            "text": "Gracias <harasser, Pablo, Lucia>"
         },
         "msg17": {
             "text": "Buenas noches"

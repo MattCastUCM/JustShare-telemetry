@@ -1,19 +1,19 @@
 {
     "phone": {
         "root": {
-            "text": "Pensé que igual te apetecía dar el siguiente paso juntos"
+            "text": "Pense que igual te apetecía dar el siguiente paso juntos"
         },
         "msg16": {
-            "text": "Como no nos podemos ver todavía, las fotos son buena opción no creess?"
+            "text": "Como no nos podemos ver todavia, las fotos son buena opción no crees?"
         },
         "msg17": {
-            "text": "Pues me gustas mucho y creeme que tengo muchas ganas de verte, pero ns si está bien enviar estás cosas, no?"
+            "text": "Pues me gustas mucho y creeme que tengo muchas ganas de verte, pero no se si está bien enviar estas cosas, no?"
         },
         "msg18": {
-            "text": "No te preocupes, esto es solo para nosotros."
+            "text": "No te preocupes, esto es solo para nosotros"
         },
         "msg19": {
-            "text": "Así podemos calmar un poco las ganas de vernos hasta que podamoss"
+            "text": "Asi podemos calmar un poco las ganas de vernos hasta que podamos"
         },
         "choices4": [
             {
@@ -30,16 +30,16 @@
             "text": "O me pasas la foto o lo nuestro ha terminado"
         },
         "msg23": {
-            "text": "No intentes hacerme chantaje, no voy a enviarte nada así."
+            "text": "No intentes hacerme chantaje, no voy a enviarte nada"
         },
         "msg24": {
-            "text": "Ya veo porqué no tienes muchos amigos, eres <player, un niñato, una niñata> que solo piensa en sí <player, mismo, misma>"
+            "text": "Ya veo por que no tienes muchos amigos, eres <player, un niñato, una niñata> que solo piensa en si <player, mismo, misma>"
         },
         "thoughts": {
             "text": "(Debería contárselo a papá y mamá...)"
         },
         "msg25": {
-            "text": "Laura tenía razón contigo."
+            "text": "Laura tenia razon contigo"
         }
     },
 
@@ -51,13 +51,13 @@
         ],
         "wait": [
             {
-                "text": "Beep..."
+                "text": "*beep*"
             },
             {
-                "text": "Beep..."
+                "text": "*beep*"
             },
             {
-                "text": "Beep..."
+                "text": "*beep*"
             }
         ]
     },
@@ -94,14 +94,14 @@
         ],
         "reflect": [
             {
-                "text": "Hoy estamos todos conectados a las redes y cualquiera puede hacerse pasar por otra persona. Por eso hay que ir con mucho más cuidado y no ir compartiendo información privada a la ligera."
+                "text": "Hoy estamos todos conectados a las redes y cualquiera puede hacerse pasar por otra persona. Por eso hay que ir con mucho más cuidado y no ir compartiendo información sensible a la ligera."
             },
             {
                 "text": "Por mucho que pienses que conoces a alguien, si no estás <player, seguro, segura> al 100% de quién es, tienes que prestar atención a qué información compartes y de qué tipo."
             }
         ],
         "thanks": {
-            "text": "A partir de ahora tendré más cuidado, gracias mamá, gracias papá."
+            "text": "A partir de ahora tendré más cuidado. Gracias mamá, gracias papá."
         }
     }
 }

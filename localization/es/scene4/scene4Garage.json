@@ -41,7 +41,7 @@
             "text": "Sii, la verdad que son increibles"
         },
         "msg2": {
-            "text": "Mmmm... Ahora me has dejado con la intriga xd."
+            "text": "Mmmm... Ahora me has dejado con la intriga xd"
         },
         "msg3": {
             "text": "Ojalá estar ahí con vosotros la verdad..."
@@ -50,7 +50,7 @@
             "text": "Pasame una foto de los regalos para verlos porfi"
         },
         "msg5": {
-            "text": "Okay, dame un segundo."
+            "text": "Okay, dame un segundo"
         }
     },
 
@@ -99,7 +99,7 @@
         },
         "choices": [
             {
-                "text": "Sí."
+                "text": "No te la puedo pasar."
             }
         ],
         "yes": {
@@ -116,7 +116,7 @@
             "text": "Espera."
         },
         "msg6": {
-            "text": "Te la envio, y espero que no se entere nadie."
+            "text": "Te la envio, pero espero que no se entere nadie"
         }
     },
 

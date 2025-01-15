@@ -13,7 +13,7 @@
         ],
     
         "tell": {
-          "text": "Bien. He conocido a Laura, una chica de clase que es super maja. Durante el recreo  hemos estado todo el rato hablando"  
+          "text": "Bien. He conocido a Laura, una chica de clase que es súper maja. Durante el recreo hemos estado todo el rato hablando."  
         },
         "glad": [
             {
@@ -48,14 +48,14 @@
             "text": "Por cierto cariño, a tu padre y a mí nos ha surgido un viaje de trabajo y vamos a estar unas semanas fuera."
         },
         "alone": {
-            "text": "¿Eso significa que me quedo <player, solo, sola> y a cargo de la casa por fin?"
+            "text": "¿Eso significa que por fin me quedo <player, solo, sola> y a cargo de la casa?"
         },
         "bet": [
             {
                 "text": "Ya te gustaría. Mañana por la mañana llega tu abuela."
             },
             {
-                "text": "Así qué más te vale portarte bien, que está muy mayor la pobre mujer."
+                "text": "Así qué más te vale portarte bien, que la pobre mujer está muy mayor."
             }
         ],
         "disappointed": {

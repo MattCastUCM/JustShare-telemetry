@@ -13,23 +13,23 @@
 
     "phone": {
         "root": {
-            "text": "Y luego qué harás?"
+            "text": "Y luego qué haras?"
         },
         "fill2": {
             "text": "Luego llegan mis padres del viaje"
         },
         "fill3": {
-            "text": "Ah bueno chilling"
+            "text": "Ah bueno, esta asi los ves despues de tanto"
         },
         "fill4": {
             "text": "Sipp"
         },
         "fill5": {
-            "text": "Pues ve contándomee :)"
+            "text": "Pues ve contandomee :)"
         },
 
         "msg1": {
-            "text": "Llevo todo el diaa pensando en la foto que me pasaste ayer"
+            "text": "Llevo todo el dia pensando en la foto que me pasaste ayer"
         },
         "choices1": [
             {
@@ -37,10 +37,10 @@
             }
         ],
         "msg2": {
-            "text": "Yo también la verdad"
+            "text": "Yo tambien la verdad"
         },
         "msg3": {
-            "text": "No puedo esperar a que me mandes otraa"
+            "text": "No puedo esperar a que me mandes otraaa"
         },
         "choices2": [
             {
@@ -55,7 +55,7 @@
             "text": "<player, [playerPhoto6Male], [playerPhoto6Female]>"
         },
         "msg5A": {
-            "text": "Aquí tienes ;)"
+            "text": "Aqui tienes ;)"
         },
         "msg6A": {
             "text": "Simplemente wow, que increible"
@@ -68,11 +68,11 @@
             "text": "Yo me voy ya dormir, que descansesss"
         },
         "msg9A": {
-            "text": "Soñaré contigo ;)"
+            "text": "Soñare contigo ;)"
         },
         
         "msg4B": {
-            "text": "La verdad que no me sentí muy <player, comodo, comoda> al mandarte esa foto, prefiero no enviar más"
+            "text": "La verdad que no me sentí muy <player, comodo, comoda> al mandarte esa foto, prefiero no enviar mas"
         },
         "msg5B": {
             "text": "Que pasa, no me quieres tanto como dices?"

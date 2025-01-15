@@ -13,7 +13,7 @@
 
     "phone": {
         "root": {
-            "text": "Tengo una idea que puede que te guste."
+            "text": "Tengo una idea que puede que te guste"
         },
         "choices1": [
             {
@@ -24,7 +24,7 @@
             "text": "A ver dime"
         },
         "msg3": {
-            "text": "Había pensado..."
+            "text": "Habia pensado..."
         },
         "msg4": {
             "text": "Que llevamos bastante tiempo hablando, y..."
@@ -33,7 +33,7 @@
             "text": "Dimeee"
         },
         "msg6": {
-            "text":  "Nada, que aprovechando que mañana es festivo podríamos quedar en persona y así nos vemosss"
+            "text":  "Nada, que aprovechando que mañana es festivo podriamos quedar en persona y así nos vemosss"
         },
         "choices2": [
             {
@@ -45,13 +45,13 @@
         ],
         
         "msg7A": {
-            "text": "Sii, así puedo verte por fin"
+            "text": "Sii, asi puedo verte por fin"
         },
         "msg8A": {
             "text": "Guayyy, te viene bien quedar en mi urba?"
         },
         "msg9A": {
-            "text": "Valee, así me enseñas un poco la zona :)"
+            "text": "Valee, asi me enseñas un poco tu zona :)"
         },
         "msg10A": {
             "text": "Que ganass"
@@ -64,16 +64,16 @@
         },
 
         "msg7B": {
-            "text": "No creo que deba, a mis padres no les haría mucha gracia."
+            "text": "No creo que deba, a mis padres no les haria mucha gracia"
         },
         "msg8B": {
-            "text": "Bueno no tienen que saberlo, será nuestro secreto como las fotos ;)"
+            "text": "Bueno no tienen que saberlo, sera nuestro secreto, como las fotos ;)"
         },
         "msg9B": {
-            "text": "Prefiero dejarlo para otro momento de verdad, así nos conocemos mejor."
+            "text": "Prefiero dejarlo para otro momento de verdad, asi nos conocemos mejor"
         },
         "msg10B": {
-            "text": "Que pasa, no me quieres tanto como dices?"
+            "text": "Que pasa, que no me quieres tanto como dices?"
         },
         "msg11B": {
             "text": "Mucho dices que soy de lo mejor que te ha pasado y ahora te niegas?"
@@ -82,13 +82,13 @@
             "text": "No es eso, simplemente no estoy <player, comodo, comoda> del todo haciendolo"
         },
         "msg13B": {
-            "text": "Ya bueno, igual deberías replantearte tus prioridades"
+            "text": "Ya bueno, igual deberias replantearte tus prioridades"
         },
         "msg14B": {
             "text": "Me voy a la cama"
         },
         "msg15B": {
-            "text": "Yo también me voy"
+            "text": "Yo tambien me voy"
         }
     }
 }

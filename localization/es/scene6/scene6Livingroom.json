@@ -1,6 +1,6 @@
 {
     "root": {
-        "text": "¡Hola, ya estamos en casa!"
+        "text": "¡Hola! ¡Ya estamos en casa!"
     },
     "ask": {
         "text": "¿Qué tal te ha ido sin nosotros estos días?"
@@ -23,6 +23,6 @@
         }
     ],
     "bye": {
-        "text": "Adiós {{name}}"
+        "text": "Adiós, {{name}}."
     }
 }

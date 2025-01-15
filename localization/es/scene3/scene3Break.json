@@ -1,7 +1,7 @@
 {
     "fill": {
         "root": {
-            "text": "Pues no me apetece nada mañana ir a clase la verdad…"
+            "text": "Pues no me apetece nada mañana ir a clase la verdad..."
         },
         "fill2": {
             "text": "Ya la verdad que a mi tampoco, pero es lo que toca xdd"
@@ -30,7 +30,7 @@
             }
         ],
         "listen": {
-            "text": "...y también le recordé lo mismo a Paula que siempre se le olvida hacer la tarea y luego por eso saca mala nota..."
+            "text": "... y también le recordé lo mismo a Paula que siempre se le olvida hacer la tarea y luego por eso saca mala nota..."
         },
         "choices2": [
             {
@@ -41,31 +41,31 @@
             }
         ],
         "listen2": {
-            "text": "...y el último vídeo me ha sorprendido bastante..."
+            "text": "... y el último vídeo me ha sorprendido bastante..."
         },
         "msg4": {
-            "text": "Eyy, bien bien."
+            "text": "Heyy, bien"
         },
         "msg5": {
             "text": "Tu que tal?"
         },
         "msg6": {
-            "text": "Bienn, justo te escribía porque tengo ahora un rato libre"
+            "text": "Bienn, justo te escribia porque tengo ahora un rato libre"
         },
         "msg7": {
-            "text": "Guayy, yo estoy en la cafetería ahora"
+            "text": "Guayy, yo estoy en la cafeteria ahora"
         },
         "msg8": {
-            "text": "Ahh chill, y que haceis?"
+            "text": "Ahh de relax entonces, y que haceis?"
         },
         "msg9": {
-            "text": "Naa, <player, sentado, sentada> hablando con Laura"
+            "text": "Naaa, <player, sentado, sentada> hablando con Laura"
         }
     },
 
     "phone1": {
         "root": {
-            "text": "Eyy"
+            "text": "Heyy"
         }
     },
 
@@ -102,7 +102,7 @@
             "text": "Pues pienso que es un poco exagerado castigar a alguien solo por un accidente."
         },
         "homework": {
-            "text": "Si es cierto que después de hacer los deberes es mucho más facil enterarse del tema."
+            "text": "Es cierto que después de hacer los deberes es mucho más fácil enterarse del tema."
         },
     
         "notListening": [

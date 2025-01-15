@@ -2,13 +2,13 @@
     "part1": {
         "root": [
             {
-                "text": "Buenos días chicos, espero que hayáis pasado un buen verano."
+                "text": "Buenos días. Espero que hayáis pasado un buen verano."
             },
             {
                 "text": "Este año se une a nosotros {{name}}, espero que seáis buenos con <player, él, ella>."
             },
             {
-                "text": "{{name}} por favor siéntate ahí al lado de Laura."
+                "text": "{{name}} por favor, siéntate ahí al lado de Laura."
             }
         ]
     },

@@ -7,11 +7,11 @@
     "phone": {
         "root": [
             {
-                "text": "¿Estás <harasser, enfadado, endadada>?"
+                "text": "Estas <harasser, enfadado, endadada>?"
             }
         ],
         "msg1": {
-            "text": "Ey, estas <harasser, enfadado, endadada>?"
+            "text": "Hey, estas <harasser, enfadado, endadada>?"
         },
         "msg2": {
             "text": "Depende de ti"
@@ -31,7 +31,7 @@
             "text": "No es que dude, es simplemente que no estoy <player, comodo, comoda> con lo que pides"
         },
         "early": {
-            "text": "Todavía es muy pronto y no estoy <player, comodo, comoda> con lo que pides"
+            "text": "Todavia es muy pronto y no estoy <player, comodo, comoda> con lo que pides"
         },
         "msg5": {
             "text": "Vale, pues no me dejas otra"
@@ -43,10 +43,10 @@
             "text": "Como??"
         },
         "msg8": {
-            "text": "Y créeme que lo haré, no tengo nada que perder."
+            "text": "Y creeme que lo haré, no tengo nada que perder"
         },
         "msg9": {
-            "text": "Pero tu si, y mucho."
+            "text": "Pero tu si, y mucho"
         }
     },
     "interruption": {
@@ -69,33 +69,33 @@
         },
         "reveal": [
             {
-                "text": "Desde principio de curso he estado hablando con alguien y empezamos una relación."
+                "text": "Desde principio de curso he estado hablando con alguien y hace poco empezamos una relación."
             },
             {
                 "text": "Y... una noche... estábamos hablando y acabamos mandándonos fotos..."
             },
             {
-                "text": "...fotos explícitas."
+                "text": "... fotos explícitas."
             }
         ],
         "surprise": {
             "text": "¿¡Cómo!?"
         },
         "problem": {
-            "text": "El problema es que no era como yo pensaba y ahora me está chantajeando con publicar las fotos si no accedo a hacer lo que me pide."
+            "text": "El problema es que no era como yo pensaba, y ahora me está chantajeando con publicar las fotos si no accedo a hacer lo que me pide."
         },
         "scold": {
             "text": "¿¡A quién se le ocurre mandar eso a alguien que no conoces!?"
         },
         "sorry": {
-            "text": "Lo siento mucho de verdad."
+            "text": "Lo siento mucho, de verdad."
         },
         "police": [
             {
                 "text": "Tenemos que ir a la policía a denunciar."
             },
             {
-                "text": "Ya no hables más con esa persona, ahora nos encargamos nosotros."
+                "text": "No hables más con esa persona, nosotros nos encargamos del resto."
             }
         ],
 

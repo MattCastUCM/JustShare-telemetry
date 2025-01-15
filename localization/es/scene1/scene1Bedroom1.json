@@ -7,19 +7,19 @@
             "text": "(Antes de tumbarme tengo que hacer los deberes)."
         },
         "noAnswer": {
-            "text": "(Antes de tumbarme voy a contestar a <harasser, Pablo, Lucía>)"
+            "text": "(Antes de tumbarme voy a contestar a <harasser, Pablo, Lucía>)."
         }
     },
 
     "computer1": {
         "root": {
-            "text": "Ey, ¿qué tal?" 
+            "text": "Hey, que tal?" 
         },
         "msg2": {
-            "text": "Soy <harasser, Pablo, Lucía>." 
+            "text": "Soy <harasser, Pablo, Lucia>" 
         },
         "msg3": {
-            "text": "Te escribía porque he visto que eres muy fan de ToniVlogs, y quería saludarte."
+            "text": "Te escribia porque he visto que eres muy fan de ToniVlogs"
         },
         "choices": [
             {
@@ -31,24 +31,24 @@
         ],
         
         "niceResponse": {
-            "text": "Holaa <harasser, Pablo, Lucía> yo soy {{name}}" 
+            "text": "Holaa <harasser, Pablo, Lucia> yo soy {{name}}" 
         },
         "niceResponse2": {
-            "text": "Sii, soy muy muy fan de Toni, me encanta."
+            "text": "Siii, soy muy muy fan de Toni, me encanta"
         },
 
         "neutralResponse": {
-            "text": "Hey <harasser, Pablo, Lucía> yo soy {{name}}" 
+            "text": "Hey <harasser, Pablo, Lucia> yo soy {{name}}" 
         },
         "neutralResponse2": {
-            "text": "Si, me parece muy entretenido."
+            "text": "Si, me parece muy entretenido"
         },
 
         "msg4": {
-            "text": "Me alegro que te guste {{name}}. La verdad que la comunidad de ToniVlogs mola mucho." 
+            "text": "Me alegro que te guste {{name}}. La verdad que la comunidad de ToniVlogs mola mucho" 
         },
         "msg5": {
-            "text": "¿Qué dirías que es lo que más te gusta de Toni? A mi por ejemplo me encanta su perrita Mila, me parece adorable." 
+            "text": "Que dirias que es lo que mas te gusta de Toni? A mi por ejemplo me encanta su perrita Mila, me parece adorable" 
         },
         "choices2": [
             {
@@ -60,26 +60,26 @@
         ],
 
         "doggo": {
-            "text": "Mila es la mejor. Nunca he visto un perro tan bueno y obediente."
+            "text": "Mila es la mejor. Nunca he visto un perro tan bueno y obediente"
         },
         "doggo2": {
-            "text": "En su último video sale super graciosa cuando se pone a perseguir las sombras de los pájaros."
+            "text": "En su ultimo video sale super graciosa cuando se pone a perseguir las sombras de los pajaros"
         },
 
         "attitude": {
-            "text": "Me encanta como es Toni, se siente como si estuviera viendo el video de un amigo de toda la vida. Es super cercano cuando se dirige a sus admiradores."
+            "text": "Me encanta como es Toni, se siente como si estuviera viendo el video de un amigo de toda la vida. Es super cercano cuando se dirige a sus fans"
         },
         "attitude2": {
-            "text": "En su último video cuando se puso a contar anécdotas no podía parar de reír."
+            "text": "En su ultimo video cuando se puso a contar anécdotas no podía parar de reir"
         },
         "msg6": {
-            "text": "La verdad que me encantó ese vídeo. Siempre que sube algo nuevo no puedo esperar a verlo cuanto antes." 
+            "text": "La verdad que me encanto ese video. Siempre que sube algo nuevo no puedo esperar a verlo cuanto antes" 
         },
         "msg7": {
-            "text": "Sin duda es el mejor influencer del mundo."
+            "text": "Sin duda es el mejor influencer del mundo"
         },
         "msg8": {
-            "text": "¿Tu desde cuando eres fan?" 
+            "text": "Tu desde cuando eres fan?" 
         },
         "knock": {
             "text": "*toc* *toc*"
@@ -140,19 +140,19 @@
             }
         ],
         "2years": {
-            "text": "Sigo a ToniVlogs desde hace ya un par de años y sin duda es el mejor."
+            "text": "Lo sigo desde hace ya un par de años y sin duda es el mejor"
         },
         "littleAgo": {
-            "text": "Sigo a ToniVlogs desde hace poco, pero es el mejor."
+            "text": "Lo sigo desde hace poco, pero es el mejor"
         },
         "sorry": {
-            "text": "Por cierto, sorry por tardar en contestar. Tenía que acabar unos ejercicios para clase."
+            "text": "Por cierto, sorry por tardar en contestar. Tenia que acabar unos ejercicios para clase"
         },
         "msg2": {
             "text": "No te preocupes, yo tambien estaba haciendo la tarea :)"
         },
         "msg3": {
-            "text": "¿En qué curso estás tú?"
+            "text": "En que curso estás tu?"
         },
 
         "choices2": [
@@ -183,10 +183,10 @@
         },
 
         "msg4": {
-            "text": "Estamos en el mismo curso que fuerte."
+            "text": "Estamos en el mismo curso que fuerte"
         },
         "msg5": {
-            "text": "Me han dicho que es más fácil al final de lo que parece."
+            "text": "Me han dicho que al final es más facil de lo que parece"
         },
         "msg6": {
             "text": "Eso espero..."
@@ -197,20 +197,20 @@
 
         "choices3": [
             {
-                "text": "Me voy ya, que me van a echar la bronca."
+                "text": "Me voy ya, que me van a echar la bronca"
             },
             {
-                "text": "Me voy ya, que es tarde."
+                "text": "Me voy ya, que es tarde"
             }
         ],
         "scold": {
-            "text": "Bueno <harasser, Pablo, Lucía>, yo me voy ya a la cama que si no me va a caer bronca."
+            "text": "Bueno <harasser, Pablo, Lucia>, yo me voy ya a la cama que si no me va a caer bronca"
         },
         "late": {
-            "text": "Bueno <harasser, Pablo, Lucía>, yo me voy ya a la cama que es tarde ya."
+            "text": "Bueno <harasser, Pablo, Lucia>, yo me voy ya a la cama que es tarde ya"
         },
         "msg7": {
-            "text": "Okayy, pues ya hablamos otro día :)."
+            "text": "Okayy, pues ya hablamos otro día :)"
         }
     },
 

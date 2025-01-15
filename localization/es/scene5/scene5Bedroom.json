@@ -13,7 +13,7 @@
 
     "phone": {
         "root": {
-            "text": "El otro día me salió un video de Toni que me recordó un monton a ti"
+            "text": "El otro dia me salio un video de Toni que me recordó un monton a ti"
         },
         "fill2": {
             "text": "Ah sii?"
@@ -40,7 +40,7 @@
             }
         ],
         "msg3": {
-            "text": "Tu tambien me gustas mucho <harasser, Pablo, Lucía>"
+            "text": "Tu tambien me gustas mucho <harasser, Pablo, Lucia>"
         },
         "msg4": {
             "text": "Me tienes <player, loco, loca> por ti la verdad"
@@ -104,23 +104,23 @@
             "text": "Wow, me encantass"
         },
         "msg15": {
-            "text": "Pensé que igual te apetecía dar el siguiente paso juntos"
+            "text": "Pense que igual te apetecía dar el siguiente paso juntos"
         },
         "msg16": {
-            "text": "Como no nos podemos ver todavía, las fotos son buena opción no creess?"
+            "text": "Como no nos podemos ver todavia, las fotos son buena opción no crees?"
         },
         "msg17": {
-            "text": "Pues me gustas mucho y creeme que tengo muchas ganas de verte, pero ns si está bien enviar estás cosas, no?"
+            "text": "Pues me gustas mucho y creeme que tengo muchas ganas de verte, pero no se si está bien enviar estas cosas, no?"
         },
         "msg18": {
-            "text": "No te preocupes, esto es solo para nosotros."
+            "text": "No te preocupes, esto es solo para nosotros"
         },
         "msg19": {
-            "text": "Así podemos calmar un poco las ganas de vernos hasta que podamoss"
+            "text": "Asi podemos calmar un poco las ganas de vernos hasta que podamos"
         },
         "choices4": [
             {
-                "text": "Mandarle una foto igual"
+                "text": "Mandarle una foto igual."
             }
         ],
         "msg20": {
@@ -136,7 +136,7 @@
             "text": "De verdad, como te quierooooo"
         },
         "msg24": {
-            "text": "Graciass <harasser, Pablo, Lucía>, pero nada comparado contigoo"
+            "text": "Graciass <harasser, Pablo, Lucia>, pero nada comparado contigoo"
         },
         "msg25": {
             "text": "Yo voy a irme ya a dormir, pero antes dejo esto por aquí ;)"

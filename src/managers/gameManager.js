@@ -84,8 +84,8 @@ export default class GameManager {
         this.blackboard.clear();
         this.userInfo = {
             name: "Paco",
-            gender: "male",
-            harasser: "male"
+            gender: "female",
+            harasser: "female"
         }
 
         // IMPORTANTE: Hay que lanzar primero el UIManager para que se inicialice
@@ -99,7 +99,7 @@ export default class GameManager {
         this.computer = this.currentScene.scene.get(computerSceneName);
         this.computer.scene.sleep();
 
-        this.changeScene("Scene1Bedroom1", {});
+        this.changeScene("Scene1Lunch1", {});
     }
 
 

@@ -16,7 +16,7 @@
 
     "part2": {
         "root": {
-            "text": "¿Qué tal Paula? ¿Por qué nos buscabas?"
+            "text": "¿Qué tal, Paula? ¿Por qué nos buscabas?"
         },
         "invite": {
             "text": "Es que el finde que viene celebro mi cumple en mi casa y me han dicho mis padres que puedo invitaros a todos. ¿Qué os parece?"
@@ -37,17 +37,17 @@
         ],
 
         "excited": {
-            "text": ""
+            "text": "¡Pues ya está decidido! Allí nos vemos."
         },
         "neutral": {
-            "text": ""
+            "text": "Además puedes aprovechar y conocer más a los compañeros de clase."
         },
         "unsure": {
             "text": "No pienses así, <player, hombre, mujer>, si seguro que te haces <player, amigo, amiga> de alguien."
         },
 
         "bye": {
-            "text": "¡Genial! Os veo en clase. Byeee."
+            "text": "¡Genial! Os veo en clase. ¡Bye!"
         }
     }
 }

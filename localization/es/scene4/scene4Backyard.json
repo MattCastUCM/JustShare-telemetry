@@ -5,7 +5,7 @@
                 "text": "¡Que guay! ¡Tu primera fiesta con nosotros!"
             },
             {
-                "text": "Eso si llegas un poco tarde. ¿Todo bien?"
+                "text": "Eso sí, llegas un poco tarde. ¿Todo bien?"
             }
         ],
         "explain": {
@@ -32,7 +32,7 @@
             }
         ],
         "good": {
-            "text": "Bieen, esta toda la clase aqui."
+            "text": "Bien, esta toda la clase aqui"
         },
         "meh": {
             "text": "No esta mal supongo, estan todos mis compañeros aqui"

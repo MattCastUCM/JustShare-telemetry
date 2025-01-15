@@ -23,7 +23,7 @@
     ],
     "choices": [
         {
-            "text": "Preguntar."
+            "text": "Preguntar por su reacción."
         },
         {
             "text": "Ofenderse."
@@ -56,7 +56,7 @@
         "text": "Sí, no te preocupes."
     },
     "goodbye": {
-        "text": "Okay, pues voy a irme ya que es tarde y mañana hay clase."
+        "text": "Okay, pues voy a irme ya, que es tarde y mañana hay clase."
     },
     "cya": {
         "text": "Nos vemos mañana entonces."

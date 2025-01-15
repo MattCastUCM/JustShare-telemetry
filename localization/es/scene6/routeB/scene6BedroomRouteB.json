@@ -27,7 +27,7 @@
             }
         ],
         "msg2": {
-            "text": "De verdad que me importas mucho pero por favor, déjame pensármelo un poco más."
+            "text": "De verdad que me importas mucho pero por favor, dejame pensarmelo un poco mas"
         },
         "msg3": {
             "text": "Solo inventas excusas para no contestarme"
@@ -42,36 +42,36 @@
             "text": "Haciendo cosas así no vas a llegar a nada"
         },
         "msg2": {
-            "text": "Mucha clase sisi"
+            "text": "Mucha clase si si"
         }
     },
 
     "chat3": {
         "root": {
-            "text": "Tú madre estará super contenta"
+            "text": "Tu madre estara super contenta"
         },
         "msg2": {
-            "text": "Menuda nos espera si gente como tú es el futuro del planeta..."
+            "text": "Menuda nos espera si gente como tu es el futuro del planeta..."
         }
     },
 
     "lauraChat": {
         "root": {
-            "text": "QUÉ HA PASADO??"
+            "text": "QUE HA PASADO??"
         },
         "msg2": {
             "text": "ALGUIEN HA SUBIDO FOTOS TUYAS A JUSTSHARE!!"
         },
         "choices": [
             {
-                "text": "Ha sido <harasser, Pablo, Lucía>"
+                "text": "Ha sido <harasser, Pablo, Lucía>."
             }
         ],
         "msg3": {
-            "text": "Ha sido <harasser, Pablo, Lucía>"
+            "text": "Ha sido <harasser, Pablo, Lucia>"
         },
         "msg4": {
-            "text": "Perdón por no escucharte, tenías razón"
+            "text": "Perdon por no escucharte, tenias razón"
         }
     },
 
@@ -122,7 +122,10 @@
                 "text": "Hemos estado hablando mucho y nos gustábamos..."
             },
             {
-                "text": "... un día nos mandamos fotos así... y ahora las ha subido porque no he hecho lo que me pedía."
+                "text": "... un día nos mandamos fotos así, pero le dije que no quería seguir enviándole más..."
+            },
+            {
+                "text": "... Y ahora las ha subido porque no he hecho lo que me pedía."
             },
             {
                 "text": "Lo siento mucho de verdad."

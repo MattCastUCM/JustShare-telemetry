@@ -12,7 +12,7 @@
             }
         ],
         "scold": {
-            "text": "Pues la próxima vez, habladlo mejor por la mañana, que tenéis que dormir."
+            "text": "Pues la próxima vez habladlo mejor por la mañana, que tenéis que dormir."
         }
     },
 
@@ -23,7 +23,7 @@
     },
     "doorPrepared": {
         "root": {
-            "text": "He quedado con un compañero, os veo luego."
+            "text": "He quedado con un amigo, os veo luego."
         },
         "bye": {
             "text": "Adiós, pásalo bien."
