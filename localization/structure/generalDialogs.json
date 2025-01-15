@@ -57,5 +57,12 @@
             "type": "text",
             "character": "player"
         }
+    },
+
+    "noPost": {
+        "root": {
+            "type": "text",
+            "character": "player"
+        }
     }
 }

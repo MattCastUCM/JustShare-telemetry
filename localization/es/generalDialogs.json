@@ -42,5 +42,11 @@
         "root": {
             "text": "(No tengo nada que responder)"
         }
+    },
+
+    "noPost": {
+        "root": {
+            "text": "(No tengo nada que subir)"
+        }
     }
 }

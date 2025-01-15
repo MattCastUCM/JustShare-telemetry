@@ -1,4 +1,4 @@
-import DialogNode, { TextNode, ChoiceNode, ConditionNode, EventNode, ChatNode, SocialNetNode } from '../../UI/dialog/dialogNode.js';
+import DialogNode, { TextNode, ChoiceNode, ConditionNode, EventNode, ChatNode, CommentaryNode } from '../../UI/dialog/dialogNode.js';
 import GameManager from '../../managers/gameManager.js';
 
 export default class BaseScene extends Phaser.Scene {
@@ -394,24 +394,46 @@ export default class BaseScene extends Phaser.Scene {
                 returnObjects: getObjs });
 
             node.text = text;
-
+            
             // Obtiene el nombre del personaje del archivo de nombres localizados
             // En el caso de que se trate del jugador, obtiene su nombre
             let character = fileObj[id].character;
-            if (character === "player") {
-                node.name = this.gameManager.getUserInfo().name;
+
+            let phone = fileObj[id].phone
+            if (phone != null) {
+                node.phone = phone
+            }
+                
+            if (node.phone) {
+                if (character === "player") {
+                    node.name = this.gameManager.getUserInfo().name;
+                }
+                else {
+                    node.name = this.gameManager.translate(fileObj[id].character, { 
+                        ns: "names" 
+                    });
+                }
             }
             else {
-                node.name = this.gameManager.translate(fileObj[id].character, { 
-                    ns: "names" 
-                });
+                if (character === "player") {
+                    node.name = this.gameManager.computer.username
+                }
+                else {
+                    node.name = this.gameManager.translate(character, { 
+                        ns: "computer\\usernames",
+                    });
+                }
             }
+
             node.character = character;
 
+            node.chat = fileObj[id].chat
             // Guarda el chat en el que tiene que ir la respuesta y el retardo con el que se envia
-            node.chat = this.gameManager.translate("textMessages" + "." + fileObj[id].chat, {
-                ns: "deviceInfo" 
-            });
+            if (node.phone) {
+                node.chat = this.gameManager.translate("textMessages" + "." + fileObj[id].chat, {
+                    ns: "deviceInfo" 
+                });
+            }
 
             if (fileObj[id].replyDelay) {
                 node.replyDelay = fileObj[id].replyDelay;
@@ -425,10 +447,9 @@ export default class BaseScene extends Phaser.Scene {
             }
         }
         // Si el nodo es de tipo comentario de la red social
-        else if (type === "socialNetMessage") {
-            node = new SocialNetNode();
+        else if (type === "commentary") {
+            node = new CommentaryNode();
 
-            // Obtiene el texto del archivo de textos traducidos y lo guarda
             let text = this.gameManager.translate(translationId + ".text", { 
                 ns: namespace, 
                 name: this.playerName, 
@@ -438,18 +459,21 @@ export default class BaseScene extends Phaser.Scene {
             node.text = text;
 
             node.character = fileObj[id].character;
-            // Obtiene el nombre del personaje del archivo de nombres localizados
-            // En el caso de se trate del propio del jugador, obtiene el pronombre personal Tu
-            // traducido en el idioma correspondiente
-            node.name = this.gameManager.translate(fileObj[id].character, { 
-                ns: "names" 
-            });
 
-            // Guarda el usuario que ha subido el post
-            node.owner = fileObj[id].owner;
+            if(node.character == 'player') {
+                node.name = this.gameManager.computer.username
+                node.pfp = 'unknownPfp'
+            }
+            else {    
+                node.name = this.gameManager.translate(node.character, { 
+                    ns: "computer\\usernames",
+                });
 
-            // Guarda el numero del post del usuario
-            node.postName = fileObj[id].postName;
+                let pfpsFile = this.cache.json.get('profilePictures');
+                node.pfp = pfpsFile[node.character]
+            }
+
+            node.post = fileObj[id].post
 
             if (fileObj[id].replyDelay) {
                 node.replyDelay = fileObj[id].replyDelay;

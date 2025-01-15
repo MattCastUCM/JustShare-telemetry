@@ -1,6 +1,6 @@
 import ListViewHit from "../UI/listView/listViewHit.js"
 
-export default class DirectMessage extends Phaser.GameObjects.Container {
+export default class Contact extends Phaser.GameObjects.Container {
     constructor(socialMediaScreen, pfp, username, width, height, onClick) {
         super(socialMediaScreen.scene, 0, 0)
 
@@ -120,8 +120,7 @@ export default class DirectMessage extends Phaser.GameObjects.Container {
         let style = { ...this.scene.style }
         style.fontSize = '25px'
 
-        let translate = this.screen.translate(username)
-        let name = this.scene.add.text(x, y, translate, style);
+        let name = this.scene.add.text(x, y, username, style);
         name.setOrigin(origin[0], origin[1]);
         this.add(name)
 

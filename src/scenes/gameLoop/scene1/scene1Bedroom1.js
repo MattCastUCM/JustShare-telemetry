@@ -55,10 +55,11 @@ export default class Scene1Bedroom1 extends BaseScene {
         let pcNode = super.readNodes(nodes, "scene1\\scene1Bedroom1", "computer1", true);
         super.createInteractiveElement(1390, 400, "pointer", 0.3, () => {
             // PENDIENTE / TEST
-            this.phoneManager.activatePhoneIcon(true);
-            let chatName = this.gameManager.translate("textMessages.harasserUsername", { ns: "deviceInfo", returnObjects: true });
-            this.phoneManager.phone.addChat(chatName, "harasserPfp");
-            this.dialogManager.setNode(pcNode, []);
+            // this.phoneManager.activatePhoneIcon(true);
+            // let chatName = this.gameManager.translate("textMessages.harasserUsername", { ns: "deviceInfo", returnObjects: true });
+            // this.phoneManager.phone.addChat(chatName, "harasserPfp");
+            // this.dialogManager.setNode(pcNode, []);
+            this.gameManager.switchToComputer()
         }, false);
         
 

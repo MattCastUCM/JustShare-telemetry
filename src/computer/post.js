@@ -1,7 +1,7 @@
 import TextHeader from "./textHeader.js";
 
 export default class Post extends Phaser.GameObjects.Container {
-    constructor(socialMediaScreen, x, y, pfp, username, bioId, picture, width, messageIcon, likes = 0) {
+    constructor(socialMediaScreen, x, y, pfp, username, caption, picture, width, messageIcon, likes = 0) {
         super(socialMediaScreen.scene, x, y)
 
         this.scene.add.existing(this)
@@ -11,7 +11,7 @@ export default class Post extends Phaser.GameObjects.Container {
         this.params = {
             pfp: pfp,
             username: username,
-            bioId: bioId,
+            caption: caption,
             picture: picture,
             width: width
         }
@@ -29,13 +29,13 @@ export default class Post extends Phaser.GameObjects.Container {
         const ICON_OFFSET_X = 25
         const ICON_OFFSET_Y = 5
 
-        this.textHeader = new TextHeader(this.socialMediaScreen, this.params.width, this.params.pfp, 
-            this.params.username, this.params.bioId)
+        this.textHeader = this.addTextHeader(this.socialMediaScreen, this.params.width, this.params.pfp, 
+            this.params.username, this.params.caption)
         this.add(this.textHeader)
 
-        let lastItemX = this.textHeader.bio.x
-        let lastItemY = this.textHeader.bio.y
-        let lastItemHeight = this.textHeader.bio.height
+        let lastItemX = this.textHeader.caption.x
+        let lastItemY = this.textHeader.caption.y
+        let lastItemHeight = this.textHeader.caption.height
 
         if(this.params.picture) {
             this.addToUpdateList();
@@ -63,6 +63,11 @@ export default class Post extends Phaser.GameObjects.Container {
         }
     }
 
+    addTextHeader(socialMediaScreen, width, pfp, username, caption, scale = 1) {
+        let textHeader = new TextHeader(socialMediaScreen, width, pfp, username, caption, scale)
+        return textHeader
+    }
+
     createPicture(x, y, imageId, width, origin = [0, 0]) {
         let image = this.scene.add.image(x, y, imageId)
         let scale = width / image.width
@@ -74,6 +79,7 @@ export default class Post extends Phaser.GameObjects.Container {
         let geometryMask = border.createGeometryMask()
         image.setMask(geometryMask)
 
+        // Propiedades
         this.image = image
         this.imageBorder = border
     }

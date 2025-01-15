@@ -39,8 +39,9 @@ export default class GameManager {
 
         // Escena de la UI
         this.UIManager = null;
-        // Escena del ordenador
-        this.computerScene = null;
+
+        // Ordenador
+        this.computer = null;
 
         // Informacion del usuario
         this.userInfo = null;
@@ -93,7 +94,12 @@ export default class GameManager {
         this.currentScene.scene.launch(UIsceneName);
         this.UIManager = this.currentScene.scene.get(UIsceneName);
 
-        this.changeScene("Computer", {});
+        let computerSceneName = 'Computer';
+        this.currentScene.scene.run(computerSceneName);
+        this.computer = this.currentScene.scene.get(computerSceneName);
+        this.computer.scene.sleep();
+
+        this.changeScene("Scene1Bedroom1", {});
     }
 
 
@@ -194,7 +200,54 @@ export default class GameManager {
             });
         });
     }
+    
 
+    switchToComputer() {
+        // Reproduce un fade out al cambiar de escena
+        let FADE_OUT_TIME = 200;
+        let FADE_IN_TIME = 200;
+
+        this.currentScene.cameras.main.fadeOut(FADE_OUT_TIME, 0, 0, 0);
+        this.fading = true;
+
+        // Cuando acaba el fade out de la escena actual se cambia a la siguiente
+        this.currentScene.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, (cam, effect) => {
+
+            this.UIManager.phoneManager.activatePhoneIcon(false)
+            this.currentScene.scene.sleep()
+
+            this.computer.scene.wake()
+
+            // Cuando se termina de crear la escena, se reproduce el fade in
+            this.computer.events.once('wake', () => {
+                this.computer.cameras.main.fadeIn(FADE_IN_TIME, 0, 0, 0);    
+                this.fading = false;   
+            });
+        })
+    }
+
+    leaveComputer() {
+        // Reproduce un fade out al cambiar de escena
+        let FADE_OUT_TIME = 200;
+        let FADE_IN_TIME = 200;
+
+        this.computer.cameras.main.fadeOut(FADE_OUT_TIME, 0, 0, 0);
+        this.fading = true;
+
+        // Cuando acaba el fade out de la escena actual se cambia a la siguiente
+        this.computer.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, (cam, effect) => {
+
+            this.computer.scene.sleep()
+            this.currentScene.scene.wake(this.currentScene.scene.key)
+
+            // Cuando se termina de crear la escena, se reproduce el fade in
+            this.currentScene.events.once('wake', () => {
+                this.UIManager.phoneManager.activatePhoneIcon(true)
+                this.currentScene.cameras.main.fadeIn(FADE_IN_TIME, 0, 0, 0);    
+                this.fading = false;   
+            });
+        })
+    }
     
     // Tiene los campos: name, username, password, gender
     setUserInfo(userInfo) {

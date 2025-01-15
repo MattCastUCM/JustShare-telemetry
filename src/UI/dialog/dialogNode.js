@@ -151,32 +151,30 @@ export class ChatNode extends DialogNode {
         this.name = null;               // nombre del personaje que envia el mensaje (si se trata del jugador, es el nombre elegido en la pantalla de login)
         this.chat = null;               // chat al que corresponde el mensaje
         this.replyDelay = 0;            // retardo con el que se enviara el mensaje
+        this.phone = true
     }
 }
 
-export class SocialNetNode extends DialogNode {
+export class CommentaryNode extends DialogNode {
     /**
-     * Clase para la informacion de los nodos de los mensajes de las publicaciones
-     * de la red social
-     * @extends DialogNode
+    * @extends DialogNode
     * Ejemplo:
         {
-            "type": "socialNetMessaage",
+            "type": "commentary",
             "character": "player",
-            "owner": "mom",
-            "post": 0,
+            "post": "post1",
             "replyDelay": 1000
         }
-     */
+    */
     constructor() {
         super();
 
-        this.type = "socialNetMessage";
-        this.text = null;               // texto del mensaje
-        this.character = null;          // id del personaje que escribe en la publicacion
-        this.name = null;               // nombre del personaje que escribe en la publicacion (si se trata del jugador, es el pronombre personal Tu)
-        this.owner = null;               // usuario que ha hecho la publicacion (corresponde con los ids de los personajes)
-        this.postName = null;           // nombre de la publicacion
-        this.replyDelay = 0;            // retardo con el que se enviara el mensaje
+        this.type = "commentary";
+        this.text = null;
+        this.character = null;
+        this.name = null;
+        this.pfp = null;
+        this.post = null;
+        this.replyDelay = 0;
     }
 }

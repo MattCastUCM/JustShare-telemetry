@@ -1,5 +1,5 @@
 export default class TextHeader extends Phaser.GameObjects.Container {
-    constructor(socialMediaScreen, width, pfp, username, bioId, scale = 1) {
+    constructor(socialMediaScreen, width, pfp, username, caption, scale = 1) {
         super(socialMediaScreen.scene, 0, 0)
 
         this.scene.add.existing(this)
@@ -7,13 +7,13 @@ export default class TextHeader extends Phaser.GameObjects.Container {
         this.socialMediaScreen = socialMediaScreen
 
         const NAME_OFFSET_X = 10
-        const BIO_OFFSET_Y = 10
+        const caption_OFFSET_Y = 10
 
         this.profilePicture = this.createProfilePicture(0, 0, pfp)
         
         this.name = this.createName(this.profilePicture.displayWidth + NAME_OFFSET_X, this.profilePicture.y, username, [0, 0.5]) 
         
-        this.bio = this.createBio(this.name.x, this.name.y + this.name.displayHeight / 2 + BIO_OFFSET_Y, width, bioId)
+        this.caption = this.createcaption(this.name.x, this.name.y + this.name.displayHeight / 2 + caption_OFFSET_Y, width, caption)
 
         this.setScale(scale)
 
@@ -37,7 +37,6 @@ export default class TextHeader extends Phaser.GameObjects.Container {
         let style = { ...this.scene.style }
         style.fontSize = '25px'
 
-        // let translate = this.socialMediaScreen.translate(nameId)
         let name = this.scene.add.text(x, y, username, style);
         name.setOrigin(origin[0], origin[1]);
         this.add(name)
@@ -45,7 +44,7 @@ export default class TextHeader extends Phaser.GameObjects.Container {
         return name
     }
 
-    createBio(x, y, width, bioId) {
+    createcaption(x, y, width, caption) {
         let container = this.scene.add.container(x, y)
 
         let style = { ...this.scene.style }
@@ -55,8 +54,7 @@ export default class TextHeader extends Phaser.GameObjects.Container {
             useAdvancedWrap: true 
         }
 
-        let translate = this.socialMediaScreen.translate(bioId)
-        let text = this.scene.add.text(0, 0, translate, style);
+        let text = this.scene.add.text(0, 0, caption, style);
         text.setOrigin(0, 0);
         container.add(text)
 

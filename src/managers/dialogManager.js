@@ -329,34 +329,17 @@ export default class DialogManager {
                     this.processNextNode(delay);
                 }
                 else if (this.currNode.type === "chatMessage") {
-                    this.scene.phoneManager.phone.setChatNode(this.currNode.chat, this.currNode);
+                    if (this.currNode.phone) {
+                        this.scene.phoneManager.phone.setChatNode(this.currNode.chat, this.currNode);
+                    }
+                    else {
+                        this.gameManager.computer.socialMediaScreen.setChatNode(this.currNode.chat, this.currNode);   
+                    }
                     this.bgBlock.disableInteractive();
                 }
-                else if (this.currNode.type === "socialNetMessage") {
-                    // Funcion comun (se anade el comentario al post y se procesa el nodo)
-                    let fnAux = () => {
-                        this.gameManager.computerScene.socialNetScreen.addCommentToPost(this.currNode.owner, this.currNode.postName,
-                            this.currNode.character, this.currNode.name, this.currNode.text);
-    
-                        this.currNode = this.currNode.next[0];
-                        this.processNextNode(delay);
-                    }
-                    // Si el retraso es 0...
-                    if (this.currNode.replyDelay <= 0) {
-                        // Se procesa inmediatamente
-                        // Importante: se hace de esta manera porque aunque setTimeout permite un delay de 0 segundos,
-                        // el codigo no se procesa al instante.
-                        // Es muy importante que los mensaje con un delay de 0 segundos se procesen al instante porque al crear un post
-                        // se anade una lista larga de mensajes iniciales y si no se procesan en orden, this.currNode se vuelve loco
-                        fnAux();
-                    }
-                    // Sino...
-                    else {
-                        // Se usa un timeout
-                        setTimeout(() => {
-                            fnAux();
-                        }, this.currNode.replyDelay);
-                    }
+                else if (this.currNode.type === "commentary") {
+                    this.gameManager.computer.socialMediaScreen.setCommentaryNode(this.currNode.post, this.currNode);
+                    this.bgBlock.disableInteractive();
                 } 
         }
         // Se ha acabado el dialogo o se ha pasado un nodo invalido

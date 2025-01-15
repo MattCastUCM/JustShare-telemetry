@@ -5,11 +5,14 @@ import CheckBox from '../../UI/checkbox.js'
 
 export default class LoginScene extends ComputerBaseScene {
     constructor() {
-        super("LoginScene", "menus/loginScene", 'login')
+        super("LoginScene")
     }
     
     create(params) {
         super.create(params);
+
+        this.createBackground('loginScreen')
+        this.setNamespace('menus/loginScene')
 
         this.createPowerIcon(() => {
             this.gameManager.changeScene("TitleScene");
@@ -64,7 +67,7 @@ export default class LoginScene extends ComputerBaseScene {
 
     checkErrors(nameContainer, genderContainer, sexualityContainer) {
         const FADE_DURATION = 20;
-        const MAX_N_CHARACTERES = 10;
+        const MAX_N_CHARACTERES = 8;
         
         let errors = false;
 

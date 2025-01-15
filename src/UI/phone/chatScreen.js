@@ -161,7 +161,6 @@ export default class ChatScreen extends BaseScreen {
                             this.setNode(null);
                         }
                     });
-
                 }
             }
 

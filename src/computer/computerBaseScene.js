@@ -3,11 +3,8 @@ import Button from '../UI/button.js'
 import TextInput from '../UI/textInput.js'
 
 export default class ComputerBaseScene extends BaseScene {
-    constructor(name, namespace, bg = 'loadscreen') {
+    constructor(name) {
         super(name, null);
-
-        this.namespace = namespace.replace(/\//g, '\\');
-        this.bg = bg
     }
     
     create(params) {
@@ -47,11 +44,6 @@ export default class ComputerBaseScene extends BaseScene {
         this.style.fontFamily = this.fontFamilies.normal
         this.style.fontSize = '50px';
         this.style.color = this.colors.black.hex.getNumberSign
-
-        // Fondo escalado en cuanto al canvas
-        this.imageBg = this.add.image(this.CANVAS_WIDTH / 2, this.CANVAS_HEIGHT / 2, this.bg);
-        let scale = this.CANVAS_WIDTH / this.imageBg.width;
-        this.imageBg.setScale(scale);
     }
 
     createPowerIcon(onClick) {
@@ -71,15 +63,27 @@ export default class ComputerBaseScene extends BaseScene {
     ///////////////////////////////////////
     //////// Metodos de utilidad /////////
     //////////////////////////////////////
+    createBackground(bg) {
+        let bgImage = this.add.image(this.CANVAS_WIDTH / 2, this.CANVAS_HEIGHT / 2, bg);
+        let scale = this.CANVAS_WIDTH / bgImage.width;
+        bgImage.setScale(scale);
+        return bgImage
+    }
 
-    setBackground(bg) {
-        this.imageBg.setTexture(bg)
-        let scale = this.CANVAS_WIDTH / this.imageBg.width;
-        this.imageBg.setScale(scale);
+    setNamespace(namespace) {
+        this.namespace = namespace.replace(/\//g, '\\');
     }
 
     translate(transId, options) {
         let namespaceObj = { ns: this.namespace }
+        let optionsAux = { ...namespaceObj, ...options}
+
+        return this.gameManager.translate(transId, optionsAux)
+    }
+
+    translateWithNamespace(transId, namespace, options) {
+        namespace = namespace.replace(/\//g, '\\');
+        let namespaceObj = { ns: namespace }
         let optionsAux = { ...namespaceObj, ...options}
 
         return this.gameManager.translate(transId, optionsAux)
@@ -302,6 +306,101 @@ export default class ComputerBaseScene extends BaseScene {
                 onClick();
             });
         });
+    }
+
+    turnIntoButtonInteractionAnim(animTarget, hitTarget, onClick, 
+        nCol = this.colors.white.rgb, hCol = this.colors.grey0.rgb, pCol = this.colors.grey1.rgb) {        
+            
+        nCol = Phaser.Display.Color.GetColor(nCol.R, nCol.G, nCol.B);
+        nCol = Phaser.Display.Color.IntegerToRGB(nCol);
+        
+        hCol = Phaser.Display.Color.GetColor(hCol.R, hCol.G, hCol.B);
+        hCol = Phaser.Display.Color.IntegerToRGB(hCol);
+        
+        pCol = Phaser.Display.Color.GetColor(pCol.R, pCol.G, pCol.B);
+        pCol = Phaser.Display.Color.IntegerToRGB(pCol);
+        
+        animTarget.setTint(Phaser.Display.Color.GetColor(nCol.r, nCol.g, nCol.b));
+
+        const TINT_FADE_DURATION = 25;
+        hitTarget.on('pointerover', () => {
+            this.tweens.addCounter({
+                targets: [animTarget],
+                from: 0,
+                to: 100,
+                onUpdate: (tween) => {
+                    const value = tween.getValue();
+                    let col = Phaser.Display.Color.Interpolate.ColorWithColor(nCol, hCol, 100, value);
+                    let colInt = Phaser.Display.Color.GetColor(col.r, col.g, col.b);
+                    animTarget.setTint(colInt);
+                },
+                duration: TINT_FADE_DURATION,
+                repeat: 0,
+            });
+        });
+
+        hitTarget.on('pointerdown', () => {
+            let anim = this.tweens.addCounter({
+                targets: [animTarget],
+                from: 0,
+                to: 100,
+                onUpdate: (tween) => {
+                    const value = tween.getValue();
+                    let col = Phaser.Display.Color.Interpolate.ColorWithColor(hCol, pCol, 100, value);
+                    let colInt = Phaser.Display.Color.GetColor(col.r, col.g, col.b);
+                    animTarget.setTint(colInt);
+                },
+                duration: TINT_FADE_DURATION,
+                repeat: 0,
+                yoyo: true,
+            });
+            anim.on('complete', () => {
+                animTarget.setTint(Phaser.Display.Color.GetColor(nCol.r, nCol.g, nCol.b));
+                onClick();
+            });
+        });
+
+        this.addButtonInteractionAnim(animTarget, hitTarget, nCol, hCol)
+    }
+
+    addButtonInteractionAnim(animTarget, hitTarget, nCol, hCol) {
+        const DURATION = 650
+
+        let interactionAnim = this.tweens.addCounter({
+            targets: [animTarget],
+            from: 0,
+            to: 100,
+            onUpdate: (tween) => {
+                const value = tween.getValue();
+                let col = Phaser.Display.Color.Interpolate.ColorWithColor(hCol, nCol, 100, value);
+                let colInt = Phaser.Display.Color.GetColor(col.r, col.g, col.b);
+                animTarget.setTint(colInt);
+            },
+            duration: DURATION,
+            repeat: -1,
+            yoyo: true,
+            paused: true
+        })
+
+        hitTarget.on('pointerover', () => {
+            interactionAnim.pause()
+        });
+
+        hitTarget.on('pointerdown', () => {
+            interactionAnim.pause()
+            hitTarget.disableInteractive()
+        });
+
+        hitTarget.on('pointerout', () => {
+            interactionAnim.resume()
+        })
+
+        // Propiedades
+        hitTarget.interactionAnim = interactionAnim
+        hitTarget.restartInteractionAnim = function() {
+            this.interactionAnim.restart()
+            this.setInteractive({ useHandCursor: true });
+        }
     }
 
     ///////////////////////////////////////

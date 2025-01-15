@@ -2,7 +2,7 @@ import VerticalListView from "../UI/listView/verticalListView.js"
 import MessageBox from "../UI/messageBox.js"
 
 export default class Chat extends Phaser.GameObjects.Container {
-    constructor(socialMediaScreen, x, y, pfp, username, width, height) {
+    constructor(socialMediaScreen, x, y, pfp, username, width, height, sendDMOnClick) {
         super(socialMediaScreen.scene, 0, 0)
 
         this.socialMediaScreen = socialMediaScreen
@@ -13,10 +13,10 @@ export default class Chat extends Phaser.GameObjects.Container {
 
         let topBar = this.createTopBar(x, y + BAR_OFFSET_Y, pfp, username)
 
-        let bottomBar = this.createBottomBar(x, y + height - BAR_OFFSET_Y)
+        this.bottomBar = this.createBottomBar(x, y + height - BAR_OFFSET_Y, sendDMOnClick)
 
         this.listView = this.createChat(x, topBar.y + topBar.bar.displayHeight, width, 
-            height - BAR_OFFSET_Y * 2 - topBar.bar.displayHeight - bottomBar.displayHeight)
+            height - BAR_OFFSET_Y * 2 - topBar.bar.displayHeight - this.bottomBar.displayHeight)
     }
 
     createChat(x, y, width, height) {
@@ -24,7 +24,7 @@ export default class Chat extends Phaser.GameObjects.Container {
         const END_PADDING = 15
         
         let listView = new VerticalListView(this.scene, x, y,
-            1, PADDING, { width: width, height: height }, null, false, END_PADDING);
+            1, PADDING, { width: width, height: height }, null, false, END_PADDING, true);
         this.add(listView)
 
         return listView
@@ -59,15 +59,19 @@ export default class Chat extends Phaser.GameObjects.Container {
         return container
     }
 
-    createBottomBar(x, y) {
+    createBottomBar(x, y, sendDMOnClick) {
         let bar = this.scene.add.image(x, y, 'sendDirectMessage')
         bar.setOrigin(0.5, 1)
 
-        this.scene.turnIntoButtonColorAnim(bar, bar, null, this.scene.colors.white.rgb, this.scene.colors.blue0.rgb, 
+        this.scene.turnIntoButtonInteractionAnim(bar, bar, sendDMOnClick, this.scene.colors.white.rgb, this.scene.colors.blue0.rgb, 
             this.scene.colors.blue1.rgb)
 
         this.add(bar)
 
         return bar
+    }
+
+    restartChatAnim() {
+        this.bottomBar.restartInteractionAnim()
     }
 }

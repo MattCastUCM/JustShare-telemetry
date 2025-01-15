@@ -4,28 +4,35 @@ import SocialMediaScreen from "./socialMediaScreen.js";
 
 export default class Computer extends ComputerBaseScene {
     constructor() {
-        super("Computer", "computer");
+        super("Computer", "computer/computer");
     }
     
     create(params) {
         super.create(params)
 
-        this.createPowerIcon(() => {
-            this.currentScreen.reset()
-        });
-
-        const N_RANDOM_DIGITS = 3
+        const N_RANDOM_DIGITS = 2
         this.username = this.gameManager.userInfo.name
         for(let i = 0; i < N_RANDOM_DIGITS; ++i) {
             this.username += this.getRandomInt(0, 9)
         }
 
-        this.currentScreen = new LoginScreen(this);
+        this.socialMediaScreen = new SocialMediaScreen(this);
+        this.socialMediaScreen.setVisible(false)
+
+        this.loginScreen = new LoginScreen(this);
+
+        this.createPowerIcon(() => {
+            this.gameManager.leaveComputer()
+        });
+
         this.changeToMainScreen()
     }
 
     changeToMainScreen() {
-        this.currentScreen.destroy()
-        this.currentScreen = new SocialMediaScreen(this)
+        if(this.loginScreen != null) {
+            this.loginScreen.destroy()
+            this.loginScreen = null
+        }
+        this.socialMediaScreen.setVisible(true)
     }
 }

@@ -130,9 +130,9 @@ export default class BootScene extends Phaser.Scene {
     loadComputerAssets() {
         this.load.setPath('assets/computer');
 
-        this.load.image('login', 'login.png')
-        this.load.image('title', 'title.png')
-        this.load.image('socialMedia', 'socialMedia.png')
+        this.load.image('loginScreen', 'loginScreen.png')
+        this.load.image('titleScreen', 'titleScreen.png')
+        this.load.image('socialMediaScreen', 'socialMediaScreen.png')
         this.load.image('powerIcon', 'powerIcon.png')
         this.load.image('heartIcon', 'heartIcon.png')
         this.load.image('heartIconFilled', 'heartIconFilled.png')
@@ -145,6 +145,9 @@ export default class BootScene extends Phaser.Scene {
         this.load.image('chatBar', 'chatBar.png')
         this.load.image('homeIcon', 'homeIcon.png')
         this.load.image('optionsIcon', 'optionsIcon.png')
+
+        this.load.setPath('localization/structure/computer');
+        this.load.json('profilePictures', 'profilePictures.json');
     }
 
     loadPhoneAssets() {
@@ -206,7 +209,7 @@ export default class BootScene extends Phaser.Scene {
             // Namespaces que se cargan para cada uno de los idiomas
             ns: namespaces,
             // Mostrar informacion de ayuda por consola
-            debug: false,
+            debug: true,
             // Cargar las traducciones de un servidor especificado en vez de ponerlas directamente
             backend: {
                 // La ruta desde donde cargamos las traducciones
@@ -364,16 +367,25 @@ export default class BootScene extends Phaser.Scene {
                 "scene6/routeB/scene6EndingRouteB",
 
             "scene7/scene7Bedroom",
-            
+
+            "test"
         ]
         // Solo son namespaces del plugin i18next
         // Namespace --> test\\dialog.json
         let onlyNamespaces = [
             "names",
+
             "transitions",
+            
             "deviceInfo",
+
             "menus/titleScene",
-            "menus/loginScene"
+            "menus/loginScene",
+
+            "computer/loginScreen",
+            "computer/socialMediaScreen",
+            "computer/captions",
+            "computer/usernames"
         ]
 
         this.loadUIAssets();
