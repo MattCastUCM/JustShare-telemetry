@@ -1,7 +1,13 @@
-# ![Logo del juego](assets/UI/logo.png)
-JustShare es una novela visual con elementos de aventura gráfica en la que el jugador vivirá una serie de experiencias que lo ponen en la piel de una víctima de grooming. La historia mostrará todo el proceso, desde el momento en el que la víctima hace contacto con el acosador, hasta el desenlace final. Todo esto pasando por una serie de decisiones que deberá afrontar el jugador para definir el rumbo de la historia.
+<div align="center">
+    <img src="assets/UI/logo.png"/>
+  </a>
+</div>
 
-[Enlace al GDD](https://docs.google.com/document/d/1pFwej-RuA3686JPJ4lKe8V8vfW62Uw7AUn3cTTdq_K0/edit?usp=drive_link)
+# JustShare
+
+**JustShare** es una novela visual con elementos de aventura gráfica en la que el jugador vivirá una serie de experiencias que lo ponen en la piel de una **víctima de grooming**. La historia mostrará todo el proceso, desde el momento en el que la víctima hace contacto con el acosador, hasta el desenlace final. Todo esto pasando por una serie de decisiones que deberá afrontar el jugador para definir el rumbo de la historia.
+
+***[Enlace al GDD](https://docs.google.com/document/d/1pFwej-RuA3686JPJ4lKe8V8vfW62Uw7AUn3cTTdq_K0/edit?usp=drive_link)***
 
 ![Captura 1](docs/screenshots/ss1.png)
 ![Captura 1](docs/screenshots/ss2.png)
@@ -112,5 +118,5 @@ Para las fotos que se mandan los personajes por la aplicación de mensajería, s
 <br>
 
 ---
-<br>
+
 <p xmlns:cc="http://creativecommons.org/ns" >This work is licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/?ref=chooser-v1" target="_blank" rel="license noopener noreferrer" style="display:inline-block;">CC BY-NC-SA 4.0<img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/cc.svg?ref=chooser-v1" alt=""><img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/by.svg?ref=chooser-v1" alt=""><img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/nc.svg?ref=chooser-v1" alt=""><img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/sa.svg?ref=chooser-v1" alt=""></a></p>
