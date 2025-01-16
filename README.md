@@ -87,7 +87,7 @@ Para las fotos que se mandan los personajes por la aplicación de mensajería, s
         * world-www
 
     * [Burbujas de chat](https://www.freepik.com/free-vector/different-shape-message-bubbles-blue-grey_77988500.htm#fromView=search&page=1&position=1&uuid=ba9c721f-b2ff-44c3-b46e-2e8680285d1b)
-    * [Fuente del logo](https://font.download/font/corpid-light)
+    * [Fuente del logo y de las interfaces](https://font.download/font/corpid-light)
     * [Fuente de los diálogos](https://fonts.google.com/specimen/Roboto)
     * [Fotos de perfil por defecto](https://www.freepik.es/vector-gratis/circulos-usuarios-blanco_134996379.htm#fromView=search&page=1&position=4&uuid=dd0f32ad-fa89-406d-a854-53066bbcb378&new_detail=true)
 
