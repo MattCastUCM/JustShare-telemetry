@@ -316,8 +316,4 @@ export default class SocialMediaScreen extends BaseScreen {
             item.y += diffY / container.scale
         });
     }
-
-    ///////////////////////////////////////
-    /////// Metodos para los nodos ////////
-    //////////////////////////////////////
 }
