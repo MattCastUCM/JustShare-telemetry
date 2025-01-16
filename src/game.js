@@ -40,7 +40,7 @@ import Scene6Bedroom from "./scenes/gameLoop/scene6/scene6Bedroom.js";
 
     import Scene6LunchRouteB from "./scenes/gameLoop/scene6/routeB/scene6LunchRouteB.js";
     import Scene6BedroomRouteB from "./scenes/gameLoop/scene6/routeB/scene6BedroomRouteB.js";
-    import Scene6PoliceStationRouteB from "./scenes/gameLoop/scene6/routeB/Scene6PoliceStationRouteB.js";
+    import Scene6PoliceStationRouteB from "./scenes/gameLoop/scene6/routeB/scene6PoliceStationRouteB.js";
     import Scene6EndingRouteB from "./scenes/gameLoop/scene6/routeB/scene6EndingRouteB.js";
 
 // Escena 7

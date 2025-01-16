@@ -38,12 +38,7 @@ export default class Scene6LunchRouteB extends BaseScene {
         let nodes = this.cache.json.get('scene6LunchRouteB');
         let node = super.readNodes(nodes, "scene6\\routeB\\scene6LunchRouteB", "start", true);
 
-        // TEST
-        this.phoneManager.activatePhoneIcon(true);
-
         let chatName = this.gameManager.translate("textMessages.chat2", { ns: "deviceInfo", returnObjects: true });
-        this.phoneManager.phone.addChat(chatName, "harasserPfp");
-
         let phoneNode = super.readNodes(nodes, "scene6\\routeB\\scene6LunchRouteB", "phone", true);
         this.phoneManager.phone.setChatNode(chatName, phoneNode);
 
