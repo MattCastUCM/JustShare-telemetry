@@ -18,7 +18,29 @@
             "type": "chatMessage",
             "character": "",
             "chat": "chat3",
-            "replyDelay": 2000
+            "replyDelay": 2000,
+            "next": "addMomChat"
+        },
+        "addMomChat": {
+            "type": "event",
+            "events": [
+                {
+                    "addMomChat": {
+                        "delay": 2000
+                    }
+                }
+            ],
+            "next": "choices"
+        },
+        "choices": {
+            "type": "choice",
+            "choices": [
+                { "next": "cantAnswer" }
+            ]
+        },
+        "cantAnswer": {
+            "type": "text",
+            "character": ""
         }
     },
 
@@ -49,6 +71,17 @@
             "character": "",
             "chat": "chat3",
             "replyDelay": 2000,
+            "next": "choices"
+        },
+        "choices": {
+            "type": "choice",
+            "choices": [
+                { "next": "cantAnswer" }
+            ]
+        },
+        "cantAnswer": {
+            "type": "text",
+            "character": "",
             "next": "end"
         },
         "end": {
@@ -56,7 +89,7 @@
             "events": [
                 {
                     "end": {
-                        "delay": 7000
+                        "delay": 2000
                     }
                 }
             ]

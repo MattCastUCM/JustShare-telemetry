@@ -8,6 +8,14 @@
         },
         "msg3": {
             "text": "tu madre y yo estamos muy preocupados por ti"
+        },
+        "choices": [
+            {
+                "text": "..."
+            }
+        ],
+        "cantAnswer": {
+            "text": "No puedes responder."
         }
     },
     "mom": {
@@ -22,6 +30,14 @@
         },
         "msg4": {
             "text": "por favor contesta"
+        },
+        "choices": [
+            {
+                "text": "..."
+            }
+        ],
+        "cantAnswer": {
+            "text": "No puedes responder."
         }
     }
     
