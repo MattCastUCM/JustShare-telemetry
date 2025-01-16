@@ -264,7 +264,7 @@ export default class SocialMediaScreen extends BaseScreen {
     ///////// Metodos de utilidad /////////
     //////////////////////////////////////
 
-    createImageWithSideText(x, y, img, text, scale = 1) {
+    createImageWithSideText(x, y, img, text, scale = 1, origin = [0.5, 0.5]) {
         const OFFSET_X = 10
         const IMAGE_SCALE_MULTIPLIER = 1.6
         
@@ -293,10 +293,17 @@ export default class SocialMediaScreen extends BaseScreen {
         container.image = image
         container.text = textObject
 
-        let oldCenterX = (image.displayWidth + OFFSET_X) * scale
-        let newCenterX = width / 2
-        let oldCenterY = (Math.abs(imageHeight - textObject.displayHeight)) / 2 * scale
-        this.centerContainerItems(container, oldCenterX, newCenterX, oldCenterY, bounds.height / 2)
+        if (origin[0] == 0.5 && origin[1] == 0.5) {
+            let oldCenterX = (image.displayWidth + OFFSET_X) * scale
+            let newCenterX = width / 2
+            let oldCenterY = (Math.abs(imageHeight - textObject.displayHeight)) / 2 * scale
+            this.alignContainerItems(container, oldCenterX, newCenterX, oldCenterY, bounds.height / 2)
+        }
+        else if (origin[0] == 0 && origin[1] == 0.5) {
+            let oldCenterX = (image.displayWidth + OFFSET_X) * scale
+            let oldCenterY = (Math.abs(imageHeight - textObject.displayHeight)) / 2 * scale
+            this.alignContainerItems(container, oldCenterX, 0, oldCenterY, bounds.height / 2)
+        }
 
         return container
     }
@@ -306,7 +313,7 @@ export default class SocialMediaScreen extends BaseScreen {
         return this.createImageWithSideText(x, y, img, translate, scale)
     }
 
-    centerContainerItems(container, oldCenterX, newCenterX, oldCenterY, newCenterY) {
+    alignContainerItems(container, oldCenterX, newCenterX, oldCenterY, newCenterY) {
         // Centrar elmentos
         let diffX = oldCenterX - newCenterX;
         let diffY = oldCenterY - newCenterY

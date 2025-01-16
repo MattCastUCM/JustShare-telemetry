@@ -10,14 +10,17 @@ export default class Contact extends Phaser.GameObjects.Container {
 
         this.nNotifications = 0
 
-        const NOTIFICATION_OFFSET = 10
-
         let bg = this.createBackground(0, 0, width, height, onClick, [0.5, 0])
 
-        let profile = this.socialMediaScreen.createImageWithSideText(0, bg.displayHeight / 2, pfp, username, height / 100)
-        this.add(profile)
+        const PROFILE_OFFSET_X = 20
+        
+        let profile = this.socialMediaScreen.createImageWithSideText(-width / 2 + PROFILE_OFFSET_X, bg.displayHeight / 2, 
+            pfp, username, height / 100, [0, 0.5])
+            this.add(profile)
 
-        this.notificationsContainer = this.createNotificationIcon(profile.x + profile.width / 2 + NOTIFICATION_OFFSET, 
+        const NOTIFICATION_OFFSET = 10
+
+        this.notificationsContainer = this.createNotificationIcon(profile.x + profile.width + NOTIFICATION_OFFSET, 
             profile.y)
 
         this.h = bg.displayHeight

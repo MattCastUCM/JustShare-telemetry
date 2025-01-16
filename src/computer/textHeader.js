@@ -21,7 +21,7 @@ export default class TextHeader extends Phaser.GameObjects.Container {
         this.h = bounds.height
 
         // Centrar elmentos
-        this.socialMediaScreen.centerContainerItems(this, 0, bounds.width / 2, 0, -this.name.displayHeight / 2)
+        this.socialMediaScreen.alignContainerItems(this, 0, bounds.width / 2, 0, -this.name.displayHeight / 2)
     }
 
     createProfilePicture(x, y, pfp, origin = [0, 0]) {

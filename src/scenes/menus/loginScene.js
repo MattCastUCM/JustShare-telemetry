@@ -40,7 +40,7 @@ export default class LoginScene extends ComputerBaseScene {
 
         let acceptButton = this.createButton(0, sexualityContainer.y + sexualityContainer.height + OFFSET_Y * 1.5, 'acceptButton', () => {
             let errors = this.checkErrors(nameContainer, genderContainer, sexualityContainer);
-            if(!errors) {
+            if (!errors) {
                 this.startGame(nameContainer, genderContainer, sexualityContainer)
             }
         }, 0.8);
@@ -68,7 +68,7 @@ export default class LoginScene extends ComputerBaseScene {
 
     checkErrors(nameContainer, genderContainer, sexualityContainer) {
         const FADE_DURATION = 20;
-        const MAX_N_CHARACTERES = 8;
+        const MAX_N_CHARACTERES = 7;
         
         let errors = false;
 
