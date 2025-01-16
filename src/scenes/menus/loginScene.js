@@ -21,6 +21,7 @@ export default class LoginScene extends ComputerBaseScene {
         const X = this.CANVAS_WIDTH / 3;
         const Y = 2.55 * this.CANVAS_HEIGHT / 7;
         const SCALE = 0.8
+        
         const OFFSET_X = 70;
         const OFFSET_Y = 30;
 

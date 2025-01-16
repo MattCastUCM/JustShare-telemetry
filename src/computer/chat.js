@@ -20,7 +20,7 @@ export default class Chat extends Phaser.GameObjects.Container {
     }
 
     createChat(x, y, width, height) {
-        const PADDING = 10
+        const PADDING = -40
         const END_PADDING = 15
         
         let listView = new VerticalListView(this.scene, x, y,

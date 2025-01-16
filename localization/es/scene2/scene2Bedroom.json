@@ -27,6 +27,11 @@
         "msg3": {
             "text" : "No se puede tener mas mala suerte xd"
         },
+        "reply": [
+            {
+                "text": "Responder."
+            }
+        ],
         "msg4": {
             "text" : "Y la gente poniendo en los comentarios edits de los moñecos jajaja"
         },
@@ -97,6 +102,12 @@
         },
         "bye": {
             "text": "Chau"
+        }
+    },
+
+    "computerUnanswered": {
+        "root": {
+            "text": "(Antes de acostarme tengo que ver si me ha llegado el mensaje de <harasser, Pablo, Lucía>)."
         }
     }
 }

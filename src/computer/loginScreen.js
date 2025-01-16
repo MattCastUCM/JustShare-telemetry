@@ -7,12 +7,14 @@ export default class LoginScreen extends BaseScreen {
         const X = this.CANVAS_WIDTH / 3;
         const Y = 2.8 * this.CANVAS_HEIGHT / 7;
         const SCALE = 0.78
+
+        const OFFSET_X = 80
         const OFFSET_Y = 40;
 
         let container = this.scene.add.container(X, Y)
         this.add(container)
 
-        let nameInput = this.scene.createTextInputWithSideText(80, 0, "usernameInput", 1, true)
+        let nameInput = this.scene.createTextInputWithSideText(OFFSET_X, 0, "usernameInput", 1, true)
         nameInput.textInput.addText(this.username);
         container.add(nameInput);
 

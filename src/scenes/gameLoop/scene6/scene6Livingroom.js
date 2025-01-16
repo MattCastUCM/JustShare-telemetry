@@ -61,6 +61,11 @@ export default class Scene6Livingroom extends BaseScene {
 
         // Al producirse, se crean los elementos interactuables de la escena
         this.dispatcher.add("endConversation", this, () => {
+            // PEDRO
+            this.chatName = this.gameManager.translate("textMessages.chat2", { ns: "deviceInfo", returnObjects: true });
+            let chat = this.phoneManager.phone.chats.get(this.chatName);
+            chat.disableInteractive()
+
             this.phoneManager.icon.setInteractive();
 
             let generalNodes = this.cache.json.get('generalDialogs');

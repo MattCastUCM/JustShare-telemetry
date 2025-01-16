@@ -36,32 +36,37 @@ export default class Scene1Bedroom2 extends BaseScene {
         }, false);
         
         // Ordenador
+        this.computer.socialMediaScreen.addDirectChat("harasser")
         let pcNode = super.readNodes(nodes, "scene1\\scene1Bedroom2", "computer", true);
+        this.dialogManager.setNode(pcNode, []);
+
+        this.computer.socialMediaScreen.addPost("toniPost2", "toni")
+        let postNode = super.readNodes(nodes, "scene1\\scene1Bedroom2", "toniPost2", true);
+        this.dialogManager.setNode(postNode, []);
+
         super.createInteractiveElement(1390, 400, "pointer", 0.3, () => {
-            // PENDIENTE / TEST
-            this.phoneManager.activatePhoneIcon(true);
-            let chatName = this.gameManager.translate("textMessages.harasserUsername", { ns: "deviceInfo", returnObjects: true });
-            this.phoneManager.phone.addChat(chatName, "harasserPfp");
-            this.dialogManager.setNode(pcNode, []);
+            this.gameManager.switchToComputer()
         }, false);
 
         
         // Al producirse, se hace la animacion de cerrar los ojos
         this.dispatcher.add("endConversation", this, () => {
             this.UIManager.closeEyes(() => {
-                // Una vez termina la animacion, se introduce un retardo y cuando acaba,
-                // se cambia a la escena de transicion y luego a la escena del recreo del dia siguiente
-                setTimeout(() => {
-                    let params = {
-                        text: this.gameManager.translate("scene2.startWeek", { ns: "transitions", returnObjects: true }),
-                        onComplete: () => {
-                            // PENDIENTE / TEST
-                            this.UIManager.moveLids(true);
-                            this.gameManager.changeScene("Scene2Break");
-                        },
-                    };
-                    this.gameManager.changeScene("TextOnlyScene", params);
-                }, 1000);
+                this.gameManager.leaveComputer(() => {
+                    // Una vez termina la animacion, se introduce un retardo y cuando acaba,
+                    // se cambia a la escena de transicion y luego a la escena del recreo del dia siguiente
+                    setTimeout(() => {
+                        let params = {
+                            text: this.gameManager.translate("scene2.startWeek", { ns: "transitions", returnObjects: true }),
+                            onComplete: () => {
+                                // PENDIENTE / TEST
+                                this.UIManager.moveLids(true);
+                                this.gameManager.changeScene("Scene2Break");
+                            },
+                        };
+                        this.gameManager.changeScene("TextOnlyScene", params);
+                    }, 1000);
+                })
             });
         });
     }

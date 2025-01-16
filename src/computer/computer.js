@@ -11,7 +11,7 @@ export default class Computer extends ComputerBaseScene {
         super.create(params)
 
         const N_RANDOM_DIGITS = 2
-        this.username = this.gameManager.userInfo.name
+        this.username = this.gameManager.getUserInfo().name
         for(let i = 0; i < N_RANDOM_DIGITS; ++i) {
             this.username += this.getRandomInt(0, 9)
         }
@@ -28,11 +28,16 @@ export default class Computer extends ComputerBaseScene {
         this.changeToMainScreen()
     }
 
+    getUsername() {
+        return this.username
+    }
+
     changeToMainScreen() {
         if(this.loginScreen != null) {
             this.loginScreen.destroy()
             this.loginScreen = null
         }
         this.socialMediaScreen.setVisible(true)
+        this.socialMediaScreen.init()
     }
 }

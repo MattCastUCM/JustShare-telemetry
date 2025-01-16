@@ -11,6 +11,62 @@
         }
     },
 
+    "computerPosts": {
+        "toniPost1": {
+            "root": {
+                "text": "Juegazooo seguro" 
+            },
+            "comment2": {
+                "text": "Para cuando nuevo videoo???" 
+            },
+            "comment3": {
+                "text": "De donde es el juego?" 
+            }
+        },
+        "rndPost3": {
+            "root": {
+                "text": "Que chulo!!" 
+            },
+            "comment2": {
+                "text": "Que programa has usado para hacerlo?" 
+            },
+            "comment3": {
+                "text": "Es original tuyo??" 
+            }
+        }
+    },
+
+    "computerChats": {
+        "ana": {
+            "root": {
+                "text": "El ultimo vídeo de Toni me ha parecido bastante corto para lo que es el" 
+            },
+            "msg2": {
+                "text": "Seguramente sea porque ha subido muchos ultimamente y no le da para mas" 
+            },
+            "msg3": {
+                "text": "Puede ser puede ser a ver que tal el siguiente"
+            },
+            "msg4": {
+                "text": "Seguro que es increibleee"
+            }
+        },
+        "mike": {
+            "root": {
+                "text": "Yo creo que puedo ser facilmente el fan numero 1 de Toni, veo todos sus videos" 
+            },
+            "msg2": {
+                "text": "Yo tambien los veo pero seguramente hay gente mas fan que yo" 
+            },
+            "msg3": {
+                "text": "Yaaa, pero creeme el es el number 1"
+            },
+            "msg4": {
+                "text": "Ok ok jajaja"
+            }
+        }
+    },
+
     "computer1": {
         "root": {
             "text": "Hey, que tal?" 
@@ -211,12 +267,6 @@
         },
         "msg7": {
             "text": "Okayy, pues ya hablamos otro día :)"
-        }
-    },
-
-    "computerFinal": {
-        "root": {
-            "text": "Mejor no, ya es hora de dormir."
         }
     }
 }

@@ -8,18 +8,19 @@ export default class TitleScene extends ComputerBaseScene {
     create(params) {
         super.create(params)
         
-        const BUTTON_SCALE = 0.8
-        const BUTTON_OFFSET_Y = 70
+        const SCALE = 0.77
+        const OFFSET_Y = 90
 
         this.createBackground('titleScreen')
         this.setNamespace('menus/titleScene')
 
-       let playButton = this.createButton(this.CANVAS_WIDTH / 2.9, 3.1 * this.CANVAS_HEIGHT / 7, "playButton", () => {
+        let playButton = this.createButton(this.CANVAS_WIDTH / 2.9, 3.5 * this.CANVAS_HEIGHT / 8, "playButton", () => {
             this.gameManager.changeScene("LoginScene")
-        }, BUTTON_SCALE);
+        }, SCALE);
 
-        this.createButton(playButton.x, playButton.y + playButton.height + BUTTON_OFFSET_Y, 
-            "creditsButton", BUTTON_SCALE, () => {
-        }, BUTTON_SCALE);
+        this.createButton(playButton.x, playButton.y + playButton.height + OFFSET_Y, 
+            "creditsButton", () => {
+            this.gameManager.changeScene("CreditsScene")
+        }, SCALE);
     }
 }

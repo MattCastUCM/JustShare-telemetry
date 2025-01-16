@@ -338,7 +338,6 @@ export default class ChatScreen extends BaseScreen {
         // Crea la caja del mensaje y la anade a la lista
         let msg = new MessageBox(this.scene, text, character, name, 0, this.bg.displayWidth);
         this.messagesListView.addLastItem(msg);
-        //this.messagesListView.cropItems();
     }
 
     // Borra todas las notificaciones de este chat

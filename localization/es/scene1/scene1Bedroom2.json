@@ -11,6 +11,15 @@
         }
     },
 
+    "toniPost2": {
+        "root": {
+            "text": "Me encantooo, eres el mejor toni <3" 
+        },
+        "comment2": {
+            "text": "Ya estoy deseando que llegue mañana!!" 
+        }
+    },
+
     "computer": {
         "root": {
             "text": "Hey, que tal hoy en clase?"

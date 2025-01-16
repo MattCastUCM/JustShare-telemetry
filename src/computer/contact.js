@@ -24,8 +24,8 @@ export default class Contact extends Phaser.GameObjects.Container {
     }
 
     createNotificationIcon(x, y) {
-        const RADIUS = 16
-        const BORDER_WIDTH = 2
+        const RADIUS = 17
+        const BORDER_WIDTH = 1
         const LIMIT = 99
 
         let container = this.scene.add.container(x, y)
@@ -37,7 +37,8 @@ export default class Contact extends Phaser.GameObjects.Container {
 
         // Configuracion de texto para las notificaciones
         let style = { ...this.scene.style }
-        style.fontSize = '19px'
+        style.fontSize = '20px'
+        style.color = this.scene.colors.white.hex.get0x
 
         let numberText = this.scene.add.text(0, 0, '+' + LIMIT, style)
         numberText.setOrigin(0.5, 0.5);
@@ -61,9 +62,10 @@ export default class Contact extends Phaser.GameObjects.Container {
                 this.numberText.setText(this.nNotifications)
             }
             else {
-                this.setText('+' + LIMIT)
+                this.numberText.setText('+' + LIMIT)
             }
         }
+        
         container.addNotification = function() {
             ++this.nNotifications
             this.generateNotifications()

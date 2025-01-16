@@ -13,7 +13,7 @@ export default class TextHeader extends Phaser.GameObjects.Container {
         
         this.name = this.createName(this.profilePicture.displayWidth + NAME_OFFSET_X, this.profilePicture.y, username, [0, 0.5]) 
         
-        this.caption = this.createcaption(this.name.x, this.name.y + this.name.displayHeight / 2 + caption_OFFSET_Y, width, caption)
+        this.caption = this.createCaption(this.name.x, this.name.y + this.name.displayHeight / 2 + caption_OFFSET_Y, width, caption)
 
         this.setScale(scale)
 
@@ -44,7 +44,7 @@ export default class TextHeader extends Phaser.GameObjects.Container {
         return name
     }
 
-    createcaption(x, y, width, caption) {
+    createCaption(x, y, width, caption) {
         let container = this.scene.add.container(x, y)
 
         let style = { ...this.scene.style }

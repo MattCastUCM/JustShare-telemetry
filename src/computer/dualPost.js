@@ -55,6 +55,12 @@ export default class DualPost {
         this.feed.addCommentary()
     }
 
+    falsifyCommentaries(nCommentaries) {
+        for (let i = 0; i < nCommentaries; ++i) {
+            this.feed.addCommentary()
+        }
+    }
+
     setCommentaryNode(node) {
         this.currNode = node
         this.processNode()
@@ -98,10 +104,15 @@ export default class DualPost {
             else if (this.currNode.type === "text") {
                 this.scene.dialogManager.currNode = this.currNode;
                 this.selected.restartSendCommentAnim()
+                this.scene.dialogManager.disableInteraction();
             }
             else {
                 this.selected.restartSendCommentAnim()
+                this.scene.dialogManager.disableInteraction();
             }
+        }
+        else {
+            this.scene.dialogManager.disableInteraction();
         }
     }
 

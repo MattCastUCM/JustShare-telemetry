@@ -37,9 +37,7 @@ export default class SocialMediaScreen extends BaseScreen {
 
         this.feedListView = this.createFeed(this.FEED_CENTER_X, this.TOP_BAR_BOTTOM_Y, this.FEED_WIDTH, 
             this.SCREEN_HEIGHT, this.POST_WIDTH)
-            
-        this.addPost("post1", "harasser", 'loadscreen')
-            
+                        
         // Mensajes directos
         this.directChats = new Map();
 
@@ -48,16 +46,10 @@ export default class SocialMediaScreen extends BaseScreen {
         this.contactZoneListview = this.createDmZone(this.CONTACT_ZONE_CENTER_X, this.ZONE_HEADER_BOTTOM_Y, 
             this.CONTACT_ZONE_WIDTH, this.ZONE_HEIGHT)
 
-        this.addDirectChat("harasser")
-
         // Iconos menu izquierda
         this.createMenu(() => {
             this.reset()
         })
-        
-        let nodes = this.scene.cache.json.get('test');
-        let phoneNode = this.scene.readNodes(nodes, "test", "phone", true);
-        this.dialogManager.setNode(phoneNode, []);
     }
 
     reset() {
@@ -102,10 +94,10 @@ export default class SocialMediaScreen extends BaseScreen {
         // Boton para subir un post
         let generalDialogsId = 'generalDialogs'
         let generalNodes = this.scene.cache.json.get(generalDialogsId);
-        let noPostNode = this.readNodes(generalNodes, generalDialogsId, "noPost");
+        let noPostNode = this.scene.readNodes(generalNodes, generalDialogsId, "post", true);
 
         let button = this.scene.createButton(profile.x, this.TASK_BAR_TOP_Y - BUTTON_OFFSET_Y, "shareButton", () => {
-            this.setNode(noPostNode)
+            this.scene.dialogManager.setNode(noPostNode, [])
         }, BUTTON_SCALE)
         button.y -= button.height / 2
         this.add(button)
@@ -164,7 +156,7 @@ export default class SocialMediaScreen extends BaseScreen {
     }
 
     addDirectChat(usernameId) {
-        const DIRECT_MESSAGE_HEIGHT = 80
+        const DIRECT_MESSAGE_HEIGHT = 72
 
         if(!this.directChats.has(usernameId)) {  
             let pfp = this.pfpsFile[usernameId]
@@ -194,6 +186,13 @@ export default class SocialMediaScreen extends BaseScreen {
         });
     }
 
+    clearChatNotifications(usernameId) {
+        if(this.directChats.has(usernameId)) {
+            let directchat = this.directChats.get(usernameId)
+            directchat.clearNotifications()
+        }
+    }
+
     ///////////////////////////////////////
     //////// Metodos para el feed /////////
     //////////////////////////////////////
@@ -217,7 +216,9 @@ export default class SocialMediaScreen extends BaseScreen {
         if(!this.posts.has(postId)) {
             let pfp = this.pfpsFile[usernameId]
             let username = this.scene.translateWithNamespace(usernameId, this.NAMESPACE_PREFIX + 'usernames')
-            let caption = this.scene.translateWithNamespace(postId, this.NAMESPACE_PREFIX + 'captions')
+            let caption = this.scene.translateWithNamespace(postId, this.NAMESPACE_PREFIX + 'captions', { 
+                name: this.scene.gameManager.getUserInfo().name, 
+            })
 
             let post = new DualPost(this, this.FEED_CENTER_X, this.TOP_BAR_BOTTOM_Y + SELECTED_POST_OFFSET_Y, pfp, username,
                 caption, picture, POST_WIDTH, this.TASK_BAR_TOP_Y)
@@ -226,7 +227,14 @@ export default class SocialMediaScreen extends BaseScreen {
 
             this.add(post.selected)
             
-            this.feedListView.addLastItem(post.feed, post.feed.hits)
+            this.feedListView.addFirstItem(post.feed, post.feed.hits)
+        }
+    }
+
+    falsifyCommentaries(postId, nCommentaries) {
+        if(this.posts.has(postId)) {
+            let post = this.posts.get(postId)
+            post.falsifyCommentaries(nCommentaries)
         }
     }
 
@@ -312,12 +320,4 @@ export default class SocialMediaScreen extends BaseScreen {
     ///////////////////////////////////////
     /////// Metodos para los nodos ////////
     //////////////////////////////////////
-
-    setNode(node) {
-        this.dialogManager.setNode(node, []) 
-    }
-
-    readNodes(file, namespace, objectName) {
-        return this.scene.readNodes(file, namespace, objectName, true);
-    }
 }

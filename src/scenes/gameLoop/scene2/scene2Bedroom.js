@@ -36,20 +36,31 @@ export default class Scene2Bedroom extends BaseScene {
         }, false);
         
         // Ordenador
+        this.computer.socialMediaScreen.addDirectChat("harasser")
         let pcNode = super.readNodes(nodes, "scene2\\scene2Bedroom", "computer", true);
+        this.dialogManager.setNode(pcNode, [])
+
+        let canUseComputer = true
+        
         super.createInteractiveElement(1390, 400, "pointer", 0.3, () => {
-            // PENDIENTE / TEST
-            this.phoneManager.activatePhoneIcon(true);
-            let chatName = this.gameManager.translate("textMessages.harasserUsername", { ns: "deviceInfo", returnObjects: true });
-            this.phoneManager.phone.addChat(chatName, "harasserPfp");
-            this.dialogManager.setNode(pcNode, []);
+            if (canUseComputer) {
+                this.gameManager.switchToComputer()
+            }
+            else {
+                this.dialogManager.setNode(pcNode, [])
+            }
         }, false);
         
 
         // Al producirse, aparece el icono del telefono y se recibe un mensaje
         this.dispatcher.add("endConversation", this, () => {
+            pcNode = super.readNodes(nodes, "scene2\\scene2Bedroom", "computerUnanswered", true);
+            canUseComputer = false
+
+            bedNode = super.readNodes(nodes, "scene2\\scene2Bedroom", "bedUnanswered", true);
+
             this.phoneManager.activatePhoneIcon(true);
-            // TEST
+
             let chatName = this.gameManager.translate("textMessages.chat2", { ns: "deviceInfo", returnObjects: true });
             let phoneNode = super.readNodes(nodes, "scene2\\scene2Bedroom", "phone", true);
             this.phoneManager.phone.addChat(chatName, "harasserPfp");
@@ -60,6 +71,7 @@ export default class Scene2Bedroom extends BaseScene {
         
         // Al producirse, se cambian los nodos de la cama y el armario
         this.dispatcher.add("chatEnded", this, () =>{
+            pcNode = super.readNodes(generalNodes, "generalDialogs", "computerNight", true);
             bedNode = super.readNodes(generalNodes, "generalDialogs", "bed", true);
             closetNode = super.readNodes(generalNodes, "generalDialogs", "closetNight", true);
         });

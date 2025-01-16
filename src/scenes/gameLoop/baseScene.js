@@ -25,6 +25,7 @@ export default class BaseScene extends Phaser.Scene {
         this.dialogManager = this.UIManager.dialogManager;
         this.phoneManager = this.UIManager.phoneManager;
         this.dispatcher = this.gameManager.dispatcher;
+        this.computer = this.gameManager.computer
 
         // Obtiene el plugin de i18n del GameManager
         this.i18next = this.gameManager.i18next;
@@ -42,7 +43,7 @@ export default class BaseScene extends Phaser.Scene {
             scale: this.PORTRAIT_SCALE
         };
 
-        // Blackboard de variables dela escena actual
+        // Blackboard de variables de la escena actual
         this.blackboard = new Map();
 
         this.scale = 1;
@@ -403,29 +404,32 @@ export default class BaseScene extends Phaser.Scene {
             if (phone != null) {
                 node.phone = phone
             }
-                
-            if (node.phone) {
-                if (character === "player") {
-                    node.name = this.gameManager.getUserInfo().name;
-                }
-                else {
-                    node.name = this.gameManager.translate(fileObj[id].character, { 
-                        ns: "names" 
-                    });
-                }
-            }
-            else {
-                if (character === "player") {
-                    node.name = this.gameManager.computer.username
-                }
-                else {
-                    node.name = this.gameManager.translate(character, { 
-                        ns: "computer\\usernames",
-                    });
-                }
-            }
 
+            node.name = ""    
             node.character = character;
+            
+            if(node.character != "") {
+                if (node.phone) {
+                    if (character === "player") {
+                        node.name = this.gameManager.getUserInfo().name;
+                    }
+                    else {
+                        node.name = this.gameManager.translate(fileObj[id].character, { 
+                            ns: "names" 
+                        });
+                    }
+                }
+                else {
+                    if (character === "player") {
+                        node.name = this.computer.getUsername()
+                    }
+                    else {
+                        node.name = this.gameManager.translate(character, { 
+                            ns: "computer\\usernames",
+                        });
+                    }
+                }
+            }
 
             node.chat = fileObj[id].chat
             // Guarda el chat en el que tiene que ir la respuesta y el retardo con el que se envia
@@ -461,7 +465,7 @@ export default class BaseScene extends Phaser.Scene {
             node.character = fileObj[id].character;
 
             if(node.character == 'player') {
-                node.name = this.gameManager.computer.username
+                node.name = this.computer.getUsername()
                 node.pfp = 'unknownPfp'
             }
             else {    

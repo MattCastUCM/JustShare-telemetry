@@ -49,45 +49,76 @@ export default class Scene1Bedroom1 extends BaseScene {
         super.createInteractiveElement(790, 550, "pointer", 0.3, () => {
             this.dialogManager.setNode(bedNode, []);
         }, false);
-        
+
 
         // Ordenador
+        // Chats
+        this.computer.socialMediaScreen.addDirectChat("ana")
+        let chatNode = super.readNodes(nodes, "scene1\\scene1Bedroom1", "computerChats.ana", true);
+        this.dialogManager.setNode(chatNode, []);
+
+        this.computer.socialMediaScreen.addDirectChat("harasser")
         let pcNode = super.readNodes(nodes, "scene1\\scene1Bedroom1", "computer1", true);
+        this.dialogManager.setNode(pcNode, []);
+
+        this.computer.socialMediaScreen.addDirectChat("mike")
+        chatNode = super.readNodes(nodes, "scene1\\scene1Bedroom1", "computerChats.mike", true);
+        this.dialogManager.setNode(chatNode, []);
+
+        // Posts
+        this.computer.socialMediaScreen.addPost("rndPost1", "ana")
+
+        this.computer.socialMediaScreen.addPost("toniPost1", "toni", "puzzleBooblePicture")
+        let postNode = super.readNodes(nodes, "scene1\\scene1Bedroom1", "computerPosts.toniPost1", true);
+        this.dialogManager.setNode(postNode, []);
+
+        this.computer.socialMediaScreen.addPost("rndPost2", "mike")
+        
+        this.computer.socialMediaScreen.addPost("rndPost3", "mary", "seaPicture")
+        postNode = super.readNodes(nodes, "scene1\\scene1Bedroom1", "computerPosts.rndPost3", true);
+        this.dialogManager.setNode(postNode, []);
+
+        let canUseComputer = true
+
         super.createInteractiveElement(1390, 400, "pointer", 0.3, () => {
-            // PENDIENTE / TEST
-            // this.phoneManager.activatePhoneIcon(true);
-            // let chatName = this.gameManager.translate("textMessages.harasserUsername", { ns: "deviceInfo", returnObjects: true });
-            // this.phoneManager.phone.addChat(chatName, "harasserPfp");
-            // this.dialogManager.setNode(pcNode, []);
-            this.gameManager.switchToComputer()
+            if(canUseComputer) {
+                this.gameManager.switchToComputer()
+            }
+            else {
+                this.dialogManager.setNode(pcNode, []);
+            }
         }, false);
         
 
         this.dispatcher.add("answerDoor", this, () => {
-            // TEST
-            this.phoneManager.togglePhone();
-
-            let node = super.readNodes(nodes, "scene1\\scene1Bedroom1", "interruption", true);
-            this.dialogManager.setNode(node, [momPortrait, dadPortrait]);
-
-            pcNode = super.readNodes(nodes, "scene1\\scene1Bedroom1", "homework", true);
+            canUseComputer = false
+            this.gameManager.leaveComputer(() => {
+                let node = super.readNodes(nodes, "scene1\\scene1Bedroom1", "interruption", true);
+                this.dialogManager.setNode(node, [momPortrait, dadPortrait]);
+    
+                pcNode = super.readNodes(nodes, "scene1\\scene1Bedroom1", "homework", true);
+            })
         });
 
         // Al producirse, se cambia el dialogo de la cama
         this.dispatcher.add("endHomework", this, () => {
-            let node = super.readNodes(nodes, "scene1\\scene1Bedroom1", "computer2", true);
-            let chatName = this.gameManager.translate("textMessages.harasserUsername", { ns: "deviceInfo", returnObjects: true });
+            canUseComputer = true
 
-            // TEST
-            this.phoneManager.phone.setChatNode(chatName, node);
+            let node = super.readNodes(nodes, "scene1\\scene1Bedroom1", "computer2", true);
+            this.computer.socialMediaScreen.setChatNode("harasser", node)
         });
 
         // Al producirse, se cambia el dialogo de la cama
         this.dispatcher.add("endConversation", this, () => {
+            canUseComputer = false
+            pcNode = super.readNodes(generalNodes, "generalDialogs", "computerNight", true);
+            
             let depth = bg.depth;
             bg.destroy();
             bg = this.add.image(0, 0, 'bedroomNightBg').setOrigin(0, 0).setDepth(depth - 1);
             bedNode = super.readNodes(generalNodes, "generalDialogs", "bed", true);
+            
+            this.gameManager.leaveComputer()
         });
 
         // Al producirse, se hace la animacion de cerrar los ojos

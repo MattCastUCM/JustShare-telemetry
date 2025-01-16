@@ -331,15 +331,14 @@ export default class DialogManager {
                 else if (this.currNode.type === "chatMessage") {
                     if (this.currNode.phone) {
                         this.scene.phoneManager.phone.setChatNode(this.currNode.chat, this.currNode);
+                        this.bgBlock.disableInteractive();
                     }
                     else {
                         this.gameManager.computer.socialMediaScreen.setChatNode(this.currNode.chat, this.currNode);   
                     }
-                    this.bgBlock.disableInteractive();
                 }
                 else if (this.currNode.type === "commentary") {
                     this.gameManager.computer.socialMediaScreen.setCommentaryNode(this.currNode.post, this.currNode);
-                    this.bgBlock.disableInteractive();
                 } 
         }
         // Se ha acabado el dialogo o se ha pasado un nodo invalido
@@ -473,5 +472,9 @@ export default class DialogManager {
     */
     isTalking() {
         return this.textbox.box.visible && this.textbox.box.alpha > 0 && this.currNode != null;
+    }
+
+    disableInteraction() {
+        this.bgBlock.disableInteractive()
     }
 }

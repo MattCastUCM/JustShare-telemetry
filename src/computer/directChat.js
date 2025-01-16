@@ -31,8 +31,13 @@ export default class DirectChat {
     }
 
     addMessage(text, character, name) {
-        if(!this.chat.visible && character != "player") {
-            this.contact.addNotification()
+        if(!this.chat.visible) {
+            if (character != "player") {
+                this.contact.addNotification()
+            }
+            else {
+                this.contact.clearNotifications()
+            }
         }
         this.chat.addMessage(text, character, name)
     }
@@ -84,10 +89,15 @@ export default class DirectChat {
             else if (this.currNode.type === "text") {
                 this.scene.dialogManager.currNode = this.currNode;
                 this.chat.restartChatAnim()
+                this.scene.dialogManager.disableInteraction();
             }
             else {
                 this.chat.restartChatAnim()
+                this.scene.dialogManager.disableInteraction();
             }
+        }
+        else {
+            this.scene.dialogManager.disableInteraction();
         }
     }
 

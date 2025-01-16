@@ -24,8 +24,6 @@ export default class Post extends Phaser.GameObjects.Container {
     }
 
     init() {
-        const IMAGE_OFFSET_Y = 10
-
         const ICON_OFFSET_X = 25
         const ICON_OFFSET_Y = 5
 
@@ -37,10 +35,14 @@ export default class Post extends Phaser.GameObjects.Container {
         let lastItemY = this.textHeader.caption.y
         let lastItemHeight = this.textHeader.caption.height
 
-        if(this.params.picture) {
+        if (this.params.picture) {
+            const PICTURE_RIGHT_PADDING = 60
+            const PICTURE_OFFSET_Y = 10
+
             this.addToUpdateList();
 
-            this.createPicture(lastItemX, lastItemY + lastItemHeight + IMAGE_OFFSET_Y, this.params.picture, this.params.width)
+            this.createPicture(lastItemX, lastItemY + lastItemHeight + PICTURE_OFFSET_Y, this.params.picture, 
+                this.params.width - PICTURE_RIGHT_PADDING)
             
             lastItemX = this.image.x
             lastItemY = this.image.y

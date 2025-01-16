@@ -52,6 +52,7 @@ import UIManager from './managers/UIManager.js';
 // Menus
 import TitleScene from "./scenes/menus/titleScene.js";
 import LoginScene from "./scenes/menus/loginScene.js";
+import CreditsScene from "./scenes/menus/creditsScene.js";
 
 // Ordenador
 import Computer from "./computer/computer.js";
@@ -70,7 +71,7 @@ const config = {
         BootScene,
         
         // Menus
-        TitleScene, LoginScene,
+        TitleScene, LoginScene, CreditsScene,
 
         // Escena 1
         Scene1Classroom, Scene1Break, Scene1Lunch1, Scene1Bedroom1, Scene1Lunch2, Scene1Bedroom2,
@@ -91,6 +92,7 @@ const config = {
         
         // Ordenador
         Computer,
+        
         // UI
         UIManager, TextOnlyScene
     ],

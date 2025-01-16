@@ -44,7 +44,11 @@ export default class GameManager {
         this.computer = null;
 
         // Informacion del usuario
-        this.userInfo = null;
+        this.userInfo = {
+            name: null,
+            gender: null,
+            harasser: null
+        };
 
         // Configuracion de texto por defecto
         this.textConfig = {
@@ -99,23 +103,25 @@ export default class GameManager {
         this.computer = this.currentScene.scene.get(computerSceneName);
         this.computer.scene.sleep();
 
-        this.changeScene("Scene1Lunch1", {});
+        this.changeScene("Scene6Livingroom", {});
     }
 
-
-    startGame(userInfo) {
-        // // TEST
-        // this.startTestScene();
-        // return;
-        
-        this.blackboard.clear();
-        this.userInfo = userInfo;
-
-        // IMPORTANTE: Hay que lanzar primero el UIManager para que se inicialice
-        // el DialogManager y las escenas puedan crear los dialogos correctamente
+    startTitleScene() {
         let UIsceneName = 'UIManager';
         this.currentScene.scene.launch(UIsceneName);
         this.UIManager = this.currentScene.scene.get(UIsceneName);
+
+        let computerSceneName = 'Computer';
+        this.currentScene.scene.run(computerSceneName);
+        this.computer = this.currentScene.scene.get(computerSceneName);
+        this.computer.scene.sleep();
+
+        this.changeScene("TitleScene", {});
+    }
+
+    startGame(userInfo) {
+        this.blackboard.clear();
+        this.userInfo = userInfo;
 
         // Pasa a la escena inicial con los parametros text, onComplete y onCompleteDelay
         let params = {
@@ -202,7 +208,7 @@ export default class GameManager {
     }
     
 
-    switchToComputer() {
+    switchToComputer(onWake) {
         // Reproduce un fade out al cambiar de escena
         let FADE_OUT_TIME = 200;
         let FADE_IN_TIME = 200;
@@ -222,11 +228,15 @@ export default class GameManager {
             this.computer.events.once('wake', () => {
                 this.computer.cameras.main.fadeIn(FADE_IN_TIME, 0, 0, 0);    
                 this.fading = false;   
+
+                if (onWake) {
+                    onWake()
+                }
             });
         })
     }
 
-    leaveComputer() {
+    leaveComputer(onWake) {
         // Reproduce un fade out al cambiar de escena
         let FADE_OUT_TIME = 200;
         let FADE_IN_TIME = 200;
@@ -245,6 +255,10 @@ export default class GameManager {
                 this.UIManager.phoneManager.activatePhoneIcon(true)
                 this.currentScene.cameras.main.fadeIn(FADE_IN_TIME, 0, 0, 0);    
                 this.fading = false;   
+
+                if (onWake) {
+                    onWake()
+                }
             });
         })
     }

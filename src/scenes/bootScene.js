@@ -133,6 +133,8 @@ export default class BootScene extends Phaser.Scene {
         this.load.image('loginScreen', 'loginScreen.png')
         this.load.image('titleScreen', 'titleScreen.png')
         this.load.image('socialMediaScreen', 'socialMediaScreen.png')
+        this.load.image('creditsScreen', 'creditsScreen.png')
+
         this.load.image('powerIcon', 'powerIcon.png')
         this.load.image('heartIcon', 'heartIcon.png')
         this.load.image('heartIconFilled', 'heartIconFilled.png')
@@ -140,11 +142,15 @@ export default class BootScene extends Phaser.Scene {
         this.load.image('messageIconFilled', 'messageIconFilled.png')
         this.load.image('manIcon', 'manIcon.png')
         this.load.image('womanIcon', 'womanIcon.png')
+        this.load.image('homeIcon', 'homeIcon.png')
+        this.load.image('optionsIcon', 'optionsIcon.png')
+
         this.load.image('sendComment', 'sendComment.png')
         this.load.image('sendDirectMessage', 'sendDirectMessage.png')
         this.load.image('chatBar', 'chatBar.png')
-        this.load.image('homeIcon', 'homeIcon.png')
-        this.load.image('optionsIcon', 'optionsIcon.png')
+
+        this.load.image('seaPicture', 'seaPicture.png')
+        this.load.image('puzzleBooblePicture', 'puzzleBooblePicture.jpeg')
 
         this.load.setPath('localization/structure/computer');
         this.load.json('profilePictures', 'profilePictures.json');
@@ -209,7 +215,7 @@ export default class BootScene extends Phaser.Scene {
             // Namespaces que se cargan para cada uno de los idiomas
             ns: namespaces,
             // Mostrar informacion de ayuda por consola
-            debug: false,
+            debug: true,
             // Cargar las traducciones de un servidor especificado en vez de ponerlas directamente
             backend: {
                 // La ruta desde donde cargamos las traducciones
@@ -390,6 +396,7 @@ export default class BootScene extends Phaser.Scene {
 
             "menus/titleScene",
             "menus/loginScene",
+            "menus/creditsScene",
 
             "computer/loginScreen",
             "computer/socialMediaScreen",
@@ -436,8 +443,9 @@ export default class BootScene extends Phaser.Scene {
             let gameManager = GameManager.create(this);
             
             // TEST
-            gameManager.startTestScene();
-            // gameManager.changeScene("TitleScene");
+            // gameManager.startTestScene();
+
+            gameManager.startTitleScene();
         })
     }
 }
