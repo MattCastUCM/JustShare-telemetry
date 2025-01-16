@@ -1,4 +1,24 @@
 {
+    "lauraChat": {
+        "root": {
+            "text": "No te olvides de mandarme la foto de Toni ;)"
+        },
+        "choices": [
+            {
+                "text": "Mandar la foto de Toni y Mila."
+            }
+        ],
+        "photo": {
+            "text": "[toniPhoto]"
+        },
+        "msg3": {
+            "text": "Que envidia!"
+        },
+        "msg4": {
+            "text": "Gracias por la foto, ya no te molesto mas que tenemos que hacer deberes >_<"
+        }
+    },
+    
     "phone": {
         "root": {
             "text": "Pense que igual te apetecía dar el siguiente paso juntos"

@@ -24,13 +24,7 @@ export default class Scene6BedroomRouteB extends BaseScene {
         let nodes = this.cache.json.get('scene6BedroomRouteB');
         let generalNodes = this.cache.json.get('generalDialogs');
 
-
-        // TEST
-        this.phoneManager.activatePhoneIcon(true);
-
         let chatName = this.gameManager.translate("textMessages.chat2", { ns: "deviceInfo", returnObjects: true });
-        this.phoneManager.phone.addChat(chatName, "harasserPfp");
-
         let phoneNode = super.readNodes(nodes, "scene6\\routeB\\scene6BedroomRouteB", "harasserChat", true);
         this.dialogManager.setNode(phoneNode, []);
 

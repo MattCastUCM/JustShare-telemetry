@@ -30,11 +30,8 @@ export default class Scene4Frontyard extends BaseScene {
         let nodes = this.cache.json.get('scene4Frontyard');
         let node = super.readNodes(nodes, "scene4\\scene4Frontyard", "main", true);
 
-        // TEST
-        this.phoneManager.activatePhoneIcon(true);
-        this.chatName = this.gameManager.translate("textMessages.chat2", { ns: "deviceInfo", returnObjects: true });
-        this.phoneManager.phone.addChat(this.chatName, "harasserPfp");
         
+        this.chatName = this.gameManager.translate("textMessages.chat2", { ns: "deviceInfo", returnObjects: true });
         let phoneNode = super.readNodes(nodes, "scene4\\scene4Frontyard", "fill", true);
         this.dialogManager.setNode(phoneNode, []);
         

@@ -23,6 +23,11 @@ export default class Scene6Bedroom extends BaseScene {
         let nodes = this.cache.json.get('scene6Bedroom');
         let generalNodes = this.cache.json.get('generalDialogs');
 
+        this.chatName = this.gameManager.translate("textMessages.chat2", { ns: "deviceInfo", returnObjects: true });
+        let phoneNode = super.readNodes(nodes, "scene6\\scene6Bedroom", "phone", true);
+        this.dialogManager.setNode(phoneNode, []);
+
+
         // Armario
         let closetNode = super.readNodes(nodes, "scene6\\scene6Bedroom", "closet", true);
         super.createInteractiveElement(240, 400, "pointer", 0.3, () => {
@@ -34,15 +39,6 @@ export default class Scene6Bedroom extends BaseScene {
         super.createInteractiveElement(790, 550, "pointer", 0.3, () => {
             this.dialogManager.setNode(bedNode, []);
         }, false);
-        
-
-        // TEST
-        this.phoneManager.activatePhoneIcon(true);
-        this.chatName = this.gameManager.translate("textMessages.chat2", { ns: "deviceInfo", returnObjects: true });
-        this.phoneManager.phone.addChat(this.chatName, "harasserPfp");
-
-        let phoneNode = super.readNodes(nodes, "scene6\\scene6Bedroom", "phone", true);
-        this.dialogManager.setNode(phoneNode, []);
         
 
         // Al producirse, se cambian los dialogos de la cama y el armario
@@ -87,8 +83,8 @@ export default class Scene6Bedroom extends BaseScene {
         });
     }
 
-    // Quitar notificaciones de los mensajes anteriores
     onCreate() {
+        // Quitar notificaciones de los mensajes anteriores
         this.phoneManager.phone.toChatScreen(this.chatName);
         setTimeout(() => {
             this.phoneManager.phone.toMessagesListScreen();

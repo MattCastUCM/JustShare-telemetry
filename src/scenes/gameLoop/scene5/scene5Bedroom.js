@@ -36,11 +36,7 @@ export default class Scene5Bedroom extends BaseScene {
         }, false);
         
 
-        // TEST
-        this.phoneManager.activatePhoneIcon(true);
         this.chatName = this.gameManager.translate("textMessages.chat2", { ns: "deviceInfo", returnObjects: true });
-        this.phoneManager.phone.addChat(this.chatName, "harasserPfp");
-
         let phoneNode = super.readNodes(nodes, "scene5\\scene5Bedroom", "phone", true);
         this.dialogManager.setNode(phoneNode, []);
         
@@ -70,8 +66,8 @@ export default class Scene5Bedroom extends BaseScene {
         });
     }
 
-    // Quitar notificaciones de los mensajes anteriores
     onCreate() {
+        // Quitar notificaciones de los mensajes anteriores
         this.phoneManager.phone.toChatScreen(this.chatName);
         setTimeout(() => {
             this.phoneManager.phone.toMessagesListScreen();

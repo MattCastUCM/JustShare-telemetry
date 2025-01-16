@@ -32,13 +32,14 @@ export default class Phone extends Phaser.GameObjects.Container {
     reset() {
         if (this.messagesScreen != null) {
             this.messagesScreen.destroy();
-        }
-        this.messagesScreen = new MessagesScreen(this.scene, this, null);
-        
+        }        
         this.chats.forEach((chat) => {
             chat.setNode(null);
+            chat.destroy();
         });
-
+        this.chats.clear();
+        
+        this.messagesScreen = new MessagesScreen(this.scene, this, null);
         this.add(this.messagesScreen);
 
         // Se pone la imagen del telefono por encima de todo

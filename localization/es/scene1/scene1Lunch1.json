@@ -55,7 +55,7 @@
                 "text": "Ya te gustaría. Mañana por la mañana llega tu abuela."
             },
             {
-                "text": "Así qué más te vale portarte bien, que la pobre mujer está muy mayor."
+                "text": "Así que más te vale portarte bien, que la pobre mujer está muy mayor."
             }
         ],
         "disappointed": {
@@ -97,7 +97,7 @@
     
     "unanswered": {
         "root": {
-            "text": "(Debería contestar al teléfono)."
+            "text": "(Alguien me está escribiendo por teléfono)."
         }
     }
 }

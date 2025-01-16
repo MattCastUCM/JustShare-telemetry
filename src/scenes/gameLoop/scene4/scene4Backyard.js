@@ -26,15 +26,14 @@ export default class Scene4Backyard extends BaseScene {
         lauraPortrait.setFlipX(true);
         this.portraits.set("laura", lauraPortrait);
 
-        // TEST
-        this.phoneManager.activatePhoneIcon(true);
-        this.chatName = this.gameManager.translate("textMessages.chat2", { ns: "deviceInfo", returnObjects: true });
-        this.phoneManager.phone.addChat(this.chatName, "harasserPfp");
-        
         
         // Lee el archivo de nodos
         this.nodes = this.cache.json.get('scene4Backyard');
         
+        this.chatName = this.gameManager.translate("textMessages.chat2", { ns: "deviceInfo", returnObjects: true });
+        this.phoneManager.phone.addChat(this.chatName, "harasserPfp");
+
+
         this.addClassmates();
 
         // Al producirse, oculta la caja de texto

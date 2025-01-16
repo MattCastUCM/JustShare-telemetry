@@ -19,15 +19,12 @@ export default class Scene4Bedroom extends BaseScene {
         bg.setScale(this.scale);
         
 
-        // TEST
-        this.phoneManager.activatePhoneIcon(true);
-        this.chatName = this.gameManager.translate("textMessages.chat2", { ns: "deviceInfo", returnObjects: true });
-        this.phoneManager.phone.addChat(this.chatName, "harasserPfp");
-
-
         // Lee el archivo de nodos
         let nodes = this.cache.json.get('scene4Bedroom');
         let generalNodes = this.cache.json.get('generalDialogs');
+
+        this.chatName = this.gameManager.translate("textMessages.chat2", { ns: "deviceInfo", returnObjects: true });
+
 
         // Armario
         let closetNode = super.readNodes(generalNodes, "generalDialogs", "closet", true);

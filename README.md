@@ -2,17 +2,23 @@
     <img src="assets/UI/logo.png"/>
   </a>
 </div>
+<br>
 
-# JustShare
+# 
 
 **JustShare** es una novela visual con elementos de aventura gráfica en la que el jugador vivirá una serie de experiencias que lo ponen en la piel de una **víctima de grooming**. La historia mostrará todo el proceso, desde el momento en el que la víctima hace contacto con el acosador, hasta el desenlace final. Todo esto pasando por una serie de decisiones que deberá afrontar el jugador para definir el rumbo de la historia.
 
-***[Enlace al GDD](https://docs.google.com/document/d/1pFwej-RuA3686JPJ4lKe8V8vfW62Uw7AUn3cTTdq_K0/edit?usp=drive_link)***
+### ***[Enlace al GDD](docs/GDD.pdf)***
+[Enlace al GDD en Google Docs](https://docs.google.com/document/d/1pFwej-RuA3686JPJ4lKe8V8vfW62Uw7AUn3cTTdq_K0/edit?usp=drive_link)
 
-![Captura 1](docs/screenshots/ss1.png)
-![Captura 1](docs/screenshots/ss2.png)
-![Captura 1](docs/screenshots/ss3.png)
 
+|                                        |                                        |
+|----------------------------------------|----------------------------------------|
+| ![Captura 1](docs/screenshots/ss1.png) | ![Captura 2](docs/screenshots/ss2.png) |
+| ![Captura 3](docs/screenshots/ss3.png) | ![Captura 4](docs/screenshots/ss4.png) |
+| ![Captura 5](docs/screenshots/ss5.png) | ![Captura 6](docs/screenshots/ss6.png) |
+
+<br>
 
 ## Assets
 
@@ -116,7 +122,10 @@ Para las fotos que se mandan los personajes por la aplicación de mensajería, s
         * [Foto explícita 3 masculino](https://us.123rf.com/450wm/dmitryag/dmitryag2106/dmitryag210604563/174750416-deportista-en-pantalones-cortos-blancos-yace-sus-manos-en-el-cinturón-de-fitness-culturista.jpg?ver=6)
         * [Foto explícita 3 femenino](https://st2.depositphotos.com/3035005/6971/i/450/depositphotos_69710229-stock-photo-beautiful-sexy-brunette-woman-posing.jpg)
 <br>
+<br>
 
 ---
+<br>
+
 
 <p xmlns:cc="http://creativecommons.org/ns" >This work is licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/?ref=chooser-v1" target="_blank" rel="license noopener noreferrer" style="display:inline-block;">CC BY-NC-SA 4.0<img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/cc.svg?ref=chooser-v1" alt=""><img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/by.svg?ref=chooser-v1" alt=""><img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/nc.svg?ref=chooser-v1" alt=""><img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/sa.svg?ref=chooser-v1" alt=""></a></p>

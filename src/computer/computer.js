@@ -10,7 +10,7 @@ export default class Computer extends ComputerBaseScene {
     create(params) {
         super.create(params)
 
-        const N_RANDOM_DIGITS = 2
+        const N_RANDOM_DIGITS = 4
         this.username = this.gameManager.getUserInfo().name
         for(let i = 0; i < N_RANDOM_DIGITS; ++i) {
             this.username += this.getRandomInt(0, 9)

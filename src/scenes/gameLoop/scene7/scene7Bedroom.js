@@ -28,30 +28,41 @@ export default class Scene7Bedroom extends BaseScene {
         // Lee el archivo de nodos
         let nodes = this.cache.json.get('scene7Bedroom');
 
-        this.phoneManager.activatePhoneIcon(true);
-
-        let chatName = this.gameManager.translate("textMessages.chat2", { ns: "deviceInfo", returnObjects: true });
+        this.phoneManager.activatePhoneIcon(false);
         this.phoneManager.phone.reset();
 
-        this.resetPhone = () => {
-            this.phoneManager.phone.addChat(chatName, "harasserPfp");
+        this.setupPhone = () => {
+            // Laura
+            let chatName = this.gameManager.translate("textMessages.chat1", { ns: "deviceInfo", returnObjects: true });
+            this.phoneManager.phone.addChat(chatName, "lauraPfp");
+            let phoneNode = super.readNodes(nodes, "scene7\\scene7Bedroom", "lauraChat", true);
+            this.phoneManager.phone.setChatNode(chatName, phoneNode);
 
-            let phoneNode = super.readNodes(nodes, "scene7\\scene7Bedroom", "phone", true);
-            this.dialogManager.setNode(phoneNode, []);
-            
             // Quitar notificaciones de los mensajes anteriores
             this.phoneManager.togglePhone(0, () => {
                 this.phoneManager.phone.toChatScreen(chatName);
+
+                // Volver al chat del acosador
+                setTimeout(() => {
+                    chatName = this.gameManager.translate("textMessages.chat2", { ns: "deviceInfo", returnObjects: true });
+                    this.phoneManager.phone.addChat(chatName, "harasserPfp");
+                    phoneNode = super.readNodes(nodes, "scene7\\scene7Bedroom", "phone", true);
+                    this.dialogManager.setNode(phoneNode, []);
+
+                    this.phoneManager.bgBlock.disableInteractive();
+                    this.phoneManager.phone.returnButton.disableInteractive();
+                    this.phoneManager.phone.chats.get(chatName).returnButton.disableInteractive();
+
+                    this.phoneManager.phone.toChatScreen(chatName);                    
+                }, 50);
+
             });
-            this.phoneManager.bgBlock.disableInteractive();
-            this.phoneManager.phone.returnButton.disableInteractive();
-            this.phoneManager.phone.chats.get(chatName).returnButton.disableInteractive();
         };
         
-
         
         this.dispatcher.add("chatEnded", this, () => {
             this.dialogManager.textbox.activate(false);
+            let chatName = this.gameManager.translate("textMessages.chat2", { ns: "deviceInfo", returnObjects: true });
             this.phoneManager.phone.chats.get(chatName).returnButton.setInteractive();
             
             chatName = this.gameManager.translate("textMessages.chat3", { ns: "deviceInfo", returnObjects: true });
@@ -97,6 +108,9 @@ export default class Scene7Bedroom extends BaseScene {
     }
 
     onCreate() {
-        this.resetPhone();
+        setTimeout(() => {
+            this.setupPhone();
+        }, 50);
+        
     }
 }

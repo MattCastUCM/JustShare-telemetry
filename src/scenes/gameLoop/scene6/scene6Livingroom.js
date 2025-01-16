@@ -37,11 +37,7 @@ export default class Scene6Livingroom extends BaseScene {
         let nodes = this.cache.json.get('scene6Livingroom');
         let node = super.readNodes(nodes, "scene6\\scene6Livingroom", "", true);
 
-
-        // TEST
-        this.phoneManager.activatePhoneIcon(true);
         this.chatName = this.gameManager.translate("textMessages.chat2", { ns: "deviceInfo", returnObjects: true });
-        this.phoneManager.phone.addChat(this.chatName, "harasserPfp");
         this.phoneManager.icon.disableInteractive();
 
         

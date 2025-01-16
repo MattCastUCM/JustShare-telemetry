@@ -33,15 +33,13 @@ export default class Scene4Garage extends BaseScene {
         lauraPortrait.setFlipX(true);
         this.portraits.set("laura", lauraPortrait);
 
-        // TEST
-        this.phoneManager.activatePhoneIcon(true);
-
-        let chatName = this.gameManager.translate("textMessages.chat2", { ns: "deviceInfo", returnObjects: true });
-        this.phoneManager.phone.addChat(chatName, "harasserPfp");
 
         // Lee el archivo de nodos
         let nodes = this.cache.json.get('scene4Garage');
         let node = super.readNodes(nodes, "scene4\\scene4Garage", "gifts", true);
+
+        let chatName = this.gameManager.translate("textMessages.chat2", { ns: "deviceInfo", returnObjects: true });
+
 
         // Callback que al llamarse cambiara el nodo de dialogo
         this.setNode = () => {

@@ -24,11 +24,7 @@ export default class Scene3Bedroom extends BaseScene {
         
         let node = super.readNodes(nodes, "scene3\\scene3Bedroom", "main", true);
 
-        // TEST
-        this.phoneManager.activatePhoneIcon(true);
         this.chatName = this.gameManager.translate("textMessages.chat2", { ns: "deviceInfo", returnObjects: true });
-        this.phoneManager.phone.addChat(this.chatName, "harasserPfp");
-
         let phoneNode = super.readNodes(nodes, "scene3\\scene3Bedroom", "fill", true);
         this.dialogManager.setNode(phoneNode, []);
 
@@ -63,10 +59,10 @@ export default class Scene3Bedroom extends BaseScene {
     }
 
 
-    // Quitar notificaciones de los mensajes anteriores
     onCreate() {
         this.setNode();
 
+        // Quitar notificaciones de los mensajes anteriores
         this.phoneManager.phone.toChatScreen(this.chatName);
         setTimeout(() => {
             this.phoneManager.phone.toMessagesListScreen();

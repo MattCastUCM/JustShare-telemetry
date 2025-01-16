@@ -103,7 +103,8 @@ export default class GameManager {
         this.computer = this.currentScene.scene.get(computerSceneName);
         this.computer.scene.sleep();
 
-        this.changeScene("Scene6Livingroom", {});
+        this.changeScene("Scene7Bedroom", {});
+        
     }
 
     startTitleScene() {
@@ -111,17 +112,17 @@ export default class GameManager {
         this.currentScene.scene.launch(UIsceneName);
         this.UIManager = this.currentScene.scene.get(UIsceneName);
 
-        let computerSceneName = 'Computer';
-        this.currentScene.scene.run(computerSceneName);
-        this.computer = this.currentScene.scene.get(computerSceneName);
-        this.computer.scene.sleep();
-
         this.changeScene("TitleScene", {});
     }
 
     startGame(userInfo) {
         this.blackboard.clear();
         this.userInfo = userInfo;
+        
+        let computerSceneName = 'Computer';
+        this.currentScene.scene.run(computerSceneName);
+        this.computer = this.currentScene.scene.get(computerSceneName);
+        this.computer.scene.sleep();
 
         // Pasa a la escena inicial con los parametros text, onComplete y onCompleteDelay
         let params = {

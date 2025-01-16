@@ -108,7 +108,9 @@ export default class Button extends Phaser.GameObjects.Container {
             });
             down.on('complete', () => {
                 this.fillImg.setInteractive({ useHandCursor: true });
-                onClick();
+                if(!gameManager.isInFadeAnimation()) {
+                    onClick();
+                }
             });
         });
 

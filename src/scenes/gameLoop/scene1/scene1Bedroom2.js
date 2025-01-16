@@ -59,7 +59,6 @@ export default class Scene1Bedroom2 extends BaseScene {
                         let params = {
                             text: this.gameManager.translate("scene2.startWeek", { ns: "transitions", returnObjects: true }),
                             onComplete: () => {
-                                // PENDIENTE / TEST
                                 this.UIManager.moveLids(true);
                                 this.gameManager.changeScene("Scene2Break");
                             },
