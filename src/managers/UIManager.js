@@ -146,6 +146,10 @@ import PhoneManager from "./phoneManager.js";
     // Animacion de cerrar los ojos. Cierra los parpados y 
     // vuelve a reproducir la animacion de abrir los ojos
     closeEyes(onComplete) {
+        if (this.phoneManager.phone.visible) {
+            this.phoneManager.togglePhone();
+        }
+        
         this.moveLids(true);
         let speed = 2000;
         let lastTopPos = this.topLid.y;

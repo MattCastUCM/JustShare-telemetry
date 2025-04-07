@@ -188,7 +188,7 @@ export default class PhoneManager {
         }
         
         // Si no hay una animacion reproduciendose
-        if (!this.toggling) {
+        if (!this.toggling && !this.gameManager.fading && this.scene.lidAnim == null) {
             // Se indica que va a empezar una
             this.toggling = true;
             let anim = null;

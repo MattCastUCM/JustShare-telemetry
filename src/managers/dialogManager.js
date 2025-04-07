@@ -115,14 +115,10 @@ export default class DialogManager {
     * @param {DialogNode} node - nodo que se va a poner como nodo actual
     * @param {Map} portraits - mapa con los retratos de los personajes que interactuan en la conversacion 
     */
-    setNode(node, portraits, hidePortraits) {
+    setNode(node, portraits, hidePortraits = true, hidePhone = false) {
         let animTime = this.PORTRAIT_ANIM_TIME * 2;
         if (portraits.length == 0) {
             animTime = 0;
-        }
-
-        if (hidePortraits == null) {
-            hidePortraits = true;
         }
 
         // Si no hay ningun dialogo/nodo activo y el nodo a poner es valido
@@ -142,6 +138,12 @@ export default class DialogManager {
                 this.lastCharacter = null;
                 this.processNode(node);
             }, animTime);
+
+            if (hidePhone) {
+                if (this.scene.phoneManager.phone.visible) {
+                    this.scene.phoneManager.togglePhone();
+                }
+            }
         }
         else {
             // Se resetea la configuracion del texto de la caja por si se habia cambiado a la de por defecto

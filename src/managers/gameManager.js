@@ -103,7 +103,7 @@ export default class GameManager {
         this.computer = this.currentScene.scene.get(computerSceneName);
         this.computer.scene.sleep();
 
-        this.changeScene("Scene7Bedroom", {});
+        this.changeScene("Scene3Break", {});
         
     }
 
