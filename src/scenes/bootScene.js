@@ -443,9 +443,9 @@ export default class BootScene extends Phaser.Scene {
             let gameManager = GameManager.create(this);
             
             // TEST
-            gameManager.startTestScene();
+            // gameManager.startTestScene();
 
-            // gameManager.startTitleScene();
+            gameManager.startTitleScene();
         })
     }
 }

@@ -39,7 +39,7 @@ export default class Scene3Bedroom extends BaseScene {
         });
         this.phoneManager.bgBlock.disableInteractive();
         this.phoneManager.phone.returnButton.disableInteractive();
-        
+        this.phoneManager.icon.disableInteractive();
         
         // Al producirse, se pasa a la siguiente escena
         this.dispatcher.add("endConversation", this, () => {
@@ -53,6 +53,8 @@ export default class Scene3Bedroom extends BaseScene {
                 };
                 this.phoneManager.togglePhone();
                 this.phoneManager.phone.returnButton.setInteractive();
+                this.phoneManager.icon.setInteractive();
+
                 this.gameManager.changeScene("TextOnlyScene", params);
             }, 3000);
         });

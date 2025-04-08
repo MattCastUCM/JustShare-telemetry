@@ -32,6 +32,10 @@ import PhoneManager from "./phoneManager.js";
 
     // Animacion de abrir los ojos
     openEyes(onComplete) {
+        if (this.phoneManager.phone.visible) {
+            this.phoneManager.togglePhone();
+        }
+        
         this.moveLids(false);
         let speed = 1000;
         let lastTopPos = this.topLid.y;

@@ -59,8 +59,6 @@ export default class Scene2Bedroom extends BaseScene {
 
             bedNode = super.readNodes(nodes, "scene2\\scene2Bedroom", "bedUnanswered", true);
 
-            this.phoneManager.activatePhoneIcon(true);
-
             let chatName = this.gameManager.translate("textMessages.chat2", { ns: "deviceInfo", returnObjects: true });
             let phoneNode = super.readNodes(nodes, "scene2\\scene2Bedroom", "phone", true);
             this.phoneManager.phone.addChat(chatName, "harasserPfp");

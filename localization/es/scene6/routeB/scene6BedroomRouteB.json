@@ -4,12 +4,17 @@
             "text": "(<harasser, Pablo, Lucía> me está escribiendo, debería contestar)."
         }
     },
-    
-    "bed": {
+    "bedBeforeLaura": {
+        "root": {
+            "text": "(Alguien me está enviando mensajes, debería contestar)."
+        }
+    },
+    "bedAfterLaura": {
         "root": {
             "text": "(No puedo echarme a dormir ahora, ¡tengo que entrar a JustShare rápido!)"
         }
     },
+
     
     "closet": {
         "root": {

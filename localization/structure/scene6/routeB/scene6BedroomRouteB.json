@@ -5,8 +5,13 @@
             "character": "player"
         }
     },
-
-    "bed": {
+    "bedAfterLaura": {
+        "root": {
+            "type": "text",
+            "character": "player"
+        }
+    },
+    "bedBeforeLaura": {
         "root": {
             "type": "text",
             "character": "player"

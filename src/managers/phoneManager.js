@@ -76,8 +76,10 @@ export default class PhoneManager {
             });
         });
         this.icon.on('pointerdown', () => {
-            if (!this.scene.dialogManager.isTalking()) {
+            // Si no hay dialogo actino ni animacion reproduciendose, se muestra/oculta el movil
+            if (!this.scene.dialogManager.isTalking() && !this.toggling && this.scene.lidAnim == null) {
                 this.togglePhone();
+
                 this.scene.tweens.add({
                     targets: [this.icon],
                     scale: ICON_SCALE,
@@ -178,6 +180,7 @@ export default class PhoneManager {
         }
     }
 
+
     /**
      * Reproduce la animacion de ocultar/mostrar el movil
      * @param {Number} speed - velolcidad a la que se reproduce la animacion (en ms) 
@@ -187,54 +190,51 @@ export default class PhoneManager {
             speed = 100;
         }
         
-        // Si no hay una animacion reproduciendose
-        if (!this.toggling && !this.gameManager.fading && this.scene.lidAnim == null) {
-            // Se indica que va a empezar una
-            this.toggling = true;
-            let anim = null;
+        // Se indica que va a empezar una
+        this.toggling = true;
+        let anim = null;
 
-            // Si el telefono es visible
-            if (this.phone.visible) {
-                anim = this.scene.tweens.add({
-                    targets: [this.phone],
-                    alpha: { from: 1, to: 0 },
-                    duration: speed,
-                    repeat: 0,
-                });
+        // Si el telefono es visible
+        if (this.phone.visible) {
+            anim = this.scene.tweens.add({
+                targets: [this.phone],
+                alpha: { from: 1, to: 0 },
+                duration: speed,
+                repeat: 0,
+            });
 
-                // Una vez terminada la animacion, se oculta el telefono, se indica que ya ha terminado, se 
-                // reactiva la interaccion con los elementos del fondo y vuelve a la pantalla de inicio
-                anim.on('complete', () => {
-                    this.activatePhone(false);
-                    this.phone.toMessagesListScreen();
-
-                    this.toggling = false;
-                });
-            }
-            // Si el telefono no es visible
-            else {
-                this.activatePhone(true);
-                
-                // Se mueve hacia el centro de la pantalla
-                anim = this.scene.tweens.add({
-                    targets: [this.phone],
-                    alpha: { from: 0, to: 1 },
-                    duration: speed,
-                    repeat: 0,
-                });
-
-                // Una vez terminada la animacion, se indica que ya ha terminado
-                anim.on('complete', () => {
-                    this.toggling = false;
-                    this.phone.toMessagesListScreen();
-                });
-            }
+            // Una vez terminada la animacion, se oculta el telefono, se indica que ya ha terminado, se 
+            // reactiva la interaccion con los elementos del fondo y vuelve a la pantalla de inicio
             anim.on('complete', () => {
-                if (onComplete !== null && typeof onComplete === 'function') {
-                    onComplete();
-                }
+                this.activatePhone(false);
+                this.phone.toMessagesListScreen();
+
+                this.toggling = false;
             });
         }
+        // Si el telefono no es visible
+        else {
+            this.activatePhone(true);
+            
+            // Se mueve hacia el centro de la pantalla
+            anim = this.scene.tweens.add({
+                targets: [this.phone],
+                alpha: { from: 0, to: 1 },
+                duration: speed,
+                repeat: 0,
+            });
+
+            // Una vez terminada la animacion, se indica que ya ha terminado
+            anim.on('complete', () => {
+                this.toggling = false;
+                this.phone.toMessagesListScreen();
+            });
+        }
+        anim.on('complete', () => {
+            if (onComplete !== null && typeof onComplete === 'function') {
+                onComplete();
+            }
+        });
     }
 
     activatePhone(active) {

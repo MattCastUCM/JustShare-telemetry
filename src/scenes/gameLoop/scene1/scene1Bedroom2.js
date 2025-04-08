@@ -44,28 +44,47 @@ export default class Scene1Bedroom2 extends BaseScene {
         let postNode = super.readNodes(nodes, "scene1\\scene1Bedroom2", "toniPost2", true);
         this.dialogManager.setNode(postNode, []);
 
+        let canUseComputer = true
+
         super.createInteractiveElement(1390, 400, "pointer", 0.3, () => {
-            this.gameManager.switchToComputer()
+            if(canUseComputer) {
+                this.gameManager.switchToComputer()
+            }
+            else {
+                this.dialogManager.setNode(pcNode, []);
+            }
         }, false);
 
         
         // Al producirse, se hace la animacion de cerrar los ojos
         this.dispatcher.add("endConversation", this, () => {
+            canUseComputer = false
+            pcNode = super.readNodes(generalNodes, "generalDialogs", "computerNight", true);
+            
+            bedNode = super.readNodes(generalNodes, "generalDialogs", "bed", true);
+            closetNode = super.readNodes(generalNodes, "generalDialogs", "closetNight", true);
+
+            let depth = bg.depth;
+            bg.destroy();
+            bg = this.add.image(0, 0, 'bedroomNightBg').setOrigin(0, 0).setDepth(depth - 1);
+        });
+
+
+        // Al producirse, se hace la animacion de cerrar los ojos
+        this.dispatcher.add("sleep", this, () => {
             this.UIManager.closeEyes(() => {
-                this.gameManager.leaveComputer(() => {
-                    // Una vez termina la animacion, se introduce un retardo y cuando acaba,
-                    // se cambia a la escena de transicion y luego a la escena del recreo del dia siguiente
-                    setTimeout(() => {
-                        let params = {
-                            text: this.gameManager.translate("scene2.startWeek", { ns: "transitions", returnObjects: true }),
-                            onComplete: () => {
-                                this.UIManager.moveLids(true);
-                                this.gameManager.changeScene("Scene2Break");
-                            },
-                        };
-                        this.gameManager.changeScene("TextOnlyScene", params);
-                    }, 1000);
-                })
+                // Una vez termina la animacion, se introduce un retardo y cuando acaba,
+                // se cambia a la escena de transicion y luego a la escena del recreo del dia siguiente
+                setTimeout(() => {
+                    let params = {
+                        text: this.gameManager.translate("scene2.startWeek", { ns: "transitions", returnObjects: true }),
+                        onComplete: () => {
+                            this.UIManager.moveLids(true);
+                            this.gameManager.changeScene("Scene2Break");
+                        },
+                    };
+                    this.gameManager.changeScene("TextOnlyScene", params);
+                }, 1000);
             });
         });
     }

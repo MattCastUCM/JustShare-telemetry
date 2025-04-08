@@ -113,12 +113,12 @@ export default class Scene1Bedroom1 extends BaseScene {
             canUseComputer = false
             pcNode = super.readNodes(generalNodes, "generalDialogs", "computerNight", true);
             
+            bedNode = super.readNodes(generalNodes, "generalDialogs", "bed", true);
+            closetNode = super.readNodes(generalNodes, "generalDialogs", "closetNight", true);
+
             let depth = bg.depth;
             bg.destroy();
             bg = this.add.image(0, 0, 'bedroomNightBg').setOrigin(0, 0).setDepth(depth - 1);
-            bedNode = super.readNodes(generalNodes, "generalDialogs", "bed", true);
-            
-            this.gameManager.leaveComputer()
         });
 
         // Al producirse, se hace la animacion de cerrar los ojos

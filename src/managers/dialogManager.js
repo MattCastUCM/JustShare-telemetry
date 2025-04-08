@@ -115,7 +115,7 @@ export default class DialogManager {
     * @param {DialogNode} node - nodo que se va a poner como nodo actual
     * @param {Map} portraits - mapa con los retratos de los personajes que interactuan en la conversacion 
     */
-    setNode(node, portraits, hidePortraits = true, hidePhone = false) {
+    setNode(node, portraits, hidePortraits = true) {
         let animTime = this.PORTRAIT_ANIM_TIME * 2;
         if (portraits.length == 0) {
             animTime = 0;
@@ -137,13 +137,14 @@ export default class DialogManager {
                 this.currNode = node;
                 this.lastCharacter = null;
                 this.processNode(node);
+                
+                if (portraits.length > 0) {
+                    if (this.scene.phoneManager.phone.visible) {
+                        this.scene.phoneManager.togglePhone();
+                    }
+                }
             }, animTime);
 
-            if (hidePhone) {
-                if (this.scene.phoneManager.phone.visible) {
-                    this.scene.phoneManager.togglePhone();
-                }
-            }
         }
         else {
             // Se resetea la configuracion del texto de la caja por si se habia cambiado a la de por defecto
@@ -473,7 +474,8 @@ export default class DialogManager {
     * @returns {boolean} - true si hay un dialogo activo, false en caso contrario
     */
     isTalking() {
-        return this.textbox.box.visible && this.textbox.box.alpha > 0 && this.currNode != null;
+        return (this.currNode != null && (this.currNode.type == "text" || this.currNode.type == "choice")) ||
+            this.textbox.box.visible && this.textbox.box.alpha > 0;
     }
 
     disableInteraction() {

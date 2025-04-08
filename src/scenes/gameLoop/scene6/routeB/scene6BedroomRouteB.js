@@ -25,6 +25,7 @@ export default class Scene6BedroomRouteB extends BaseScene {
         let generalNodes = this.cache.json.get('generalDialogs');
 
         let chatName = this.gameManager.translate("textMessages.chat2", { ns: "deviceInfo", returnObjects: true });
+        this.phoneManager.phone.addChat(chatName, "harasserPfp");
         let phoneNode = super.readNodes(nodes, "scene6\\routeB\\scene6BedroomRouteB", "harasserChat", true);
         this.dialogManager.setNode(phoneNode, []);
 
@@ -50,6 +51,8 @@ export default class Scene6BedroomRouteB extends BaseScene {
             this.phoneManager.phone.addChat(chatName, "unknownPfp");
             phoneNode = super.readNodes(nodes, "scene6\\routeB\\scene6BedroomRouteB", "chat2", true);
             this.phoneManager.phone.setChatNode(chatName, phoneNode);
+
+            bedNode = super.readNodes(nodes, "scene6\\routeB\\scene6BedroomRouteB", "bedBeforeLaura", true);
         });
 
         this.dispatcher.add("chat2Ended", this, () => {
@@ -78,7 +81,7 @@ export default class Scene6BedroomRouteB extends BaseScene {
 
         // Al producirse, se cambian los nodos de la cama y el armario
         this.dispatcher.add("lauraChatEnded", this, () => {
-            bedNode = super.readNodes(nodes, "scene6\\routeB\\scene6BedroomRouteB", "bed", true);
+            bedNode = super.readNodes(nodes, "scene6\\routeB\\scene6BedroomRouteB", "bedAfterLaura", true);
             closetNode = super.readNodes(nodes, "scene6\\routeB\\scene6BedroomRouteB", "closet", true);
 
             // Ordenador
