@@ -26,9 +26,7 @@ export default class PhoneManager {
 
         // Si se pulsa fuera del telefono cuando esta sacado, se guarda
         this.bgBlock.on('pointerdown', () => {
-            if (this.phone.visible) {
-                this.togglePhone();
-            }
+            this.togglePhone(false);
         });
         
         // Anade el icono de las notificaciones
@@ -185,8 +183,11 @@ export default class PhoneManager {
      * Reproduce la animacion de ocultar/mostrar el movil
      * @param {Number} speed - velolcidad a la que se reproduce la animacion (en ms) 
      */
-    togglePhone(speed, onComplete) {
-        if (!speed && speed !== 0) {
+    togglePhone(active, speed, onComplete) {
+        if (active == null) {
+            active = !this.phone.visible;
+        }
+        if (speed == null && speed !== 0) {
             speed = 100;
         }
         
@@ -195,7 +196,7 @@ export default class PhoneManager {
         let anim = null;
 
         // Si el telefono es visible
-        if (this.phone.visible) {
+        if (this.phone.visible && !active) {
             anim = this.scene.tweens.add({
                 targets: [this.phone],
                 alpha: { from: 1, to: 0 },
@@ -213,7 +214,7 @@ export default class PhoneManager {
             });
         }
         // Si el telefono no es visible
-        else {
+        else if (!this.phone.visible && active) {
             this.activatePhone(true);
             
             // Se mueve hacia el centro de la pantalla
@@ -230,11 +231,16 @@ export default class PhoneManager {
                 this.phone.toMessagesListScreen();
             });
         }
-        anim.on('complete', () => {
-            if (onComplete !== null && typeof onComplete === 'function') {
-                onComplete();
-            }
-        });
+        else {
+            this.toggling = false;
+        }
+        if (anim != null) {
+            anim.on('complete', () => {
+                if (onComplete !== null && typeof onComplete === 'function') {
+                    onComplete();
+                }
+            });
+        }
     }
 
     activatePhone(active) {

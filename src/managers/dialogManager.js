@@ -139,9 +139,7 @@ export default class DialogManager {
                 this.processNode(node);
                 
                 if (portraits.length > 0) {
-                    if (this.scene.phoneManager.phone.visible) {
-                        this.scene.phoneManager.togglePhone();
-                    }
+                    this.scene.phoneManager.togglePhone(false);
                 }
             }, animTime);
 
@@ -474,8 +472,9 @@ export default class DialogManager {
     * @returns {boolean} - true si hay un dialogo activo, false en caso contrario
     */
     isTalking() {
-        return (this.currNode != null && (this.currNode.type == "text" || this.currNode.type == "choice")) ||
-            this.textbox.box.visible && this.textbox.box.alpha > 0;
+        let cond1 = this.currNode != null && (this.currNode.type == "text" || this.currNode.type == "choice")
+        let cond2 = this.textbox.box.visible && this.textbox.box.alpha > 0;
+        return cond1 && cond2;
     }
 
     disableInteraction() {

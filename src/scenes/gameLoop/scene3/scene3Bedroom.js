@@ -33,8 +33,8 @@ export default class Scene3Bedroom extends BaseScene {
                 this.dialogManager.setNode(node, []);
             }, 50);
         }
-
-        this.phoneManager.togglePhone(100, () => {
+        
+        this.phoneManager.togglePhone(true, 100, () => {
             this.phoneManager.phone.toChatScreen(this.chatName);
         });
         this.phoneManager.bgBlock.disableInteractive();
@@ -51,7 +51,8 @@ export default class Scene3Bedroom extends BaseScene {
                         this.gameManager.changeScene("Scene4Frontyard");
                     },
                 };
-                this.phoneManager.togglePhone();
+                this.phoneManager.togglePhone(false);
+
                 this.phoneManager.phone.returnButton.setInteractive();
                 this.phoneManager.icon.setInteractive();
 

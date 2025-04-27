@@ -50,9 +50,8 @@ export default class Scene6LunchRouteB extends BaseScene {
 
         // Al producirse, cambia a la escena de transicion y vuelve a la misma escena
         this.dispatcher.add("chatEnded", this, () => {
-            if (this.phoneManager.phone.visible) {
-                this.phoneManager.togglePhone();
-            }
+            this.phoneManager.togglePhone(false);
+
             node = super.readNodes(nodes, "scene6\\routeB\\scene6LunchRouteB", "interruption", true);
             this.dialogManager.setNode(node, [momPortrait, dadPortrait]);
         });

@@ -39,7 +39,7 @@ export default class Scene7Bedroom extends BaseScene {
             this.phoneManager.phone.setChatNode(chatName, phoneNode);
 
             // Quitar notificaciones de los mensajes anteriores
-            this.phoneManager.togglePhone(0, () => {
+            this.phoneManager.togglePhone(true, 0, () => {
                 this.phoneManager.phone.toChatScreen(chatName);
 
                 // Volver al chat del acosador
@@ -51,7 +51,6 @@ export default class Scene7Bedroom extends BaseScene {
 
                     this.phoneManager.bgBlock.disableInteractive();
                     this.phoneManager.phone.returnButton.disableInteractive();
-                    this.phoneManager.phone.chats.get(chatName).returnButton.disableInteractive();
 
                     this.phoneManager.phone.toChatScreen(chatName);                    
                 }, 50);
@@ -73,9 +72,7 @@ export default class Scene7Bedroom extends BaseScene {
         });
 
         this.dispatcher.add("call", this, () => {
-            if (this.phoneManager.phone.visible) {
-                this.phoneManager.togglePhone();
-            }
+            this.phoneManager.togglePhone(false);
 
             // Retrato del padre
             let dadTr = this.portraitTr;
@@ -100,7 +97,7 @@ export default class Scene7Bedroom extends BaseScene {
                 fadeOutTime: 1000,
                 text: this.gameManager.translate("scene7.end", { ns: "transitions", returnObjects: true }),
                 onComplete: () => {
-                    this.gameManager.changeScene("TitleScene");
+                    this.gameManager.startTitleScene();
                 },
             };
             this.gameManager.changeScene("TextOnlyScene", params);

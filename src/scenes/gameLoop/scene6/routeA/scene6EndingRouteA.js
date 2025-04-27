@@ -28,7 +28,7 @@ export default class Scene6EndingRouteA extends BaseScene {
 
         // Al producirse, se cambian los dialogos de la cama y el armario
         this.dispatcher.add("end", this, () => {
-            this.phoneManager.togglePhone();
+            this.phoneManager.togglePhone(false);
             this.phoneManager.activatePhoneIcon(false);
 
             // Una vez termina la animacion, se introduce un retardo y cuando acaba,
@@ -51,7 +51,7 @@ export default class Scene6EndingRouteA extends BaseScene {
     onCreate() {
         setTimeout(() => {
             this.phoneManager.activatePhoneIcon(true);
-            this.phoneManager.togglePhone();
+            this.phoneManager.togglePhone(true);
             this.phoneManager.bgBlock.disableInteractive();
             this.phoneManager.phone.returnButton.disableInteractive();
 

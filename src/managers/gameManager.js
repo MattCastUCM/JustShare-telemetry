@@ -92,13 +92,14 @@ export default class GameManager {
             harasser: "female"
         }
 
-        // IMPORTANTE: Hay que lanzar primero el UIManager para que se inicialice
-        // el DialogManager y las escenas puedan crear los dialogos correctamente
+        
         let UIsceneName = 'UIManager';
+        this.currentScene.scene.stop(UIsceneName);
         this.currentScene.scene.launch(UIsceneName);
         this.UIManager = this.currentScene.scene.get(UIsceneName);
 
         let computerSceneName = 'Computer';
+        this.currentScene.scene.stop(computerSceneName);
         this.currentScene.scene.run(computerSceneName);
         this.computer = this.currentScene.scene.get(computerSceneName);
         this.computer.scene.sleep();
@@ -108,7 +109,10 @@ export default class GameManager {
     }
 
     startTitleScene() {
+        // IMPORTANTE: Hay que lanzar primero el UIManager para que se inicialice
+        // el DialogManager y las escenas puedan crear los dialogos correctamente
         let UIsceneName = 'UIManager';
+        this.currentScene.scene.stop(UIsceneName);
         this.currentScene.scene.launch(UIsceneName);
         this.UIManager = this.currentScene.scene.get(UIsceneName);
 
@@ -120,6 +124,7 @@ export default class GameManager {
         this.userInfo = userInfo;
         
         let computerSceneName = 'Computer';
+        this.currentScene.scene.stop(computerSceneName);
         this.currentScene.scene.run(computerSceneName);
         this.computer = this.currentScene.scene.get(computerSceneName);
         this.computer.scene.sleep();

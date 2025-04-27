@@ -74,9 +74,7 @@ export default class Scene4Garage extends BaseScene {
 
         // Al producirse, se guarda el movil y se pone la conversacion con laura
         this.dispatcher.add("lauraInterrupt", this, () => {
-            if (this.phoneManager.phone.visible) {
-                this.phoneManager.togglePhone();
-            }
+            this.phoneManager.togglePhone(false);
             let node = super.readNodes(nodes, "scene4\\scene4Garage", "interruption", true);
             this.dialogManager.setNode(node, [lauraPortrait]);
         });

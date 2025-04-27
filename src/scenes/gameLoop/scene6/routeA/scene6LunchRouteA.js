@@ -83,7 +83,7 @@ export default class Scene6LunchRouteA extends BaseScene {
         // Al producirse, cambia a la escena de la calle
         this.dispatcher.add("exitHome", this, () => {
             let params = {
-                text: this.gameManager.translate("scene5.startWeek", { ns: "transitions", returnObjects: true }),
+                text: this.gameManager.translate("scene6.routeAWalking", { ns: "transitions", returnObjects: true }),
                 onComplete: () => {
                     this.UIManager.moveLids(true);
                     this.gameManager.changeScene("Scene6PortalRouteA");

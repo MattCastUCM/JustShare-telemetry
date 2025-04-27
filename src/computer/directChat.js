@@ -15,7 +15,6 @@ export default class DirectChat {
             }
             // Si no, lo procesa el dialogManager
             else {
-                this.scene.dialogManager.setNode(null, [])
                 this.scene.dialogManager.setNode(this.currNode, []);
                 this.currNode = null
             }

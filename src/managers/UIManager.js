@@ -32,9 +32,7 @@ import PhoneManager from "./phoneManager.js";
 
     // Animacion de abrir los ojos
     openEyes(onComplete) {
-        if (this.phoneManager.phone.visible) {
-            this.phoneManager.togglePhone();
-        }
+        this.phoneManager.togglePhone(false);
         
         this.moveLids(false);
         let speed = 1000;
@@ -150,9 +148,7 @@ import PhoneManager from "./phoneManager.js";
     // Animacion de cerrar los ojos. Cierra los parpados y 
     // vuelve a reproducir la animacion de abrir los ojos
     closeEyes(onComplete) {
-        if (this.phoneManager.phone.visible) {
-            this.phoneManager.togglePhone();
-        }
+        this.phoneManager.togglePhone(false);
         
         this.moveLids(true);
         let speed = 2000;

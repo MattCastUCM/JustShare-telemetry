@@ -29,7 +29,7 @@ export default class Scene6BedroomRouteB extends BaseScene {
         let phoneNode = super.readNodes(nodes, "scene6\\routeB\\scene6BedroomRouteB", "harasserChat", true);
         this.dialogManager.setNode(phoneNode, []);
 
-        this.phoneManager.togglePhone(100, () => {
+        this.phoneManager.togglePhone(true, 100, () => {
             this.phoneManager.phone.toChatScreen(chatName);
         });
 
