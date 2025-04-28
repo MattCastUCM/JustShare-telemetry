@@ -57,6 +57,9 @@ import CreditsScene from "./scenes/menus/creditsScene.js";
 // Ordenador
 import Computer from "./computer/computer.js";
 
+// TEST
+import TrackerScene from "./tracker/trackerScene.js";
+
 const max_w = 1600, max_h = 900, min_w = 320, min_h = 240;
 const config = {
     width: max_w,
@@ -67,6 +70,9 @@ const config = {
     type: Phaser.AUTO,
     // Nota: el orden de las escenas es relevante, y las que se encuentren antes en el array se renderizaran por debajo de las siguientes
     scene: [
+        // TEST
+        TrackerScene,
+
         // Carga de assets
         BootScene,
         
