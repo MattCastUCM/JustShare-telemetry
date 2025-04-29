@@ -1,4 +1,5 @@
 import Tracker from './tracker.js'
+import { LRS, Actor } from './tracker.js';
 
 export default class TrackerScene extends Phaser.Scene {
     constructor() {
@@ -8,9 +9,12 @@ export default class TrackerScene extends Phaser.Scene {
     create() {
         var tracker = new Tracker({
             debug: true,
-            username: "oMsoz51hM_OQbNNR3Nk",
-            password: "LfWapsOhe1V-ryV2C6o",
-            baseUrl: "https://cloud.scorm.com/lrs/I43WO3TFWH/sandbox/"
+            lrs: new LRS({
+                username: "oMsoz51hM_OQbNNR3Nk",
+                password: "LfWapsOhe1V-ryV2C6o",
+                baseUrl: "https://cloud.scorm.com/lrs/I43WO3TFWH/sandbox/"
+            }),
+            actor: new Actor("Tyler", "tyler@yopmail.es")
         });
 
         var completable = tracker.completable

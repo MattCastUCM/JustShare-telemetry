@@ -2,6 +2,97 @@ function generateStatementId() {
     return crypto.randomUUID();
 }
 
+function httpRequest(fullUrl, method, headers, body, onSuccess, onError, debug) {
+    method = method.toUpperCase()
+
+    let config = {
+        method: method,
+        headers: headers,
+    }
+
+    if (["POST", "PUT"].includes(method)) {
+        config.body = JSON.stringify(body)
+    }
+
+    fetch(fullUrl, config)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error("HTTP Error status:" + response.status)
+            }
+            return response.json()
+        })
+        .then(data => {
+            if (onSuccess) {
+                onSuccess(data)
+            }
+        })
+        .catch(error => {
+            if (debug) {
+                console.error("Request failed:", error.message)
+            }
+
+            if (onError) {
+                onError(error)
+            }
+        })
+}
+
+export default class Tracker {
+    constructor(config) {
+        this.debug = false
+        this.lrs = null
+        this.actor = null
+
+        this.queue = [];
+
+        this.completable = new Completable(this);
+        this.gameObject = new GameObject(this);
+
+        if (config.hasOwnProperty("debug")) {
+            this.debug = config.debug;
+        }
+
+        if (config.hasOwnProperty("lrs")) {
+            this.lrs = config.lrs;
+            this.lrs.setDebug(this.debug)
+        }
+
+        if (config.hasOwnProperty("actor")) {
+            this.actor = config.actor;
+        }
+    }
+    
+    validateParams(params) {
+        const REQUIRE_FIELDS = ['verb', 'objectType', 'id'];
+        for (let field of REQUIRE_FIELDS) {
+            if (!params.hasOwnProperty(field)) {
+                // console.error("Invalid Event--------------------------");
+                return false;
+            }
+        }
+        // console.log("Valid Event-----------------------------");
+        return true;
+    }
+
+    sendEvent(event, onSuccess, onError) {
+        this.lrs.saveStatement(event, onSuccess, onError)
+    }
+
+    sendEvents(events, onSuccess, onError) {
+        this.lrs.saveStatements(events, onSuccess, onError)
+    }
+
+    saveEvent(params) {
+        if (this.validateParams(params)) {
+            let event = new TrackerEvent()
+            event.setId(generateStatementId())
+            event.setActor(this.actor)
+
+            this.queue.push(event);
+        }
+    }
+}
+
 class Versions {
     static getAllVersions() {
         return [
@@ -18,16 +109,11 @@ class Versions {
     }
 }
 
-export default class Tracker {
+export class LRS {
     constructor(config) {
         this.debug = false
         this.baseUrl = null
         this.authorization = null
-
-        this.queue = [];
-
-        this.completable = new Completable(this);
-        this.gameObject = new GameObject(this);
 
         if (config.hasOwnProperty("debug")) {
             this.debug = config.debug
@@ -46,7 +132,7 @@ export default class Tracker {
 
         if (config.hasOwnProperty("version")) {
             if (!Versions.isValidVersion(config.version)) {
-                console.error("LRS invalid version:", config.version);
+                console.error("LRS not supported: invalid version " + "(" + config.version + ")");
             }
         } 
         else {
@@ -54,39 +140,8 @@ export default class Tracker {
         }
     }
 
-    httpRequest(fullUrl, method, headers, body, onSuccess, onError) {
-        method = method.toUpperCase()
-
-        let config = {
-            method: method,
-            headers: headers,
-        }
-
-        if (["POST", "PUT"].includes(method)) {
-            config.body = JSON.stringify(body)
-        }
-
-        fetch(fullUrl, config)
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error("HTTP Error status:" + response.status)
-                }
-                return response.json()
-            })
-            .then(data => {
-                if (onSuccess) {
-                    onSuccess(data)
-                }
-            })
-            .catch(error => {
-                if(this.debug) {
-                    console.error("Request failed:", error.message)
-                }
-
-                if (onError) {
-                    onError(error)
-                }
-            })
+    setDebug(debug) {
+        this.debug = debug
     }
 
     buildHeaders(headers) {
@@ -109,10 +164,10 @@ export default class Tracker {
             fullUrl = endpoint
         }
 
-        return this.httpRequest(fullUrl, method, this.buildHeaders(headers), body, onSuccess, onError)
+        return httpRequest(fullUrl, method, this.buildHeaders(headers), body, onSuccess, onError, this.debug)
     }
 
-    sendEvent(event, onSuccess, onError) {
+    saveStatement(statement, onSuccess, onError) {
         let endpoint = "statements"
         let method = "POST"
         let headers = {
@@ -120,7 +175,7 @@ export default class Tracker {
         }
 
         // TODO - serializeXApi()
-        const statement = {
+        const statement1 = {
             "id": "e0226276-c4a8-4512-991d-f5808946bf2d",
             "actor": {
                 "mbox": "mailto:tyler@yopmail.es",
@@ -147,10 +202,10 @@ export default class Tracker {
             }
         }
 
-        this.sendRequest(endpoint, method, headers, statement, onSuccess, onError)
+        this.sendRequest(endpoint, method, headers, statement1, onSuccess, onError)
     }
 
-    sendEvents(events, onSuccess, onError) {
+    saveStatements(statements, onSuccess, onError) {
         let endpoint = "statements"
         let method = "POST"
         let headers = {
@@ -209,45 +264,23 @@ export default class Tracker {
                 "objectType": "Activity"
             }
         }
-        events.push(statement1)
-        events.push(statement2)
+        statements.push(statement1)
+        statements.push(statement2)
         
-        let statements = []
+        let statementsAux = []
 
-        if (events.length !== 0) {
-            for (let event of events) {
+        if (statements.length !== 0) {
+            for (let statement of statements) {
                 // TODO - serializeXApi
-                // statements.push(event.serializeXApi(this.version))
-                statements.push(event)
+                statementsAux.push(statement)
             }
             
-            this.sendRequest(endpoint, method, headers, statements, onSuccess, onError)
-        }
-    }
-    
-    validateParams(params) {
-        const REQUIRE_FIELDS = ['verb', 'objectType', 'id'];
-        for (let field of REQUIRE_FIELDS) {
-            if (!params.hasOwnProperty(field)) {
-                // console.error("Invalid Event--------------------------");
-                return false;
-            }
-        }
-        // console.log("Valid Event-----------------------------");
-        return true;
-    }
-
-    saveEvent(params) {
-        if (this.validateParams(params)) {
-            let event = new TrackerEvent()
-            event.setId(generateStatementId())
-
-            this.queue.push(event);
+            this.sendRequest(endpoint, method, headers, statementsAux, onSuccess, onError)
         }
     }
 }
 
-class Actor {
+export class Actor {
     constructor(name, email) {
         this.name = name
         this.email = email
@@ -264,17 +297,21 @@ class Actor {
 
 class TrackerEvent {
     constructor() {
+        this.id = null;
+        this.timeStamp = new Date().toISOString();
         this.actor = null;
         this.verb = null;
         this.object = null;
         this.result = null;
         this.context = null;
-        this.id = null;
-        this.timeStamp = Date.now()
     }
 
     setId(id) {
         this.id = id
+    }
+
+    setActor(actor) {
+        this.actor = actor
     }
 
     serializeXApi(version) {
