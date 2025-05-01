@@ -14,30 +14,33 @@ export class Actor {
 }
 
 export class Verb {
-    constructor(id, display) {
+    constructor({id, type}) {
         this.id = id;
-        this.display = { "en-US": display };
+        this.type = type
     }
 
     serializeToXApi() {
         return {
             id: this.id,
-            display: this.display
+            display: { "en-US": this.type }
         }
     }
 }
 
 export class Object {
-    constructor(id, name, description = null) {
+    constructor({id, type, description, name}) {
         this.id = id;
-        this.name = name;
+        this.type = type
         this.description = description;
+        this.name = name;
     }
 
     serializeToXApi() {
         let definition = {
-            name: { "en-US": this.name }
+            name: { "en-US": this.type },
+            type: this.id + "/" + this.name
         };
+
         if (this.description) {
             definition.description = { "en-US": this.description };
         }

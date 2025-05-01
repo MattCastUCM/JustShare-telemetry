@@ -1,8 +1,12 @@
+import { generateStatementId } from "./utils.js";
+
 export default class TrackerEvent {
-    constructor({ verb = null, object = null, result = null, context = null } = {}) {
+    constructor({ actor, verb, object, result, context }) {
         this.id = generateStatementId();
         this.timestamp = new Date().toISOString();
         this.actor = null;
+
+        this.actor = actor
         this.verb = verb;
         this.object = object;
         this.result = result;
@@ -11,7 +15,7 @@ export default class TrackerEvent {
 
     serializeToXApi(version) {
         let output = {
-            timeStamp: this.timestamp,
+            timestamp: this.timestamp,
             id: this.id,
             version: version,
             actor: this.actor.serializeToXApi(),

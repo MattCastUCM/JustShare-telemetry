@@ -17,31 +17,24 @@ class Versions {
 }
 
 export default class LRS {
-    constructor(config) {
-        this.debug = false
-        this.baseUrl = null
-        this.authorization = null
-
-        if (config.hasOwnProperty("debug")) {
-            this.debug = config.debug
+    constructor({baseUrl, username, password, version = null, debug = false}) {    
+        this.baseUrl = String(baseUrl)
+        if (this.baseUrl.slice(-1) !== "/") {
+            this.baseUrl += "/"
         }
+        this.authorization = "Basic", btoa(username + ":" + password)
         
-        if (config.hasOwnProperty("baseUrl")) {
-            this.baseUrl = String(config.baseUrl)
-            if (this.baseUrl.slice(-1) !== "/") {
-                this.baseUrl += "/"
+        this.debug = debug
+
+        if (version) {
+            if (!Versions.isValidVersion(version)) {
+                console.error("LRS not supported: invalid version", "(", version, ")");
+                this.version = Versions.getAllVersions()[0];
+            }
+            else {
+                this.version = version
             }
         }
-
-        if (config.hasOwnProperty("username") && config.hasOwnProperty("password")) {
-            this.authorization = "Basic", btoa(config.username + ":" + config.password)
-        }
-
-        if (config.hasOwnProperty("version")) {
-            if (!Versions.isValidVersion(config.version)) {
-                console.error("LRS not supported: invalid version", "(", config.version, ")");
-            }
-        } 
         else {
             this.version = Versions.getAllVersions()[0];
         }

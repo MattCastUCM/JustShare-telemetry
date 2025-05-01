@@ -1,6 +1,7 @@
 import TrackerEvent from "./trackerEvent.js";
 import Completable from "./completable.js";
 import GameObject from "./gameObject.js";
+import { Verb, Object, Context, Result } from './parameters.js'
 
 const MAX_TRACKER_EVENTS = 10;
 const MAX_TRACKER_IDLE_TIME = 10; // s
@@ -17,7 +18,7 @@ export default class Tracker {
 
     // Valida los parámetros de un evento.
     validateParams(params) {
-        const REQUIRED = ['verb', 'object', 'id'];
+        const REQUIRED = ['verb', 'object'];
         return REQUIRED.every(f => params.hasOwnProperty(f));
     }
 
@@ -25,9 +26,13 @@ export default class Tracker {
      * Añade un evento a la cola.
      * @param {TrackerEvent} event Evento a añadir.
      */
-    addEvent(event) {
-        if(this.validateParams(event)) {
-            event.actor = this.actor;
+    addEvent(params) {
+        if(this.validateParams(params)) {
+            let event = new TrackerEvent({
+                actor: this.actor,
+                verb: new Verb(params.verb),
+                object: new Object(params.object)
+            })
             this.queue.push(event);
             if(this.queue.length >= MAX_TRACKER_EVENTS) {
                 this.sendEvents();
@@ -38,7 +43,7 @@ export default class Tracker {
     // Envía los eventos guardados a una lrs.
     sendEvents() {
         this.lrs.saveStatements(this.queue, (data) => {
-            this.queue = [];
+            // this.queue = [];
         });
     }
 }
