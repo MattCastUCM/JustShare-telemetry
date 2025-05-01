@@ -46,7 +46,7 @@ export default class Scene4Backyard extends BaseScene {
         this.dispatcher.add("endConversation", this, () => {
             super.createInteractiveElement(130, 770, "exit", 0.4, () => {
                 this.gameManager.changeScene("Scene4Garage");
-            }, true);
+            }, true, "enterDoor");
         });
     }
 
@@ -58,25 +58,25 @@ export default class Scene4Backyard extends BaseScene {
         super.createInteractiveElement(560, 380, "pointer", 0.3, () => {
             this.dialogManager.setNode(nodeClassmate1, []);
             this.interactedClassmates++;
-        }, true);
+        }, true, "classmate");
 
         let nodeClassmate2 = super.readNodes(this.nodes, "scene4\\scene4Backyard", "classmate2", true);
         super.createInteractiveElement(1030, 460, "pointer", 0.3, () => {
             this.dialogManager.setNode(nodeClassmate2, []);
             this.interactedClassmates++;
-        }, true);
+        }, true, "classmate");
         
         let nodeClassmate3 = super.readNodes(this.nodes, "scene4\\scene4Backyard", "classmate3", true);
         super.createInteractiveElement(270, 420, "pointer", 0.3, () => {
             this.dialogManager.setNode(nodeClassmate3, []);
             this.interactedClassmates++;
-        }, true);
+        }, true, "classmate");
 
         let nodeClassmate4 = super.readNodes(this.nodes, "scene4\\scene4Backyard", "classmate4", true);
         super.createInteractiveElement(1370, 380, "pointer", 0.3, () => {
             this.dialogManager.setNode(nodeClassmate4, []);
             this.interactedClassmates++;
-        }, true);
+        }, true, "classmate");
 
         // Al producirse, comprueba si se ha interactuado con todos los companeros
         this.dispatcher.add("checkAllClassmates", this, () => {

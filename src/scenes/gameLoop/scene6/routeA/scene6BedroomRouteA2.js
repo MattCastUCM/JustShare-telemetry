@@ -46,22 +46,22 @@ export default class Scene6BedroomRouteA2 extends BaseScene {
                     this.gameManager.setValue("prepared", true)
                 }
                 this.dialogManager.setNode(closetNode, []);
-            }, false);
+            }, false, "closet");
             
             // Cama
             super.createInteractiveElement(790, 550, "pointer", 0.3, () => {
                 this.dialogManager.setNode(bedNode, []);
-            }, false);
+            }, false, "bed");
 
             // Ordenador
             super.createInteractiveElement(1390, 400, "pointer", 0.3, () => {
                 this.dialogManager.setNode(pcNode, []);
-            }, false);
+            }, false, "computer");
 
             // Puerta
             super.createInteractiveElement(120, this.CANVAS_HEIGHT - 120, "exit", 0.4, () => {
                 this.gameManager.changeScene("Scene6LunchRouteA", null, true);
-            }, false);
+            }, false, "livingroomDoor");
         });
 
 

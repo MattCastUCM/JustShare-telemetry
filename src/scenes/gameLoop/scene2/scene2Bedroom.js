@@ -26,13 +26,13 @@ export default class Scene2Bedroom extends BaseScene {
         let closetNode = super.readNodes(nodes, "scene2\\scene2Bedroom", "closet", true);
         super.createInteractiveElement(240, 400, "pointer", 0.3, () => {
             this.dialogManager.setNode(closetNode, []);
-        }, false);
+        }, false, "closet");
         
         // Cama
         let bedNode = super.readNodes(nodes, "scene2\\scene2Bedroom", "bed", true);
         super.createInteractiveElement(790, 550, "pointer", 0.3, () => {
             this.dialogManager.setNode(bedNode, []);
-        }, false);
+        }, false, "bed");
         
         // Ordenador
         this.computer.socialMediaScreen.addDirectChat("harasser")
@@ -48,7 +48,7 @@ export default class Scene2Bedroom extends BaseScene {
             else {
                 this.dialogManager.setNode(pcNode, [])
             }
-        }, false);
+        }, false, "computer");
         
 
         // Al producirse, aparece el icono del telefono y se recibe un mensaje

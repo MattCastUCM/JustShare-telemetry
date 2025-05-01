@@ -66,7 +66,7 @@ export default class Scene1Lunch1 extends BaseScene {
             
             super.createInteractiveElement(890, 380, "pointer", 0.3, () => {
                 this.dialogManager.setNode(doorNode, []);
-            }, false);
+            }, false, "exitDoor");
             
             let bedroomNode = super.readNodes(nodes, "scene1\\scene1Lunch1", "unanswered", true);
             super.createInteractiveElement(1140, 380, "enter", 0.4, () => {
@@ -76,7 +76,7 @@ export default class Scene1Lunch1 extends BaseScene {
                 else {
                     this.dialogManager.setNode(bedroomNode, []);
                 }
-            }, false);
+            }, false, "bedroomDor");
         });
 
         this.dispatcher.add("chatEnded", this, () => {

@@ -48,11 +48,11 @@ export default class Scene1Lunch2 extends BaseScene {
             let doorNode = super.readNodes(nodes, "scene1\\scene1Lunch2", "door", true);
             super.createInteractiveElement(890, 380, "pointer", 0.3, () => {
                 this.dialogManager.setNode(doorNode, []);
-            }, false);
+            }, false, "exitDoor");
 
             super.createInteractiveElement(1140, 380, "enter", 0.4, () => {
                 this.gameManager.changeScene("Scene1Bedroom2", null, true);
-            }, false);
+            }, false, "bedroomDoor");
         });
     }
 

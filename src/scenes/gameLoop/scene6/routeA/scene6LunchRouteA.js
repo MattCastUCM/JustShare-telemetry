@@ -71,12 +71,12 @@ export default class Scene6LunchRouteA extends BaseScene {
                     this.dialogManager.setNode(doorNodeUnprepared, []);
                 }
 
-            }, false);
+            }, false, "exitDoor");
 
             // Puerta a la habitacion
             super.createInteractiveElement(1140, 380, "enter", 0.4, () => {
                 this.gameManager.changeScene("Scene6BedroomRouteA2", null, true);
-            }, false);
+            }, false, "bedroomDoor");
         }
 
         // Al producirse, cambia a la escena de la calle

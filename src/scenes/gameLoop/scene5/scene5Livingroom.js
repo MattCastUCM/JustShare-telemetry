@@ -42,11 +42,11 @@ export default class Scene5Livingroom extends BaseScene {
             let doorNode = super.readNodes(generalNodes, "generalDialogs", "door", true);
             super.createInteractiveElement(890, 380, "pointer", 0.3, () => {
                 this.dialogManager.setNode(doorNode, []);
-            }, false);
+            }, false, "exitDoor");
             
             super.createInteractiveElement(1140, 380, "enter", 0.4, () => {
                 this.gameManager.changeScene("Scene5Bedroom", null, true);
-            }, false);
+            }, false, "bedroomDoor");
         });
     }
 

@@ -62,7 +62,7 @@ export default class Scene4Garage extends BaseScene {
             super.createInteractiveElement(800, 430, "pointer", 0.4, () => {
                 let node = super.readNodes(nodes, "scene4\\scene4Garage", "photo", true);
                 this.dialogManager.setNode(node, [paulaPortrait]);
-            }, true);
+            }, true, "photo");
         });
         
         // Al producirse, se recibe un mensaje en el movil

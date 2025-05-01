@@ -49,20 +49,20 @@ export default class Scene6EndingRouteB extends BaseScene {
                 let closetNode = super.readNodes(nodes, "scene6\\routeB\\scene6EndingRouteB", "closet", true);
                 super.createInteractiveElement(240, 400, "pointer", 0.3, () => {
                     this.dialogManager.setNode(closetNode, []);
-                }, false);
+                }, false, "closet");
 
                 // Cama
                 let bedNode = super.readNodes(nodes, "scene6\\routeB\\scene6EndingRouteB", "bed", true);
                 super.createInteractiveElement(790, 550, "pointer", 0.3, () => {
                     this.dialogManager.setNode(bedNode, []);
-                }, false);
+                }, false, "bed");
 
 
                 // Ordenador
                 let pcNode = super.readNodes(nodes, "scene6\\routeB\\scene6EndingRouteB", "computer", true);
                 super.createInteractiveElement(1390, 400, "pointer", 0.3, () => {
                     this.dialogManager.setNode(pcNode, []);
-                }, false);
+                }, false, "computer");
             }, 500);
         });
 

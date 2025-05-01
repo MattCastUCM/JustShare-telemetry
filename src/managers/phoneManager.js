@@ -76,6 +76,15 @@ export default class PhoneManager {
         this.icon.on('pointerdown', () => {
             // Si no hay dialogo actino ni animacion reproduciendose, se muestra/oculta el movil
             if (!this.scene.dialogManager.isTalking() && !this.toggling && this.scene.lidAnim == null) {
+                if (this.phone.visible) {
+                    // TRACKER EVENT
+                    console.log("Cerrando telefono"); 
+                }
+                else {
+                    // TRACKER EVENT
+                    console.log("Abriendo telefono");
+                }
+                
                 this.togglePhone();
 
                 this.scene.tweens.add({

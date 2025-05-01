@@ -215,6 +215,9 @@ export default class GameManager {
                 this.currentScene.cameras.main.fadeIn(FADE_IN_TIME, 0, 0, 0);    
                 this.fading = false;   
             });
+
+            // TRACKER EVENT
+            console.log("Entrando en", scene); 
         });
     }
     

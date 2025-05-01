@@ -47,17 +47,7 @@ export default class Scene4Frontyard extends BaseScene {
 
             super.createInteractiveElement(840, 350, "enter", 0.4, () => {
                 this.gameManager.changeScene("Scene4Backyard");
-            }, true);
-        });
-
-
-        // Al producirse, hace que se reciba un mensaje en el movil
-        this.dispatcher.add("end", this, () => {
-            this.dialogManager.setNode(null, []);
-
-            super.createInteractiveElement(840, 350, "enter", 0.4, () => {
-                this.gameManager.changeScene("Scene4Backyard");
-            }, true);
+            }, true, "enterDoor");
         });
     }
 
