@@ -22,7 +22,7 @@ export default class LRS {
         if (this.baseUrl.slice(-1) !== "/") {
             this.baseUrl += "/"
         }
-        this.authorization = "Basic", btoa(username + ":" + password)
+        this.authorization = "Basic " + btoa(username + ":" + password)
         
         this.debug = debug
 
@@ -114,67 +114,67 @@ export default class LRS {
             "Content-Type": "application/json"
         }
 
-        const statement1 = {
-            "id": "e0226276-c4a8-4512-991d-f5808946bf2d",
-            "actor": {
-                "mbox": "mailto:tyler@yopmail.es",
-                "name": "Tyler",
-                "objectType": "Agent"
-            },
-            "verb": {
-                "id": "http://adlnet.gov/expapi/verbs/answered",
-                "display": {
-                    "en-US": "answered"
-                }
-            },
-            "object": {
-                "id": "http://adlnet.gov/expapi/activities/example",
-                "definition": {
-                    "name": {
-                        "en-US": "Example Activity"
-                    },
-                    "description": {
-                        "en-US": "Example activity description"
-                    }
-                },
-                "objectType": "Activity"
-            }
-        }
-        const statement2 = {
-            "id": "c78dd525-5f33-4e42-a980-542279c12074",
-            "actor": {
-                "mbox": "mailto:tyler@yopmail.es",
-                "name": "Tyler",
-                "objectType": "Agent"
-            },
-            "verb": {
-                "id": "http://adlnet.gov/expapi/verbs/answered",
-                "display": {
-                    "en-US": "answered"
-                }
-            },
-            "object": {
-                "id": "http://adlnet.gov/expapi/activities/example",
-                "definition": {
-                    "name": {
-                        "en-US": "Example Activity"
-                    },
-                    "description": {
-                        "en-US": "Example activity description"
-                    }
-                },
-                "objectType": "Activity"
-            }
-        }
-        statements.push(statement1)
-        statements.push(statement2)
+        // const statement1 = {
+        //     "id": "e0226276-c4a8-4512-991d-f5808946bf2d",
+        //     "actor": {
+        //         "mbox": "mailto:tyler@yopmail.es",
+        //         "name": "Tyler",
+        //         "objectType": "Agent"
+        //     },
+        //     "verb": {
+        //         "id": "http://adlnet.gov/expapi/verbs/answered",
+        //         "display": {
+        //             "en-US": "answered"
+        //         }
+        //     },
+        //     "object": {
+        //         "id": "http://adlnet.gov/expapi/activities/example",
+        //         "definition": {
+        //             "name": {
+        //                 "en-US": "Example Activity"
+        //             },
+        //             "description": {
+        //                 "en-US": "Example activity description"
+        //             }
+        //         },
+        //         "objectType": "Activity"
+        //     }
+        // }
+        // const statement2 = {
+        //     "id": "c78dd525-5f33-4e42-a980-542279c12074",
+        //     "actor": {
+        //         "mbox": "mailto:tyler@yopmail.es",
+        //         "name": "Tyler",
+        //         "objectType": "Agent"
+        //     },
+        //     "verb": {
+        //         "id": "http://adlnet.gov/expapi/verbs/answered",
+        //         "display": {
+        //             "en-US": "answered"
+        //         }
+        //     },
+        //     "object": {
+        //         "id": "http://adlnet.gov/expapi/activities/example",
+        //         "definition": {
+        //             "name": {
+        //                 "en-US": "Example Activity"
+        //             },
+        //             "description": {
+        //                 "en-US": "Example activity description"
+        //             }
+        //         },
+        //         "objectType": "Activity"
+        //     }
+        // }
+        // statements.push(statement1)
+        // statements.push(statement2)
         
         let statementsAux = []
 
         if (statements.length !== 0) {
             for (let statement of statements) {
                 // TODO - serializeXApi
-                statementsAux.push(statement)
+                statementsAux.push(statement.serializeToXApi(this.version))
             }
             
             this.sendRequest(endpoint, method, headers, statementsAux, onSuccess, onError)

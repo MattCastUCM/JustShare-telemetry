@@ -43,7 +43,8 @@ export default class Tracker {
     // Envía los eventos guardados a una lrs.
     sendEvents() {
         this.lrs.saveStatements(this.queue, (data) => {
-            // this.queue = [];
-        });
+            this.queue = [];
+            console.log(data)
+        }, error => console.log(error.message));
     }
 }
