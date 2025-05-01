@@ -13,6 +13,43 @@ export class Actor {
     }
 }
 
+export class Verb {
+    constructor(id, display) {
+        this.id = id;
+        this.display = { "en-US": display };
+    }
+
+    serializeToXApi() {
+        return {
+            id: this.id,
+            display: this.display
+        }
+    }
+}
+
+export class Object {
+    constructor(id, name, description = null) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+    }
+
+    serializeToXApi() {
+        let definition = {
+            name: { "en-US": this.name }
+        };
+        if (this.description) {
+            definition.description = { "en-US": this.description };
+        }
+
+        return {
+            id: this.id,
+            definition,
+            objectType: "Activity"
+        };
+    }
+}
+
 // TODO: ¿¿Quizás no debería ser clase??
 export class Context {
     constructor(contextActivities = {}) {
@@ -26,28 +63,6 @@ export class Context {
     }
 }
 
-export class Object {
-    constructor(id, name, description = null) {
-        this.id = id;
-        this.name = name;
-        this.description = description;
-    }
-
-    serializeToXApi() {
-        const definition = {
-            name: { "en-US": this.name }
-        };
-        if (this.description) {
-            definition.description = { "en-US": this.description };
-        }
-
-        return {
-            id: this.id,
-            definition
-        };
-    }
-}
-
 export class Result {
     constructor({ success = null, completion = null, scoreScaled = null, response = null } = {}) {
         this.success = success;
@@ -57,25 +72,11 @@ export class Result {
     }
 
     serializeToXApi() {
-        const result = {};
+        let result = {};
         if (this.success) result.success = this.success;
         if (this.completion) result.completion = this.completion;
         if (this.scoreScaled) result.score = { scaled: this.scoreScaled };
         if (this.response) result.response = this.response;
         return result;
-    }
-}
-
-export class Verb {
-    constructor(id, display) {
-        this.id = id;
-        this.display = { "en-US": display };
-    }
-
-    serializeToXApi() {
-        return {
-            id: this.id,
-            display: this.display
-        }
     }
 }

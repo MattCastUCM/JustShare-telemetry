@@ -1,3 +1,21 @@
+import { httpRequest } from './utils.js'
+
+class Versions {
+    static getAllVersions() {
+        return [
+            "1.0.2",
+            "1.0.1",
+            "1.0.0",
+            "0.95",
+            "0.9"
+        ];
+    }
+
+    static isValidVersion(version) {
+        return this.getAllVersions().includes(version);
+    }
+}
+
 export default class LRS {
     constructor(config) {
         this.debug = false

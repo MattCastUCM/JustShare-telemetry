@@ -1,5 +1,6 @@
 import Tracker from './tracker.js'
-import { LRS, Actor } from './tracker.js';
+import LRS from './lrs.js';
+import { Actor } from './parameters.js';
 
 export default class TrackerScene extends Phaser.Scene {
     constructor() {
