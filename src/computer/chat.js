@@ -17,6 +17,8 @@ export default class Chat extends Phaser.GameObjects.Container {
 
         this.listView = this.createChat(x, topBar.y + topBar.bar.displayHeight, width, 
             height - BAR_OFFSET_Y * 2 - topBar.bar.displayHeight - this.bottomBar.displayHeight)
+
+        this.visible = false;
     }
 
     createChat(x, y, width, height) {

@@ -4,7 +4,6 @@ import Portrait from '../../../UI/dialog/portrait.js';
 // Ya no es el garaje, pero se mantiene el nombre de la escena 
 export default class Scene4Garage extends BaseScene {
     /**
-     * Escena base para el salon. Coloca los elementos que se mantienen igual todos los dias
      * @extends BaseScene
      * @param {String} name - id de la escena
      */

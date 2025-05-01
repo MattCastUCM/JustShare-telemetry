@@ -106,6 +106,9 @@ export default class MessagesScreen extends BaseScreen {
             if (fadeColor) {
                 fadeColor.on('complete', () => {
                     if (onClick !== null && typeof onClick === 'function') {
+                        // TRACKER EVENT
+                        console.log("Entrar al chat:", name);
+
                         onClick();
                     }
                 });

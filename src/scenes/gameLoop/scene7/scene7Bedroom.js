@@ -3,7 +3,6 @@ import Portrait from '../../../UI/dialog/portrait.js';
 
 export default class Scene7Bedroom extends BaseScene {
     /**
-     * Escena base para el salon. Coloca los elementos que se mantienen igual todos los dias
      * @extends BaseScene
      * @param {String} name - id de la escena
      */
@@ -97,9 +96,15 @@ export default class Scene7Bedroom extends BaseScene {
                 fadeOutTime: 1000,
                 text: this.gameManager.translate("scene7.end", { ns: "transitions", returnObjects: true }),
                 onComplete: () => {
+                    // TRACKER EVENT
+                    console.log("Fin de partida");
+                    
                     this.gameManager.startTitleScene();
                 },
             };
+            // TRACKER EVENT
+            console.log("Fin del dia 7");
+
             this.gameManager.changeScene("TextOnlyScene", params);
         });
     }

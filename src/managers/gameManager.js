@@ -137,8 +137,10 @@ export default class GameManager {
                 this.changeScene("Scene1Classroom", null);
             },
         };
-        
         this.changeScene("TextOnlyScene", params);
+        
+        // TRACKER EVENT
+        console.log("Inicio del dia 1");        
     }
 
     /**
@@ -180,6 +182,9 @@ export default class GameManager {
 
         this.currentScene.cameras.main.fadeOut(FADE_OUT_TIME, 0, 0, 0);
         this.fading = true;
+
+        // TRACKER EVENT
+        console.log("Saliendo de", this.currentScene.scene.key); 
 
         // Cuando acaba el fade out de la escena actual se cambia a la siguiente
         this.currentScene.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, (cam, effect) => {

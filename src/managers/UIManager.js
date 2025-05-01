@@ -25,6 +25,9 @@ import PhoneManager from "./phoneManager.js";
         this.topLid.setDepth(100).setScrollFactor(0);
         this.botLid = this.add.rectangle(0, this.CANVAS_HEIGHT / 2, this.CANVAS_WIDTH, this.CANVAS_HEIGHT / 2, 0x000, 1).setOrigin(0, 0);
         this.botLid.setDepth(100).setScrollFactor(0);
+        
+        this.topLid.setInteractive();
+        this.botLid.setInteractive();
 
         this.moveLids(true);
         this.lidAnim = null; 

@@ -2,7 +2,6 @@ import BaseScene from '../../baseScene.js';
 
 export default class Scene6EndingRouteA extends BaseScene {
     /**
-     * Escena base para el salon. Coloca los elementos que se mantienen igual todos los dias
      * @extends BaseScene
      * @param {String} name - id de la escena
      */
@@ -42,6 +41,12 @@ export default class Scene6EndingRouteA extends BaseScene {
                         this.gameManager.changeScene("Scene7Bedroom");
                     },
                 };
+                // TRACKER EVENT
+                console.log("Fin del dia 6");
+
+                // TRACKER EVENT
+                console.log("Inicio del dia 7");
+                
                 this.gameManager.changeScene("TextOnlyScene", params);
             }, 1000);
         });

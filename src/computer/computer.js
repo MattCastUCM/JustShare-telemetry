@@ -23,6 +23,7 @@ export default class Computer extends ComputerBaseScene {
 
         this.createPowerIcon(() => {
             this.gameManager.leaveComputer()
+            this.socialMediaScreen.reset();
         });
 
         this.changeToMainScreen()

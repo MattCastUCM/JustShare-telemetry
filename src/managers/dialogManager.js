@@ -137,7 +137,7 @@ export default class DialogManager {
                 this.currNode = node;
                 this.lastCharacter = null;
                 this.processNode(node);
-                
+
                 if (portraits.length > 0) {
                     this.scene.phoneManager.togglePhone(false);
                 }
@@ -149,13 +149,13 @@ export default class DialogManager {
             this.currNode = null;
             this.textbox.resetTextConfig();
             this.textbox.activate(false);
-            
+
             this.portraits.forEach((value) => {
                 let key = value.getKey()
                 this.portraits.set(key, value);
                 value.setTalking(false, this.PORTRAIT_ANIM_TIME);
             });
-            
+
             if (hidePortraits) {
                 // Desactiva los personajes (despues de que haya desaparecido la caja de texto)
                 setTimeout(() => {
@@ -232,7 +232,7 @@ export default class DialogManager {
         // Recorre todos los eventos del nodo y les hace dispatch con el delay establecido (si tienen)
         for (let i = 0; i < node.events.length; i++) {
             let evt = node.events[i];
-            
+
             let delay = 0
             if (evt.delay) {
                 delay = evt.delay;
@@ -252,7 +252,7 @@ export default class DialogManager {
             }, delay);
         }
     }
-    
+
     // Procesa el nodo actual dependiendo de su tipo
     processNode() {
         // Si el nodo actual es valido
@@ -264,83 +264,86 @@ export default class DialogManager {
 
             this.bgBlock.setInteractive();
 
-                if (this.currNode.type === "condition") {
-                    let i = this.processConditionNode(this.currNode);
-                    // El indice del siguiente nodo sera el primero que cumpla una de las condiciones
-                    this.currNode = this.currNode.next[i];
-                    // Pasa al siguiente nodo
-                    this.processNextNode(delay);
+            if (this.currNode.type === "condition") {
+                let i = this.processConditionNode(this.currNode);
+                // El indice del siguiente nodo sera el primero que cumpla una de las condiciones
+                this.currNode = this.currNode.next[i];
+                // Pasa al siguiente nodo
+                this.processNextNode(delay);
+            }
+            else if (this.currNode.type === "choice") {
+                // Si el personaje anterior esta en el mapa de retratos, se oscurece
+                if (this.portraits.get(this.lastCharacter)) {
+                    this.portraits.get(this.lastCharacter).setTalking(false, this.PORTRAIT_ANIM_TIME);
+                    this.lastCharacter = "";
                 }
-                else if (this.currNode.type === "choice") {
-                    // Si el personaje anterior esta en el mapa de retratos, se oscurece
-                    if (this.portraits.get(this.lastCharacter)) {
-                        this.portraits.get(this.lastCharacter).setTalking(false, this.PORTRAIT_ANIM_TIME);
-                        this.lastCharacter = "";
-                    }
-    
-                    this.createOptions(this.currNode.choices);
-                    this.activateOptions(true);
-                }
-                else if (this.currNode.type === "text") {
-                    // Si el nodo no tiene texto, se lo salta y pasa al siguiente nodo
-                    // IMPORTANTE: DESPUES DE UN NODO DE DIALOGO SOLO HAY UN NODO, POR LO QUE 
-                    // EL SIGUIENTE NODO SERA EL PRIMER NODO DEL ARRAY DE NODOS SIGUIENTES
-                    if (this.currNode.dialogs[this.currNode.currDialog].text.length < 1) {
-                        this.currNode = this.currNode.next[0];
-                        this.processNextNode(delay);
-                    }
-                    else {
-                        // Funcion a ejecutar para mostrar la caja. Actualiza el retrato y el texto y activa la caja
-                        let showBox = () => {
-                            this.textbox.centerText(this.currNode.centered);
-                            this.setText(this.currNode.dialogs[this.currNode.currDialog], true);
-                            this.textbox.activate(true);
-                        }
-                        
-                        // Si el ultimo personaje que hablo es distinto del que habla ahora, se oculta la caja y luego se muestra
-                        if (this.currNode.character !== this.lastCharacter) {
-                            // Si el personaje anterior esta en el mapa de retratos, se oscurece
-                            if (this.portraits.get(this.lastCharacter)) {
-                                this.portraits.get(this.lastCharacter).setTalking(false, this.PORTRAIT_ANIM_TIME);
-                            }
-    
-                            // Si el personaje actual esta en el mapa de retratos, se aclara
-                            if (this.portraits.get(this.currNode.character)) {
-                                this.portraits.get(this.currNode.character).setTalking(true, this.PORTRAIT_ANIM_TIME);
-                            }
-    
-    
-                            this.textbox.activate(false, () => {
-                                showBox();
-                            }, 0);
-                        }
-                        // Si no, se muestra directamente. Si la caja ya estaba activa, no vuelve a mostrarla
-                        else {
-                            showBox();
-                        }
-                    }
-                }
-                else if (this.currNode.type === "event") {
-                    this.processEventNode(this.currNode);
-    
-                    // IMPORTANTE: DESPUES DE UN NODO DE EVENTO SOLO HAY UN NODO, POR LO QUE 
-                    // EL SIGUIENTE NODO SERA EL PRIMER NODO DEL ARRAY DE NODOS SIGUIENTES
+
+                this.createOptions(this.currNode.choices);
+                this.activateOptions(true);
+            }
+            else if (this.currNode.type === "text") {
+                // Si el nodo no tiene texto, se lo salta y pasa al siguiente nodo
+                // IMPORTANTE: DESPUES DE UN NODO DE DIALOGO SOLO HAY UN NODO, POR LO QUE 
+                // EL SIGUIENTE NODO SERA EL PRIMER NODO DEL ARRAY DE NODOS SIGUIENTES
+                if (this.currNode.dialogs[this.currNode.currDialog].text.length < 1) {
                     this.currNode = this.currNode.next[0];
-    
                     this.processNextNode(delay);
                 }
-                else if (this.currNode.type === "chatMessage") {
-                    if (this.currNode.phone) {
-                        this.scene.phoneManager.phone.setChatNode(this.currNode.chat, this.currNode);
-                        this.bgBlock.disableInteractive();
+                else {
+                    // TRACKER EVENT
+                    // console.log("Inicio de dialogo:", this.currNode.dialogs[this.currNode.currDialog].text);
+
+                    // Funcion a ejecutar para mostrar la caja. Actualiza el retrato y el texto y activa la caja
+                    let showBox = () => {
+                        this.textbox.centerText(this.currNode.centered);
+                        this.setText(this.currNode.dialogs[this.currNode.currDialog], true);
+                        this.textbox.activate(true);
                     }
+
+                    // Si el ultimo personaje que hablo es distinto del que habla ahora, se oculta la caja y luego se muestra
+                    if (this.currNode.character !== this.lastCharacter) {
+                        // Si el personaje anterior esta en el mapa de retratos, se oscurece
+                        if (this.portraits.get(this.lastCharacter)) {
+                            this.portraits.get(this.lastCharacter).setTalking(false, this.PORTRAIT_ANIM_TIME);
+                        }
+
+                        // Si el personaje actual esta en el mapa de retratos, se aclara
+                        if (this.portraits.get(this.currNode.character)) {
+                            this.portraits.get(this.currNode.character).setTalking(true, this.PORTRAIT_ANIM_TIME);
+                        }
+
+
+                        this.textbox.activate(false, () => {
+                            showBox();
+                        }, 0);
+                    }
+                    // Si no, se muestra directamente. Si la caja ya estaba activa, no vuelve a mostrarla
                     else {
-                        this.gameManager.computer.socialMediaScreen.setChatNode(this.currNode.chat, this.currNode);   
+                        showBox();
                     }
                 }
-                else if (this.currNode.type === "commentary") {
-                    this.gameManager.computer.socialMediaScreen.setCommentaryNode(this.currNode.post, this.currNode);
-                } 
+            }
+            else if (this.currNode.type === "event") {
+                this.processEventNode(this.currNode);
+
+                // IMPORTANTE: DESPUES DE UN NODO DE EVENTO SOLO HAY UN NODO, POR LO QUE 
+                // EL SIGUIENTE NODO SERA EL PRIMER NODO DEL ARRAY DE NODOS SIGUIENTES
+                this.currNode = this.currNode.next[0];
+
+                this.processNextNode(delay);
+            }
+            else if (this.currNode.type === "chatMessage") {
+                if (this.currNode.phone) {
+                    this.scene.phoneManager.phone.setChatNode(this.currNode.chat, this.currNode);
+                    this.bgBlock.disableInteractive();
+                }
+                else {
+                    this.gameManager.computer.socialMediaScreen.setChatNode(this.currNode.chat, this.currNode);
+                }
+            }
+            else if (this.currNode.type === "commentary") {
+                this.gameManager.computer.socialMediaScreen.setCommentaryNode(this.currNode.post, this.currNode);
+            }
         }
         // Se ha acabado el dialogo o se ha pasado un nodo invalido
         else {
@@ -358,10 +361,16 @@ export default class DialogManager {
             }
             // Si ha acabado de mostrarse todo el dialogo
             else {
+                // TRACKER EVENT
+                // console.log("Fin de dialogo:", this.currNode.dialogs[this.currNode.currDialog].text);
+
                 // Actualiza el dialogo que se esta mostrando del nodo actual
                 this.currNode.currDialog++;
                 // Si aun no se han mostrado todos los dialogos del nodo, muestra el siguiente dialogo
                 if (this.currNode.currDialog < this.currNode.dialogs.length) {
+                    // TRACKER EVENT
+                    // console.log("Inicio de dialogo:", this.currNode.dialogs[this.currNode.currDialog].text);
+
                     this.setText(this.currNode.dialogs[this.currNode.currDialog], true);
                 }
                 // Si ya se han mostrado todos los dialogos
@@ -444,6 +453,9 @@ export default class DialogManager {
     * @param {Number} index - indice elegido
     */
     selectOption(index) {
+        // TRACKER EVENT
+        // console.log("Opcion seleccionada:", this.currNode.choices[index].text);
+
         // Desactiva las opciones
         this.activateOptions(false);
 
@@ -465,6 +477,7 @@ export default class DialogManager {
             delay = this.currNode.nextDelay;
         }
         this.processNextNode(delay);
+        this.createOptions([]);
     }
 
     /**
@@ -473,7 +486,7 @@ export default class DialogManager {
     */
     isTalking() {
         let cond1 = this.currNode != null && (this.currNode.type == "text" || this.currNode.type == "choice")
-        let cond2 = this.textbox.box.visible && this.textbox.box.alpha > 0;
+        let cond2 = (this.textbox.box.visible && this.textbox.box.alpha > 0) || this.options.length > 0;
         return cond1 && cond2;
     }
 

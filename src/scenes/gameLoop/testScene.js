@@ -4,7 +4,6 @@ import Portrait from '../../UI/dialog/portrait.js';
 
 export default class TestScene extends BaseScene {
     /**
-     * Escena base para el salon. Coloca los elementos que se mantienen igual todos los dias
      * @extends BaseScene
      * @param {String} name - id de la escena
      */

@@ -39,6 +39,9 @@ export default class LoginScene extends ComputerBaseScene {
         container.add(sexualityContainer);
 
         let acceptButton = this.createButton(0, sexualityContainer.y + sexualityContainer.height + OFFSET_Y * 1.5, 'acceptButton', () => {
+            // TRACKER EVENT
+            console.log("Boton de login");
+
             let errors = this.checkErrors(nameContainer, genderContainer, sexualityContainer);
             if (!errors) {
                 this.startGame(nameContainer, genderContainer, sexualityContainer)

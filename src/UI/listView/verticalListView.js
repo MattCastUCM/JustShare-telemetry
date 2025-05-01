@@ -47,6 +47,7 @@ export default class VerticalListView extends Phaser.GameObjects.Container {
         this.boundedZone = this.scene.add.zone(0, 0, boundaries.width, boundaries.height);
         this.boundedZone.setOrigin(0.5, 0);
         this.boundedZone.setInteractive({ draggable: true });
+
         // El scrolling esta por encima de cualquier asset
         // De esta forma, se va a poder scrollear sobre la propia listiview
         this.boundedZone.setDepth(1);

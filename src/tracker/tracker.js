@@ -127,12 +127,12 @@ export class LRS {
         }
 
         if (config.hasOwnProperty("username") && config.hasOwnProperty("password")) {
-            this.authorization = "Basic " + btoa(config.username + ":" + config.password)
+            this.authorization = "Basic", btoa(config.username + ":" + config.password)
         }
 
         if (config.hasOwnProperty("version")) {
             if (!Versions.isValidVersion(config.version)) {
-                console.error("LRS not supported: invalid version " + "(" + config.version + ")");
+                console.error("LRS not supported: invalid version", "(", config.version, ")");
             }
         } 
         else {

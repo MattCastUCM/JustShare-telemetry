@@ -39,6 +39,7 @@ export default class ChatScreen extends BaseScreen {
 
         let nameTextOffsetX = 90;
         // Crea el texto del nombre de la persona
+        this.name = name;
         this.nameText = this.scene.add.text(this.HEADER_X + nameTextOffsetX, this.HEADER_Y, name, textConfig).setOrigin(0, 0.5);
 
         // Crea el icono
@@ -57,7 +58,7 @@ export default class ChatScreen extends BaseScreen {
         // Lista con los mensajes
         this.messagesListView = new VerticalListView(this.scene, this.BG_X, 142,
             1, -40, { width: this.bg.displayWidth * 0.85, height: 605 }, null, true, 50, true);
-
+        
         this.add(this.nameText);
         this.add(this.iconImage);
         this.add(this.messagesListView);
@@ -71,6 +72,7 @@ export default class ChatScreen extends BaseScreen {
         this.bringToTop(this.iconImage);
 
         this.canAnswer = false;
+        this.boxClickable = false;
     }
 
 
@@ -84,7 +86,7 @@ export default class ChatScreen extends BaseScreen {
 
         // Hace fade del color de la caja al pasar o quitar el raton por encima
         this.textBox.on('pointerover', () => {
-            if (!this.scene.dialogManager.isTalking()) {
+            if (!this.scene.dialogManager.isTalking() && this.boxClickable) {
                 if (this.canAnswerAnim != null) {
                     this.scene.tweens.remove(this.canAnswerAnim);
                 }
@@ -106,7 +108,7 @@ export default class ChatScreen extends BaseScreen {
 
         });
         this.textBox.on('pointerout', () => {
-            if (!this.scene.dialogManager.isTalking()) {
+            if (!this.scene.dialogManager.isTalking() && this.boxClickable) {
                 let anim = this.scene.tweens.addCounter({
                     targets: [this.textBox],
                     from: 0,
@@ -130,38 +132,46 @@ export default class ChatScreen extends BaseScreen {
 
         // Al hacer click, vuelve a cambiar el color de la caja al original
         this.textBox.on('pointerdown', () => {
-            if (!this.scene.dialogManager.isTalking() && this.canAnswer) {
-                this.disableInteractive();
-
-                let fadeColor = this.scene.tweens.addCounter({
-                    targets: [this.textBox],
-                    from: 0,
-                    to: 100,
-                    onUpdate: (tween) => {
-                        const value = tween.getValue();
-                        let col = Phaser.Display.Color.Interpolate.ColorWithColor(this.noTint, this.pointerOverColor, 100, value);
-                        let colInt = Phaser.Display.Color.GetColor(col.r, col.g, col.b);
-                        this.textBox.setTint(colInt);
-                    },
-                    duration: this.tintFadeTime,
-                    repeat: 0,
-                    yoyo: true
-                });
-                // Si se ha hecho la animacion, al terminar la animacion hace que
-                // el dialogManager cree las opciones para responder y las active
-                if (fadeColor && this.currNode) {
-                    fadeColor.on('complete', () => {
-                        // Si es un mensaje de chat, lo procesa
-                        if (this.currNode.type === "chatMessage") {
-                            this.processNode();
-                        }
-                        // Si no, lo procesa el dialogManager
-                        else {
-                            this.scene.dialogManager.setNode(this.currNode, []);
-                            this.setNode(null);
-                        }
+            if (!this.scene.dialogManager.isTalking()) {
+                // TRACKER EVENT
+                console.log("Pulsar boton de responder:", this.name);
+                
+                if (this.boxClickable) {
+                    this.disableInteractive();
+                    
+                    let fadeColor = this.scene.tweens.addCounter({
+                        targets: [this.textBox],
+                        from: 0,
+                        to: 100,
+                        onUpdate: (tween) => {
+                            const value = tween.getValue();
+                            let col = Phaser.Display.Color.Interpolate.ColorWithColor(this.noTint, this.pointerOverColor, 100, value);
+                            let colInt = Phaser.Display.Color.GetColor(col.r, col.g, col.b);
+                            this.textBox.setTint(colInt);
+                        },
+                        duration: this.tintFadeTime,
+                        repeat: 0,
+                        yoyo: true
                     });
+                    
+                    // Si se ha hecho la animacion, al terminar la animacion hace que
+                    // el dialogManager cree las opciones para responder y las active
+                    if (fadeColor != null && this.currNode) {
+                        fadeColor.on('complete', () => {
+                            // Si es un mensaje de chat, lo procesa
+                            if (this.currNode.type === "chatMessage") {
+                                this.processNode();
+                            }
+                            // Si no, lo procesa el dialogManager
+                            else {
+                                this.scene.dialogManager.currNode = null;
+                                this.scene.dialogManager.setNode(this.currNode, []);
+                                this.setNode(null);
+                            }
+                        });
+                    }
                 }
+                
             }
 
         });
@@ -214,6 +224,9 @@ export default class ChatScreen extends BaseScreen {
 
                 // Cuando termina la animacion, vuelve a la pantalla anterior
                 anim.on('complete', () => {
+                    // TRACKER EVENT
+                    console.log("Salir del chat:", this.name);
+                    
                     this.phone.toPrevScreen();
                 });
             }
@@ -239,17 +252,21 @@ export default class ChatScreen extends BaseScreen {
             repeat: -1,
             yoyo: true
         });
-        this.textBox.setInteractive();
+        // this.textBox.setInteractive();
         this.canAnswer = true;
+        this.boxClickable = true;
+
     }
 
     disableInteractive() {
         // Elimina la animacion de que se podia hacer click en la caja
-        this.textBox.disableInteractive();
+        // this.textBox.disableInteractive();
+        
         if (this.canAnswerAnim != null) {
             this.scene.tweens.remove(this.canAnswerAnim);
         }
         this.canAnswer = false;
+        this.boxClickable = false;
     }
 
     /**
@@ -284,7 +301,6 @@ export default class ChatScreen extends BaseScreen {
                     this.currNode = this.currNode.next[0];
                     this.processNextNode(delay);
                 }, this.currNode.replyDelay);
-
             }
             // Si el nodo es de tipo condicion, hace que el dialogManager lo procese y obtiene el siguiente nodo
             else if (this.currNode.type === "condition") {
@@ -309,9 +325,15 @@ export default class ChatScreen extends BaseScreen {
             else if (this.currNode.type === "text") {
                 this.scene.dialogManager.currNode = this.currNode;
                 this.setInteractive();
+
+                // TRACKER EVENT
+                console.log("Mensaje respondible en chat:", this.name);
             }
             else {
                 this.setInteractive();
+
+                // TRACKER EVENT
+                console.log("Mensaje respondible en chat:", this.name);
             }
         }
     }

@@ -3,7 +3,6 @@ import Portrait from '../../../UI/dialog/portrait.js';
 
 export default class Scene3Break extends BaseScene {
     /**
-     * Escena base para el salon. Coloca los elementos que se mantienen igual todos los dias
      * @extends BaseScene
      * @param {String} name - id de la escena
      */
@@ -52,6 +51,9 @@ export default class Scene3Break extends BaseScene {
         // Al producirse, se abre el telefono, se desactiva el bloqueo de fondo y el boton de 
         // volver atras (para no poder cerrarlo) y va directo a la pantalla del chat del acosador)
         this.dispatcher.add("answerPhone", this, () => {
+            // TRACKER EVENT
+            console.log("Responder al telefono");   
+            
             this.phoneManager.icon.disableInteractive();
             
             this.phoneManager.togglePhone(true, 100, () => {
