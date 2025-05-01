@@ -28,6 +28,7 @@ export default class Completable {
         });
     }
 
+    // CAMBIAR
     progressed(id, progress, type = 'Completable') {
         this.tracker.addEvent({
             verb: 'https://w3id.org/xapi/lab/verbs/progressed',
@@ -37,6 +38,7 @@ export default class Completable {
         });
     }
 
+    // CAMBIAR
     completed(id, success = true, score = 1, type = 'Completable') {
         this.tracker.addEvent({
             verb: 'https://w3id.org/xapi/lab/verbs/completed',

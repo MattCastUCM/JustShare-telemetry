@@ -8,6 +8,7 @@ export default class GameObject {
         };
     }
 
+    // CAMBIAR
     interacted(id, type = 'GameObject') {
         this.tracker.addEvent({
             verb: 'https://w3id.org/xapi/lab/verbs/interacted',
@@ -16,6 +17,7 @@ export default class GameObject {
         });
     }
 
+    // CAMBIAR
     used(id, type = 'GameObject') {
         this.tracker.addEvent({
             verb: 'https://w3id.org/xapi/lab/verbs/used',
