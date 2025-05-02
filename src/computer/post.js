@@ -18,7 +18,7 @@ export default class Post extends Phaser.GameObjects.Container {
 
         this.messageIcon = messageIcon
         this.nCommentaries = 0
-        
+
         this.likes = likes
         this.heartChecked = false
     }
@@ -27,7 +27,7 @@ export default class Post extends Phaser.GameObjects.Container {
         const ICON_OFFSET_X = 25
         const ICON_OFFSET_Y = 5
 
-        this.textHeader = this.addTextHeader(this.socialMediaScreen, this.params.width, this.params.pfp, 
+        this.textHeader = this.addTextHeader(this.socialMediaScreen, this.params.width, this.params.pfp,
             this.params.username, this.params.caption)
         this.add(this.textHeader)
 
@@ -41,9 +41,9 @@ export default class Post extends Phaser.GameObjects.Container {
 
             this.addToUpdateList();
 
-            this.createPicture(lastItemX, lastItemY + lastItemHeight + PICTURE_OFFSET_Y, this.params.picture, 
+            this.createPicture(lastItemX, lastItemY + lastItemHeight + PICTURE_OFFSET_Y, this.params.picture,
                 this.params.width - PICTURE_RIGHT_PADDING)
-            
+
             lastItemX = this.image.x
             lastItemY = this.image.y
             lastItemHeight = this.image.displayHeight
@@ -55,12 +55,12 @@ export default class Post extends Phaser.GameObjects.Container {
     }
 
     preUpdate(t, dt) {
-        if(this.params.picture) {
+        if (this.params.picture) {
             let matrix = this.image.getWorldTransformMatrix();
-            
+
             this.imageBorder.clear()
-            this.imageBorder.fillStyle(0x000000, 0); 
-            this.imageBorder.fillRoundedRect(matrix.tx, matrix.ty, 
+            this.imageBorder.fillStyle(0x000000, 0);
+            this.imageBorder.fillRoundedRect(matrix.tx, matrix.ty,
                 this.image.width * matrix.scaleX, this.image.height * matrix.scaleY, 15)
         }
     }
@@ -100,8 +100,8 @@ export default class Post extends Phaser.GameObjects.Container {
         numberText.setOrigin(0, 0.5)
         container.add(numberText)
 
-        numberText.setNumber = function(number) {
-            if(number > LIMIT) {
+        numberText.setNumber = function (number) {
+            if (number > LIMIT) {
                 this.setText('+' + LIMIT)
             }
             else {
@@ -124,7 +124,7 @@ export default class Post extends Phaser.GameObjects.Container {
         container.add(icon)
 
         let numberText = this.addTextNumber(container, icon.x + icon.displayWidth / 2 + TEXT_OFFSET_X, icon.displayHeight / 2)
-        
+
         this.add(container)
 
         // Propiedades
@@ -147,10 +147,10 @@ export default class Post extends Phaser.GameObjects.Container {
         let bounds = this.messageContainer.getBounds()
         this.messageContainer.setSize(bounds.width, bounds.height)
     }
-    
+
     setMessageIconOnClick(onClick) {
         this.addHit(this.messageContainer.icon, () => {
-            if(onClick) onClick()
+            if (onClick) onClick()
         })
     }
 
@@ -163,7 +163,7 @@ export default class Post extends Phaser.GameObjects.Container {
         this.heartChecked = !this.heartChecked
 
         let texture = null
-        if(this.heartChecked) {
+        if (this.heartChecked) {
             texture = 'heartIconFilled'
             this.likes += 1
         }
@@ -183,7 +183,7 @@ export default class Post extends Phaser.GameObjects.Container {
     setHeartIconOnClick(onClick) {
         this.addHit(this.heartContainer.icon, () => {
             this.toggleLike()
-            if(onClick) onClick()
+            if (onClick) onClick()
         })
     }
 }

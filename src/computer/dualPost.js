@@ -25,21 +25,41 @@ export default class DualPost {
         this.feed = new FeedPost(socialMediaScreen, pfp, username, caption, picture, width, likes)
 
         this.selected.setMessageIconOnClick(() => {
+            // TRACKER EVENT
+            console.log("Salir de una publicacion");
+
             this.showSelectedPost(false)
         })
         this.selected.setHeartIconOnClick(() => {
-            this.feed.toggleLike()
+            this.toggleLike()
         })
 
         this.feed.setMessageIconOnClick(() => {
+            // TRACKER EVENT
+            console.log("Entrar a una publicacion");
+            
             this.showSelectedPost(true)
         })
         this.feed.setHeartIconOnClick(() => {
-            this.selected.toggleLike()
+            this.toggleLike()
         })
 
         this.selected.setVisible(false)
     }
+
+
+    toggleLike() {
+        this.selected.toggleLike()
+        if (this.selected.heartContainer.icon.texture.key === "heartIconFilled") {
+            // TRACKER EVENT
+            console.log("Dar like");
+        }
+        else {
+            // TRACKER EVENT
+            console.log("Quitar like");
+        }
+    }
+
 
     showSelectedPost(enable) {
         this.socialMediaScreen.setFeedVisible(!enable)

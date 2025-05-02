@@ -277,7 +277,7 @@ export default class ChatScreen extends BaseScreen {
         this.canAnswer = true;
 
         // Si el nodo a poner es valido, cambia el nodo por el indicado
-        if (node) {
+        if (node != null) {
             this.currNode = node;
             this.processNode();
         }
@@ -373,6 +373,11 @@ export default class ChatScreen extends BaseScreen {
      * @param {Number} amount - cantidad de notificaciones a generar 
      */
     generateNotifications(amount) {
+        if (this.notificationAmount === 0 && amount > 0) {
+            // TRACKER EVENT
+            console.log("Recibir notificacion de:", this.name)
+        }
+
         // Actualiza la cantidad de notificaciones tanto del chat, como en general
         this.notificationAmount += amount;
         this.phone.phoneManager.addNotifications(amount);
