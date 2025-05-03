@@ -14,9 +14,9 @@ export default class TextOnlyScene extends BaseScene {
         super.onCreate(params);
 
         let DEFAULT_TIME = 5000;
-        setTimeout(() => {
-            this.exit();
-        }, DEFAULT_TIME);
+        // setTimeout(() => {
+        //     this.exit();
+        // }, DEFAULT_TIME);
     }
 
     /**
@@ -94,6 +94,21 @@ export default class TextOnlyScene extends BaseScene {
 
         // Crea el texto
         let screenText = this.add.text(this.CANVAS_WIDTH / 2, this.CANVAS_HEIGHT / 2, this.text, textConfig).setOrigin(0.5, 0.5);
+
+        fontSize = 20;
+        textConfig.fontSize = fontSize + 'px';
+        textConfig.align = 'right';
+        let info = this.gameManager.translate("info", { ns: "transitions", returnObjects: true });
+        let infoText = this.add.text(this.CANVAS_WIDTH , this.CANVAS_HEIGHT , info, textConfig).setOrigin(0.5, 0.5);
+        infoText.x = this.CANVAS_WIDTH - infoText.displayWidth / 2 - 20
+        infoText.y = this.CANVAS_HEIGHT - infoText.displayHeight / 2 - 20
+
+        this.tweens.add({
+            targets: [infoText],
+            alpha: { from: 1, to: 0.3 },
+            repeat: -1,
+            yoyo: true
+        });
 
         // En caso de que el texto sea demasiado largo y se salga de la 
         // pantalla, se va reduciendo el tamano de la fuente hasta que quepa
