@@ -14,6 +14,8 @@ export default class Tracker {
         this.lrs = lrs;
         this.actor = actor;
 
+        this.context = new Context('https://w3id.org/xapi/seriousgame');
+
         this.completable = new Completable(this);
         this.gameObject = new GameObject(this);
         this.accessible = new Accessible(this);
@@ -32,11 +34,17 @@ export default class Tracker {
      */
     addEvent(params) {
         if(this.validateParams(params)) {
-            let event = new TrackerEvent({
+            let eventParams = {
                 actor: this.actor,
                 verb: new Verb(params.verb),
-                object: new Object(params.object)
-            })
+                object: new Object(params.object),
+                context: this.context
+            }
+            if(params.result) {
+                eventParams.result = new Result(params.result);
+            }
+
+            let event = new TrackerEvent(eventParams);
             this.queue.push(event);
             if(this.queue.length >= MAX_TRACKER_EVENTS) {
                 this.sendEvents();

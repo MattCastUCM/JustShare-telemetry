@@ -1,4 +1,4 @@
-export function generateStatementId() {
+export function generateUUID() {
     return crypto.randomUUID();
 }
 

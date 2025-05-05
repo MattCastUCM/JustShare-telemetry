@@ -1,3 +1,5 @@
+import { generateUUID } from "./utils.js";
+
 export class Actor {
     constructor(name, email) {
         this.name = name
@@ -55,13 +57,19 @@ export class Object {
 
 // TODO: ¿¿Quizás no debería ser clase??
 export class Context {
-    constructor(contextActivities = {}) {
-        this.contextActivities = contextActivities;
+    constructor(id) {
+        this.registration = generateUUID();
+        this.id = id;
     }
 
     serializeToXApi() {
         return {
-            contextActivities: this.contextActivities
+            registration: this.registration,
+            contextActivities: {
+                category: [{
+                    id: this.id
+                }]
+            }
         };
     }
 }

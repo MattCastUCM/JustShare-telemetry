@@ -1,8 +1,8 @@
-import { generateStatementId } from "./utils.js";
+import { generateUUID } from "./utils.js";
 
 export default class TrackerEvent {
     constructor({ actor, verb, object, result, context }) {
-        this.id = generateStatementId();
+        this.id = generateUUID();
         this.timestamp = new Date().toISOString();
         this.actor = null;
 
