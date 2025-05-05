@@ -23,6 +23,8 @@ export default class GameManager {
             throw new Error('GameManager is a Singleton class!');
         }
 
+        // this.initializeTracker();
+
         // Se necesita una escena para poder acceder al ScenePlugin y cambiar de escena
         // Por lo tanto, se aprovecha para mantener la escena actual
         // El SceneManager tb incluye el cambio de escena, pero no es recomendable segun
@@ -78,6 +80,23 @@ export default class GameManager {
     // metodo para generar y coger la instancia
     static getInstance() {
         return this.create();
+    }
+
+
+    initializeTracker() {
+        this.tracker = new Tracker(
+            new LRS({
+                baseUrl: "https://cloud.scorm.com/lrs/I43WO3TFWH/sandbox/",
+                username: "oMsoz51hM_OQbNNR3Nk",
+                password: "LfWapsOhe1V-ryV2C6o"
+            }),
+            new Actor("Tyler", "tyler@yopmail.es")
+        );
+
+        this.accesible = this.tracker.accesible;
+        this.alternative = this.tracker.alternative;
+        this.completable = this.tracker.completable;
+        this.gameObject = this.tracker.gameObject;
     }
 
     ///////////////////////////////////////

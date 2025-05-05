@@ -1,4 +1,6 @@
 import TrackerEvent from "./trackerEvent.js";
+import Accesible from "./accessible.js"
+import Alternative from "./alternative.js"
 import Completable from "./completable.js";
 import GameObject from "./gameObject.js";
 import Accessible from "./accessible.js"
@@ -16,10 +18,10 @@ export default class Tracker {
 
         this.context = new Context('https://w3id.org/xapi/seriousgame');
 
+        this.accesible = new Accesible(this);
+        this.alternative = new Alternative(this);
         this.completable = new Completable(this);
         this.gameObject = new GameObject(this);
-        this.accessible = new Accessible(this);
-        this.alternative = new Alternative(this);
     }
 
     // Valida los parámetros de un evento.
