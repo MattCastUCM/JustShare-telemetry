@@ -1,7 +1,13 @@
 export default class Completable {
     constructor(tracker) {
         this.tracker = tracker;
+
         this.types = {
+            game: 0,
+            properties: ["game"]
+        }
+
+        this.ids = {
             game: 'https://w3id.org/xapi/lab/activity-types/serious-game',
             session: 'https://w3id.org/xapi/lab/activity-types/session',
             level: 'https://w3id.org/xapi/lab/activity-types/level',
@@ -10,21 +16,27 @@ export default class Completable {
             storyNode: 'https://w3id.org/xapi/lab/activity-types/story-node',
             completable: 'https://w3id.org/xapi/lab/activity-types/completable'
         };
+
+        this.descriptions = {
+            game: "A collectable game object whose use or interaction results in an effect in a game. Items are common elements in video games. Players can collect/use/combine them."
+        }
     }
 
     // REVISAR EJEMPLO
-    initialized(name, type = 'completable') {
+    initialized(name, type) {
+        let property = this.types.properties[type]
+
         this.tracker.addEvent({
             verb: {
                 id: 'https://w3id.org/xapi/lab/verbs/initialized',
                 type: "initialized"
             },
             object: {
-                id: this.types[type],
-                type: type,
-                description: "Hola",
+                id: this.ids[property],
+                type: property,
+                description: this.descriptions[property],
                 name: name,
-            }
+            },
         });
     }
 
