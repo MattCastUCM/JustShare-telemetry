@@ -19,9 +19,16 @@ export default class TrackerScene extends Phaser.Scene {
 
         var completable = tracker.completable
         var gameObject = tracker.gameObject
+        var accessible= tracker.accessible
+        var alternative= tracker.alternative
         
         // Ejemplos de eventos
         completable.initialized("hola1", "storyNode");
+        gameObject.interacted("Matt","👒")
+        accessible.accessed("Emm","Emmm")
+        alternative.selected("Hola","aaaaa")
         tracker.sendEvents();
+        console.log("Hola:👒")
+
     }
 }

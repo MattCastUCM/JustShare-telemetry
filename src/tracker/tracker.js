@@ -1,6 +1,8 @@
 import TrackerEvent from "./trackerEvent.js";
 import Completable from "./completable.js";
 import GameObject from "./gameObject.js";
+import Accessible from "./accessible.js"
+import Alternative from "./alternative.js"
 import { Verb, Object, Context, Result } from './parameters.js'
 
 const MAX_TRACKER_EVENTS = 10;
@@ -14,6 +16,8 @@ export default class Tracker {
 
         this.completable = new Completable(this);
         this.gameObject = new GameObject(this);
+        this.accessible = new Accessible(this);
+        this.alternative = new Alternative(this);
     }
 
     // Valida los parámetros de un evento.
