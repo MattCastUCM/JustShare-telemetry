@@ -1,28 +1,58 @@
 export default class GameObject {
     constructor(tracker) {
         this.tracker = tracker;
+
         this.types = {
-            NPC: 'https://w3id.org/xapi/lab/activity-types/non-player-character',
-            Item: 'https://w3id.org/xapi/lab/activity-types/item',
-            GameObject: 'https://w3id.org/xapi/lab/activity-types/game-object'
+            item: 0,
+            npc: 1,
+         
+            properties: [ "item","non-player-character"]
+        }
+
+        this.ids = {
+            "item": 'https://w3id.org/xapi/seriousgames/activity-types/item',
+            "non-player-character": 'https://w3id.org/xapi/seriousgames/activity-types/non-player-character'
         };
+
+        this.descriptions = {
+            "item": "A collectable game object whose use or interaction results in an effect in a game. Items are common elements in video games. Players can collect/use/combine them.",
+            "non-player-character": "A character that can offer a conversation or other type of interaction inside a game. Players usually have conversations with non-player characters."
+        }
     }
 
-    // CAMBIAR
-    interacted(id, type = 'GameObject') {
+ 
+    interacted(type,gameObject) {
+        let property = this.types.properties[type]
+    
         this.tracker.addEvent({
-            verb: 'https://w3id.org/xapi/lab/verbs/interacted',
-            objectType: this.types[type],
-            id: id
+            verb: {
+                id: 'http://adlnet.gov/expapi/verbs/interacted',
+                type:"interacted"
+            },
+            object: {
+                id: this.ids[property],
+                type:property,
+                description:this.descriptions[property],
+                name:gameObject
+            }
+         
         });
     }
 
-    // CAMBIAR
-    used(id, type = 'GameObject') {
+    used(type,gameObject) {
+        let property = this.types.properties[type]
+
         this.tracker.addEvent({
-            verb: 'https://w3id.org/xapi/lab/verbs/used',
-            objectType: this.types[type],
-            id: id
+            verb: {
+                id: 'https://w3id.org/xapi/seriousgames/verbs/used',
+                type: "used"
+            },
+            object: {
+                id: this.ids[property],
+                type:property,
+                description:this.descriptions[property],
+                name:gameObject
+            }
         });
     }
 }

@@ -17,20 +17,20 @@ export default class TrackerScene extends Phaser.Scene {
             new Actor("Tyler", "tyler@yopmail.es")
         );
 
-        var completable = tracker.completable
-        var gameObject = tracker.gameObject
-        var accessible= tracker.accessible
-        var alternative= tracker.alternative
+       // var completable = tracker.completable
+      //  var gameObject = tracker.gameObject
+      //  var accessible= tracker.accessible
+     //   var alternative= tracker.alternative
 
-        completable.initialized("Collect", completable.types.game)
+        // completable.initialized("Collect", completable.types.game)
         
-        // Ejemplos de eventos
-        completable.initialized("hola1", "storyNode");
-        gameObject.interacted("Matt","👒")
-        accessible.accessed("Emm","Emmm")
-        alternative.selected("Hola","aaaaa")
-        tracker.sendEvents();
-        console.log("Hola:👒")
+        // // Ejemplos de eventos
+        // completable.initialized("hola1", "storyNode");
+        // gameObject.interacted("Matt","👒")
+        // accessible.accessed("Emm","Emmm")
+        // alternative.selected("Hola","aaaaa")
+        // tracker.sendEvents();
+        // console.log("Hola:👒")
 
     }
 }
