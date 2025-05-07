@@ -78,7 +78,7 @@ export default class LRS {
         return headers
     }
 
-    async sendStatements(endpoint, method, customHeaders, body) {
+    async sendRequest(endpoint, method, customHeaders, body) {
         let fullUrl = this.baseUrl + endpoint
         let headers = this.buildHeaders(customHeaders)
         body = JSON.stringify(body)

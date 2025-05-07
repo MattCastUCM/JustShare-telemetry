@@ -86,9 +86,9 @@ export class OAuth2 extends Authentication {
 
     async resourceOwnerPasswordFlow(clientId, scope, state, username, password, loginHint) {
         let form = {
-            username,
-            password,
-            loginHint
+            username: username,
+            password: password,
+            login_hint: loginHint
         }
         if (scope) {
             form.scope = scope

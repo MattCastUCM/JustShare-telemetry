@@ -19,7 +19,7 @@ export default class TrackerScene extends Phaser.Scene {
 
         var tracker = new Tracker(
             new LRS({
-                baseUrl: "https://cloud.scorm.com/lrs/I43WO3TFWH/sandbox/",
+                baseUrl: "https://simva-api.simva-beta.e-ucm.es/activities/6818e775fbe4c00023c50c20/",
                 authScheme: new OAuth2("https://sso.simva-beta.e-ucm.es/realms/simva/protocol/openid-connect/token", 
                     "password", "simva-plugin", null, null, "weoh", "weoh", "6818e70cfbe4c00023c50ab4")
             }),
@@ -34,6 +34,6 @@ export default class TrackerScene extends Phaser.Scene {
 
         completable.initialized(completable.types.area, "Hola")
 
-        // tracker.sendEvents()
+        tracker.sendEvents()
     }
 }
