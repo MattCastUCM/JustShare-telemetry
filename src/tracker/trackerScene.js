@@ -19,7 +19,7 @@ export default class TrackerScene extends Phaser.Scene {
 
         var tracker = new Tracker(
             new LRS({
-                baseUrl: "https://simva-api.simva-beta.e-ucm.es/activities/681b3dc1fbe4c00023c55fa1/",
+                baseUrl: "https://simva-api.simva-beta.e-ucm.es/activities/681b46a0fbe4c00023c56cc4/",
                 authScheme: new OAuth2("https://sso.simva-beta.e-ucm.es/realms/simva/protocol/openid-connect/token", 
                     "password", "simva-plugin", null, null, "slpa", "slpa", "6818e70cfbe4c00023c50ab4")
             }),
