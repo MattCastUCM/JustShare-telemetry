@@ -5,13 +5,16 @@ import { OAuth2 } from './authentication.js';
 
 export function generateTrackerFromURL() {
     let urlParams = new URLSearchParams(window.location.search);
+
+    let authConfig = {}
+    let resultUri, actorHomepage, actorUsername;
+
     if (urlParams.size > 0) {
-        let authConfig = {}
 
-        let result_uri = urlParams.get('result_uri');
+        resultUri = urlParams.get('resultUri');
 
-        let actor_homepage = urlParams.get('actor_homepage');
-        let actor_username = urlParams.get('actor_user');
+        actorHomepage = urlParams.get('actorHomepage');
+        actorUsername = urlParams.get('actor_user');
 
         let sso_token_endpoint = urlParams.get('sso_token_endpoint');
         if (sso_token_endpoint) {
@@ -44,16 +47,18 @@ export function generateTrackerFromURL() {
         else if (sso_username) {
             authConfig.password = sso_username;
         }
-
-        return new Tracker(
-            new LRS({
-                baseUrl: result_uri,
-                authScheme: new OAuth2(authConfig)
-            }),
-            new AccountActor(actor_homepage, actor_username)
-        )
     }
-
-    return null
+    else {
+        resultUri = null
+        actorHomepage = null
+        actorUsername = null
+    }
+    
+    return new Tracker(
+        new LRS({
+            baseUrl: resultUri,
+            authScheme: new OAuth2(authConfig)
+        }),
+        new AccountActor(actorHomepage, actorUsername)
+    )
 }
-

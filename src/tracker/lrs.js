@@ -125,10 +125,13 @@ export default class LRS {
                                 await this.refreshAuth();
                                 break;
                         }
-                        throw error
                     }
+                    throw error
                 }
             }
+        }
+        else {
+            throw new Error("Device is offline, cannont save statements");
         }
     }
 }

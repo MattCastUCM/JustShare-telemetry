@@ -36,6 +36,7 @@ export class OAuth2 extends Authentication {
         this.loginHint = loginHint
 
         this.token = null
+        this.refreshTokenInProgress = false
     }
 
     async initAuth() {
@@ -61,7 +62,32 @@ export class OAuth2 extends Authentication {
     }
 
     async refreshAuth() {
-        return this.token
+        if (!this.refreshTokenInProgress) {
+            let form = {
+                refresh_token: this.token.refresh_token
+            }
+
+            try {
+                this.refreshTokenInProgress = true;
+                this.token = await this.sendTokenRequest("refresh_token", form)
+                this.refreshTokenInProgress = false
+            }
+            catch (error) {
+                this.refreshTokenInProgress = false
+                this.token = null
+                console.error(`Token refresh failed: ${error.message}`)
+            }
+
+            if (this.token) {
+                return "Bearer " + this.token.access_token
+            }
+            return this.token
+        }
+        else {
+            while (this.refreshTokenInProgress) {
+                await new Promise(resolve => setTimeout(resolve, 2000))
+            }
+        }
     }
 
     async sendTokenRequest(grantType, clientId, customForm) {
