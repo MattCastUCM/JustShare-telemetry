@@ -8,7 +8,7 @@ export default class Completable {
             level: 2,
             quest: 3,
             dialogTree: 4,
-            properties: [ "serious-game","area","level","quest","dialog-tree"]
+            properties: ["serious-game", "area", "level", "quest", "dialog-tree"]
         }
 
         this.ids = {
@@ -23,47 +23,47 @@ export default class Completable {
             "serious-game": "A collectable game object whose use or interaction results in an effect in a game. Items are common elements in video games. Players can collect/use/combine them.",
             "area": "An identified area inside the game world. In some games they can also be worlds. Represents an aggregation of zones.	",
             "level": "A level of a game or of a gamified learning platform. A level is logic partition of progression in any video game. Completing a level means advancing in the progression of the game.",
-            "quest":"A accomplishable challenge or mission presented inside a game. Completing quests marks the players' progress."
+            "quest": "A accomplishable challenge or mission presented inside a game. Completing quests marks the players' progress."
         }
     }
 
-    initialized(type,completableName) {
+    initialized(type, completableName) {
         let property = this.types.properties[type]
         this.tracker.addEvent({
             verb: {
                 id: 'https://w3id.org/xapi/dod-isd/verbs/initialized',
-                type:"initialized"
+                type: "initialized"
             },
             object: {
                 id: this.ids[property],
-                type:property,
-                description:this.descriptions[property],
-                name:completableName
+                type: property,
+                description: this.descriptions[property],
+                name: completableName
             }
-         
+
         });
     }
 
-    progressed(type, completableName,score = 0) {
+    progressed(type, completableName, score = 0) {
         let property = this.types.properties[type]
         this.tracker.addEvent({
             verb: {
                 id: 'http://adlnet.gov/expapi/verbs/progressed',
-                type:"progressed"
+                type: "progressed"
             },
             object: {
                 id: this.ids[property],
-                type:property,
-                description:this.descriptions[property],
-                name:completableName
+                type: property,
+                description: this.descriptions[property],
+                name: completableName
             },
             result: {
-                scoreScaled:score
+                scoreScaled: score
             }
         });
     }
 
-    completed(type,completableName,completion=true, success = true, score = 0, duration=0) { //duracion en segundos
+    completed(type, completableName, completion = true, success = true, score = 0, duration = 0) { //duracion en segundos
         let property = this.types.properties[type]
 
         //secondsToISO8601Duration
@@ -74,7 +74,7 @@ export default class Completable {
         duration %= 3600;
         const minutes = Math.floor(duration / 60);
         duration = Math.floor(duration % 60);
-    
+
         if (days > 0) dur += days + 'D';
         if (hours > 0 || minutes > 0 || duration > 0) dur += 'T';
         if (hours > 0) dur += hours + 'H';
@@ -85,18 +85,18 @@ export default class Completable {
         this.tracker.addEvent({
             verb: {
                 id: 'https://w3id.org/xapi/dod-isd/verbs/completed',
-                type:"completed"
+                type: "completed"
             },
             object: {
                 id: this.ids[property],
-                type:property,
-                description:this.descriptions[property],
-                name:completableName
+                type: property,
+                description: this.descriptions[property],
+                name: completableName
             },
             result: {
                 success: success,
                 completion: completion,
-                scoreScaled:score                    
+                scoreScaled: score
             }
         });
     }

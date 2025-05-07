@@ -2,7 +2,7 @@ export default class Accessible {
     constructor(tracker) {
         this.tracker = tracker;
         this.types = {
-            screen: 'https://w3id.org/xapi/seriousgames/activity-types/screen' ,
+            screen: 'https://w3id.org/xapi/seriousgames/activity-types/screen',
             area: 'https://w3id.org/xapi/seriousgames/activity-types/area',
             zone: 'https://w3id.org/xapi/seriousgames/activity-types/zone',
             cutscene: 'https://w3id.org/xapi/seriousgames/activity-types/cutscene',

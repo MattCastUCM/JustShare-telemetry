@@ -2,7 +2,7 @@ export default class Alternative {
     constructor(tracker) {
         this.tracker = tracker;
         this.types = {
-            question: 'http://adlnet.gov/expapi/activities/question' ,
+            question: 'http://adlnet.gov/expapi/activities/question',
             menu: 'https://w3id.org/xapi/seriousgames/activity-types/menu',
             dialog: 'https://w3id.org/xapi/seriousgames/activity-types/dialog-tree',
             path: 'https://w3id.org/xapi/seriousgames/activity-types/path',

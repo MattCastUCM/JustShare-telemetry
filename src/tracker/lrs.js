@@ -17,7 +17,7 @@ class Versions {
 }
 
 export default class LRS {
-    constructor({baseUrl, authScheme, version = null}) {  
+    constructor({ baseUrl, authScheme, version = null }) {
         this.baseUrl = String(baseUrl)
         if (this.baseUrl.slice(-1) !== "/") {
             this.baseUrl += "/"
@@ -28,7 +28,7 @@ export default class LRS {
         this.auth = null
         this.online = false
         this.initAuth()
-        
+
         if (version) {
             if (!Versions.isValidVersion(version)) {
                 console.error(`LRS not supported: invalid version (${version})`);
@@ -97,12 +97,12 @@ export default class LRS {
             let method = "POST"
             let headers = {
                 "Content-Type": "application/json"
-            }        
-            
+            }
+
             if (statements.length !== 0) {
                 let statementsXApi = []
                 statementsXApi = statements.map(statement => statement.serializeToXApi(this.version))
-                
+
                 try {
                     return await this.sendRequest(endpoint, method, headers, statementsXApi)
                 }
@@ -110,7 +110,7 @@ export default class LRS {
                     if (error.response) {
                         let status = error.response.status;
                         let message = error.message;
-                        
+
                         switch (status) {
                             // Unauthorized
                             case 401:

@@ -5,8 +5,8 @@ export default class GameObject {
         this.types = {
             item: 0,
             npc: 1,
-         
-            properties: [ "item","non-player-character"]
+
+            properties: ["item", "non-player-character"]
         }
 
         this.ids = {
@@ -20,26 +20,26 @@ export default class GameObject {
         }
     }
 
- 
-    interacted(type,gameObjectName) {
+
+    interacted(type, gameObjectName) {
         let property = this.types.properties[type]
-    
+
         this.tracker.addEvent({
             verb: {
                 id: 'http://adlnet.gov/expapi/verbs/interacted',
-                type:"interacted"
+                type: "interacted"
             },
             object: {
                 id: this.ids[property],
-                type:property,
-                description:this.descriptions[property],
-                name:gameObjectName
+                type: property,
+                description: this.descriptions[property],
+                name: gameObjectName
             }
-         
+
         });
     }
 
-    used(type,gameObjectName) {
+    used(type, gameObjectName) {
         let property = this.types.properties[type]
 
         this.tracker.addEvent({
@@ -49,9 +49,9 @@ export default class GameObject {
             },
             object: {
                 id: this.ids[property],
-                type:property,
-                description:this.descriptions[property],
-                name:gameObjectName
+                type: property,
+                description: this.descriptions[property],
+                name: gameObjectName
             }
         });
     }

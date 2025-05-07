@@ -1,5 +1,5 @@
 export default class Object {
-    constructor({id, type, description, name}) {
+    constructor({ id, type, description, name }) {
         this.id = id;
         this.type = type
         this.description = description;

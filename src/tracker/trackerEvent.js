@@ -22,10 +22,10 @@ export default class TrackerEvent {
             verb: this.verb.serializeToXApi(version),
             object: this.object.serializeToXApi(version)
         }
-        if(this.result) {
+        if (this.result) {
             event.result = this.result.serializeToXApi(version);
         }
-        if(this.context) {
+        if (this.context) {
             event.context = this.context.serializeToXApi(version);
         }
 

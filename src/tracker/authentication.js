@@ -1,15 +1,15 @@
 import { makeRequest } from "./utils.js"
 
 class Authentication {
-    initAuth() {}
-    refreshAuth() {}
+    initAuth() { }
+    refreshAuth() { }
 }
 
 export class BasicAuthentication extends Authentication {
     constructor(username, password) {
         super()
         this.credentials = btoa(username + ":" + password)
-        this.auth = "Basic " + this.credentials 
+        this.auth = "Basic " + this.credentials
     }
 
     async initAuth() {
@@ -22,7 +22,7 @@ export class BasicAuthentication extends Authentication {
 }
 
 export class OAuth2 extends Authentication {
-    constructor(tokenEndpoint, grantType, clientId, scope, state, username, password, loginHint) {
+    constructor({ tokenEndpoint, grantType, clientId, scope, state, username, password, loginHint }) {
         super()
         this.tokenEndpoint = tokenEndpoint
 
@@ -44,7 +44,7 @@ export class OAuth2 extends Authentication {
                 try {
                     this.token = await this.resourceOwnerPasswordFlow(this.clientId, this.scope, this.state, this.username, this.password, this.loginHint)
                 }
-                catch(error) {
+                catch (error) {
                     this.token = null
                     console.error(`Authentication failed: ${error.message}`);
                 }
@@ -79,7 +79,7 @@ export class OAuth2 extends Authentication {
         try {
             return await makeRequest(this.tokenEndpoint, "POST", headers, body)
         }
-        catch(error) {
+        catch (error) {
             throw error
         }
     }
@@ -100,13 +100,13 @@ export class OAuth2 extends Authentication {
         try {
             return await this.sendTokenRequest("password", clientId, form)
         }
-        catch(error) {
+        catch (error) {
             throw error
         }
     }
-    
+
     // TODO
     async authorizationCodeFlow() {
-        
+
     }
 }

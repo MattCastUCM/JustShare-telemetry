@@ -38,20 +38,20 @@ export default class Tracker {
      * @param {TrackerEvent} event Evento a añadir.
      */
     addEvent(params) {
-        if(this.validateParams(params)) {
+        if (this.validateParams(params)) {
             let eventParams = {
                 actor: this.actor,
                 verb: new Verb(params.verb),
                 object: new Object(params.object),
                 context: this.context
             }
-            if(params.result) {
+            if (params.result) {
                 eventParams.result = new Result(params.result);
             }
 
             let event = new TrackerEvent(eventParams);
             this.queue.push(event);
-            if(this.queue.length >= this.batch_size) {
+            if (this.queue.length >= this.batch_size) {
                 if (this.debug) {
                     this.sendEvents();
                 }
@@ -65,7 +65,7 @@ export default class Tracker {
             this.queue = []
             return data
         }
-        catch(error) {
+        catch (error) {
             console.error(error.message)
         }
     }

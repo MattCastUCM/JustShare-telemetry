@@ -31,7 +31,7 @@ export async function makeRequest(fullUrl, method, headers, body) {
         }
         return await response.json()
     }
-    catch(error) {
+    catch (error) {
         throw error
     }
 }
