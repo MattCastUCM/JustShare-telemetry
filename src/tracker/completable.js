@@ -8,7 +8,6 @@ export default class Completable {
             level: 2,
             quest: 3,
             dialogTree: 4,
-         
             properties: [ "serious-game","area","level","quest","dialog-tree"]
         }
 
@@ -30,7 +29,6 @@ export default class Completable {
 
     initialized(type,completableName) {
         let property = this.types.properties[type]
-
         this.tracker.addEvent({
             verb: {
                 id: 'https://w3id.org/xapi/dod-isd/verbs/initialized',
@@ -65,7 +63,7 @@ export default class Completable {
         });
     }
 
-    completed(type,  completableName,completion=true, success = true, score = 0, duration=0) { //duracion en segundos
+    completed(type,completableName,completion=true, success = true, score = 0, duration=0) { //duracion en segundos
         let property = this.types.properties[type]
 
         //secondsToISO8601Duration
@@ -98,12 +96,8 @@ export default class Completable {
             result: {
                 success: success,
                 completion: completion,
-                scoreScaled:score
-              // ,duration: dur
-                    
+                scoreScaled:score                    
             }
-            
-          
         });
     }
 }

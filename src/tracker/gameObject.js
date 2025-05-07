@@ -21,7 +21,7 @@ export default class GameObject {
     }
 
  
-    interacted(type,gameObject) {
+    interacted(type,gameObjectName) {
         let property = this.types.properties[type]
     
         this.tracker.addEvent({
@@ -33,13 +33,13 @@ export default class GameObject {
                 id: this.ids[property],
                 type:property,
                 description:this.descriptions[property],
-                name:gameObject
+                name:gameObjectName
             }
          
         });
     }
 
-    used(type,gameObject) {
+    used(type,gameObjectName) {
         let property = this.types.properties[type]
 
         this.tracker.addEvent({
@@ -51,7 +51,7 @@ export default class GameObject {
                 id: this.ids[property],
                 type:property,
                 description:this.descriptions[property],
-                name:gameObject
+                name:gameObjectName
             }
         });
     }

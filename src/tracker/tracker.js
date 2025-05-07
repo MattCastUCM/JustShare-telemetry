@@ -3,18 +3,23 @@ import Accesible from "./accessible.js"
 import Alternative from "./alternative.js"
 import Completable from "./completable.js";
 import GameObject from "./gameObject.js";
-import { Verb, Object, Context, Result } from './parameters.js'
-
-const MAX_TRACKER_EVENTS = 10;
-const MAX_TRACKER_IDLE_TIME = 10; // s
+import Verb from './verb.js'
+import Object from "./object.js";
+import Context from "./context.js";
+import Result from "./result.js";
 
 export default class Tracker {
-    constructor(lrs, actor) {
+    constructor(lrs, actor, batchSize = 10, batchTimeout = 1000, debug = true) {
         this.queue = [];
+
         this.lrs = lrs;
         this.actor = actor;
-
         this.context = new Context('https://w3id.org/xapi/seriousgame');
+
+        this.batchSize = batchSize
+        this.batchTimeout = batchTimeout
+
+        this.debug = debug
 
         this.accesible = new Accesible(this);
         this.alternative = new Alternative(this);
@@ -46,17 +51,27 @@ export default class Tracker {
 
             let event = new TrackerEvent(eventParams);
             this.queue.push(event);
-            if(this.queue.length >= MAX_TRACKER_EVENTS) {
-                this.sendEvents();
+            if(this.queue.length >= this.batch_size) {
+                if (this.debug) {
+                    this.sendEvents();
+                }
             }
+        }
+    }
+
+    async sendEventsInternal() {
+        try {
+            let data = await this.lrs.saveStatements(this.queue)
+            this.queue = []
+            return data
+        }
+        catch(error) {
+            console.error(error.message)
         }
     }
 
     // Envía los eventos guardados a una lrs.
     sendEvents() {
-        this.lrs.saveStatements(this.queue, (data) => {
-            this.queue = [];
-            console.log(data)
-        }, error => console.log(error.message));
+        this.sendEventsInternal()
     }
 }

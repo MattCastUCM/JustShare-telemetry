@@ -1,6 +1,7 @@
 import Tracker from './tracker.js'
 import LRS from './lrs.js';
-import { Actor } from './parameters.js';
+import { AccountActor } from './actor.js';
+import { BasicAuthentication, OAuth2 } from './authentication.js';
 
 export default class TrackerScene extends Phaser.Scene {
     constructor() {
@@ -8,29 +9,31 @@ export default class TrackerScene extends Phaser.Scene {
     }
 
     create() {
+        // var tracker = new Tracker(
+        //     new LRS({
+        //         baseUrl: "https://cloud.scorm.com/lrs/I43WO3TFWH/sandbox/",
+        //         authScheme: new BasicAuthentication("oMsoz51hM_OQbNNR3Nk", "LfWapsOhe1V-ryV2C6o")
+        //     }),
+        //     new AccountActor("http://example.com", "holita")
+        // );
+
         var tracker = new Tracker(
             new LRS({
                 baseUrl: "https://cloud.scorm.com/lrs/I43WO3TFWH/sandbox/",
-                username: "oMsoz51hM_OQbNNR3Nk",
-                password: "LfWapsOhe1V-ryV2C6o"
+                authScheme: new OAuth2("https://sso.simva-beta.e-ucm.es/realms/simva/protocol/openid-connect/token", 
+                    "password", "simva-plugin", null, null, "weoh", "weoh", "6818e70cfbe4c00023c50ab4")
             }),
-            new Actor("Tyler", "tyler@yopmail.es")
+            new AccountActor("http://example.com", "holita")
         );
 
-       // var completable = tracker.completable
-      //  var gameObject = tracker.gameObject
-      //  var accessible= tracker.accessible
-     //   var alternative= tracker.alternative
 
-        // completable.initialized("Collect", completable.types.game)
-        
-        // // Ejemplos de eventos
-        // completable.initialized("hola1", "storyNode");
-        // gameObject.interacted("Matt","👒")
-        // accessible.accessed("Emm","Emmm")
-        // alternative.selected("Hola","aaaaa")
-        // tracker.sendEvents();
-        // console.log("Hola:👒")
+        var completable = tracker.completable
+        var gameObject = tracker.gameObject
+        var accessible= tracker.accessible
+        var alternative= tracker.alternative
 
+        completable.initialized(completable.types.area, "Hola")
+
+        // tracker.sendEvents()
     }
 }

@@ -2,7 +2,16 @@ export function generateUUID() {
     return crypto.randomUUID();
 }
 
-export function httpRequest(fullUrl, method, headers, body, onSuccess, onError, debug) {
+class HttpError extends Error {
+    constructor(message, response) {
+        super(message)
+        this.name = "HttpError"
+        this.response = response
+        Error.captureStackTrace(this, this.constructor)
+    }
+}
+
+export async function makeRequest(fullUrl, method, headers, body) {
     method = method.toUpperCase()
 
     let config = {
@@ -11,28 +20,18 @@ export function httpRequest(fullUrl, method, headers, body, onSuccess, onError, 
     }
 
     if (["POST", "PUT"].includes(method)) {
-        config.body = JSON.stringify(body)
+        config.body = body
     }
 
-    fetch(fullUrl, config)
-        .then(response => {
-            if (!response.ok) {
-                throw new Error("HTTP Error status:" + response.status)
-            }
-            return response.json()
-        })
-        .then(data => {
-            if (onSuccess) {
-                onSuccess(data)
-            }
-        })
-        .catch(error => {
-            if (debug) {
-                console.error("Request failed:", error.message)
-            }
-
-            if (onError) {
-                onError(error)
-            }
-        })
+    try {
+        let response = await fetch(fullUrl, config)
+        if (!response.ok) {
+            let error = new HttpError(`HTTP Error status: ${response.status} - ${response.statusText}`, response)
+            throw error
+        }
+        return await response.json()
+    }
+    catch(error) {
+        throw error
+    }
 }

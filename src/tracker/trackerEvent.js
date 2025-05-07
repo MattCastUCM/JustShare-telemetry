@@ -14,21 +14,21 @@ export default class TrackerEvent {
     }
 
     serializeToXApi(version) {
-        let output = {
+        let event = {
             timestamp: this.timestamp,
             id: this.id,
             version: version,
-            actor: this.actor.serializeToXApi(),
-            verb: this.verb.serializeToXApi(),
-            object: this.object.serializeToXApi()
+            actor: this.actor.serializeToXApi(version),
+            verb: this.verb.serializeToXApi(version),
+            object: this.object.serializeToXApi(version)
         }
         if(this.result) {
-            output.result = this.result.serializeToXApi();
+            event.result = this.result.serializeToXApi(version);
         }
         if(this.context) {
-            output.context = this.context.serializeToXApi();
+            event.context = this.context.serializeToXApi(version);
         }
 
-        return output;
+        return event;
     }
 }

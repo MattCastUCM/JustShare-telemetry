@@ -1,4 +1,4 @@
-import { httpRequest } from './utils.js'
+import { makeRequest } from './utils.js'
 
 class Versions {
     static getAllVersions() {
@@ -17,18 +17,21 @@ class Versions {
 }
 
 export default class LRS {
-    constructor({baseUrl, username, password, version = null, debug = false}) {    
+    constructor({baseUrl, authScheme, version = null}) {  
         this.baseUrl = String(baseUrl)
         if (this.baseUrl.slice(-1) !== "/") {
             this.baseUrl += "/"
         }
-        this.authorization = "Basic " + btoa(username + ":" + password)
-        
-        this.debug = debug
+        this.endpoint = "statements"
 
+        this.authScheme = authScheme
+        this.auth = null
+        this.online = false
+        this.initAuth()
+        
         if (version) {
             if (!Versions.isValidVersion(version)) {
-                console.error("LRS not supported: invalid version", "(", version, ")");
+                console.error(`LRS not supported: invalid version (${version})`);
                 this.version = Versions.getAllVersions()[0];
             }
             else {
@@ -40,144 +43,92 @@ export default class LRS {
         }
     }
 
-    setDebug(debug) {
-        this.debug = debug
+    async initAuth() {
+        this.auth = await this.authScheme.initAuth()
+        if (this.auth) {
+            this.onOnline()
+        }
     }
 
-    buildHeaders(headers) {
-        const headersAux = {
-            ...headers,
-            Authorization: this.authorization,
+    async refreshAuth() {
+        this.auth = await this.authScheme.refreshAuth()
+        if (this.auth) {
+            this.onOnline()
+        }
+    }
+
+    onOnline() {
+        this.online = true
+    }
+
+    onOffline() {
+        this.offline = false
+    }
+
+    buildHeaders(customHeaders) {
+        let headers = {
+            ...customHeaders,
+            Authorization: this.auth,
         }
 
         if (this.version !== "0.9") {
-            headersAux["X-Experience-API-Version"] = this.version;
+            headers["X-Experience-API-Version"] = this.version;
         }
 
-        return headersAux
+        return headers
     }
 
-    sendRequest(endpoint, method, headers, body, onSuccess, onError) {
-        let fullUrl;
+    async sendStatements(endpoint, method, customHeaders, body) {
+        let fullUrl = this.baseUrl + endpoint
+        let headers = this.buildHeaders(customHeaders)
+        body = JSON.stringify(body)
 
-        if (endpoint.startsWith("http")) {
-            fullUrl = endpoint
-        } else {
-            fullUrl = this.baseUrl + endpoint
+        try {
+            return await makeRequest(fullUrl, method, headers, body)
         }
-
-        return httpRequest(fullUrl, method, this.buildHeaders(headers), body, onSuccess, onError, this.debug)
+        catch (error) {
+            throw error
+        }
     }
 
-    saveStatement(statement, onSuccess, onError) {
-        let endpoint = "statements"
-        let method = "POST"
-        let headers = {
-            "Content-Type": "application/json"
-        }
-
-        // TODO - serializeXApi()
-        const statement1 = {
-            "id": "e0226276-c4a8-4512-991d-f5808946bf2d",
-            "actor": {
-                "mbox": "mailto:tyler@yopmail.es",
-                "name": "Tyler",
-                "objectType": "Agent"
-            },
-            "verb": {
-                "id": "http://adlnet.gov/expapi/verbs/answered",
-                "display": {
-                    "en-US": "answered"
-                }
-            },
-            "object": {
-                "id": "http://adlnet.gov/expapi/activities/example",
-                "definition": {
-                    "name": {
-                        "en-US": "Example Activity"
-                    },
-                    "description": {
-                        "en-US": "Example activity description"
-                    }
-                },
-                "objectType": "Activity"
-            }
-        }
-
-        this.sendRequest(endpoint, method, headers, statement1, onSuccess, onError)
-    }
-
-    saveStatements(statements, onSuccess, onError) {
-        let endpoint = "statements"
-        let method = "POST"
-        let headers = {
-            "Content-Type": "application/json"
-        }
-
-        // const statement1 = {
-        //     "id": "e0226276-c4a8-4512-991d-f5808946bf2d",
-        //     "actor": {
-        //         "mbox": "mailto:tyler@yopmail.es",
-        //         "name": "Tyler",
-        //         "objectType": "Agent"
-        //     },
-        //     "verb": {
-        //         "id": "http://adlnet.gov/expapi/verbs/answered",
-        //         "display": {
-        //             "en-US": "answered"
-        //         }
-        //     },
-        //     "object": {
-        //         "id": "http://adlnet.gov/expapi/activities/example",
-        //         "definition": {
-        //             "name": {
-        //                 "en-US": "Example Activity"
-        //             },
-        //             "description": {
-        //                 "en-US": "Example activity description"
-        //             }
-        //         },
-        //         "objectType": "Activity"
-        //     }
-        // }
-        // const statement2 = {
-        //     "id": "c78dd525-5f33-4e42-a980-542279c12074",
-        //     "actor": {
-        //         "mbox": "mailto:tyler@yopmail.es",
-        //         "name": "Tyler",
-        //         "objectType": "Agent"
-        //     },
-        //     "verb": {
-        //         "id": "http://adlnet.gov/expapi/verbs/answered",
-        //         "display": {
-        //             "en-US": "answered"
-        //         }
-        //     },
-        //     "object": {
-        //         "id": "http://adlnet.gov/expapi/activities/example",
-        //         "definition": {
-        //             "name": {
-        //                 "en-US": "Example Activity"
-        //             },
-        //             "description": {
-        //                 "en-US": "Example activity description"
-        //             }
-        //         },
-        //         "objectType": "Activity"
-        //     }
-        // }
-        // statements.push(statement1)
-        // statements.push(statement2)
-        
-        let statementsAux = []
-
-        if (statements.length !== 0) {
-            for (let statement of statements) {
-                // TODO - serializeXApi
-                statementsAux.push(statement.serializeToXApi(this.version))
-            }
+    async saveStatements(statements) {
+        if (this.online) {
+            let endpoint = "statements"
+            let method = "POST"
+            let headers = {
+                "Content-Type": "application/json"
+            }        
             
-            this.sendRequest(endpoint, method, headers, statementsAux, onSuccess, onError)
+            if (statements.length !== 0) {
+                let statementsXApi = []
+                statementsXApi = statements.map(statement => statement.serializeToXApi(this.version))
+                
+                try {
+                    return await this.sendRequest(endpoint, method, headers, statementsXApi)
+                }
+                catch (error) {
+                    if (error.response) {
+                        let status = error.response.status;
+                        let message = error.message;
+                        
+                        switch (status) {
+                            // Unauthorized
+                            case 401:
+                                this.onOffline();
+                                console.error(`Unauthorized: ${message}`);
+                                await this.refreshAuth()
+                                break;
+                            // Forbidden
+                            case 403:
+                                this.onOffline();
+                                console.error(`Forbidden: ${message}`);
+                                await this.refreshAuth();
+                                break;
+                        }
+                        throw error
+                    }
+                }
+            }
         }
     }
 }
