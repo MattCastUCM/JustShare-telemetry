@@ -9,7 +9,7 @@ import Context from "./context.js";
 import Result from "./result.js";
 
 export default class Tracker {
-    constructor(lrs, actor, batchLength = 10, batchTimeout = 1000, debug = true) {
+    constructor(lrs, actor, batchLength = 10, batchTimeout = 1000) {
         this.queue = [];
 
         this.lrs = lrs;
@@ -19,8 +19,6 @@ export default class Tracker {
         this.batchLength = batchLength;
         this.batchTimeout = batchTimeout;
 
-        this.debug = debug;
-
         this.accesible = new Accesible(this);
         this.alternative = new Alternative(this);
         this.completable = new Completable(this);
@@ -28,25 +26,35 @@ export default class Tracker {
         this.sending = false;
 
         window.addEventListener('beforeunload', () => {
-                this.closed();
+            this.closed();
         });
+
+        this.timer = null;
+        this.createTimer();
     }
 
-    closed(){
-        while(this.sending){}
+    createTimer() {
+        if (this.timer) {
+            clearTimeout(this.timer);
+        }
+        this.timer = setTimeout(() => {
+            this.timer = null;
+            this.sendEvents();
+        }, this.batchTimeout);
+    }
+
+    closed() {
+        while (this.sending) { }
         this.sendEvents();
     }
 
-    // Valida los parámetros de un evento.
+    // Valida los parámetros de un evento
     validateParams(params) {
         const REQUIRED = ['verb', 'object'];
         return REQUIRED.every(f => params.hasOwnProperty(f));
     }
 
-    /**
-     * Añade un evento a la cola.
-     * @param {TrackerEvent} event Evento a añadir.
-     */
+    // Agregar un evento a la cola
     addEvent(params) {
         if (this.validateParams(params)) {
             let eventParams = {
@@ -62,30 +70,26 @@ export default class Tracker {
             let event = new TrackerEvent(eventParams);
             this.queue.push(event);
             if (this.queue.length >= this.batch_size) {
-                if (this.debug) {
-                    this.sendEvents();
-                }
+                this.sendEvents();
             }
         }
     }
 
-    async sendEventsInternal(length) {
-        if (length === 0) return;
-        try {
-            let data = await this.lrs.saveStatements(this.queue.slice(0, length));
-            this.queue.splice(0, length);
-            return data;
+    // Envía los eventos guardados a una lrs
+    async sendEvents() {
+        this.createTimer();
+        let length = this.queue.length;
+        if (!this.sending && length > 0) {
+            this.sending = true;
+            try {
+                let data = await this.lrs.saveStatements(this.queue.slice(0, length));
+                this.queue.splice(0, length);
+                return data;
+            }
+            catch (error) {
+                console.error(error.message);
+            }
+            this.sending = false;
         }
-        catch (error) {
-            console.error(error.message);
-        }
-        this.sending = false;
-    }
-
-    // Envía los eventos guardados a una lrs.
-    sendEvents() {
-        if(this.sending) return;
-        this.sending = true;
-        this.sendEventsInternal(this.queue.length);
     }
 }

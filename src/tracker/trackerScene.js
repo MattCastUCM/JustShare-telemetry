@@ -10,13 +10,13 @@ export default class TrackerScene extends Phaser.Scene {
     }
 
     create() {
-        // var tracker = new Tracker(
-        //     new LRS({
-        //         baseUrl: "https://cloud.scorm.com/lrs/I43WO3TFWH/sandbox/",
-        //         authScheme: new BasicAuthentication("oMsoz51hM_OQbNNR3Nk", "LfWapsOhe1V-ryV2C6o")
-        //     }),
-        //     new AccountActor("http://example.com", "holita")
-        // );
+        var tracker = new Tracker(
+            new LRS({
+                baseUrl: "https://cloud.scorm.com/lrs/I43WO3TFWH/sandbox/",
+                authScheme: new BasicAuthentication("oMsoz51hM_OQbNNR3Nk", "LfWapsOhe1V-ryV2C6o")
+            }),
+            new AccountActor("http://example.com", "holita")
+        );
 
         // var tracker = new Tracker(
         //     new LRS({
@@ -37,7 +37,7 @@ export default class TrackerScene extends Phaser.Scene {
         //     new AccountActor("http://example.com", "holita")
         // )
 
-        var tracker = generateTrackerFromURL()
+       // var tracker = generateTrackerFromURL()
 
         var completable = tracker.completable
         var gameObject = tracker.gameObject
@@ -46,8 +46,9 @@ export default class TrackerScene extends Phaser.Scene {
 
         completable.initialized(completable.types.area, "Hola")
 
-        setTimeout(() => {
-            tracker.sendEvents()
-        }, 2000);
+        // setTimeout(() => {
+        //     tracker.sendEvents()
+        // }, 2000);
+        console.log("Matt");
     }
 }
