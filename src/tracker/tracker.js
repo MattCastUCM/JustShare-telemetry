@@ -16,15 +16,25 @@ export default class Tracker {
         this.actor = actor;
         this.context = new Context('https://w3id.org/xapi/seriousgame');
 
-        this.batchLength = batchLength
-        this.batchTimeout = batchTimeout
+        this.batchLength = batchLength;
+        this.batchTimeout = batchTimeout;
 
-        this.debug = debug
+        this.debug = debug;
 
         this.accesible = new Accesible(this);
         this.alternative = new Alternative(this);
         this.completable = new Completable(this);
         this.gameObject = new GameObject(this);
+        this.sending = false;
+
+        window.addEventListener('beforeunload', () => {
+                this.closed();
+        });
+    }
+
+    closed(){
+        while(this.sending){}
+        this.sendEvents();
     }
 
     // Valida los parámetros de un evento.
@@ -59,19 +69,23 @@ export default class Tracker {
         }
     }
 
-    async sendEventsInternal() {
+    async sendEventsInternal(length) {
+        if (length === 0) return;
         try {
-            let data = await this.lrs.saveStatements(this.queue)
-            this.queue = []
-            return data
+            let data = await this.lrs.saveStatements(this.queue.slice(0, length));
+            this.queue.splice(0, length);
+            return data;
         }
         catch (error) {
-            console.error(error.message)
+            console.error(error.message);
         }
+        this.sending = false;
     }
 
     // Envía los eventos guardados a una lrs.
     sendEvents() {
-        this.sendEventsInternal()
+        if(this.sending) return;
+        this.sending = true;
+        this.sendEventsInternal(this.queue.length);
     }
 }
