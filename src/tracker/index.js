@@ -21,7 +21,7 @@ export function generateTrackerFromURL() {
     let authConfig = {}
 
     if (urlParams.size > 0) {
-        resultUri = urlParams.get('resultUri');
+        resultUri = urlParams.get('result_uri');
 
         batchLength = urlParams.get('batch_length');
         batchTimeout = urlParams.get('batch_timeout');
