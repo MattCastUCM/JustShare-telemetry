@@ -89,7 +89,9 @@ export default class Tracker {
             catch (error) {
                 console.error(error.message);
             }
-            this.sending = false;
+            finally {
+                this.sending = false;
+            }
         }
     }
 }
