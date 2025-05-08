@@ -41,23 +41,23 @@ export function generateTrackerFromURL() {
         if (sso_client_id) {
             authConfig.clientId = sso_client_id;
         }
-        const sso_login_hint = urlParams.get('sso_login_hint');
+        let sso_login_hint = urlParams.get('sso_login_hint');
         if (sso_login_hint) {
             authConfig.loginHint = sso_login_hint;
         }
-        const sso_grant_type = urlParams.get('sso_grant_type');
+        let sso_grant_type = urlParams.get('sso_grant_type');
         if (sso_grant_type) {
             authConfig.grantType = sso_grant_type;
         }
-        const sso_scope = urlParams.get('sso_scope');
+        let sso_scope = urlParams.get('sso_scope');
         if (sso_scope) {
             authConfig.scope = sso_scope;
         }
-        const sso_username = urlParams.get('sso_username');
+        let sso_username = urlParams.get('sso_username');
         if (sso_username) {
             authConfig.username = sso_username;
         }
-        const sso_password = urlParams.get('sso_password');
+        let sso_password = urlParams.get('sso_password');
         if (sso_password) {
             authConfig.password = sso_password;
         }

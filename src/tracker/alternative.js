@@ -3,11 +3,11 @@ export default class Alternative {
         this.tracker = tracker;
 
         this.types = {
-            question = 0,
-            menu = 1,
-            dialog = 2,
-            path = 3,
-            arena = 4,
+            question: 0,
+            menu: 1,
+            dialog: 2,
+            path: 3,
+            arena: 4,
             properties: ["question", "menu", "dialog", "path", "arena"]
         }
 

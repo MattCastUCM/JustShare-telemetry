@@ -4,9 +4,9 @@ export default class Accessible {
 
         this.types = {
             screen: 0,
-            area = 1,
-            zone = 2,
-            cutscene = 3,
+            area: 1,
+            zone: 2,
+            cutscene: 3,
             properties: ["screen", "area", "zone", "cutscene"]
         }
 
