@@ -29,6 +29,10 @@ export default class TrackerScene extends Phaser.Scene {
         //             username: "slpa",
         //             loginHint: "6818e70cfbe4c00023c50ab4"
         //         }),
+        //         backup: {
+        //             endpoint: "https://simva-api.simva-beta.e-ucm.es:443/activities/681b46a0fbe4c00023c56cc4/result",
+        //             type: "XAPI"
+        //         }
         //     }),
         //     new AccountActor("http://example.com", "holita")
         // )
@@ -42,6 +46,8 @@ export default class TrackerScene extends Phaser.Scene {
 
         completable.initialized(completable.types.area, "Hola")
 
-        tracker.sendEvents()
+        setTimeout(() => {
+            tracker.sendEvents()
+        }, 2000);
     }
 }

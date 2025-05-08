@@ -39,6 +39,10 @@ export class OAuth2 extends Authentication {
         this.refreshTokenInProgress = false
     }
 
+    formatBearerToken(accessToken) {
+        return "Bearer " + accessToken
+    }
+
     async initAuth() {
         switch (this.grantType) {
             case "password":
@@ -46,19 +50,19 @@ export class OAuth2 extends Authentication {
                     this.token = await this.resourceOwnerPasswordFlow(this.clientId, this.scope, this.state, this.username, this.password, this.loginHint)
                 }
                 catch (error) {
-                    this.token = null
-                    console.error(`Authentication failed: ${error.message}`);
+                    console.error(`Password flow error: ${error.message}`);
                 }
-                break;
             case "code":
                 // TODO
                 break;
+            default:
+                console.error(`Unsupported grant type "${this.grantType}". Please use either "code" or "password"`);
         }
 
         if (this.token) {
-            return "Bearer " + this.token.access_token
+            return this.formatBearerToken(this.token.access_token)
         }
-        return this.token
+        return null
     }
 
     async refreshAuth() {
@@ -69,19 +73,15 @@ export class OAuth2 extends Authentication {
 
             try {
                 this.refreshTokenInProgress = true;
-                this.token = await this.sendTokenRequest("refresh_token", form)
+                this.token = await this.sendTokenRequest("refresh_token", this.clientId, form)
                 this.refreshTokenInProgress = false
+                return this.formatBearerToken(this.token.access_token)
             }
             catch (error) {
                 this.refreshTokenInProgress = false
-                this.token = null
                 console.error(`Token refresh failed: ${error.message}`)
+                return null
             }
-
-            if (this.token) {
-                return "Bearer " + this.token.access_token
-            }
-            return this.token
         }
         else {
             while (this.refreshTokenInProgress) {

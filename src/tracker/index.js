@@ -2,16 +2,33 @@ import Tracker from './tracker.js'
 import LRS from './lrs.js';
 import { AccountActor } from './actor.js';
 import { OAuth2 } from './authentication.js';
+import ms from './ms.js'
 
 export function generateTrackerFromURL() {
     let urlParams = new URLSearchParams(window.location.search);
 
+    let resultUri = null;
+
+    let batchLength = 100;
+    let batchTimeout = 30000;
+
+    let backupUri = null;
+    let backupType = "XAPI"
+
+    let actorHomepage = null;
+    let actorUsername = null;
+
     let authConfig = {}
-    let resultUri, actorHomepage, actorUsername;
 
     if (urlParams.size > 0) {
-
         resultUri = urlParams.get('resultUri');
+
+        batchLength = urlParams.get('batch_length');
+        batchTimeout = urlParams.get('batch_timeout');
+        batchTimeout = ms(batchTimeout)
+
+        backupUri = urlParams.get('backup_uri');
+        backupType = urlParams.get('backup_type');
 
         actorHomepage = urlParams.get('actorHomepage');
         actorUsername = urlParams.get('actor_user');
@@ -48,17 +65,16 @@ export function generateTrackerFromURL() {
             authConfig.password = sso_username;
         }
     }
-    else {
-        resultUri = null
-        actorHomepage = null
-        actorUsername = null
-    }
-    
+
     return new Tracker(
         new LRS({
             baseUrl: resultUri,
-            authScheme: new OAuth2(authConfig)
+            authScheme: new OAuth2(authConfig),
+            backup: {
+                endpoint: backupUri,
+                type: backupType
+            }
         }),
-        new AccountActor(actorHomepage, actorUsername)
+        new AccountActor(actorHomepage, actorUsername), batchLength, batchTimeout
     )
 }

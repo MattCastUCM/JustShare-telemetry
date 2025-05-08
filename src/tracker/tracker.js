@@ -9,14 +9,14 @@ import Context from "./context.js";
 import Result from "./result.js";
 
 export default class Tracker {
-    constructor(lrs, actor, batchSize = 10, batchTimeout = 1000, debug = true) {
+    constructor(lrs, actor, batchLength = 10, batchTimeout = 1000, debug = true) {
         this.queue = [];
 
         this.lrs = lrs;
         this.actor = actor;
         this.context = new Context('https://w3id.org/xapi/seriousgame');
 
-        this.batchSize = batchSize
+        this.batchLength = batchLength
         this.batchTimeout = batchTimeout
 
         this.debug = debug

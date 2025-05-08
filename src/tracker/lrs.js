@@ -17,7 +17,7 @@ class Versions {
 }
 
 export default class LRS {
-    constructor({ baseUrl, authScheme, version = null }) {
+    constructor({ baseUrl, authScheme, version = null, backup = null }) {
         this.baseUrl = String(baseUrl)
         if (this.baseUrl.slice(-1) !== "/") {
             this.baseUrl += "/"
@@ -41,9 +41,12 @@ export default class LRS {
         else {
             this.version = Versions.getAllVersions()[0];
         }
+
+        this.backup = backup
     }
 
     async initAuth() {
+        this.onOffline()
         this.auth = await this.authScheme.initAuth()
         if (this.auth) {
             this.onOnline()
@@ -51,6 +54,7 @@ export default class LRS {
     }
 
     async refreshAuth() {
+        this.onOffline()
         this.auth = await this.authScheme.refreshAuth()
         if (this.auth) {
             this.onOnline()
@@ -68,20 +72,24 @@ export default class LRS {
     buildHeaders(customHeaders) {
         let headers = {
             ...customHeaders,
+            "Content-Type": "application/json",
             Authorization: this.auth,
-        }
-
-        if (this.version !== "0.9") {
-            headers["X-Experience-API-Version"] = this.version;
         }
 
         return headers
     }
 
-    async sendRequest(endpoint, method, customHeaders, body) {
-        let fullUrl = this.baseUrl + endpoint
+    async sendRequest(endpoint, method, customHeaders, statementsXApi) {
+        let fullUrl;
+        if (endpoint.startsWith("http")) {
+            fullUrl = endpoint
+        }
+        else {
+            fullUrl = this.baseUrl + endpoint
+        }
+
         let headers = this.buildHeaders(customHeaders)
-        body = JSON.stringify(body)
+        let body = JSON.stringify(statementsXApi, null, 2)
 
         try {
             return await makeRequest(fullUrl, method, headers, body)
@@ -91,41 +99,74 @@ export default class LRS {
         }
     }
 
+    async sendBackup(statements) {
+        if (this.online && this.backup && this.backup.endpoint) {
+            let contentType = null;
+            let statementsXApi = [];
+
+            switch (this.backup.type) {
+                case 'XAPI':
+                    statementsXApi = statements.map(statement => JSON.stringify(statement.serializeToXApi(this.version)));
+                    contentType = 'application/json';
+                    break;
+                default:
+                    return;
+            }
+
+            let body = {
+                tofile: true,
+                result: statementsXApi.join('\n'),
+                contentType: contentType
+            };
+
+            try {
+                let response = await this.sendRequest(this.backup.endpoint, "POST", null, body)
+                console.log(response)
+            }
+            catch (error) {
+                await this.handleAuthError(error, statements)
+                throw error
+            }
+        }
+    }
+
+    async handleAuthError(error, statements) {
+        if (error.response) {
+            let status = error.response.status;
+            let message = error.message;
+
+            switch (status) {
+                // Unauthorized
+                case 401:
+                    console.error(`Unauthorized: ${message}`);
+                    await this.refreshAuth();
+                    await this.sendBackup(statements);
+                    break;
+                // Forbidden
+                case 403:
+                    console.error(`Forbidden: ${message}`);
+                    await this.refreshAuth();
+                    await this.sendBackup(statements);
+                    break;
+            }
+        }
+    }
+
     async saveStatements(statements) {
         if (this.online) {
-            let endpoint = "statements"
-            let method = "POST"
-            let headers = {
-                "Content-Type": "application/json"
+            let headers = {}
+            if (this.version !== "0.9") {
+                headers["X-Experience-API-Version"] = this.version;
             }
 
             if (statements.length !== 0) {
-                let statementsXApi = []
-                statementsXApi = statements.map(statement => statement.serializeToXApi(this.version))
+                let statementsXApi = statements.map(statement => statement.serializeToXApi(this.version))
 
                 try {
-                    return await this.sendRequest(endpoint, method, headers, statementsXApi)
+                    return await this.sendRequest("statements", "POST", headers, statementsXApi)
                 }
                 catch (error) {
-                    if (error.response) {
-                        let status = error.response.status;
-                        let message = error.message;
-
-                        switch (status) {
-                            // Unauthorized
-                            case 401:
-                                this.onOffline();
-                                console.error(`Unauthorized: ${message}`);
-                                await this.refreshAuth()
-                                break;
-                            // Forbidden
-                            case 403:
-                                this.onOffline();
-                                console.error(`Forbidden: ${message}`);
-                                await this.refreshAuth();
-                                break;
-                        }
-                    }
+                    await this.handleAuthError(error, statements)
                     throw error
                 }
             }
