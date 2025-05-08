@@ -63,25 +63,8 @@ export default class Completable {
         });
     }
 
-    completed(type, completableName, completion = true, success = true, score = 0, duration = 0) { //duracion en segundos
+    completed(type, completableName, completion = true, success = true, score = 0) {
         let property = this.types.properties[type]
-
-        //secondsToISO8601Duration
-        let dur = 'P';
-        const days = Math.floor(duration / 86400);
-        duration %= 86400;
-        const hours = Math.floor(duration / 3600);
-        duration %= 3600;
-        const minutes = Math.floor(duration / 60);
-        duration = Math.floor(duration % 60);
-
-        if (days > 0) dur += days + 'D';
-        if (hours > 0 || minutes > 0 || duration > 0) dur += 'T';
-        if (hours > 0) dur += hours + 'H';
-        if (minutes > 0) dur += minutes + 'M';
-        if (duration > 0) dur += duration + 'S';
-        if (dur === 'P') dur = 'PT0S'; // Zero duration
-
         this.tracker.addEvent({
             verb: {
                 id: 'https://w3id.org/xapi/dod-isd/verbs/completed',

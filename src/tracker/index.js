@@ -9,8 +9,8 @@ export function generateTrackerFromURL() {
 
     let resultUri = null;
 
-    let batchLength = 100;
-    let batchTimeout = 30000;
+    // let batchLength = 100;
+    // let batchTimeout = 30000;
 
     let backupUri = null;
     let backupType = "XAPI"
@@ -23,9 +23,9 @@ export function generateTrackerFromURL() {
     if (urlParams.size > 0) {
         resultUri = urlParams.get('result_uri');
 
-        batchLength = urlParams.get('batch_length');
-        batchTimeout = urlParams.get('batch_timeout');
-        batchTimeout = ms(batchTimeout)
+        // batchLength = urlParams.get('batch_length');
+        // batchTimeout = urlParams.get('batch_timeout');
+        // batchTimeout = ms(batchTimeout)
 
         backupUri = urlParams.get('backup_uri');
         backupType = urlParams.get('backup_type');
@@ -75,6 +75,6 @@ export function generateTrackerFromURL() {
                 type: backupType
             }
         }),
-        new AccountActor(actorHomepage, actorUsername), batchLength, batchTimeout
+        new AccountActor(actorHomepage, actorUsername)
     )
 }
