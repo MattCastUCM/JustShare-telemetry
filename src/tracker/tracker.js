@@ -25,19 +25,19 @@ export default class Tracker {
         this.gameObject = new GameObject(this);
         this.sending = false;
 
-        // TRACKER EVENT
-        // console.log("Inicio de sesion") 
-        this.completable.initialized(this.completable.types.level, "Session");
-
         window.addEventListener('beforeunload', () => {
-            this.closeTracker();
+            // this.close();
         });
 
         this.timer = null;
-        this.createTimer();
+        this.resetTimer();
+
+        // TRACKER EVENT
+        // console.log("Inicio de sesion") 
+        this.completable.initialized(this.completable.types.level, "Session");
     }
 
-    createTimer() {
+    resetTimer() {
         if (this.timer) {
             clearTimeout(this.timer);
         }
@@ -47,20 +47,18 @@ export default class Tracker {
         }, this.batchTimeout);
     }
 
-    closeTracker() {
-        console.log("closing");
-
+    async close() {
         // TRACKER EVENT
         // console.log("Cierre de sesion") 
         this.completable.completed(this.completable.types.level, "Session");
 
         while (this.sending) {
-            console.log("waiting to send and close");
+            console.log("Waiting for pending events to be sent before closing...");
         }
         this.sendEvents();
 
-        console.log("closed");
-
+        // Se cierra la sesion para que el usuario tenga que volvera a iniciarla
+        this.lrs.logout();
     }
 
     // Valida los parámetros de un evento
@@ -92,21 +90,20 @@ export default class Tracker {
 
     // Envía los eventos guardados a una lrs
     async sendEvents() {
-        this.createTimer();
+        this.resetTimer();
         let length = this.queue.length;
         if (!this.sending && length > 0) {
             this.sending = true;
             try {
-                console.log("Sending", length, "events");
-                let data = await this.lrs.saveStatements(this.queue.slice(0, length));
+                console.log(`Sending ${length} events`);
+                let response = await this.lrs.saveStatements(this.queue.slice(0, length));
                 this.queue.splice(0, length);
-                return data;
+                return response;
             }
             catch (error) {
                 console.error(error.message);
             }
             finally {
-                console.log("Events sent");
                 this.sending = false;
             }
         }

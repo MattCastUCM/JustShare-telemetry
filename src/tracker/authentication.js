@@ -1,8 +1,9 @@
 import { makeRequest } from "./utils.js"
 
 class Authentication {
-    initAuth() { }
-    refreshAuth() { }
+    async initAuth() { }
+    async refreshAuth() { }
+    async logout() { }
 }
 
 export class BasicAuthentication extends Authentication {
@@ -25,6 +26,7 @@ export class OAuth2 extends Authentication {
     constructor({ tokenEndpoint, grantType, clientId, scope, state, username, password, loginHint }) {
         super()
         this.tokenEndpoint = tokenEndpoint
+        this.logoutEndpoint = tokenEndpoint.replace("/token", "/logout")
 
         this.grantType = grantType
 
@@ -47,7 +49,8 @@ export class OAuth2 extends Authentication {
         switch (this.grantType) {
             case "password":
                 try {
-                    this.token = await this.resourceOwnerPasswordFlow(this.clientId, this.scope, this.state, this.username, this.password, this.loginHint)
+                    this.token = await this.resourceOwnerPasswordFlow(this.scope, this.state,
+                        this.username, this.password, this.loginHint)
                 }
                 catch (error) {
                     console.error(`Password flow error: ${error.message}`);
@@ -73,7 +76,7 @@ export class OAuth2 extends Authentication {
 
             try {
                 this.refreshTokenInProgress = true;
-                this.token = await this.sendTokenRequest("refresh_token", this.clientId, form)
+                this.token = await this.sendTokenRequest(this.tokenEndpoint, "refresh_token", form)
                 this.refreshTokenInProgress = false
                 return this.formatBearerToken(this.token.access_token)
             }
@@ -90,7 +93,7 @@ export class OAuth2 extends Authentication {
         }
     }
 
-    async sendTokenRequest(grantType, clientId, customForm) {
+    async sendTokenRequest(endpoint, grantType, customForm) {
         let headers = {
             "Content-Type": "application/x-www-form-urlencoded"
         }
@@ -98,19 +101,33 @@ export class OAuth2 extends Authentication {
         let form = {
             ...customForm,
             grant_type: grantType,
-            client_id: clientId
+            client_id: this.clientId
         }
         let body = new URLSearchParams(form)
 
         try {
-            return await makeRequest(this.tokenEndpoint, "POST", headers, body)
+            return await makeRequest(endpoint, "POST", headers, body)
         }
         catch (error) {
             throw error
         }
     }
 
-    async resourceOwnerPasswordFlow(clientId, scope, state, username, password, loginHint) {
+    async logout() {
+        let form = {
+            refresh_token: this.token.refresh_token
+        }
+
+        try {
+            let response = await this.sendTokenRequest(this.logoutEndpoint, "refresh_token", form)
+            return response;
+        }
+        catch (error) {
+            throw error
+        }
+    }
+
+    async resourceOwnerPasswordFlow(scope, state, username, password, loginHint) {
         let form = {
             username: username,
             password: password,
@@ -124,7 +141,7 @@ export class OAuth2 extends Authentication {
         }
 
         try {
-            return await this.sendTokenRequest("password", clientId, form)
+            return await this.sendTokenRequest(this.tokenEndpoint, "password", form)
         }
         catch (error) {
             throw error

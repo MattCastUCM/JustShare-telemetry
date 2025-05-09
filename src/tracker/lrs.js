@@ -61,6 +61,21 @@ export default class LRS {
         }
     }
 
+    async logout() {
+        try {
+            let response = await this.authScheme.logout();
+            console.log("Logout successfully");
+            this.authScheme = null;
+            return response;
+        }
+        catch (error) {
+            console.log(`Logout failed ${error.message}`);
+        }
+        finally {
+            this.onOffline();
+        }
+    }
+
     onOnline() {
         this.online = true
     }

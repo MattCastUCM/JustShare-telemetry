@@ -10,7 +10,7 @@ export function generateTrackerFromURL() {
     let resultUri = null;
 
     // let batchLength = 100;
-    // let batchTimeout = 30000;
+    // let batchTimeout = 180000;
 
     let backupUri = null;
     let backupType = "XAPI"

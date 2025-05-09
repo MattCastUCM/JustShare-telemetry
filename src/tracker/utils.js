@@ -29,7 +29,14 @@ export async function makeRequest(fullUrl, method, headers, body) {
             let error = new HttpError(`HTTP Error status: ${response.status} - ${response.statusText}`, response)
             throw error
         }
-        return await response.json()
+
+        let contentType = response.headers.get("Content-Type")
+        if (contentType && contentType.includes("application/json")) {
+            return await response.json()
+        }
+        else {
+            return await response.text()
+        }
     }
     catch (error) {
         throw error
