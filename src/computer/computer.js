@@ -30,7 +30,7 @@ export default class Computer extends ComputerBaseScene {
 
 
         this.input.on('pointerdown', (pointer, x, y) => {
-            // TRACKER EVENT
+            // TODO: TRACKER EVENT
             console.log("Pulsar en la pantalla del ordenador");
 
             // console.log(pointer, x, y);

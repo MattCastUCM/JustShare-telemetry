@@ -1,5 +1,12 @@
 import EventDispatcher from "../eventDispatcher.js";
 import BaseScene from "../scenes/gameLoop/baseScene.js";
+import { generateTrackerFromURL } from "../tracker/index.js";
+
+// TEST
+import Tracker from "../tracker/tracker.js";
+import LRS from "../tracker/lrs.js";
+import { BasicAuthentication } from "../tracker/authentication.js";
+import { AccountActor } from "../tracker/actor.js";
 
 // Variable de nivel de modulo
 // - Se puede acceder desde cualquier parte del modulo, pero no es visible
@@ -23,7 +30,8 @@ export default class GameManager {
             throw new Error('GameManager is a Singleton class!');
         }
 
-        // this.initializeTracker();
+        this.trackerInitialized = false;
+        this.initializeTracker();
 
         // Se necesita una escena para poder acceder al ScenePlugin y cambiar de escena
         // Por lo tanto, se aprovecha para mantener la escena actual
@@ -83,26 +91,11 @@ export default class GameManager {
     }
 
 
-    initializeTracker() {
-        this.tracker = new Tracker(
-            new LRS({
-                baseUrl: "https://cloud.scorm.com/lrs/I43WO3TFWH/sandbox/",
-                username: "oMsoz51hM_OQbNNR3Nk",
-                password: "LfWapsOhe1V-ryV2C6o"
-            }),
-            new Actor("Tyler", "tyler@yopmail.es")
-        );
-
-        this.accesible = this.tracker.accesible;
-        this.alternative = this.tracker.alternative;
-        this.completable = this.tracker.completable;
-        this.gameObject = this.tracker.gameObject;
-    }
 
     ///////////////////////////////////////
     /// Metodos para cambiar de escena ///
     //////////////////////////////////////
-    
+
     startTestScene() {
         this.blackboard.clear();
         this.userInfo = {
@@ -111,7 +104,7 @@ export default class GameManager {
             harasser: "female"
         }
 
-        
+
         let UIsceneName = 'UIManager';
         this.currentScene.scene.stop(UIsceneName);
         this.currentScene.scene.launch(UIsceneName);
@@ -123,8 +116,12 @@ export default class GameManager {
         this.computer = this.currentScene.scene.get(computerSceneName);
         this.computer.scene.sleep();
 
-        this.changeScene("Scene3Break", {});
-        
+        // this.startGame(this.userInfo)
+        // this.changeScene("Scene1Lunch1", {});
+        // this.changeScene("Scene2Bedroom", {});
+        // this.changeScene("Scene3Break", {});
+        this.changeScene("Scene7Bedroom", {});
+
     }
 
     startTitleScene() {
@@ -141,7 +138,7 @@ export default class GameManager {
     startGame(userInfo) {
         this.blackboard.clear();
         this.userInfo = userInfo;
-        
+
         let computerSceneName = 'Computer';
         this.currentScene.scene.stop(computerSceneName);
         this.currentScene.scene.run(computerSceneName);
@@ -157,9 +154,10 @@ export default class GameManager {
             },
         };
         this.changeScene("TextOnlyScene", params);
-        
+
         // TRACKER EVENT
-        console.log("Inicio del dia 1");        
+        // console.log("Inicio del dia 1");
+        this.sendStartGameEvent();
     }
 
     /**
@@ -202,8 +200,8 @@ export default class GameManager {
         this.currentScene.cameras.main.fadeOut(FADE_OUT_TIME, 0, 0, 0);
         this.fading = true;
 
-        // TRACKER EVENT
-        console.log("Saliendo de", this.currentScene.scene.key); 
+        // TODO: TRACKER EVENT
+        console.log("Saliendo de", this.currentScene.scene.key);
 
         // Cuando acaba el fade out de la escena actual se cambia a la siguiente
         this.currentScene.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, (cam, effect) => {
@@ -224,22 +222,22 @@ export default class GameManager {
 
             // Se anade la escena a las escenas que estan ejecutandose
             this.runningScenes.add(this.currentScene);
-            
+
             // Cuando se termina de crear la escena, se reproduce el fade in
             this.currentScene.events.on('create', () => {
-                this.currentScene.cameras.main.fadeIn(FADE_IN_TIME, 0, 0, 0); 
-                this.fading = false;   
+                this.currentScene.cameras.main.fadeIn(FADE_IN_TIME, 0, 0, 0);
+                this.fading = false;
             });
             this.currentScene.events.on('wake', () => {
-                this.currentScene.cameras.main.fadeIn(FADE_IN_TIME, 0, 0, 0);    
-                this.fading = false;   
+                this.currentScene.cameras.main.fadeIn(FADE_IN_TIME, 0, 0, 0);
+                this.fading = false;
             });
 
-            // TRACKER EVENT
-            console.log("Entrando en", scene); 
+            // TODO: TRACKER EVENT
+            console.log("Entrando en", scene);
         });
     }
-    
+
 
     switchToComputer(onWake) {
         // Reproduce un fade out al cambiar de escena
@@ -259,8 +257,8 @@ export default class GameManager {
 
             // Cuando se termina de crear la escena, se reproduce el fade in
             this.computer.events.once('wake', () => {
-                this.computer.cameras.main.fadeIn(FADE_IN_TIME, 0, 0, 0);    
-                this.fading = false;   
+                this.computer.cameras.main.fadeIn(FADE_IN_TIME, 0, 0, 0);
+                this.fading = false;
 
                 if (onWake) {
                     onWake()
@@ -286,8 +284,8 @@ export default class GameManager {
             // Cuando se termina de crear la escena, se reproduce el fade in
             this.currentScene.events.once('wake', () => {
                 this.UIManager.phoneManager.activatePhoneIcon(true)
-                this.currentScene.cameras.main.fadeIn(FADE_IN_TIME, 0, 0, 0);    
-                this.fading = false;   
+                this.currentScene.cameras.main.fadeIn(FADE_IN_TIME, 0, 0, 0);
+                this.fading = false;
 
                 if (onWake) {
                     onWake()
@@ -295,7 +293,7 @@ export default class GameManager {
             });
         })
     }
-    
+
     // Tiene los campos: name, username, password, gender
     setUserInfo(userInfo) {
         this.userInfo = userInfo;
@@ -308,6 +306,8 @@ export default class GameManager {
     isInFadeAnimation() {
         return this.fading;
     }
+
+
 
     ///////////////////////////////////////
     ///// Metodos para la blackboard /////
@@ -351,6 +351,8 @@ export default class GameManager {
     hasValue(key, blackboard = this.blackboard) {
         return blackboard.has(key);
     }
+
+
 
     ///////////////////////////////////////
     /// Metodos para generar texturas ////
@@ -428,7 +430,7 @@ export default class GameManager {
         this.widerRoundedSquare.edge.name = "edgeWiderSqaure"
         this.widerRoundedSquare.edge.width = 5
         this.generateBox(this.widerRoundedSquare);
-        
+
         this.graphics.destroy();
     }
 
@@ -477,7 +479,7 @@ export default class GameManager {
         let regex = /^#([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i
         let result = regex.exec(hex);
 
-        if(result) {
+        if (result) {
             return {
                 R: parseInt(result[1], 16),
                 G: parseInt(result[2], 16),
@@ -502,11 +504,11 @@ export default class GameManager {
             if (!Array.isArray(str)) {
                 if (str.text != null) {
                     return this.replaceGender(str.text);
-                } 
+                }
                 else {
                     return this.replaceGender(str)
                 }
-            } 
+            }
             // Si es un array
             else {
                 // Recorre todos los elementos
@@ -522,6 +524,12 @@ export default class GameManager {
         }
         return str;
     }
+
+
+
+    //////////////////////////////////////////
+    /// Metodos para obtener traducciones ////
+    /////////////////////////////////////////
 
     /**
      * Reemplaza en el string indicado todos los contenidos que haya entre <>
@@ -545,7 +553,7 @@ export default class GameManager {
             // Obtiene todo el contenido entre <> y lo separa en un array
             let [fullMatch, content] = match;
             let variable = content.split(", ");
-            
+
             // Elige que variable se usara para comprobar el contexto
             let useContext = null;
             if (variable[0] === "player") {
@@ -554,7 +562,7 @@ export default class GameManager {
             else if (variable[0] === "harasser") {
                 useContext = this.userInfo.harasser;
             }
-            
+
             // Elige el texto por el que reemplazar la expresion dependiendo del contexto
             let replacement = "";
             if (useContext != null) {
@@ -577,4 +585,40 @@ export default class GameManager {
         result += input.slice(lastEndIndex);
         return result;
     }
+
+
+
+    ////////////////////////////
+    /// Metodos del tracker ////
+    ////////////////////////////
+
+    initializeTracker() {
+        // this.tracker = generateTrackerFromURL();
+        this.tracker = new Tracker(
+            new LRS({
+                baseUrl: "https://cloud.scorm.com/lrs/I43WO3TFWH/sandbox/",
+                authScheme: new BasicAuthentication("oMsoz51hM_OQbNNR3Nk", "LfWapsOhe1V-ryV2C6o")
+            }),
+            new AccountActor("http://example.com", "holita")
+        );
+
+        this.accesible = this.tracker.accesible;
+        this.alternative = this.tracker.alternative;
+        this.completable = this.tracker.completable;
+        this.gameObject = this.tracker.gameObject;
+
+        this.trackerInitialized = this.tracker !== null && this.accesible !== null && this.alternative !== null && this.completable !== null && this.gameObject !== null;
+    }
+
+    sendStartGameEvent() {
+        if (this.trackerInitialized) {
+            this.completable.initialized(this.completable.types.level, "Game");
+        }
+    }
+    sendEndGameEvent() {
+        if (this.trackerInitialized) {
+            this.completable.completed(this.completable.types.level, "Game");
+        }
+    }
+
 }

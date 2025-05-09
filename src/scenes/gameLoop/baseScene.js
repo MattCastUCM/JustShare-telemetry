@@ -661,7 +661,7 @@ export default class BaseScene extends Phaser.Scene {
             if (onClick !== null && typeof onClick === 'function' && !this.gameManager.isInFadeAnimation() && this.UIManager.lidAnim == null) {
                 onClick();
 
-                // TRACKER EVENT
+                // TODO: TRACKER EVENT
                 console.log("Interactuando con", itemName);
             }
 

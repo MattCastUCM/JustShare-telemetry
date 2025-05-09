@@ -133,7 +133,7 @@ export default class ChatScreen extends BaseScreen {
         // Al hacer click, vuelve a cambiar el color de la caja al original
         this.textBox.on('pointerdown', () => {
             if (!this.scene.dialogManager.isTalking()) {
-                // TRACKER EVENT
+                // TODO: TRACKER EVENT
                 console.log("Pulsar boton de responder:", this.name);
                 
                 if (this.boxClickable) {
@@ -224,7 +224,7 @@ export default class ChatScreen extends BaseScreen {
 
                 // Cuando termina la animacion, vuelve a la pantalla anterior
                 anim.on('complete', () => {
-                    // TRACKER EVENT
+                    // TODO: TRACKER EVENT
                     console.log("Salir del chat:", this.name);
                     
                     this.phone.toPrevScreen();
@@ -326,13 +326,13 @@ export default class ChatScreen extends BaseScreen {
                 this.scene.dialogManager.currNode = this.currNode;
                 this.setInteractive();
 
-                // TRACKER EVENT
+                // TODO: TRACKER EVENT
                 console.log("Mensaje respondible en chat:", this.name);
             }
             else {
                 this.setInteractive();
 
-                // TRACKER EVENT
+                // TODO: TRACKER EVENT
                 console.log("Mensaje respondible en chat:", this.name);
             }
         }
@@ -374,7 +374,7 @@ export default class ChatScreen extends BaseScreen {
      */
     generateNotifications(amount) {
         if (this.notificationAmount === 0 && amount > 0) {
-            // TRACKER EVENT
+            // TODO: TRACKER EVENT
             console.log("Recibir notificacion de:", this.name)
         }
 

@@ -47,7 +47,7 @@ export default class BootScene extends Phaser.Scene {
 
         progressBox.fillStyle(bgCol, 1).fillRoundedRect(width / 2 - BAR_W / 2, height / 2 - BAR_H / 2 - BAR_OFFSET, BAR_W, BAR_H, radius)
             .lineStyle(borderThickness, borderCol, 1).strokeRoundedRect(width / 2 - BAR_W / 2, height / 2 - BAR_H / 2 - BAR_OFFSET, BAR_W, BAR_H, radius)
-        
+
         let textStyle = {
             fontFamily: 'roboto-regular',
             fontSize: '30px',
@@ -92,7 +92,7 @@ export default class BootScene extends Phaser.Scene {
             progressBar.fillStyle(fillCol, 1);
             progressBar.fillRoundedRect(width / 2 - (BAR_W - FILL_OFFSET) / 2, height / 2 - (BAR_H - FILL_OFFSET) / 2 - BAR_OFFSET, (BAR_W - FILL_OFFSET) * value, BAR_H - FILL_OFFSET, radius);
         });
-        
+
         // Cuando carga un archivo, muestra el nombre del archivo debajo de la barra
         this.load.on('fileprogress', function (file) {
             // console.log(file.key);
@@ -285,7 +285,7 @@ export default class BootScene extends Phaser.Scene {
         // Casa del acosador
         this.load.image('portalBg', 'portal.png');
         this.load.image('harasserHouseBg', 'harasserHouse.png');
-        
+
         this.load.image('policeStationBg', 'policeStation.png');
 
     }
@@ -304,7 +304,7 @@ export default class BootScene extends Phaser.Scene {
         this.load.image('playerPhoto1SmileFemale', 'scene3/playerPhoto1SmileFemale.png');
         this.load.image('playerPhoto1TongueMale', 'scene3/playerPhoto1TongueMale.png');
         this.load.image('playerPhoto1TongueFemale', 'scene3/playerPhoto1TongueFemale.png');
-        
+
         // Escena 4
         this.load.image('harasserPhoto2Male', 'scene4/harasserPhoto2Male.png');
         this.load.image('harasserPhoto2Female', 'scene4/harasserPhoto2Female.png');
@@ -328,7 +328,7 @@ export default class BootScene extends Phaser.Scene {
         this.load.image('playerPhoto5Male', 'scene5/playerPhoto5Male.png');
         this.load.image('playerPhoto5Female', 'scene5/playerPhoto5Female.png');
 
-        
+
         // Escena 6
         this.load.image('playerPhoto6Male', 'scene6/playerPhoto6Male.png');
         this.load.image('playerPhoto6Female', 'scene6/playerPhoto6Female.png');
@@ -370,16 +370,16 @@ export default class BootScene extends Phaser.Scene {
 
             "scene6/scene6Livingroom",
             "scene6/scene6Bedroom",
-                "scene6/routeA/scene6BedroomRouteA1",
-                "scene6/routeA/scene6BedroomRouteA2",
-                "scene6/routeA/scene6LunchRouteA",
-                "scene6/routeA/scene6PortalRouteA",
-                "scene6/routeA/scene6EndingRouteA",
+            "scene6/routeA/scene6BedroomRouteA1",
+            "scene6/routeA/scene6BedroomRouteA2",
+            "scene6/routeA/scene6LunchRouteA",
+            "scene6/routeA/scene6PortalRouteA",
+            "scene6/routeA/scene6EndingRouteA",
 
-                "scene6/routeB/scene6LunchRouteB",
-                "scene6/routeB/scene6BedroomRouteB",
-                "scene6/routeB/scene6PoliceStationRouteB",
-                "scene6/routeB/scene6EndingRouteB",
+            "scene6/routeB/scene6LunchRouteB",
+            "scene6/routeB/scene6BedroomRouteB",
+            "scene6/routeB/scene6PoliceStationRouteB",
+            "scene6/routeB/scene6EndingRouteB",
 
             "scene7/scene7Bedroom",
 
@@ -391,7 +391,7 @@ export default class BootScene extends Phaser.Scene {
             "names",
 
             "transitions",
-            
+
             "deviceInfo",
 
             "menus/titleScene",
@@ -414,7 +414,7 @@ export default class BootScene extends Phaser.Scene {
         this.loadBackgrounds();
         this.loadPhotos();
         this.loadCreditsSceneAssets();
-      
+
 
         this.load.setPath('assets');
 
@@ -441,7 +441,7 @@ export default class BootScene extends Phaser.Scene {
     create() {
         this.events.once('start', () => {
             let gameManager = GameManager.create(this);
-            
+
             // TEST
             // gameManager.startTestScene();
 

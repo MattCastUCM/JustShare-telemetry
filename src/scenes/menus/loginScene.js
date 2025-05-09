@@ -7,7 +7,7 @@ export default class LoginScene extends ComputerBaseScene {
     constructor() {
         super("LoginScene")
     }
-    
+
     create(params) {
         super.create(params);
 
@@ -17,11 +17,11 @@ export default class LoginScene extends ComputerBaseScene {
         this.createPowerIcon(() => {
             this.gameManager.changeScene("TitleScene");
         })
-        
+
         const X = this.CANVAS_WIDTH / 3;
         const Y = 2.55 * this.CANVAS_HEIGHT / 7;
         const SCALE = 0.8
-        
+
         const OFFSET_X = 70;
         const OFFSET_Y = 30;
 
@@ -30,17 +30,17 @@ export default class LoginScene extends ComputerBaseScene {
         let nameContainer = this.createTextInputWithSideText(0, 0, "nameInput");
         container.add(nameContainer);
 
-        let genderContainer = this.createGenderOptions(OFFSET_X, nameContainer.height + OFFSET_Y, 
+        let genderContainer = this.createGenderOptions(OFFSET_X, nameContainer.height + OFFSET_Y,
             "genderBoxes", "invalidGender", true);
         container.add(genderContainer);
 
-        let sexualityContainer = this.createGenderOptions(OFFSET_X, genderContainer.y + genderContainer.height + OFFSET_Y, 
+        let sexualityContainer = this.createGenderOptions(OFFSET_X, genderContainer.y + genderContainer.height + OFFSET_Y,
             "sexualityBoxes", "invalidSexuality", false);
         container.add(sexualityContainer);
 
         let acceptButton = this.createButton(0, sexualityContainer.y + sexualityContainer.height + OFFSET_Y * 1.5, 'acceptButton', () => {
-            // TRACKER EVENT
-            console.log("Boton de login");
+            // TODO: TRACKER EVENT
+            // console.log("Boton de login");
 
             let errors = this.checkErrors(nameContainer, genderContainer, sexualityContainer);
             if (!errors) {
@@ -54,10 +54,10 @@ export default class LoginScene extends ComputerBaseScene {
 
     startGame(nameContainer, genderContainer, sexualityContainer) {
         let harasserGender = "female"
-        if(sexualityContainer.manBox.checkBox.checked && sexualityContainer.womanBox.checkBox.checked) {
+        if (sexualityContainer.manBox.checkBox.checked && sexualityContainer.womanBox.checkBox.checked) {
             harasserGender = this.getRandomInt(0, 1) === 0 ? "male" : "female"
         }
-        else if(sexualityContainer.manBox.checkBox.checked) {
+        else if (sexualityContainer.manBox.checkBox.checked) {
             harasserGender = "male"
         }
 
@@ -72,7 +72,7 @@ export default class LoginScene extends ComputerBaseScene {
     checkErrors(nameContainer, genderContainer, sexualityContainer) {
         const FADE_DURATION = 20;
         const MAX_N_CHARACTERES = 7;
-        
+
         let errors = false;
 
         if (!nameContainer.textInput.isValid()) {
@@ -112,7 +112,7 @@ export default class LoginScene extends ComputerBaseScene {
         style.color = '#ff0000';
 
         let translation = " "
-        if(transId) {
+        if (transId) {
             translation = this.translate(transId)
         }
 
@@ -143,7 +143,7 @@ export default class LoginScene extends ComputerBaseScene {
         const TEXT_OFFSET_X = -80;
         const CHECKBOX_OFFSET_X = 30
         const ERROR_OFFSET_X = 15;
-        
+
         let container = this.add.container(x, y);
 
         // Texto a la izquierda
@@ -164,7 +164,7 @@ export default class LoginScene extends ComputerBaseScene {
         container.manBox = manBox
         container.womanBox = womanBox
 
-        if(isRadioGroup) {
+        if (isRadioGroup) {
             let checkBoxes = [];
             checkBoxes.push(manBox.checkBox);
             checkBoxes.push(womanBox.checkBox);
@@ -207,7 +207,7 @@ export default class LoginScene extends ComputerBaseScene {
     createGenderCheckbox(x, y, sprite) {
         // Contenedor principal
         let container = this.add.container(x, y);
-        
+
         const FIGURE = this.gameManager.widerRoundedSquare
         let params = {
             offsetX: -50,

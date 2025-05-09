@@ -25,8 +25,12 @@ export default class Tracker {
         this.gameObject = new GameObject(this);
         this.sending = false;
 
+        // TRACKER EVENT
+        // console.log("Inicio de sesion") 
+        this.completable.initialized(this.completable.types.level, "Session");
+
         window.addEventListener('beforeunload', () => {
-            this.closed();
+            this.closeTracker();
         });
 
         this.timer = null;
@@ -43,9 +47,20 @@ export default class Tracker {
         }, this.batchTimeout);
     }
 
-    closed() {
-        while (this.sending) { }
+    closeTracker() {
+        console.log("closing");
+
+        // TRACKER EVENT
+        // console.log("Cierre de sesion") 
+        this.completable.completed(this.completable.types.level, "Session");
+
+        while (this.sending) {
+            console.log("waiting to send and close");
+        }
         this.sendEvents();
+
+        console.log("closed");
+
     }
 
     // Valida los parámetros de un evento
@@ -69,7 +84,7 @@ export default class Tracker {
 
             let event = new TrackerEvent(eventParams);
             this.queue.push(event);
-            if (this.queue.length >= this.batch_size) {
+            if (this.queue.length >= this.batchLength) {
                 this.sendEvents();
             }
         }
@@ -82,6 +97,7 @@ export default class Tracker {
         if (!this.sending && length > 0) {
             this.sending = true;
             try {
+                console.log("Sending", length, "events");
                 let data = await this.lrs.saveStatements(this.queue.slice(0, length));
                 this.queue.splice(0, length);
                 return data;
@@ -90,6 +106,7 @@ export default class Tracker {
                 console.error(error.message);
             }
             finally {
+                console.log("Events sent");
                 this.sending = false;
             }
         }

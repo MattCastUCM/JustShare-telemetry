@@ -18,12 +18,12 @@ export default class Scene7Bedroom extends BaseScene {
         this.scale = this.CANVAS_HEIGHT / dreamBg.height;
         dreamBg.setScale(this.scale);
         dreamBg.depth = 100;
-        
+
         let bg = this.add.image(0, 0, 'bedroomNightBg').setOrigin(0, 0);
         this.scale = this.CANVAS_HEIGHT / bg.height;
         bg.setScale(this.scale);
-        
-        
+
+
         // Lee el archivo de nodos
         let nodes = this.cache.json.get('scene7Bedroom');
 
@@ -51,18 +51,18 @@ export default class Scene7Bedroom extends BaseScene {
                     this.phoneManager.bgBlock.disableInteractive();
                     this.phoneManager.phone.returnButton.disableInteractive();
 
-                    this.phoneManager.phone.toChatScreen(chatName);                    
+                    this.phoneManager.phone.toChatScreen(chatName);
                 }, 50);
 
             });
         };
-        
-        
+
+
         this.dispatcher.add("chatEnded", this, () => {
             this.dialogManager.textbox.activate(false);
             let chatName = this.gameManager.translate("textMessages.chat2", { ns: "deviceInfo", returnObjects: true });
             this.phoneManager.phone.chats.get(chatName).returnButton.setInteractive();
-            
+
             chatName = this.gameManager.translate("textMessages.chat3", { ns: "deviceInfo", returnObjects: true });
             this.phoneManager.phone.addChat(chatName, "dadPfp");
 
@@ -81,7 +81,7 @@ export default class Scene7Bedroom extends BaseScene {
 
             // Retrato de la madre
             let momTr = this.portraitTr;
-            momTr.x =  this.CANVAS_WIDTH / 2 - this.CANVAS_WIDTH / 5;
+            momTr.x = this.CANVAS_WIDTH / 2 - this.CANVAS_WIDTH / 5;
             let momPortrait = new Portrait(this, "mom", momTr, "mom")
             momPortrait.setFlipX(true);
             this.portraits.set("mom", momPortrait);
@@ -89,7 +89,7 @@ export default class Scene7Bedroom extends BaseScene {
             let node = super.readNodes(nodes, "scene7\\scene7Bedroom", "call", true);
             this.dialogManager.setNode(node, [dadPortrait, momPortrait]);
         });
-        
+
 
         this.dispatcher.add("end", this, () => {
             let params = {
@@ -97,14 +97,17 @@ export default class Scene7Bedroom extends BaseScene {
                 text: this.gameManager.translate("scene7.end", { ns: "transitions", returnObjects: true }),
                 onComplete: () => {
                     // TRACKER EVENT
-                    console.log("Fin de partida");
+                    // console.log("Fin de partida");
+                    this.gameManager.sendEndGameEvent();
                     
                     this.gameManager.startTitleScene();
                 },
             };
-            // TRACKER EVENT
-            console.log("Fin del dia 7");
-
+            // TODO: TRACKER EVENT
+            if (this.gameManager.trackerInitialized) {
+                // console.log("Fin del dia 7");
+                this.gameManager.completable.progressed(this.gameManager.completable.types.level, "Day 7");
+            }
             this.gameManager.changeScene("TextOnlyScene", params);
         });
     }
@@ -113,6 +116,6 @@ export default class Scene7Bedroom extends BaseScene {
         setTimeout(() => {
             this.setupPhone();
         }, 50);
-        
+
     }
 }

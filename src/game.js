@@ -71,11 +71,11 @@ const config = {
     // Nota: el orden de las escenas es relevante, y las que se encuentren antes en el array se renderizaran por debajo de las siguientes
     scene: [
         // TEST
-        TrackerScene,
+        // TrackerScene,
 
         // Carga de assets
         BootScene,
-        
+
         // Menus
         TitleScene, LoginScene, CreditsScene,
 
@@ -90,15 +90,15 @@ const config = {
         // Escena 5
         Scene5Livingroom, Scene5Bedroom,
         // Escena 6
-        Scene6Livingroom, Scene6Bedroom, 
-            Scene6BedroomRouteA1, scene6BedroomRouteA2, Scene6LunchRouteA, Scene6PortalRouteA, Scene6EndingRouteA,
-            Scene6LunchRouteB, Scene6BedroomRouteB, Scene6PoliceStationRouteB, Scene6EndingRouteB,
+        Scene6Livingroom, Scene6Bedroom,
+        Scene6BedroomRouteA1, scene6BedroomRouteA2, Scene6LunchRouteA, Scene6PortalRouteA, Scene6EndingRouteA,
+        Scene6LunchRouteB, Scene6BedroomRouteB, Scene6PoliceStationRouteB, Scene6EndingRouteB,
         // Escena 7
         Scene7Bedroom,
-        
+
         // Ordenador
         Computer,
-        
+
         // UI
         UIManager, TextOnlyScene
     ],

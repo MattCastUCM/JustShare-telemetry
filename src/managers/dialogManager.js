@@ -290,7 +290,7 @@ export default class DialogManager {
                     this.processNextNode(delay);
                 }
                 else {
-                    // TRACKER EVENT
+                    // TODO: TRACKER EVENT
                     // console.log("Inicio de dialogo:", this.currNode.dialogs[this.currNode.currDialog].text);
 
                     // Funcion a ejecutar para mostrar la caja. Actualiza el retrato y el texto y activa la caja
@@ -361,14 +361,14 @@ export default class DialogManager {
             }
             // Si ha acabado de mostrarse todo el dialogo
             else {
-                // TRACKER EVENT
+                // TODO: TRACKER EVENT
                 // console.log("Fin de dialogo:", this.currNode.dialogs[this.currNode.currDialog].text);
 
                 // Actualiza el dialogo que se esta mostrando del nodo actual
                 this.currNode.currDialog++;
                 // Si aun no se han mostrado todos los dialogos del nodo, muestra el siguiente dialogo
                 if (this.currNode.currDialog < this.currNode.dialogs.length) {
-                    // TRACKER EVENT
+                    // TODO: TRACKER EVENT
                     // console.log("Inicio de dialogo:", this.currNode.dialogs[this.currNode.currDialog].text);
 
                     this.setText(this.currNode.dialogs[this.currNode.currDialog], true);
@@ -453,7 +453,7 @@ export default class DialogManager {
     * @param {Number} index - indice elegido
     */
     selectOption(index) {
-        // TRACKER EVENT
+        // TODO: TRACKER EVENT
         // console.log("Opcion seleccionada:", this.currNode.choices[index].text);
 
         // Desactiva las opciones

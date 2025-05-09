@@ -48,7 +48,7 @@ export default class SocialMediaScreen extends BaseScreen {
 
         // Iconos menu izquierda
         this.createMenu(() => {
-            // TRACKER EVENT
+            // TODO: TRACKER EVENT
             console.log("Pulsar boton de inicio");
 
             this.reset()
@@ -102,7 +102,7 @@ export default class SocialMediaScreen extends BaseScreen {
         let button = this.scene.createButton(profile.x, this.TASK_BAR_TOP_Y - BUTTON_OFFSET_Y, "shareButton", () => {
             this.scene.dialogManager.setNode(noPostNode, [])
 
-            // TRACKER EVENT
+            // TODO: TRACKER EVENT
             console.log("Pulsar boton de compartir");
         }, BUTTON_SCALE)
         button.y -= button.height / 2

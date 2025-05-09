@@ -60,10 +60,10 @@ export default class Scene4Bedroom extends BaseScene {
                             this.gameManager.changeScene("Scene5Livingroom");
                         },
                     };
-                    // TRACKER EVENT
+                    // TODO: TRACKER EVENT
                     console.log("Fin del dia 4");
 
-                    // TRACKER EVENT
+                    // TODO: TRACKER EVENT
                     console.log("Inicio del dia 5");
                 
                     this.gameManager.changeScene("TextOnlyScene", params);

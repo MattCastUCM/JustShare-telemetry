@@ -10,7 +10,7 @@ export default class DirectChat {
 
         this.name = username;
         this.chat = new Chat(socialMediaScreen, x, y, pfp, username, feedDims[0], feedDims[1], () => {
-            // TRACKER EVENT
+            // TODO: TRACKER EVENT
             console.log("Pulsar boton de responder:", this.name);
             // TODO: Hacer que se pueda pulsar aunque no se pueda responder
             
@@ -40,7 +40,7 @@ export default class DirectChat {
 
                 this.contact.clearNotifications()
     
-                // TRACKER EVENT
+                // TODO: TRACKER EVENT
                 console.log("Entrar al chat:", username);
             }
         })
@@ -64,7 +64,7 @@ export default class DirectChat {
         this.chat.setVisible(enable)
         
         if (!enable && this.wasVisible) {
-            // TRACKER EVENT
+            // TODO: TRACKER EVENT
             console.log("Salir del chat:", this.name);
 
             this.wasVisible = false;

@@ -79,10 +79,10 @@ export default class Scene6EndingRouteB extends BaseScene {
                             this.gameManager.changeScene("Scene7Bedroom");
                         },
                     };
-                    // TRACKER EVENT
+                    // TODO: TRACKER EVENT
                     console.log("Fin del dia 6");
 
-                    // TRACKER EVENT
+                    // TODO: TRACKER EVENT
                     console.log("Inicio del dia 7");
                 
                     this.gameManager.changeScene("TextOnlyScene", params);
