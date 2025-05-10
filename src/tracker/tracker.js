@@ -45,11 +45,11 @@ export default class Tracker {
         }
         this.timer = setTimeout(() => {
             this.timer = null;
-            this.sendEvents();
+            // this.sendEvents();
         }, this.batchTimeout);
     }
 
-    async close() {
+    close() {
         // TRACKER EVENT
         // console.log("Cierre de sesion") 
         this.completable.completed(this.completable.types.level, "Session");
@@ -57,6 +57,7 @@ export default class Tracker {
         while (this.sending && this.pendingQueue.length > 0) {
             console.log("Waiting for pending events to be sent before closing...");
         }
+
         this.sendEvents();
 
         // Se cierra la sesion para que el usuario tenga que volvera a iniciarla
@@ -85,36 +86,30 @@ export default class Tracker {
             let event = new TrackerEvent(eventParams);
             this.pendingQueue.push(event);
             if (this.pendingQueue.length >= this.batchLength) {
-                this.sendEvents();
+                // this.sendEvents();
             }
         }
     }
 
-    async internalSendEvents() {
-        try {
-            console.log(`Sending ${this.sendingQueue.length} events`);
-            let response = await this.lrs.saveStatements(this.sendingQueue);
-            this.sendingQueue = [];
-            return response;
-        }
-        catch (error) {
-            console.error(error.message);
-        }
-        finally {
-            this.sending = false;
-        }
-    }
-
-    // Envía los eventos guardados a una lrs
-    sendEvents() {
+    async sendEvents() {
         this.resetTimer();
+
         if (!this.sending && this.pendingQueue.length > 0) {
             this.sendingQueue.push(...this.pendingQueue);
             this.pendingQueue = [];
-            this.internalSendEvents();
+
+            try {
+                console.log(`Sending ${this.sendingQueue.length} events`);
+                let response = await this.lrs.saveStatements(this.sendingQueue);
+                this.sendingQueue = [];
+                return response;
+            }
+            catch (error) {
+                console.error(error.message);
+            }
+            finally {
+                this.sending = false;
+            }
         }
     }
-
-
-
 }

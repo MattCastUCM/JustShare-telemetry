@@ -15,7 +15,7 @@ export default class TrackerScene extends Phaser.Scene {
                 baseUrl: "https://cloud.scorm.com/lrs/I43WO3TFWH/sandbox/",
                 authScheme: new BasicAuthentication("oMsoz51hM_OQbNNR3Nk", "LfWapsOhe1V-ryV2C6o")
             }),
-            new AccountActor("http://example.com", "holita")
+            new AccountActor("http://example.com", "pedro")
         );
 
         // var tracker = new Tracker(
@@ -45,16 +45,20 @@ export default class TrackerScene extends Phaser.Scene {
         var alternative = tracker.alternative
 
         completable.initialized(completable.types.area, "Hola")
-        completable.initialized(completable.types.area, "Hola2")
-        completable.initialized(completable.types.area, "Hola3")
-        completable.initialized(completable.types.area, "Hola4")
-        completable.initialized(completable.types.area, "Hola5")
-        completable.initialized(completable.types.area, "Hola6")
-        completable.initialized(completable.types.area, "Hola7")
+        // completable.initialized(completable.types.area, "Hola2")
+        // completable.initialized(completable.types.area, "Hola3")
+        // completable.initialized(completable.types.area, "Hola4")
+        // completable.initialized(completable.types.area, "Hola5")
+        // completable.initialized(completable.types.area, "Hola6")
+        // completable.initialized(completable.types.area, "Hola7")
 
 
-        // setTimeout(() => {
-        //     tracker.lrs.logout()
-        // }, 2000);
+        setTimeout(() => {
+            tracker.sendEvents()
+        }, 2000);
+
+        // this.events.on('destroy', () => {
+        //     tracker.close()
+        // })
     }
 }
