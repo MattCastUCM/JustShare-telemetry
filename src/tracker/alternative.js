@@ -24,7 +24,7 @@ export default class Alternative {
         };
     }
 
-    selected(type, alternativeName) {
+    selected(type, alternativeName, extensions = null) {
         let property = this.types.properties[type]
         this.tracker.addEvent({
             verb: {
@@ -36,11 +36,12 @@ export default class Alternative {
                 type: property,
                 description: this.descriptions[property],
                 name: alternativeName
-            }
+            },
+            extensions: extensions
         });
     }
 
-    unlocked(type, alternativeName) {
+    unlocked(type, alternativeName, extensions = null) {
         let property = this.types.properties[type]
         this.tracker.addEvent({
             verb: {
@@ -52,7 +53,8 @@ export default class Alternative {
                 type: property,
                 description: this.descriptions[property],
                 name: alternativeName
-            }
+            },
+            extensions: extensions
         });
     }
 }

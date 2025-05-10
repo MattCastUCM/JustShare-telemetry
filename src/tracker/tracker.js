@@ -82,6 +82,9 @@ export default class Tracker {
             if (params.result) {
                 eventParams.result = new Result(params.result);
             }
+            if (params.extensions) {
+                eventParams.extensions = params.extensions;
+            }
 
             let event = new TrackerEvent(eventParams);
             this.pendingQueue.push(event);

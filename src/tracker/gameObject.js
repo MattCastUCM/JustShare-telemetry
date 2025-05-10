@@ -21,7 +21,7 @@ export default class GameObject {
     }
 
 
-    interacted(type, gameObjectName) {
+    interacted(type, gameObjectName, extensions = null) {
         let property = this.types.properties[type]
 
         this.tracker.addEvent({
@@ -34,12 +34,13 @@ export default class GameObject {
                 type: property,
                 description: this.descriptions[property],
                 name: gameObjectName
-            }
+            },
+            extensions: extensions
 
         });
     }
 
-    used(type, gameObjectName) {
+    used(type, gameObjectName, extensions = null) {
         let property = this.types.properties[type]
 
         this.tracker.addEvent({
@@ -52,7 +53,8 @@ export default class GameObject {
                 type: property,
                 description: this.descriptions[property],
                 name: gameObjectName
-            }
+            },
+            extensions: extensions
         });
     }
 }

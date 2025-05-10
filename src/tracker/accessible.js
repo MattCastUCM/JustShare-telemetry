@@ -25,7 +25,7 @@ export default class Accessible {
         }
     }
 
-    accessed(type, accessibleName) {
+    accessed(type, accessibleName, extensions = null) {
         let property = this.types.properties[type]
         this.tracker.addEvent({
             verb: {
@@ -37,11 +37,12 @@ export default class Accessible {
                 type: property,
                 description: this.descriptions[property],
                 name: accessibleName
-            }
+            },
+            extensions: extensions
         });
     }
 
-    skipped(type, accessibleName) {
+    skipped(type, accessibleName, extensions = null) {
         let property = this.types.properties[type]
         this.tracker.addEvent({
             verb: {
@@ -53,7 +54,8 @@ export default class Accessible {
                 type: property,
                 description: this.descriptions[property],
                 name: accessibleName
-            }
+            },
+            extensions: extensions
         });
     }
 }

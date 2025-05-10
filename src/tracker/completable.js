@@ -27,7 +27,7 @@ export default class Completable {
         }
     }
 
-    initialized(type, completableName) {
+    initialized(type, completableName, extensions = null) {
         let property = this.types.properties[type]
         this.tracker.addEvent({
             verb: {
@@ -44,7 +44,7 @@ export default class Completable {
         });
     }
 
-    progressed(type, completableName, score = 0) {
+    progressed(type, completableName, score = 0, extensions = null) {
         let property = this.types.properties[type]
         this.tracker.addEvent({
             verb: {
@@ -59,11 +59,12 @@ export default class Completable {
             },
             result: {
                 scoreScaled: score
-            }
+            },
+            extensions: extensions
         });
     }
 
-    completed(type, completableName, completion = true, success = true, score = 0) {
+    completed(type, completableName, completion = true, success = true, score = 0, extensions = null) {
         let property = this.types.properties[type]
         this.tracker.addEvent({
             verb: {
@@ -80,7 +81,8 @@ export default class Completable {
                 success: success,
                 completion: completion,
                 scoreScaled: score
-            }
+            },
+            extensions: extensions
         });
     }
 }
