@@ -39,7 +39,8 @@ export default class Completable {
                 type: property,
                 description: this.descriptions[property],
                 name: completableName
-            }
+            },
+            extensions: extensions
 
         });
     }
