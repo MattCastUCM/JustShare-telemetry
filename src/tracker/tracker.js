@@ -10,7 +10,7 @@ import Result from "./result.js";
 
 
 export default class Tracker {
-    constructor(lrs, actor, batchLength = 100, batchTimeout = 180000) {
+    constructor(lrs, actor, batchLength = 3, batchTimeout = 180000) {
         this.pendingQueue = [];
         this.sendingQueue = [];
 
@@ -45,13 +45,13 @@ export default class Tracker {
         }
         this.timer = setTimeout(() => {
             this.timer = null;
-            // this.sendEvents();
+            this.sendEvents();
         }, this.batchTimeout);
     }
 
     close() {
         // TRACKER EVENT
-        // console.log("Cierre de sesion") 
+        console.log("Cierre de sesion") 
         this.completable.completed(this.completable.types.level, "Session");
 
         while (this.sending && this.pendingQueue.length > 0) {
@@ -86,7 +86,7 @@ export default class Tracker {
             let event = new TrackerEvent(eventParams);
             this.pendingQueue.push(event);
             if (this.pendingQueue.length >= this.batchLength) {
-                // this.sendEvents();
+                this.sendEvents();
             }
         }
     }

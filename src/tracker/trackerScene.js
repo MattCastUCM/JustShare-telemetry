@@ -54,11 +54,7 @@ export default class TrackerScene extends Phaser.Scene {
 
 
         setTimeout(() => {
-            tracker.sendEvents()
+            // tracker.sendEvents()
         }, 2000);
-
-        // this.events.on('destroy', () => {
-        //     tracker.close()
-        // })
     }
 }
