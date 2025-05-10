@@ -8,9 +8,11 @@ import Object from "./object.js";
 import Context from "./context.js";
 import Result from "./result.js";
 
+
 export default class Tracker {
     constructor(lrs, actor, batchLength = 100, batchTimeout = 180000) {
-        this.queue = [];
+        this.pendingQueue = [];
+        this.sendingQueue = [];
 
         this.lrs = lrs;
         this.actor = actor;
@@ -26,7 +28,7 @@ export default class Tracker {
         this.sending = false;
 
         window.addEventListener('beforeunload', () => {
-            // this.close();
+            this.close();
         });
 
         this.timer = null;
@@ -52,7 +54,7 @@ export default class Tracker {
         // console.log("Cierre de sesion") 
         this.completable.completed(this.completable.types.level, "Session");
 
-        while (this.sending) {
+        while (this.sending && this.pendingQueue.length > 0) {
             console.log("Waiting for pending events to be sent before closing...");
         }
         this.sendEvents();
@@ -81,31 +83,38 @@ export default class Tracker {
             }
 
             let event = new TrackerEvent(eventParams);
-            this.queue.push(event);
-            if (this.queue.length >= this.batchLength) {
+            this.pendingQueue.push(event);
+            if (this.pendingQueue.length >= this.batchLength) {
                 this.sendEvents();
             }
         }
     }
 
-    // Envía los eventos guardados a una lrs
-    async sendEvents() {
-        this.resetTimer();
-        let length = this.queue.length;
-        if (!this.sending && length > 0) {
-            this.sending = true;
-            try {
-                console.log(`Sending ${length} events`);
-                let response = await this.lrs.saveStatements(this.queue.slice(0, length));
-                this.queue.splice(0, length);
-                return response;
-            }
-            catch (error) {
-                console.error(error.message);
-            }
-            finally {
-                this.sending = false;
-            }
+    async internalSendEvents() {
+        try {
+            console.log(`Sending ${this.sendingQueue.length} events`);
+            let response = await this.lrs.saveStatements(this.sendingQueue);
+            this.sendingQueue = [];
+            return response;
+        }
+        catch (error) {
+            console.error(error.message);
+        }
+        finally {
+            this.sending = false;
         }
     }
+
+    // Envía los eventos guardados a una lrs
+    sendEvents() {
+        this.resetTimer();
+        if (!this.sending && this.pendingQueue.length > 0) {
+            this.sendingQueue.push(...this.pendingQueue);
+            this.pendingQueue = [];
+            this.internalSendEvents();
+        }
+    }
+
+
+
 }
