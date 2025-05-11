@@ -36,9 +36,9 @@ export default class Accessible {
                 id: this.ids[property],
                 type: property,
                 description: this.descriptions[property],
-                name: accessibleName
-            },
-            extensions: extensions
+                name: accessibleName,
+                extensions: extensions
+            }
         });
     }
 
@@ -53,9 +53,9 @@ export default class Accessible {
                 id: this.ids[property],
                 type: property,
                 description: this.descriptions[property],
-                name: accessibleName
-            },
-            extensions: extensions
+                name: accessibleName,
+                extensions: extensions
+            }
         });
     }
 }

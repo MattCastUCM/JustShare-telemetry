@@ -1,7 +1,7 @@
 import { generateUUID } from "./utils.js";
 
 export default class TrackerEvent {
-    constructor({ actor, verb, object, result, context, extensions}) {
+    constructor({ actor, verb, object, result, context}) {
         this.id = generateUUID();
         this.timestamp = new Date().toISOString();
         this.actor = null;
@@ -11,7 +11,6 @@ export default class TrackerEvent {
         this.object = object;
         this.result = result;
         this.context = context;
-        this.extensions = extensions;
 
     }
 
@@ -29,9 +28,6 @@ export default class TrackerEvent {
         }
         if (this.context) {
             event.context = this.context.serializeToXApi(version);
-        }
-        if (this.extensions && Object.keys(this.extensions).length > 0) {
-            event.extensions = this.extensions;
         }
         return event;
     }

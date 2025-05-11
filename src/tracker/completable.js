@@ -38,9 +38,9 @@ export default class Completable {
                 id: this.ids[property],
                 type: property,
                 description: this.descriptions[property],
-                name: completableName
-            },
-            extensions: extensions
+                name: completableName,
+                extensions: extensions
+            }
 
         });
     }
@@ -56,12 +56,12 @@ export default class Completable {
                 id: this.ids[property],
                 type: property,
                 description: this.descriptions[property],
-                name: completableName
+                name: completableName,
+                extensions: extensions
             },
             result: {
                 scoreScaled: score
-            },
-            extensions: extensions
+            }
         });
     }
 
@@ -76,14 +76,14 @@ export default class Completable {
                 id: this.ids[property],
                 type: property,
                 description: this.descriptions[property],
-                name: completableName
+                name: completableName,
+                extensions: extensions
             },
             result: {
                 success: success,
                 completion: completion,
                 scoreScaled: score
-            },
-            extensions: extensions
+            }
         });
     }
 }

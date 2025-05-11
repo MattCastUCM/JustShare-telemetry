@@ -33,10 +33,9 @@ export default class GameObject {
                 id: this.ids[property],
                 type: property,
                 description: this.descriptions[property],
-                name: gameObjectName
-            },
-            extensions: extensions
-
+                name: gameObjectName,
+                extensions: extensions
+            }
         });
     }
 
@@ -52,9 +51,9 @@ export default class GameObject {
                 id: this.ids[property],
                 type: property,
                 description: this.descriptions[property],
-                name: gameObjectName
-            },
-            extensions: extensions
+                name: gameObjectName,
+                extensions: extensions
+            }
         });
     }
 }

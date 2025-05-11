@@ -16,7 +16,7 @@ export default class TrackerScene extends Phaser.Scene {
                 authScheme: new BasicAuthentication("oMsoz51hM_OQbNNR3Nk", "LfWapsOhe1V-ryV2C6o")
             }),
 
-            new AccountActor("http://example.com", "AAAAAAAAA")
+            new AccountActor("http://example.com", "lk")
         );
 
         // var tracker = new Tracker(
@@ -45,13 +45,13 @@ export default class TrackerScene extends Phaser.Scene {
         var accessible = tracker.accessible
         var alternative = tracker.alternative
 
-        completable.initialized(completable.types.area, "Hola",{Hola: 12345, A: "hola"})
-        completable.initialized(completable.types.area, "Hola2")
-        completable.initialized(completable.types.area, "Hola3")
-        completable.initialized(completable.types.area, "Hola4")
-        completable.initialized(completable.types.area, "Hola5")
-        completable.initialized(completable.types.area, "Hola6")
-        completable.initialized(completable.types.area, "Hola7")
+        completable.initialized(completable.types.area, "Hola",{ "https://cyluna.com/xapi/extensions/hola": 12345,  "https://cyluna.com/xapi/extensions/AA": "hola"})
+        // completable.initialized(completable.types.area, "Hola2")
+        // completable.initialized(completable.types.area, "Hola3")
+        // completable.initialized(completable.types.area, "Hola4")
+        // completable.initialized(completable.types.area, "Hola5")
+        // completable.initialized(completable.types.area, "Hola6")
+        // completable.initialized(completable.types.area, "Hola7")
 
 
         setTimeout(() => {

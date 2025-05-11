@@ -10,7 +10,7 @@ import Result from "./result.js";
 
 
 export default class Tracker {
-    constructor(lrs, actor, batchLength = 3, batchTimeout = 180000) {
+    constructor(lrs, actor, batchLength = 20, batchTimeout = 1000) {
         this.pendingQueue = [];
         this.sendingQueue = [];
 
@@ -81,9 +81,6 @@ export default class Tracker {
             }
             if (params.result) {
                 eventParams.result = new Result(params.result);
-            }
-            if (params.extensions) {
-                eventParams.extensions = params.extensions;
             }
 
             let event = new TrackerEvent(eventParams);

@@ -35,9 +35,9 @@ export default class Alternative {
                 id: this.ids[property],
                 type: property,
                 description: this.descriptions[property],
-                name: alternativeName
-            },
-            extensions: extensions
+                name: alternativeName,
+                extensions: extensions
+            }
         });
     }
 
@@ -52,9 +52,9 @@ export default class Alternative {
                 id: this.ids[property],
                 type: property,
                 description: this.descriptions[property],
-                name: alternativeName
-            },
-            extensions: extensions
+                name: alternativeName,
+                extensions: extensions
+            }
         });
     }
 }
