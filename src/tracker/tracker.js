@@ -27,8 +27,8 @@ export default class Tracker {
         this.gameObject = new GameObject(this);
         this.sending = false;
 
-        window.addEventListener('beforeunload', () => {
-            this.close();
+        window.addEventListener('beforeunload', async () => {
+            await this.close();
         });
 
         this.timer = null;
@@ -49,7 +49,7 @@ export default class Tracker {
         }, this.batchTimeout);
     }
 
-    close() {
+    async close() {
         // TRACKER EVENT
         console.log("Cierre de sesion") 
         this.completable.completed(this.completable.types.level, "Session");
@@ -58,10 +58,10 @@ export default class Tracker {
             console.log("Waiting for pending events to be sent before closing...");
         }
 
-        this.sendEvents();
+        await this.sendEvents();
 
         // Se cierra la sesion para que el usuario tenga que volvera a iniciarla
-        this.lrs.logout();
+        await this.lrs.logout();
     }
 
     // Valida los parámetros de un evento
