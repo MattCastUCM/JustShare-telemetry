@@ -8,7 +8,9 @@ export default class Completable {
             level: 2,
             quest: 3,
             storyNode: 4,
-            properties: ["serious-game", "area", "level", "quest", "story-node"]
+            completable: 5,
+
+            properties: ["serious-game", "area", "level", "quest", "story-node", "completable"]
         }
         
         this.ids = {
@@ -17,7 +19,9 @@ export default class Completable {
             level: 'https://w3id.org/xapi/seriousgames/activity-types/level',
             quest: 'https://w3id.org/xapi/seriousgames/activity-types/quest',
             // No existe en el registro
-            "story-node": 'https://w3id.org/xapi/lab/activity-types/story-node'
+            "story-node": 'https://w3id.org/xapi/lab/activity-types/story-node',
+            // No existe en el registro
+            completable: 'https://w3id.org/xapi/seriousgames/activity-types/completable'
         };
 
         this.descriptions = {
@@ -25,7 +29,8 @@ export default class Completable {
             area: "An identified area inside the game world. In some games they can also be worlds. Represents an aggregation of zones.	",
             level: "A level of a game or of a gamified learning platform. A level is logic partition of progression in any video game. Completing a level means advancing in the progression of the game.",
             quest: "A accomplishable challenge or mission presented inside a game. Completing quests marks the players' progress.",
-            "story-node": " "
+            "story-node": " ",
+            completable: " "
         }
     }
 

@@ -117,7 +117,7 @@ export default class Result {
         }
 
         if (this.response) {
-            result.response = this.completion;
+            result.response = this.response;
         }
 
         if (this.duration) {

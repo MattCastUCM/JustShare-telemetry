@@ -45,7 +45,8 @@ export default class TrackerScene extends Phaser.Scene {
         var accesible = tracker.accesible
         var alternative = tracker.alternative
 
-        let event = completable.completed(completable.types.area, "hola", 0.1, true, true, 1000)
+        // let event = completable.completed(completable.types.area, "hola", 0.1, true, true, 1000)
+        let event = alternative.selected(alternative.types.dialogTree, "hola", "juan")
         event.result.setExtension("numero", 2)
         tracker.addEvent(event);
 
