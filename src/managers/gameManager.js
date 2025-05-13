@@ -30,7 +30,6 @@ export default class GameManager {
             throw new Error('GameManager is a Singleton class!');
         }
 
-        this.trackerInitialized = false;
         this.initializeTracker();
 
         // Se necesita una escena para poder acceder al ScenePlugin y cambiar de escena
@@ -201,7 +200,7 @@ export default class GameManager {
         this.fading = true;
 
         // TODO: TRACKER EVENT
-        console.log("Saliendo de", this.currentScene.scene.key);
+        // console.log("Saliendo de", this.currentScene.scene.key);
 
         // Cuando acaba el fade out de la escena actual se cambia a la siguiente
         this.currentScene.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, (cam, effect) => {
@@ -234,7 +233,7 @@ export default class GameManager {
             });
 
             // TODO: TRACKER EVENT
-            console.log("Entrando en", scene);
+            // console.log("Entrando en", scene);
         });
     }
 
@@ -593,13 +592,19 @@ export default class GameManager {
     ////////////////////////////
 
     initializeTracker() {
+        this.trackerInitialized = false;
+        this.gameCompleted = false;
+        this.TOTAL_DAYS = 7.0;
+
         // this.tracker = generateTrackerFromURL();
+
+        // TEST
         this.tracker = new Tracker(
             new LRS({
                 baseUrl: "https://cloud.scorm.com/lrs/I43WO3TFWH/sandbox/",
                 authScheme: new BasicAuthentication("oMsoz51hM_OQbNNR3Nk", "LfWapsOhe1V-ryV2C6o")
             }),
-            new AccountActor("http://example.com", "holita")
+            new AccountActor("http://example.com", "matt")
         );
 
         this.accesible = this.tracker.accesible;
@@ -611,14 +616,54 @@ export default class GameManager {
     }
 
     sendStartGameEvent() {
-        if (this.trackerInitialized) {
-            this.completable.initialized(this.completable.types.level, "Game");
+        if (this.trackerInitialized && !this.gameCompleted) {
+            this.day = 1.0;
+
+            let evt = this.completable.initialized(this.completable.types.level, "Game");
+            evt.result.setExtension("Gender", this.userInfo.gender);
+            evt.result.setExtension("Sexuality", this.userInfo.sexuality);
+            this.tracker.addEvent(evt);
         }
     }
     sendEndGameEvent() {
-        if (this.trackerInitialized) {
-            this.completable.completed(this.completable.types.level, "Game");
+        if (this.trackerInitialized && !this.gameCompleted) {
+            this.gameCompleted = true;
+
+            let ending = this.getValue("routeA") ? "routeA" : "routeB";
+            let explained = this.getValue("explained")
+
+            let evt = this.completable.completed(this.completable.types.level, "Game", 1, true, true);
+            evt.result.setExtension("Ending", ending);
+            evt.result.setExtension("Explained", explained);
+            this.tracker.addEvent(evt);
+
+            setTimeout(() => {
+                tracker.sendEvents()
+            }, 1000);
+        }
+    }
+    sendGameProgressEvent(day) {
+        if (this.trackerInitialized && !this.gameCompleted) {
+            let evt = this.completable.progressed(this.completable.types.level, "Game", this.day / this.TOTAL_DAYS)
+            this.tracker.addEvent(evt);
         }
     }
 
+    sendItemInteraction(objectName, npc = false) {
+        if (this.trackerInitialized && !this.gameCompleted) {
+            let type = this.gameObject.types.item;
+            if (npc) {
+                type = this.gameObject.types.npc;
+            }
+            let evt = this.gameObject.interacted(type, objectName);
+            this.tracker.addEvent(evt);
+        }
+    }
+
+    sendChoiceSelected(nodeId, choiceText) {
+        if (this.trackerInitialized && !this.gameCompleted) {
+            let evt = this.alternative.selected(this.alternative.types.dialogTree, nodeId, choiceText);
+            this.tracker.addEvent(evt);
+        }
+    }
 }

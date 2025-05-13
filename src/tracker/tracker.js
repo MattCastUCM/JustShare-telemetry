@@ -53,7 +53,7 @@ export default class Tracker {
 
     async close() {
         // TRACKER EVENT
-        console.log("Cierre de sesion")
+        // console.log("Cierre de sesion")
         let event = this.completable.completed(this.completable.types.level, "Session", 1, true, true);
         this.addEvent(event);
 

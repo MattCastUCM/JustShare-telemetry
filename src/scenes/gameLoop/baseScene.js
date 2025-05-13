@@ -622,7 +622,7 @@ export default class BaseScene extends Phaser.Scene {
      * @param {Function} onClick - funcion a la que se llamara al hacer click sobre el icono
      * @param {Boolean} deactivateOnClick - true si la el icono desaparece al hacer click, false si se mantiene
      */
-    createInteractiveElement(x, y, img, scale, onClick, deactivateOnClick, itemName) {
+    createInteractiveElement(x, y, img, scale, onClick, deactivateOnClick, itemName, npc = false) {
         // Configuracion de las animaciones
         let animConfig = {
             fadeTime: 150,
@@ -661,8 +661,9 @@ export default class BaseScene extends Phaser.Scene {
             if (onClick !== null && typeof onClick === 'function' && !this.gameManager.isInFadeAnimation() && this.UIManager.lidAnim == null) {
                 onClick();
 
-                // TODO: TRACKER EVENT
-                console.log("Interactuando con", itemName);
+                // TRACKER EVENT
+                // console.log("Interactuando con", itemName);
+                this.gameManager.sendItemInteraction(itemName, npc);
             }
 
         });

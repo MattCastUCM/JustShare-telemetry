@@ -453,8 +453,9 @@ export default class DialogManager {
     * @param {Number} index - indice elegido
     */
     selectOption(index) {
-        // TODO: TRACKER EVENT
+        // TRACKER EVENT
         // console.log("Opcion seleccionada:", this.currNode.choices[index].text);
+        this.gameManager.sendChoiceSelected(this.currNode.fullId, this.currNode.choices[index].text);
 
         // Desactiva las opciones
         this.activateOptions(false);

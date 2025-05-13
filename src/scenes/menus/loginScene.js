@@ -53,17 +53,29 @@ export default class LoginScene extends ComputerBaseScene {
     }
 
     startGame(nameContainer, genderContainer, sexualityContainer) {
+        let gender = genderContainer.group.getIndexSelButton() === 0 ? "male" : "female";
+        let sexuality = "heterosexual";
         let harasserGender = "female"
+        
         if (sexualityContainer.manBox.checkBox.checked && sexualityContainer.womanBox.checkBox.checked) {
+            sexuality = "bisexual";
             harasserGender = this.getRandomInt(0, 1) === 0 ? "male" : "female"
         }
         else if (sexualityContainer.manBox.checkBox.checked) {
+            if (gender === "male") {
+                sexuality = "homosexual";
+            }
+            
             harasserGender = "male"
         }
-
+        else if (sexualityContainer.womanBox.checkBox.checked && gender === "female") {
+            sexuality = "homosexual"
+        }
+        
         let userInfo = {
             name: nameContainer.textInput.getText(),
-            gender: genderContainer.group.getIndexSelButton() === 0 ? "male" : "female",
+            gender: gender,
+            sexuality: sexuality,
             harasser: harasserGender
         }
         this.gameManager.startGame(userInfo);
