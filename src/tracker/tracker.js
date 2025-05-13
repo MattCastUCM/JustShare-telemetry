@@ -9,7 +9,7 @@ import Context from "./statement/context.js";
 import Result from "./statement/result.js";
 
 export default class Tracker {
-    constructor(lrs, actor, batchLength = 20, batchTimeout = 1000) {
+    constructor(lrs, actor, batchLength = 100, batchTimeout = 180000) {
         this.pendingQueue = [];
         this.sendingQueue = [];
 
