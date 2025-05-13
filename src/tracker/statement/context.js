@@ -1,4 +1,4 @@
-import { generateUUID } from "./utils.js";
+import { generateUUID } from "../utils.js";
 
 export default class Context {
     constructor(id) {

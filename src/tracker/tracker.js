@@ -1,22 +1,23 @@
-import TrackerEvent from "./trackerEvent.js";
-import Accesible from "./accessible.js"
-import Alternative from "./alternative.js"
-import Completable from "./completable.js";
-import GameObject from "./gameObject.js";
-import Verb from './verb.js'
-import Object from "./object.js";
-import Context from "./context.js";
-import Result from "./result.js";
-
+import Accesible from "./interfaces/accessible.js"
+import Alternative from "./interfaces/alternative.js"
+import Completable from "./interfaces/completable.js";
+import GameObject from "./interfaces/gameObject.js";
+import TrackerEvent from "./statement/trackerEvent.js";
+import Verb from './statement/verb.js'
+import Object from "./statement/object.js";
+import Context from "./statement/context.js";
+import Result from "./statement/result.js";
 
 export default class Tracker {
     constructor(lrs, actor, batchLength = 20, batchTimeout = 1000) {
         this.pendingQueue = [];
         this.sendingQueue = [];
 
+        this.rootId = "https://w3id.org/xapi/seriousgame"
+
         this.lrs = lrs;
         this.actor = actor;
-        this.context = new Context('https://w3id.org/xapi/seriousgame');
+        this.context = new Context(this.rootId);
 
         this.batchLength = batchLength;
         this.batchTimeout = batchTimeout;
@@ -36,7 +37,8 @@ export default class Tracker {
 
         // TRACKER EVENT
         // console.log("Inicio de sesion") 
-        this.completable.initialized(this.completable.types.level, "Session");
+        let event = this.completable.initialized(this.completable.types.level, "Session");
+        this.addEvent(event);
     }
 
     resetTimer() {
@@ -51,8 +53,9 @@ export default class Tracker {
 
     async close() {
         // TRACKER EVENT
-        console.log("Cierre de sesion") 
-        this.completable.completed(this.completable.types.level, "Session");
+        console.log("Cierre de sesion")
+        let event = this.completable.completed(this.completable.types.level, "Session", 1, true, true);
+        this.addEvent(event);
 
         while (this.sending && this.pendingQueue.length > 0) {
             console.log("Waiting for pending events to be sent before closing...");
@@ -64,30 +67,24 @@ export default class Tracker {
         await this.lrs.logout();
     }
 
-    // Valida los parámetros de un evento
-    validateParams(params) {
-        const REQUIRED = ['verb', 'object'];
-        return REQUIRED.every(f => params.hasOwnProperty(f));
+    // Agregar un evento a la cola
+    createEvent(params) {
+        let eventParams = {
+            actor: this.actor,
+            verb: new Verb(params.verb),
+            object: new Object(params.object),
+            context: this.context,
+            result: new Result(this.rootId + "/extensions")
+        }
+
+        let event = new TrackerEvent(eventParams);
+        return event
     }
 
-    // Agregar un evento a la cola
-    addEvent(params) {
-        if (this.validateParams(params)) {
-            let eventParams = {
-                actor: this.actor,
-                verb: new Verb(params.verb),
-                object: new Object(params.object),
-                context: this.context
-            }
-            if (params.result) {
-                eventParams.result = new Result(params.result);
-            }
-
-            let event = new TrackerEvent(eventParams);
-            this.pendingQueue.push(event);
-            if (this.pendingQueue.length >= this.batchLength) {
-                this.sendEvents();
-            }
+    addEvent(event) {
+        this.pendingQueue.push(event);
+        if (this.pendingQueue.length >= this.batchLength) {
+            this.sendEvents();
         }
     }
 
@@ -101,6 +98,7 @@ export default class Tracker {
             try {
                 console.log(`Sending ${this.sendingQueue.length} events`);
                 let response = await this.lrs.saveStatements(this.sendingQueue);
+                console.log(response);
                 this.sendingQueue = [];
                 return response;
             }

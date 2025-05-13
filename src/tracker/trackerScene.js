@@ -1,6 +1,6 @@
 import Tracker from './tracker.js'
 import LRS from './lrs.js';
-import { AccountActor } from './actor.js';
+import { AccountActor } from './statement/actor.js';
 import { BasicAuthentication, OAuth2 } from './authentication.js';
 import { generateTrackerFromURL } from './index.js';
 
@@ -16,7 +16,7 @@ export default class TrackerScene extends Phaser.Scene {
                 authScheme: new BasicAuthentication("oMsoz51hM_OQbNNR3Nk", "LfWapsOhe1V-ryV2C6o")
             }),
 
-            new AccountActor("http://example.com", "lk")
+            new AccountActor("http://example.com", "barbie")
         );
 
         // var tracker = new Tracker(
@@ -42,17 +42,12 @@ export default class TrackerScene extends Phaser.Scene {
 
         var completable = tracker.completable
         var gameObject = tracker.gameObject
-        var accessible = tracker.accessible
+        var accesible = tracker.accesible
         var alternative = tracker.alternative
 
-        completable.initialized(completable.types.area, "Hola",{ "https://cyluna.com/xapi/extensions/hola": 12345,  "https://cyluna.com/xapi/extensions/AA": "hola"})
-        // completable.initialized(completable.types.area, "Hola2")
-        // completable.initialized(completable.types.area, "Hola3")
-        // completable.initialized(completable.types.area, "Hola4")
-        // completable.initialized(completable.types.area, "Hola5")
-        // completable.initialized(completable.types.area, "Hola6")
-        // completable.initialized(completable.types.area, "Hola7")
-
+        let event = completable.completed(completable.types.area, "hola", 0.1, true, true, 1000)
+        event.result.setExtension("numero", 2)
+        tracker.addEvent(event);
 
         setTimeout(() => {
             // tracker.sendEvents()

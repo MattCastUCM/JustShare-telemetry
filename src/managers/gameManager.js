@@ -6,7 +6,7 @@ import { generateTrackerFromURL } from "../tracker/index.js";
 import Tracker from "../tracker/tracker.js";
 import LRS from "../tracker/lrs.js";
 import { BasicAuthentication } from "../tracker/authentication.js";
-import { AccountActor } from "../tracker/actor.js";
+import { AccountActor } from "../tracker/statement/actor.js";
 
 // Variable de nivel de modulo
 // - Se puede acceder desde cualquier parte del modulo, pero no es visible

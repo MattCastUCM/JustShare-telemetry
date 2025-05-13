@@ -1,8 +1,8 @@
 import Tracker from './tracker.js'
 import LRS from './lrs.js';
-import { AccountActor } from './actor.js';
+import { AccountActor } from './statement/actor.js';
 import { OAuth2 } from './authentication.js';
-import ms from './ms.js'
+import ms from './lib/ms.js'
 
 export function generateTrackerFromURL() {
     let urlParams = new URLSearchParams(window.location.search);
