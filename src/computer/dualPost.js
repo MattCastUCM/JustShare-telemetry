@@ -25,8 +25,9 @@ export default class DualPost {
         this.feed = new FeedPost(socialMediaScreen, pfp, username, caption, picture, width, likes)
 
         this.selected.setMessageIconOnClick(() => {
-            // TODO: TRACKER EVENT
-            console.log("Salir de una publicacion");
+            // TRACKER EVENT
+            // console.log("Salir de una publicacion");
+            this.scene.gameManager.sendItemInteraction("commentButton", { "Closing": true });
 
             this.showSelectedPost(false)
         })
@@ -35,8 +36,9 @@ export default class DualPost {
         })
 
         this.feed.setMessageIconOnClick(() => {
-            // TODO: TRACKER EVENT
-            console.log("Entrar a una publicacion");
+            // TRACKER EVENT
+            // console.log("Entrar a una publicacion");
+            this.scene.gameManager.sendItemInteraction("commentButton", { "Closing": false });
             
             this.showSelectedPost(true)
         })
@@ -51,12 +53,16 @@ export default class DualPost {
     toggleLike() {
         this.selected.toggleLike()
         if (this.selected.heartContainer.icon.texture.key === "heartIconFilled") {
-            // TODO: TRACKER EVENT
-            console.log("Dar like");
+            // TRACKER EVENT
+            // console.log("Dar like");
+            this.scene.gameManager.sendItemInteraction("likeButton", { "Liked": true });
+
         }
         else {
-            // TODO: TRACKER EVENT
-            console.log("Quitar like");
+            // TRACKER EVENT
+            // console.log("Quitar like");
+            this.scene.gameManager.sendItemInteraction("likeButton", { "Liked": false });
+
         }
     }
 

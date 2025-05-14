@@ -98,16 +98,14 @@ export default class Scene7Bedroom extends BaseScene {
                 onComplete: () => {
                     // TRACKER EVENT
                     // console.log("Fin de partida");
-                    this.gameManager.sendEndGameEvent();
+                    this.gameManager.sendEndGame();
                     
                     this.gameManager.startTitleScene();
                 },
             };
-            // TODO: TRACKER EVENT
-            if (this.gameManager.trackerInitialized) {
-                // console.log("Fin del dia 7");
-                this.gameManager.completable.progressed(this.gameManager.completable.types.level, "Day 7");
-            }
+            // TODO: DISCARDED TRACKER EVENT
+            // console.log("Fin del dia 7");
+
             this.gameManager.changeScene("TextOnlyScene", params);
         });
     }

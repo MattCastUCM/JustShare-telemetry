@@ -5,7 +5,7 @@ export default class GameObject {
         this.types = {
             item: 0,
             npc: 1,
-            gameObject: 3,
+            gameObject: 3,  // NO FUNCIONA
 
             properties: ["item", "non-player-character", "game-object"]
         }

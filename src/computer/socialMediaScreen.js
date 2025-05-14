@@ -14,10 +14,10 @@ export default class SocialMediaScreen extends BaseScreen {
         this.TOP_BAR_BOTTOM_Y = 111
         this.SCREEN_HEIGHT = 629
         this.TASK_BAR_TOP_Y = this.TOP_BAR_BOTTOM_Y + this.SCREEN_HEIGHT
-        
+
         this.FEED_WIDTH = (this.SECOND_LINE_X - this.FIRST_LINE_X)
         this.FEED_CENTER_X = this.FIRST_LINE_X + this.FEED_WIDTH / 2
-        
+
         this.ZONE_HEADER_HEIGHT = 55
         this.ZONE_HEADER_BOTTOM_Y = this.TOP_BAR_BOTTOM_Y + this.ZONE_HEADER_HEIGHT
         this.ZONE_HEADER_CENTER_Y = this.ZONE_HEADER_BOTTOM_Y - this.ZONE_HEADER_HEIGHT / 2
@@ -35,21 +35,22 @@ export default class SocialMediaScreen extends BaseScreen {
 
         this.pfpsFile = this.scene.cache.json.get('profilePictures');
 
-        this.feedListView = this.createFeed(this.FEED_CENTER_X, this.TOP_BAR_BOTTOM_Y, this.FEED_WIDTH, 
+        this.feedListView = this.createFeed(this.FEED_CENTER_X, this.TOP_BAR_BOTTOM_Y, this.FEED_WIDTH,
             this.SCREEN_HEIGHT, this.POST_WIDTH)
-                        
+
         // Mensajes directos
         this.directChats = new Map();
 
         this.createDirectMessageTitle(this.CONTACT_ZONE_CENTER_X, this.ZONE_HEADER_CENTER_Y, [0.5, 0.5])
 
-        this.contactZoneListview = this.createDmZone(this.CONTACT_ZONE_CENTER_X, this.ZONE_HEADER_BOTTOM_Y, 
+        this.contactZoneListview = this.createDmZone(this.CONTACT_ZONE_CENTER_X, this.ZONE_HEADER_BOTTOM_Y,
             this.CONTACT_ZONE_WIDTH, this.ZONE_HEIGHT)
 
         // Iconos menu izquierda
         this.createMenu(() => {
-            // TODO: TRACKER EVENT
-            console.log("Pulsar boton de inicio");
+            // TRACKER EVENT
+            // console.log("Pulsar boton de inicio");
+            this.scene.gameManager.sendItemInteraction("homeButton");
 
             this.reset()
         })
@@ -58,7 +59,7 @@ export default class SocialMediaScreen extends BaseScreen {
     reset() {
         this.setSelectedPostsVisible(false)
         this.setChatsVisible(false)
-        this.setFeedVisible(true)   
+        this.setFeedVisible(true)
     }
 
     /////////////////////////////////////////////
@@ -68,10 +69,10 @@ export default class SocialMediaScreen extends BaseScreen {
     createMenu(homeOnClick) {
         const PROFILE_SCALE = 0.75
         const PROFILE_OFFSET_Y = 30
-        
-        let profile = this.createImageWithSideText(this.MENU_ZONE_CENTER_X, this.TOP_BAR_BOTTOM_Y + this.ZONE_HEADER_HEIGHT + PROFILE_OFFSET_Y, 
+
+        let profile = this.createImageWithSideText(this.MENU_ZONE_CENTER_X, this.TOP_BAR_BOTTOM_Y + this.ZONE_HEADER_HEIGHT + PROFILE_OFFSET_Y,
             "unknownPfp", this.username, PROFILE_SCALE)
-            profile.y += profile.height / 2
+        profile.y += profile.height / 2
         this.add(profile)
 
         const ICON_SCALE = 0.64
@@ -79,17 +80,17 @@ export default class SocialMediaScreen extends BaseScreen {
         const HOME_ICON_HEIGHT = 70
 
         // Iconos de casa
-        let homeIcon = this.createHomeIcon(profile.x, profile.y + profile.height / 2 + HOME_ICON_HEIGHT / 2 + ICON_OFFSET_Y, 
+        let homeIcon = this.createHomeIcon(profile.x, profile.y + profile.height / 2 + HOME_ICON_HEIGHT / 2 + ICON_OFFSET_Y,
             "homeIcon", ICON_SCALE, this.MENU_ZONE_WIDTH, HOME_ICON_HEIGHT, homeOnClick)
 
         // Icono de opciones
-        let optionsIcon = this.createImageWithSideTranslation(homeIcon.x, homeIcon.y + homeIcon.height / 2, 
+        let optionsIcon = this.createImageWithSideTranslation(homeIcon.x, homeIcon.y + homeIcon.height / 2,
             "optionsIcon", "optionsIcon", ICON_SCALE)
         optionsIcon.y += optionsIcon.height / 2
         this.add(optionsIcon)
 
         let diffWidth = optionsIcon.width - homeIcon.icon.width
-        homeIcon.icon.x -=  diffWidth / 2
+        homeIcon.icon.x -= diffWidth / 2
 
         const BUTTON_SCALE = 0.48
         const BUTTON_OFFSET_Y = 80
@@ -102,8 +103,10 @@ export default class SocialMediaScreen extends BaseScreen {
         let button = this.scene.createButton(profile.x, this.TASK_BAR_TOP_Y - BUTTON_OFFSET_Y, "shareButton", () => {
             this.scene.dialogManager.setNode(noPostNode, [])
 
-            // TODO: TRACKER EVENT
-            console.log("Pulsar boton de compartir");
+            // TRACKER EVENT
+            // console.log("Pulsar boton de compartir");
+            this.scene.gameManager.sendItemInteraction("shareButton");
+
         }, BUTTON_SCALE)
         button.y -= button.height / 2
         this.add(button)
@@ -116,7 +119,7 @@ export default class SocialMediaScreen extends BaseScreen {
         container.add(icon)
 
         let bg = this.scene.add.rectangle(0, 0, width, height, this.scene.colors.white.hex.get0x)
-        bg.setTint = function(color) {
+        bg.setTint = function (color) {
             this.setFillStyle(color)
         }
         bg.setOrigin(0.5, 0.5)
@@ -164,13 +167,13 @@ export default class SocialMediaScreen extends BaseScreen {
     addDirectChat(usernameId) {
         const DIRECT_MESSAGE_HEIGHT = 72
 
-        if(!this.directChats.has(usernameId)) {  
+        if (!this.directChats.has(usernameId)) {
             let pfp = this.pfpsFile[usernameId]
             let username = this.scene.translateWithNamespace(usernameId, this.NAMESPACE_PREFIX + 'usernames')
 
-            let directChat = new DirectChat(this, this.FEED_CENTER_X, this.TOP_BAR_BOTTOM_Y, pfp, username, 
+            let directChat = new DirectChat(this, this.FEED_CENTER_X, this.TOP_BAR_BOTTOM_Y, pfp, username,
                 [this.FEED_WIDTH, this.SCREEN_HEIGHT], [this.CONTACT_ZONE_WIDTH, DIRECT_MESSAGE_HEIGHT])
-                
+
             this.add(directChat.chat)
 
             this.directChats.set(usernameId, directChat)
@@ -180,7 +183,7 @@ export default class SocialMediaScreen extends BaseScreen {
     }
 
     setChatNode(usernameId, node) {
-        if(this.directChats.has(usernameId)) {
+        if (this.directChats.has(usernameId)) {
             let directchat = this.directChats.get(usernameId)
             directchat.setChatNode(node)
         }
@@ -193,7 +196,7 @@ export default class SocialMediaScreen extends BaseScreen {
     }
 
     clearChatNotifications(usernameId) {
-        if(this.directChats.has(usernameId)) {
+        if (this.directChats.has(usernameId)) {
             let directchat = this.directChats.get(usernameId)
             directchat.clearNotifications()
         }
@@ -219,33 +222,33 @@ export default class SocialMediaScreen extends BaseScreen {
         const POST_WIDTH = 430
         const SELECTED_POST_OFFSET_Y = 10
 
-        if(!this.posts.has(postId)) {
+        if (!this.posts.has(postId)) {
             let pfp = this.pfpsFile[usernameId]
             let username = this.scene.translateWithNamespace(usernameId, this.NAMESPACE_PREFIX + 'usernames')
-            let caption = this.scene.translateWithNamespace(postId, this.NAMESPACE_PREFIX + 'captions', { 
-                name: this.scene.gameManager.getUserInfo().name, 
+            let caption = this.scene.translateWithNamespace(postId, this.NAMESPACE_PREFIX + 'captions', {
+                name: this.scene.gameManager.getUserInfo().name,
             })
 
             let post = new DualPost(this, this.FEED_CENTER_X, this.TOP_BAR_BOTTOM_Y + SELECTED_POST_OFFSET_Y, pfp, username,
                 caption, picture, POST_WIDTH, this.TASK_BAR_TOP_Y)
-                
+
             this.posts.set(postId, post)
 
             this.add(post.selected)
-            
+
             this.feedListView.addFirstItem(post.feed, post.feed.hits)
         }
     }
 
     falsifyCommentaries(postId, nCommentaries) {
-        if(this.posts.has(postId)) {
+        if (this.posts.has(postId)) {
             let post = this.posts.get(postId)
             post.falsifyCommentaries(nCommentaries)
         }
     }
 
     setCommentaryNode(postId, node) {
-        if(this.posts.has(postId)) {
+        if (this.posts.has(postId)) {
             let post = this.posts.get(postId)
             post.setCommentaryNode(node)
         }
@@ -273,7 +276,7 @@ export default class SocialMediaScreen extends BaseScreen {
     createImageWithSideText(x, y, img, text, scale = 1, origin = [0.5, 0.5]) {
         const OFFSET_X = 10
         const IMAGE_SCALE_MULTIPLIER = 1.6
-        
+
         let container = this.scene.add.container(x, y)
 
         let style = { ...this.scene.style }

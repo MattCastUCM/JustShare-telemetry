@@ -117,9 +117,10 @@ export default class GameManager {
 
         // this.startGame(this.userInfo)
         // this.changeScene("Scene1Lunch1", {});
-        // this.changeScene("Scene2Bedroom", {});
+        // this.changeScene("Scene1Bedroom1", {});
+        this.changeScene("Scene2Bedroom", {});
         // this.changeScene("Scene3Break", {});
-        this.changeScene("Scene7Bedroom", {});
+        // this.changeScene("Scene7Bedroom", {});
 
     }
 
@@ -156,7 +157,7 @@ export default class GameManager {
 
         // TRACKER EVENT
         // console.log("Inicio del dia 1");
-        this.sendStartGameEvent();
+        this.sendStartGame();
     }
 
     /**
@@ -199,7 +200,7 @@ export default class GameManager {
         this.currentScene.cameras.main.fadeOut(FADE_OUT_TIME, 0, 0, 0);
         this.fading = true;
 
-        // TODO: TRACKER EVENT
+        // TODO: DISCARDED TRACKER EVENT
         // console.log("Saliendo de", this.currentScene.scene.key);
 
         // Cuando acaba el fade out de la escena actual se cambia a la siguiente
@@ -232,8 +233,9 @@ export default class GameManager {
                 this.fading = false;
             });
 
-            // TODO: TRACKER EVENT
+            // TRACKER EVENT
             // console.log("Entrando en", scene);
+            this.sendEnterScene(scene);
         });
     }
 
@@ -488,6 +490,12 @@ export default class GameManager {
         return null;
     }
 
+
+
+    //////////////////////////////////////////
+    /// Metodos para obtener traducciones ////
+    /////////////////////////////////////////
+
     /**
      * Obtiene el texto traducido
      * @param {String} translationId - id completa del nodo en el que mirar
@@ -523,12 +531,6 @@ export default class GameManager {
         }
         return str;
     }
-
-
-
-    //////////////////////////////////////////
-    /// Metodos para obtener traducciones ////
-    /////////////////////////////////////////
 
     /**
      * Reemplaza en el string indicado todos los contenidos que haya entre <>
@@ -594,6 +596,7 @@ export default class GameManager {
     initializeTracker() {
         this.trackerInitialized = false;
         this.gameCompleted = false;
+        this.day = 1;
         this.TOTAL_DAYS = 7.0;
 
         // this.tracker = generateTrackerFromURL();
@@ -615,17 +618,51 @@ export default class GameManager {
         this.trackerInitialized = this.tracker !== null && this.accesible !== null && this.alternative !== null && this.completable !== null && this.gameObject !== null;
     }
 
-    sendStartGameEvent() {
+    sendEnterScene(scene) {
         if (this.trackerInitialized && !this.gameCompleted) {
-            this.day = 1.0;
+            let type = this.accesible.types.area;
 
-            let evt = this.completable.initialized(this.completable.types.level, "Game");
-            evt.result.setExtension("Gender", this.userInfo.gender);
-            evt.result.setExtension("Sexuality", this.userInfo.sexuality);
+            if (scene == "TextOnlyScene") {
+                type = this.accesible.types.cutscene;
+            }
+            let evt = this.accesible.accessed(type, scene);
             this.tracker.addEvent(evt);
         }
     }
-    sendEndGameEvent() {
+    sendEnterChat(chatName) {
+        if (this.trackerInitialized && !this.gameCompleted) {
+            let evt = this.accesible.accessed(this.accesible.types.screen, chatName);
+            this.tracker.addEvent(evt);
+        }
+    }
+    sendExitChat(fromPC = false) {
+        if (this.trackerInitialized && !this.gameCompleted) {
+            let name = "PhoneChatList";
+            if (fromPC) {
+                name = "ComputerChatList"
+            }
+            let evt = this.accesible.accessed(this.accesible.types.screen, name);
+            this.tracker.addEvent(evt);
+        }
+    }
+
+
+    sendStartGame() {
+        if (this.trackerInitialized && !this.gameCompleted) {
+            let evt = this.completable.initialized(this.completable.types.level, "Game");
+            evt.result.setExtension("Gender", this.userInfo.gender);
+        }
+    }
+    sendGameProgress() {
+        if (this.trackerInitialized && !this.gameCompleted) {
+            let evt = this.completable.progressed(this.completable.types.level, "Game", this.day / this.TOTAL_DAYS);
+            evt.result.setExtension("Ending", "Day" + this.day);
+            this.day++;
+
+            this.tracker.addEvent(evt);
+        }
+    }
+    sendEndGame() {
         if (this.trackerInitialized && !this.gameCompleted) {
             this.gameCompleted = true;
 
@@ -638,31 +675,62 @@ export default class GameManager {
             this.tracker.addEvent(evt);
 
             setTimeout(() => {
-                tracker.sendEvents()
+                this.tracker.sendEvents()
             }, 1000);
         }
     }
-    sendGameProgressEvent(day) {
-        if (this.trackerInitialized && !this.gameCompleted) {
-            let evt = this.completable.progressed(this.completable.types.level, "Game", this.day / this.TOTAL_DAYS)
-            this.tracker.addEvent(evt);
-        }
-    }
 
-    sendItemInteraction(objectName, npc = false) {
+
+    sendItemInteraction(objectName, extensions = null, npc = false) {
         if (this.trackerInitialized && !this.gameCompleted) {
             let type = this.gameObject.types.item;
             if (npc) {
                 type = this.gameObject.types.npc;
             }
+
             let evt = this.gameObject.interacted(type, objectName);
+
+            if (extensions !== null) {
+                for (const [key, value] of Object.entries(extensions)) {
+                    evt.result.setExtension(key, value);
+                }
+            }
+
+            this.tracker.addEvent(evt);
+        }
+    }
+    sendComputerScreenClick(x, y) {
+        if (this.trackerInitialized && !this.gameCompleted) {
+            let evt = this.gameObject.interacted(this.gameObject.types.item, "ComputerScreen");
+            evt.result.setExtension("PointerX", x);
+            evt.result.setExtension("PointerY", y);
             this.tracker.addEvent(evt);
         }
     }
 
+    sendDialogStarted(nodeId, dialogText) {
+        if (this.trackerInitialized && !this.gameCompleted) {
+            let evt = this.completable.initialized(this.completable.types.storyNode, nodeId);
+            evt.result.setExtension("Dialog", dialogText);
+            this.tracker.addEvent(evt);
+        }
+    }
+    sendDialogEnded(nodeId, dialogText) {
+        if (this.trackerInitialized && !this.gameCompleted) {
+            let evt = this.completable.completed(this.completable.types.storyNode, nodeId, 1, true, true);
+            evt.result.setExtension("Dialog", dialogText);
+            this.tracker.addEvent(evt);
+        }
+    }
     sendChoiceSelected(nodeId, choiceText) {
         if (this.trackerInitialized && !this.gameCompleted) {
             let evt = this.alternative.selected(this.alternative.types.dialogTree, nodeId, choiceText);
+            this.tracker.addEvent(evt);
+        }
+    }
+    sendAnswerFriend(timesListened) {
+        if (this.trackerInitialized && !this.gameCompleted) {
+            let evt = this.alternative.selected(this.alternative.types.dialogTree, "Day3BreakConversation", timesListened + " times");
             this.tracker.addEvent(evt);
         }
     }

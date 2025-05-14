@@ -41,11 +41,12 @@ export default class Scene6EndingRouteA extends BaseScene {
                         this.gameManager.changeScene("Scene7Bedroom");
                     },
                 };
-                // TODO: TRACKER EVENT
-                console.log("Fin del dia 6");
+                // TRACKER EVENT
+                // console.log("Fin del dia 6");
+                this.gameManager.sendGameProgress();
 
-                // TODO: TRACKER EVENT
-                console.log("Inicio del dia 7");
+                // TODO: DISCARDED TRACKER EVENT
+                // console.log("Inicio del dia 7");
                 
                 this.gameManager.changeScene("TextOnlyScene", params);
             }, 1000);

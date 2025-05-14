@@ -10,10 +10,12 @@ export default class DirectChat {
 
         this.name = username;
         this.chat = new Chat(socialMediaScreen, x, y, pfp, username, feedDims[0], feedDims[1], () => {
-            // TODO: TRACKER EVENT
-            console.log("Pulsar boton de responder:", this.name);
+            // TRACKER EVENT
+            // console.log("Pulsar boton de responder:", this.name);
+            this.scene.gameManager.sendItemInteraction("pcAnswerButton");
+
             // TODO: Hacer que se pueda pulsar aunque no se pueda responder
-            
+
             // Si es un mensaje de chat, lo procesa
             if (this.currNode.type === "chatMessage") {
                 this.processNode();
@@ -27,21 +29,22 @@ export default class DirectChat {
         })
 
         this.wasVisible = false;
-        
-        this.contact = new Contact(socialMediaScreen, pfp, username, dmZoneDims[0], dmZoneDims[1], () => {          
+
+        this.contact = new Contact(socialMediaScreen, pfp, username, dmZoneDims[0], dmZoneDims[1], () => {
             this.wasVisible = this.chat.visible;
-            
+
             if (!this.wasVisible) {
                 socialMediaScreen.setFeedAndPostsVisible(false)
                 socialMediaScreen.setChatsVisible(false)
-                
+
                 this.setChatVisible(true)
                 this.wasVisible = true;
 
                 this.contact.clearNotifications()
-    
-                // TODO: TRACKER EVENT
-                console.log("Entrar al chat:", username);
+
+                // TRACKER EVENT
+                // console.log("Entrar al chat:", username);
+                this.scene.gameManager.sendEnterChat(username);
             }
         })
 
@@ -49,7 +52,7 @@ export default class DirectChat {
     }
 
     addMessage(text, character, name) {
-        if(!this.chat.visible) {
+        if (!this.chat.visible) {
             if (character != "player") {
                 this.contact.addNotification()
             }
@@ -62,10 +65,11 @@ export default class DirectChat {
 
     setChatVisible(enable) {
         this.chat.setVisible(enable)
-        
+
         if (!enable && this.wasVisible) {
-            // TODO: TRACKER EVENT
-            console.log("Salir del chat:", this.name);
+            // TODO: DISCARDED TRACKER EVENT
+            // console.log("Salir del chat:", this.name);
+            // this.scene.gameManager.sendExitChat(true);
 
             this.wasVisible = false;
         }

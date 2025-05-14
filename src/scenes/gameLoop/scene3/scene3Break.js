@@ -29,7 +29,7 @@ export default class Scene3Break extends BaseScene {
         let nodes = this.cache.json.get('scene3Break');
         let node = super.readNodes(nodes, "scene3\\scene3Break", "conversation1", true);
         this.chatName = this.gameManager.translate("textMessages.chat2", { ns: "deviceInfo", returnObjects: true });
-        
+
 
         // Callback que al llamarse cambiara el nodo de dialogo
         this.setNode = () => {
@@ -48,14 +48,12 @@ export default class Scene3Break extends BaseScene {
         this.dialogManager.bgBlock.setDepth(this.phoneManager.bgBlock.depth - 2);
         this.phoneManager.icon.setDepth(this.dialogManager.bgBlock.depth - 1);
 
+
         // Al producirse, se abre el telefono, se desactiva el bloqueo de fondo y el boton de 
         // volver atras (para no poder cerrarlo) y va directo a la pantalla del chat del acosador)
         this.dispatcher.add("answerPhone", this, () => {
-            // TODO: TRACKER EVENT
-            console.log("Responder al telefono");   
-            
             this.phoneManager.icon.disableInteractive();
-            
+
             this.phoneManager.togglePhone(true, 100, () => {
                 this.phoneManager.phone.toChatScreen(this.chatName);
             });
@@ -69,7 +67,7 @@ export default class Scene3Break extends BaseScene {
         });
         this.dispatcher.add("sendMsg2", this, () => {
             this.sendMsg(nodes, "2");
-        }); 
+        });
         // Cuando llega el ultimo mensaje, se hace tambien que la caja de texto desaparezca
         this.dispatcher.add("sendMsg3", this, () => {
             this.sendMsg(nodes, "3");
@@ -77,10 +75,22 @@ export default class Scene3Break extends BaseScene {
             setTimeout(() => {
                 this.dialogManager.textbox.activate(false);
             }, 1000);
+        });
+
+        // TRACKER EVENT
+        // console.log("Responder al telefono");   
+        this.dispatcher.add("msg1Sent", this, () => {
+            this.gameManager.sendAnswerFriend(0);
+        });
+        this.dispatcher.add("msg2Sent", this, () => {
+            this.gameManager.sendAnswerFriend(1);
+
+        });
+        this.dispatcher.add("msg3Sent", this, () => {
+            this.gameManager.sendAnswerFriend(2);
 
         });
 
-        
         this.dispatcher.add("closePhone", this, () => {
             this.phoneManager.icon.setInteractive();
 
@@ -123,7 +133,7 @@ export default class Scene3Break extends BaseScene {
     }
 
     sendMsg(nodes, msg) {
-        let nodeName = "phone" + msg; 
+        let nodeName = "phone" + msg;
         let phoneNode = super.readNodes(nodes, "scene3\\scene3Break", nodeName, true);
 
         this.phoneManager.phone.addChat(this.chatName, "harasserPfp");

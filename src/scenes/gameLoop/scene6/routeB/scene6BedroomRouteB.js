@@ -91,7 +91,7 @@ export default class Scene6BedroomRouteB extends BaseScene {
                     computerCamera.postFX.addBloom('0xFFFFFF', 1, 1, 1, 1, 5)
                     computerCamera.postFX.addVignette(0.5, 0.55, 0.54, 0.5)
                     computerCamera.shake(20000, 0.001)
-    
+
                     let node = super.readNodes(nodes, "scene6\\routeB\\scene6BedroomRouteB", "stress", true);
                     this.dialogManager.setNode(node, []);
                 })
@@ -99,23 +99,23 @@ export default class Scene6BedroomRouteB extends BaseScene {
         });
 
         this.dispatcher.add("panic", this, () => {
-            
+
             this.gameManager.leaveComputer(() => {
                 computerCamera.postFX.clear()
-                
+
                 // Retrato del padre
                 let dadTr = this.portraitTr;
                 dadTr.x = this.CANVAS_WIDTH / 2 + this.CANVAS_WIDTH / 5;
                 let dadPortrait = new Portrait(this, "dad", dadTr, "dad");
                 this.portraits.set("dad", dadPortrait);
-                
+
                 // Retrato de la madre
                 let momTr = this.portraitTr;
                 momTr.x = this.CANVAS_WIDTH / 2 - this.CANVAS_WIDTH / 5;
                 let momPortrait = new Portrait(this, "mom", momTr, "mom")
                 momPortrait.setFlipX(true);
-                this.portraits.set("mom", momPortrait);            
-                
+                this.portraits.set("mom", momPortrait);
+
                 let node = null;
                 if (this.gameManager.getValue("explained")) {
                     node = super.readNodes(nodes, "scene6\\routeB\\scene6BedroomRouteB", "interruptionExplained", true);
@@ -137,7 +137,7 @@ export default class Scene6BedroomRouteB extends BaseScene {
                     this.gameManager.changeScene("Scene6PoliceStationRouteB");
                 },
             };
-            this.gameManager.changeScene("TextOnlyScene", params);             
+            this.gameManager.changeScene("TextOnlyScene", params);
         });
     }
 

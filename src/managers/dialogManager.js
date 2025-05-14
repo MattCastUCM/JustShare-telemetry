@@ -290,8 +290,9 @@ export default class DialogManager {
                     this.processNextNode(delay);
                 }
                 else {
-                    // TODO: TRACKER EVENT
+                    // TRACKER EVENT
                     // console.log("Inicio de dialogo:", this.currNode.dialogs[this.currNode.currDialog].text);
+                    this.gameManager.sendDialogStarted(this.currNode.fullId, this.currNode.dialogs[this.currNode.currDialog]);
 
                     // Funcion a ejecutar para mostrar la caja. Actualiza el retrato y el texto y activa la caja
                     let showBox = () => {
@@ -361,15 +362,18 @@ export default class DialogManager {
             }
             // Si ha acabado de mostrarse todo el dialogo
             else {
-                // TODO: TRACKER EVENT
+                // TRACKER EVENT
                 // console.log("Fin de dialogo:", this.currNode.dialogs[this.currNode.currDialog].text);
+                this.gameManager.sendDialogEnded(this.currNode.fullId, this.currNode.dialogs[this.currNode.currDialog]);
 
                 // Actualiza el dialogo que se esta mostrando del nodo actual
                 this.currNode.currDialog++;
                 // Si aun no se han mostrado todos los dialogos del nodo, muestra el siguiente dialogo
                 if (this.currNode.currDialog < this.currNode.dialogs.length) {
-                    // TODO: TRACKER EVENT
+                    // TRACKER EVENT
                     // console.log("Inicio de dialogo:", this.currNode.dialogs[this.currNode.currDialog].text);
+                    this.gameManager.sendDialogStarted(this.currNode.fullId, this.currNode.dialogs[this.currNode.currDialog]);
+
 
                     this.setText(this.currNode.dialogs[this.currNode.currDialog], true);
                 }

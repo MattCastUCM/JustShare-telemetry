@@ -82,11 +82,12 @@ export default class Scene1Bedroom2 extends BaseScene {
                             this.gameManager.changeScene("Scene2Break");
                         },
                     };
-                    // TODO: TRACKER EVENT
-                    console.log("Fin del dia 1");
+                    // TRACKER EVENT
+                    // console.log("Fin del dia 1");
+                    this.gameManager.sendGameProgress();
 
-                    // TODO: TRACKER EVENT
-                    console.log("Inicio del dia 2");
+                    // TODO: DISCARDED TRACKER EVENT
+                    // console.log("Inicio del dia 2");
                     
                     this.gameManager.changeScene("TextOnlyScene", params);
                 }, 1000);

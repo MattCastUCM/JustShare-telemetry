@@ -199,6 +199,13 @@
                         "global": false,
                         "value": true
                     }
+                },
+                {
+                    "msg3Sent": {
+                        "variable": "msg3Sent",
+                        "global": false,
+                        "value": true
+                    }
                 }
             ],
             "next": "msg4"

@@ -27,8 +27,11 @@ export default class PhoneManager {
         // Si se pulsa fuera del telefono cuando esta sacado, se guarda
         this.bgBlock.on('pointerdown', () => {
             this.togglePhone(false);
+            // TRACKER EVENT
+            // console.log("Cerrando telefono");
+            this.gameManager.sendItemInteraction("phone", { "Closing": true });
         });
-        
+
         // Anade el icono de las notificaciones
         let notifObj = this.createNotificationsIcon(this.icon.x + this.icon.displayWidth * 0.3, this.icon.y - this.icon.displayHeight * 0.4);
         this.notifications = notifObj.container;
@@ -51,7 +54,7 @@ export default class PhoneManager {
         // Anade el icono del telefono
         this.icon = this.scene.add.image(this.scene.CANVAS_WIDTH - OFFSET, this.scene.CANVAS_HEIGHT - OFFSET, 'phoneIcon').setScale(ICON_SCALE);
         this.icon.setInteractive({ useHandCursor: true });
-        
+
         // Al pasar el raton por encima del icono, se hace mas grande,
         // al quitar el raton de encima vuelve a su tamano original,
         // y al hacer click, se hace pequeno y grande de nuevo
@@ -77,14 +80,16 @@ export default class PhoneManager {
             // Si no hay dialogo actino ni animacion reproduciendose, se muestra/oculta el movil
             if (!this.scene.dialogManager.isTalking() && !this.toggling && this.scene.lidAnim == null) {
                 if (this.phone.visible) {
-                    // TODO: TRACKER EVENT
-                    console.log("Cerrando telefono"); 
+                    // TRACKER EVENT
+                    // console.log("Cerrando telefono");
+                    this.gameManager.sendItemInteraction("phone", { "Closing": true });
                 }
                 else {
-                    // TODO: TRACKER EVENT
-                    console.log("Abriendo telefono");
+                    // TRACKER EVENT
+                    // console.log("Abriendo telefono");
+                    this.gameManager.sendItemInteraction("phone", { "Closing": false });
                 }
-                
+
                 this.togglePhone();
 
                 this.scene.tweens.add({
@@ -199,7 +204,7 @@ export default class PhoneManager {
         if (speed == null && speed !== 0) {
             speed = 100;
         }
-        
+
         // Se indica que va a empezar una
         this.toggling = true;
         let anim = null;
@@ -225,7 +230,7 @@ export default class PhoneManager {
         // Si el telefono no es visible
         else if (!this.phone.visible && active) {
             this.activatePhone(true);
-            
+
             // Se mueve hacia el centro de la pantalla
             anim = this.scene.tweens.add({
                 targets: [this.phone],

@@ -46,7 +46,7 @@ export default class MessagesScreen extends BaseScreen {
         // this.iconImage = this.scene.add.image(button.x - button.displayWidth / 2, button.y, 'avatars', icon);
         let iconImage = this.scene.add.image(button.x - button.displayWidth / 2, button.y, icon);
         iconImage.setScale((button.displayHeight / iconImage.displayHeight) * 0.85);
-        iconImage.x += iconImage.displayWidth  * 0.6;
+        iconImage.x += iconImage.displayWidth * 0.6;
 
         // Configuracion de las animaciones
         let tintFadeTime = 50;
@@ -106,8 +106,9 @@ export default class MessagesScreen extends BaseScreen {
             if (fadeColor) {
                 fadeColor.on('complete', () => {
                     if (onClick !== null && typeof onClick === 'function') {
-                        // TODO: TRACKER EVENT
-                        console.log("Entrar al chat:", name);
+                        // TRACKER EVENT
+                        // console.log("Entrar al chat:", name);
+                        this.gameManager.sendEnterChat(name);
 
                         onClick();
                     }
@@ -127,7 +128,7 @@ export default class MessagesScreen extends BaseScreen {
         let notifObj = this.phone.phoneManager.createNotificationsIcon(this.BG_X + this.bg.displayWidth * 0.3, button.y, true);
         this.add(notifObj.container);
         notifObj.container.visible = false;
-        
+
         return notifObj;
     }
 

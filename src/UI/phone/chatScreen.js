@@ -20,7 +20,7 @@ export default class ChatScreen extends BaseScreen {
 
         this.HEADER_X = 640;
         this.HEADER_Y = 107;
-        
+
         // Configuracion de las animaciones
         this.tintFadeTime = 50;
         this.noTint = Phaser.Display.Color.HexStringToColor('#ffffff');
@@ -58,7 +58,7 @@ export default class ChatScreen extends BaseScreen {
         // Lista con los mensajes
         this.messagesListView = new VerticalListView(this.scene, this.BG_X, 142,
             1, -40, { width: this.bg.displayWidth * 0.85, height: 605 }, null, true, 50, true);
-        
+
         this.add(this.nameText);
         this.add(this.iconImage);
         this.add(this.messagesListView);
@@ -78,8 +78,8 @@ export default class ChatScreen extends BaseScreen {
 
     // Crea la caja de respuesta y la guarda en la variable this.textBox
     createTextBox() {
-        let TEXT_BOX_Y = 770 ;
-        
+        let TEXT_BOX_Y = 770;
+
         // Anade la imagen de la caja
         this.textBox = this.scene.add.image(this.BG_X, TEXT_BOX_Y, 'chatTextBox');
         this.textBox.setInteractive({ useHandCursor: true });
@@ -122,7 +122,7 @@ export default class ChatScreen extends BaseScreen {
                     duration: this.tintFadeTime,
                     repeat: 0,
                 });
-                
+
                 // Al poner el color normal, vuelve a poner la animacion para indicar que se puede responder
                 anim.on('complete', () => {
                     this.setInteractive();
@@ -133,12 +133,13 @@ export default class ChatScreen extends BaseScreen {
         // Al hacer click, vuelve a cambiar el color de la caja al original
         this.textBox.on('pointerdown', () => {
             if (!this.scene.dialogManager.isTalking()) {
-                // TODO: TRACKER EVENT
-                console.log("Pulsar boton de responder:", this.name);
-                
+                // TRACKER EVENT
+                // console.log("Pulsar boton de responder:", this.name);
+                this.gameManager.sendItemInteraction("phoneAnswerButton");
+
                 if (this.boxClickable) {
                     this.disableInteractive();
-                    
+
                     let fadeColor = this.scene.tweens.addCounter({
                         targets: [this.textBox],
                         from: 0,
@@ -153,7 +154,7 @@ export default class ChatScreen extends BaseScreen {
                         repeat: 0,
                         yoyo: true
                     });
-                    
+
                     // Si se ha hecho la animacion, al terminar la animacion hace que
                     // el dialogManager cree las opciones para responder y las active
                     if (fadeColor != null && this.currNode) {
@@ -171,7 +172,7 @@ export default class ChatScreen extends BaseScreen {
                         });
                     }
                 }
-                
+
             }
 
         });
@@ -224,9 +225,10 @@ export default class ChatScreen extends BaseScreen {
 
                 // Cuando termina la animacion, vuelve a la pantalla anterior
                 anim.on('complete', () => {
-                    // TODO: TRACKER EVENT
-                    console.log("Salir del chat:", this.name);
-                    
+                    // TODO: DISCARDED TRACKER EVENT
+                    // console.log("Salir del chat:", this.name);
+                    // this.gameManager.sendExitChat();
+
                     this.phone.toPrevScreen();
                 });
             }
@@ -261,7 +263,7 @@ export default class ChatScreen extends BaseScreen {
     disableInteractive() {
         // Elimina la animacion de que se podia hacer click en la caja
         // this.textBox.disableInteractive();
-        
+
         if (this.canAnswerAnim != null) {
             this.scene.tweens.remove(this.canAnswerAnim);
         }
@@ -287,7 +289,7 @@ export default class ChatScreen extends BaseScreen {
     processNode() {
         if (this.currNode) {
             this.disableInteractive();
-            
+
             let delay = 0;
             if (this.currNode.nextDelay == null) {
                 delay = this.currNode.nextDelay;

@@ -55,11 +55,12 @@ export default class Scene3Bedroom extends BaseScene {
                 this.phoneManager.phone.returnButton.setInteractive();
                 this.phoneManager.icon.setInteractive();
 
-                // TODO: TRACKER EVENT
-                console.log("Fin del dia 3");
+                // TRACKER EVENT
+                // console.log("Fin del dia 3");
+                this.gameManager.sendGameProgress();
 
-                // TODO: TRACKER EVENT
-                console.log("Inicio del dia 4");
+                // TODO: DISCARDED TRACKER EVENT
+                // console.log("Inicio del dia 4");
 
                 this.gameManager.changeScene("TextOnlyScene", params);
             }, 3000);

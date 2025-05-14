@@ -6,13 +6,13 @@ export default class Computer extends ComputerBaseScene {
     constructor() {
         super("Computer", "computer/computer");
     }
-    
+
     create(params) {
         super.create(params)
 
         const N_RANDOM_DIGITS = 4
         this.username = this.gameManager.getUserInfo().name
-        for(let i = 0; i < N_RANDOM_DIGITS; ++i) {
+        for (let i = 0; i < N_RANDOM_DIGITS; ++i) {
             this.username += this.getRandomInt(0, 9)
         }
 
@@ -22,6 +22,10 @@ export default class Computer extends ComputerBaseScene {
         this.loginScreen = new LoginScreen(this);
 
         this.createPowerIcon(() => {
+            // TRACKER EVENT
+            // console.log("Salir del ordenador");
+            this.gameManager.sendItemInteraction("powerOffButton");
+            
             this.gameManager.leaveComputer()
             this.socialMediaScreen.reset();
         });
@@ -29,11 +33,12 @@ export default class Computer extends ComputerBaseScene {
         this.changeToMainScreen()
 
 
-        this.input.on('pointerdown', (pointer, x, y) => {
-            // TODO: TRACKER EVENT
-            console.log("Pulsar en la pantalla del ordenador");
+        this.input.on('pointerdown', (pointer) => {
+            // console.log(pointer.x, pointer.y);
 
-            // console.log(pointer, x, y);
+            // TRACKER EVENT
+            // console.log("Pulsar en la pantalla del ordenador");
+            this.gameManager.sendComputerScreenClick(pointer.x, pointer.y);
         });
     }
 
@@ -42,7 +47,7 @@ export default class Computer extends ComputerBaseScene {
     }
 
     changeToMainScreen() {
-        if(this.loginScreen != null) {
+        if (this.loginScreen != null) {
             this.loginScreen.destroy()
             this.loginScreen = null
         }
