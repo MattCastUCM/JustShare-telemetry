@@ -25,7 +25,7 @@ export default class Computer extends ComputerBaseScene {
             // TRACKER EVENT
             // console.log("Salir del ordenador");
             this.gameManager.sendItemInteraction("powerOffButton");
-            
+
             this.gameManager.leaveComputer()
             this.socialMediaScreen.reset();
         });

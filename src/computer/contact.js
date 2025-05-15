@@ -13,15 +13,13 @@ export default class Contact extends Phaser.GameObjects.Container {
         let bg = this.createBackground(0, 0, width, height, onClick, [0.5, 0])
 
         const PROFILE_OFFSET_X = 20
-        
-        let profile = this.socialMediaScreen.createImageWithSideText(-width / 2 + PROFILE_OFFSET_X, bg.displayHeight / 2, 
-            pfp, username, height / 100, [0, 0.5])
-            this.add(profile)
+
+        let profile = this.socialMediaScreen.createImageWithSideText(-width / 2 + PROFILE_OFFSET_X, bg.displayHeight / 2, pfp, username, height / 100, [0, 0.5])
+        this.add(profile)
 
         const NOTIFICATION_OFFSET = 10
 
-        this.notificationsContainer = this.createNotificationIcon(profile.x + profile.width + NOTIFICATION_OFFSET, 
-            profile.y)
+        this.notificationsContainer = this.createNotificationIcon(profile.x + profile.width + NOTIFICATION_OFFSET, profile.y)
 
         this.h = bg.displayHeight
     }
@@ -50,35 +48,41 @@ export default class Contact extends Phaser.GameObjects.Container {
         container.list.forEach((item) => {
             item.x += RADIUS
         });
-        
+
         // Propiedades
         container.numberText = numberText
-        
+
         // Gestion de las notificaciones
         container.nNotifications = 0
-        container.generateNotifications = function() {
-            this.setVisible(true)
-            if(this.nNotifications <= 0) {
-                this.setVisible(false)   
-            }
-            else if(this.nNotifications <= LIMIT) {
-                this.numberText.setText(this.nNotifications)
+        container.generateNotifications = function () {
+            if (this.nNotifications <= 0) {
+                this.setVisible(false)
+
             }
             else {
-                this.numberText.setText('+' + LIMIT)
+                this.setVisible(true)
+
+                if (this.nNotifications <= LIMIT) {
+                    this.numberText.setText(this.nNotifications)
+                }
+                else {
+                    this.numberText.setText('+' + LIMIT)
+                }
+
             }
         }
-        
-        container.addNotification = function() {
+
+        container.addNotification = function () {
             ++this.nNotifications
             this.generateNotifications()
         }
-        container.clearNotifications = function() {
+        container.clearNotifications = function () {
             this.nNotifications = 0
             this.generateNotifications()
         }
 
         container.clearNotifications()
+
 
         this.add(container)
 
@@ -97,11 +101,11 @@ export default class Contact extends Phaser.GameObjects.Container {
         const BORDER_WIDTH = 1
 
         let bg = this.scene.add.rectangle(x, y, width, height, this.scene.colors.white.hex.get0x);
-        bg.setStrokeStyle(BORDER_WIDTH, this.scene.colors.black.hex.get0x);        
+        bg.setStrokeStyle(BORDER_WIDTH, this.scene.colors.black.hex.get0x);
         bg.setOrigin(origin[0], origin[1])
         this.add(bg)
 
-        bg.setTint = function(color) {
+        bg.setTint = function (color) {
             this.setFillStyle(color)
         }
 

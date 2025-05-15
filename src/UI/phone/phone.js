@@ -5,23 +5,23 @@ export default class Phone extends Phaser.GameObjects.Container {
         super(scene, 0, 0);
         this.scene = scene;
         this.phoneManager = phoneManager;
-        
+
         // Se crean las imagenes y diferentes pantallas
         this.phone = scene.add.image(scene.CANVAS_WIDTH / 2, scene.CANVAS_HEIGHT / 2, 'phone');
-        
+
         let RETURN_BUTTON_X = 702;
         let RETURN_BUTTON_Y = 839;
         this.returnButton = scene.add.image(RETURN_BUTTON_X, RETURN_BUTTON_Y, 'returnButton');
         this.animateButton(this.returnButton, () => {
             this.toPrevScreen();
         })
-        
+
         this.messagesScreen = null;
 
         // Se anade la imagen del telefono y las pantallas a la escena
         this.add(this.phone);
         this.add(this.returnButton);
-        
+
         // Se crea el mapa que guardara las pantallas de chat
         this.chats = new Map();
 
@@ -32,13 +32,13 @@ export default class Phone extends Phaser.GameObjects.Container {
     reset() {
         if (this.messagesScreen != null) {
             this.messagesScreen.destroy();
-        }        
+        }
         this.chats.forEach((chat) => {
             chat.setNode(null);
             chat.destroy();
         });
         this.chats.clear();
-        
+
         this.messagesScreen = new MessagesScreen(this.scene, this, null);
         this.add(this.messagesScreen);
 
@@ -59,7 +59,7 @@ export default class Phone extends Phaser.GameObjects.Container {
         // Se hace interactivo
         button.setInteractive({ useHandCursor: true });
         let originalScale = button.scale
-        
+
         // Al pasar el raton por encima, el icono se hace mas grande,
         // y al sacarlo, el icono vuelve a su escala original
         button.on('pointerover', () => {
@@ -122,14 +122,25 @@ export default class Phone extends Phaser.GameObjects.Container {
     }
 
     // Pasa a la pantalla anterior
-    toPrevScreen() {
+    toPrevScreen(fromChatButton = false) {
         // Si la pantalla actual es la pantalla principal, se guarda el movil
         if (this.currScreen === this.messagesScreen || !this.currScreen.prevScreen) {
             this.phoneManager.togglePhone();
+
+            // TRACKER EVENT
+            // console.log("Cerrando telefono");
+            this.scene.gameManager.sendItemInteraction("phone", {
+                "Closing": true,
+                "Method": "PhoneReturnButton"
+            });
         }
         // Si no, si la pantalla actual tiene pantalla anterior, se cambia a esa pantalla
         else if (this.currScreen.prevScreen) {
             this.changeScreen(this.currScreen.prevScreen);
+
+            // TRACKER EVENT
+            // console.log("Salir del chat:", this.name);
+            this.scene.gameManager.sendExitChat(fromChatButton);
         }
     }
 

@@ -29,7 +29,10 @@ export default class PhoneManager {
             this.togglePhone(false);
             // TRACKER EVENT
             // console.log("Cerrando telefono");
-            this.gameManager.sendItemInteraction("phone", { "Closing": true });
+            this.gameManager.sendItemInteraction("phone", {
+                "Closing": true,
+                "Method": "BlankArea"
+            });
         });
 
         // Anade el icono de las notificaciones
@@ -82,7 +85,10 @@ export default class PhoneManager {
                 if (this.phone.visible) {
                     // TRACKER EVENT
                     // console.log("Cerrando telefono");
-                    this.gameManager.sendItemInteraction("phone", { "Closing": true });
+                    this.gameManager.sendItemInteraction("phone", {
+                        "Closing": true,
+                        "Method": "PhoneIcon"
+                    });
                 }
                 else {
                     // TRACKER EVENT

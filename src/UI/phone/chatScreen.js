@@ -159,6 +159,10 @@ export default class ChatScreen extends BaseScreen {
                     // el dialogManager cree las opciones para responder y las active
                     if (fadeColor != null && this.currNode) {
                         fadeColor.on('complete', () => {
+                            // TRACKER EVENT
+                            // console.log("Responder mensaje respondible:", this.name);
+                            this.gameManager.sendAnsweredChat(this.currNode.fullId, this.name);
+
                             // Si es un mensaje de chat, lo procesa
                             if (this.currNode.type === "chatMessage") {
                                 this.processNode();
@@ -225,11 +229,7 @@ export default class ChatScreen extends BaseScreen {
 
                 // Cuando termina la animacion, vuelve a la pantalla anterior
                 anim.on('complete', () => {
-                    // TODO: DISCARDED TRACKER EVENT
-                    // console.log("Salir del chat:", this.name);
-                    // this.gameManager.sendExitChat();
-
-                    this.phone.toPrevScreen();
+                    this.phone.toPrevScreen(true);
                 });
             }
 
@@ -328,14 +328,16 @@ export default class ChatScreen extends BaseScreen {
                 this.scene.dialogManager.currNode = this.currNode;
                 this.setInteractive();
 
-                // TODO: TRACKER EVENT
-                console.log("Mensaje respondible en chat:", this.name);
+                // TRACKER EVENT
+                // console.log("Mensaje respondible en chat:", this.name);
+                this.gameManager.sendCanAnswerChat(this.currNode.fullId, this.name);
             }
             else {
                 this.setInteractive();
 
-                // TODO: TRACKER EVENT
-                console.log("Mensaje respondible en chat:", this.name);
+                // TRACKER EVENT
+                // console.log("Mensaje respondible en chat:", this.name);
+                this.gameManager.sendCanAnswerChat(this.currNode.fullId, this.name);
             }
         }
     }
@@ -375,21 +377,28 @@ export default class ChatScreen extends BaseScreen {
      * @param {Number} amount - cantidad de notificaciones a generar 
      */
     generateNotifications(amount) {
-        if (this.notificationAmount === 0 && amount > 0) {
-            // TODO: TRACKER EVENT
-            console.log("Recibir notificacion de:", this.name)
-        }
-
         // Actualiza la cantidad de notificaciones tanto del chat, como en general
         this.notificationAmount += amount;
         this.phone.phoneManager.addNotifications(amount);
 
         // Si ya no hay notificaciones, se oculta el icono
         if (this.notificationAmount === 0) {
+            if (this.notifications.container.visible) {
+                // TRACKER EVENT
+                // console.log("Limpiar notificaciones de:", this.name)
+                this.gameManager.sendNotificationsCleared(this.name);
+            }
+
             this.notifications.container.visible = false;
         }
         // Si hay notificaciones, se muestra el icono y actualiza el texto
         else {
+            if (!this.notifications.container.visible) {
+                // TRACKER EVENT
+                // console.log("Recibir notificacion de:", this.name)
+                this.gameManager.sendNotificationReceived(this.name);
+            }
+
             this.notifications.container.visible = true;
             this.notifications.text.setText(this.notificationAmount);
         }

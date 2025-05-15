@@ -10,11 +10,15 @@ export default class DirectChat {
 
         this.name = username;
         this.chat = new Chat(socialMediaScreen, x, y, pfp, username, feedDims[0], feedDims[1], () => {
-            // TRACKER EVENT
-            // console.log("Pulsar boton de responder:", this.name);
-            this.scene.gameManager.sendItemInteraction("pcAnswerButton");
-
             // TODO: Hacer que se pueda pulsar aunque no se pueda responder
+            // TODO: TRACKER EVENT
+            // console.log("Pulsar boton de responder:", this.name);
+            // this.scene.gameManager.sendItemInteraction("pcAnswerButton");
+
+
+            // TRACKER EVENT
+            // console.log("Responder mensaje respondible:", this.name);
+            this.scene.gameManager.sendAnsweredChat(this.currNode.fullId, this.name);
 
             // Si es un mensaje de chat, lo procesa
             if (this.currNode.type === "chatMessage") {
@@ -121,10 +125,18 @@ export default class DirectChat {
                 this.scene.dialogManager.currNode = this.currNode;
                 this.chat.restartChatAnim()
                 this.scene.dialogManager.disableInteraction();
+
+                // TRACKER EVENT
+                // console.log("Mensaje respondible en chat:", this.name);
+                this.scene.gameManager.sendCanAnswerChat(this.currNode.fullId, this.name);
             }
             else {
                 this.chat.restartChatAnim()
                 this.scene.dialogManager.disableInteraction();
+
+                // TRACKER EVENT
+                // console.log("Mensaje respondible en chat:", this.name);
+                this.scene.gameManager.sendCanAnswerChat(this.currNode.fullId, this.name);
             }
         }
         else {

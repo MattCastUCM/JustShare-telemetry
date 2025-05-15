@@ -635,13 +635,15 @@ export default class GameManager {
             this.tracker.addEvent(evt);
         }
     }
-    sendExitChat(fromPC = false) {
+    sendExitChat(fromChatButton = true) {
         if (this.trackerInitialized && !this.gameCompleted) {
-            let name = "PhoneChatList";
-            if (fromPC) {
-                name = "ComputerChatList"
+            let method = "ChatReturnButton";
+            if (!fromChatButton) {
+                method = "PhoneReturnButton";
             }
-            let evt = this.accesible.accessed(this.accesible.types.screen, name);
+            let evt = this.accesible.accessed(this.accesible.types.screen, "PhoneChatList");
+            evt.result.setExtension("Method", method);
+
             this.tracker.addEvent(evt);
         }
     }
@@ -683,7 +685,7 @@ export default class GameManager {
 
     sendItemInteraction(objectName, extensions = null, npc = false) {
         if (this.trackerInitialized && !this.gameCompleted) {
-            let type = this.gameObject.types.item;
+            let type = this.gameObject.types.gameObject;
             if (npc) {
                 type = this.gameObject.types.npc;
             }
@@ -708,23 +710,24 @@ export default class GameManager {
         }
     }
 
+
     sendDialogStarted(nodeId, dialogText) {
         if (this.trackerInitialized && !this.gameCompleted) {
-            let evt = this.completable.initialized(this.completable.types.storyNode, nodeId);
+            let evt = this.completable.initialized(this.completable.types.storyNode, this.currentScene.scene.key + "." + nodeId);
             evt.result.setExtension("Dialog", dialogText);
             this.tracker.addEvent(evt);
         }
     }
     sendDialogEnded(nodeId, dialogText) {
         if (this.trackerInitialized && !this.gameCompleted) {
-            let evt = this.completable.completed(this.completable.types.storyNode, nodeId, 1, true, true);
+            let evt = this.completable.completed(this.completable.types.storyNode, this.currentScene.scene.key + "." + nodeId, 1, true, true);
             evt.result.setExtension("Dialog", dialogText);
             this.tracker.addEvent(evt);
         }
     }
     sendChoiceSelected(nodeId, choiceText) {
         if (this.trackerInitialized && !this.gameCompleted) {
-            let evt = this.alternative.selected(this.alternative.types.dialogTree, nodeId, choiceText);
+            let evt = this.alternative.selected(this.alternative.types.dialogTree, this.currentScene.scene.key + "." + nodeId, choiceText);
             this.tracker.addEvent(evt);
         }
     }
@@ -734,4 +737,32 @@ export default class GameManager {
             this.tracker.addEvent(evt);
         }
     }
+
+    sendNotificationReceived(chat) {
+        if (this.trackerInitialized && !this.gameCompleted) {
+            let evt = this.completable.initialized(this.completable.types.quest, chat + "Notification");
+            this.tracker.addEvent(evt);
+        }
+    }
+    sendNotificationsCleared(chat) {
+        if (this.trackerInitialized && !this.gameCompleted) {
+            let evt = this.completable.completed(this.completable.types.quest, chat + "Notification", 1, true, true);
+            this.tracker.addEvent(evt);
+        }
+    }
+
+    sendCanAnswerChat(nodeId, chat) {
+        if (this.trackerInitialized && !this.gameCompleted) {
+            let evt = this.completable.initialized(this.completable.types.quest, this.currentScene.scene.key + "." + chat + "." + nodeId);
+            this.tracker.addEvent(evt);
+        }
+    }
+    sendAnsweredChat(nodeId, chat) {
+        if (this.trackerInitialized && !this.gameCompleted) {
+            let evt = this.completable.completed(this.completable.types.quest, this.currentScene.scene.key + "." + chat + "." + nodeId, 1, true, true);
+            this.tracker.addEvent(evt);
+        }
+    }
+
+
 }

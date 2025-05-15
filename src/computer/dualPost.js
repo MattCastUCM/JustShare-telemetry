@@ -10,7 +10,7 @@ export default class DualPost {
 
         let likes = this.scene.getRandomInt(0, 10)
 
-        this.selected = new SelectedPost(socialMediaScreen, x, y, pfp, username, caption, picture, width, zoneBottomY, 
+        this.selected = new SelectedPost(socialMediaScreen, x, y, pfp, username, caption, picture, width, zoneBottomY,
             () => {
                 // Si es un mensaje de chat, lo procesa
                 if (this.currNode.type === "commentary") {
@@ -32,14 +32,14 @@ export default class DualPost {
             this.showSelectedPost(false)
         })
         this.selected.setHeartIconOnClick(() => {
-            this.toggleLike()
+            // this.toggleLike();
         })
 
         this.feed.setMessageIconOnClick(() => {
             // TRACKER EVENT
             // console.log("Entrar a una publicacion");
             this.scene.gameManager.sendItemInteraction("commentButton", { "Closing": false });
-            
+
             this.showSelectedPost(true)
         })
         this.feed.setHeartIconOnClick(() => {
@@ -51,7 +51,7 @@ export default class DualPost {
 
 
     toggleLike() {
-        this.selected.toggleLike()
+        this.selected.toggleLike();
         if (this.selected.heartContainer.icon.texture.key === "heartIconFilled") {
             // TRACKER EVENT
             // console.log("Dar like");
