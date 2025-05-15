@@ -599,16 +599,16 @@ export default class GameManager {
         this.day = 1;
         this.TOTAL_DAYS = 7.0;
 
-        // this.tracker = generateTrackerFromURL();
+        this.tracker = generateTrackerFromURL();
 
         // TEST
-        this.tracker = new Tracker(
-            new LRS({
-                baseUrl: "https://cloud.scorm.com/lrs/I43WO3TFWH/sandbox/",
-                authScheme: new BasicAuthentication("oMsoz51hM_OQbNNR3Nk", "LfWapsOhe1V-ryV2C6o")
-            }),
-            new AccountActor("http://example.com", "matt")
-        );
+        // this.tracker = new Tracker(
+        //     new LRS({
+        //         baseUrl: "https://cloud.scorm.com/lrs/I43WO3TFWH/sandbox/",
+        //         authScheme: new BasicAuthentication("oMsoz51hM_OQbNNR3Nk", "LfWapsOhe1V-ryV2C6o")
+        //     }),
+        //     new AccountActor("http://example.com", "matt")
+        // );
 
         this.accesible = this.tracker.accesible;
         this.alternative = this.tracker.alternative;
