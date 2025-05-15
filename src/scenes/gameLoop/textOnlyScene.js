@@ -6,7 +6,7 @@ export default class TextOnlyScene extends BaseScene {
      * @extends Phaser.Scene
      */
     constructor(name) {
-        if(!name) name = 'TextOnlyScene'; 
+        if (!name) name = 'TextOnlyScene';
         super(name);
     }
 
@@ -85,7 +85,7 @@ export default class TextOnlyScene extends BaseScene {
                 setTimeout(onComplete, onCompleteDelay);
             }
         }
-    
+
         // Se anade el evento de hacer clicke sobre el fondo para que solo se pueda ejecutar una vez.
         // Si no se hace click sobre el fondo, se pone un temporizador para que se llame a onComplete
         // automaticamente tras un tiempo. El temporizador empezara cuando la escena este creada
@@ -94,21 +94,6 @@ export default class TextOnlyScene extends BaseScene {
 
         // Crea el texto
         let screenText = this.add.text(this.CANVAS_WIDTH / 2, this.CANVAS_HEIGHT / 2, this.text, textConfig).setOrigin(0.5, 0.5);
-
-        fontSize = 20;
-        textConfig.fontSize = fontSize + 'px';
-        textConfig.align = 'right';
-        let info = this.gameManager.translate("info", { ns: "transitions", returnObjects: true });
-        let infoText = this.add.text(this.CANVAS_WIDTH , this.CANVAS_HEIGHT , info, textConfig).setOrigin(0.5, 0.5);
-        infoText.x = this.CANVAS_WIDTH - infoText.displayWidth / 2 - 20
-        infoText.y = this.CANVAS_HEIGHT - infoText.displayHeight / 2 - 20
-
-        this.tweens.add({
-            targets: [infoText],
-            alpha: { from: 1, to: 0.3 },
-            repeat: -1,
-            yoyo: true
-        });
 
         // En caso de que el texto sea demasiado largo y se salga de la 
         // pantalla, se va reduciendo el tamano de la fuente hasta que quepa
@@ -124,7 +109,20 @@ export default class TextOnlyScene extends BaseScene {
             screenText = this.add.text(this.CANVAS_WIDTH / 2, this.CANVAS_HEIGHT / 2, this.text, textConfig).setOrigin(0.5, 0.5);
         }
 
+        fontSize = 20;
+        textConfig.fontSize = fontSize + 'px';
+        textConfig.align = 'right';
+        let info = this.gameManager.translate("info", { ns: "transitions", returnObjects: true });
+        let infoText = this.add.text(this.CANVAS_WIDTH, this.CANVAS_HEIGHT, info, textConfig).setOrigin(0.5, 0.5);
+        infoText.x = this.CANVAS_WIDTH - infoText.displayWidth / 2 - 20
+        infoText.y = this.CANVAS_HEIGHT - infoText.displayHeight / 2 - 20
 
+        this.tweens.add({
+            targets: [infoText],
+            alpha: { from: 1, to: 0.3 },
+            repeat: -1,
+            yoyo: true
+        });
     }
 
 }
