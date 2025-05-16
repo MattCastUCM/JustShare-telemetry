@@ -603,18 +603,15 @@ export default class GameManager {
         try {
             this.tracker = generateTrackerFromURL();
         }
-        catch { 
-            return;
+        catch {
+            this.tracker = new Tracker(
+                new LRS({
+                    baseUrl: "https://cloud.scorm.com/lrs/YQFKDDG1H6/sandbox/",
+                    authScheme: new BasicAuthentication("oMsoz51hM_OQbNNR3Nk", "LfWapsOhe1V-ryV2C6o")
+                }),
+                new AccountActor("http://example.com", "matt")
+            );
         }
-        
-        // TEST
-        // this.tracker = new Tracker(
-        //     new LRS({
-        //         baseUrl: "https://cloud.scorm.com/lrs/YQFKDDG1H6/sandbox/",
-        //         authScheme: new BasicAuthentication("oMsoz51hM_OQbNNR3Nk", "LfWapsOhe1V-ryV2C6o")
-        //     }),
-        //     new AccountActor("http://example.com", "matt")
-        // );
 
         this.accesible = this.tracker.accesible;
         this.alternative = this.tracker.alternative;
@@ -657,7 +654,7 @@ export default class GameManager {
 
     sendStartGame() {
         if (this.trackerInitialized && !this.gameCompleted) {
-            let evt = this.completable.initialized(this.completable.types.level, "Game");
+            let evt = this.completable.initialized(this.completable.types.game, "Game");
             evt.result.setExtension("Gender", this.userInfo.gender);
             evt.result.setExtension("Sexuality", this.userInfo.sexuality);
 
@@ -666,7 +663,7 @@ export default class GameManager {
     }
     sendGameProgress() {
         if (this.trackerInitialized && !this.gameCompleted) {
-            let evt = this.completable.progressed(this.completable.types.level, "Game", this.day / this.TOTAL_DAYS);
+            let evt = this.completable.progressed(this.completable.types.game, "Game", this.day / this.TOTAL_DAYS);
             evt.result.setExtension("Ending", "Day" + this.day);
             this.day++;
 
@@ -680,7 +677,7 @@ export default class GameManager {
             let ending = this.getValue("routeA") ? "routeA" : "routeB";
             let explained = this.getValue("explained")
 
-            let evt = this.completable.completed(this.completable.types.level, "Game", 1, true, true);
+            let evt = this.completable.completed(this.completable.types.game, "Game", 1, true, true);
             evt.result.setExtension("Ending", ending);
             evt.result.setExtension("Explained", explained);
             this.tracker.addEvent(evt);

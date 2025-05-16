@@ -4,17 +4,22 @@ export default class Completable {
 
         this.types = {
             seriousGame: 0,
-            area: 1,
-            level: 2,
-            quest: 3,
-            storyNode: 4,
-            completable: 5,
+            game: 1,
+            area: 2,
+            level: 3,
+            quest: 4,
+            stage: 5,
+            combat: 6,
+            session: 7,
+            storyNode: 8,
+            completable: 9,
 
-            properties: ["serious-game", "area", "level", "quest", "story-node", "completable"]
+            properties: ["serious-game", "game", "area", "level", "quest", "stage", "combat", "session", "story-node", "completable"]
         }
 
         this.ids = {
             "serious-game": 'https://w3id.org/xapi/seriousgames/activity-types/serious-game',
+            game: 'http://activitystrea.ms/game',
             area: 'https://w3id.org/xapi/seriousgames/activity-types/area',
             level: 'https://w3id.org/xapi/seriousgames/activity-types/level',
             quest: 'https://w3id.org/xapi/seriousgames/activity-types/quest',
@@ -34,6 +39,7 @@ export default class Completable {
 
         this.descriptions = {
             "serious-game": "A collectable game object whose use or interaction results in an effect in a game. Items are common elements in video games. Players can collect/use/combine them.",
+            game: "	Represents a game or competition of any kind.",
             area: "An identified area inside the game world. In some games they can also be worlds. Represents an aggregation of zones.	",
             level: "A level of a game or of a gamified learning platform. A level is logic partition of progression in any video game. Completing a level means advancing in the progression of the game.",
             quest: "A accomplishable challenge or mission presented inside a game. Completing quests marks the players' progress.",
