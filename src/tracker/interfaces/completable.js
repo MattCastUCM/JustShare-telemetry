@@ -57,7 +57,7 @@ export default class Completable {
 
         let event = this.tracker.createEvent({
             verb: {
-                id: 'https://w3id.org/xapi/dod-isd/verbs/initialized',
+                id: 'http://adlnet.gov/expapi/verbs/initialized',
                 type: "initialized"
             },
             object: {
@@ -97,7 +97,7 @@ export default class Completable {
 
         let event = this.tracker.createEvent({
             verb: {
-                id: 'https://w3id.org/xapi/dod-isd/verbs/completed',
+                id: 'http://adlnet.gov/expapi/verbs/completed',
                 type: "completed"
             },
             object: {

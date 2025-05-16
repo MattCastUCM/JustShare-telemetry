@@ -655,13 +655,13 @@ export default class GameManager {
         this.TOTAL_DAYS = 7.0;
 
         if (this.trackerInitialized && !this.gameCompleted) {
-            this.sendGameProgress();
-
             let evt = this.completable.initialized(this.completable.types.seriousGame, "Game");
             evt.result.setExtension("Gender", this.userInfo.gender);
             evt.result.setExtension("Sexuality", this.userInfo.sexuality);
 
             this.tracker.addEvent(evt);
+
+            this.sendGameProgress();
         }
     }
     sendGameProgress() {
