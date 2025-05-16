@@ -651,22 +651,22 @@ export default class GameManager {
 
 
     sendStartGame() {
-        this.day = 0;
+        this.day = 1;
         this.TOTAL_DAYS = 7.0;
 
         if (this.trackerInitialized && !this.gameCompleted) {
-            let evt = this.completable.initialized(this.completable.types.game, "Game");
+            let evt = this.completable.initialized(this.completable.types.seriousGame, "Game");
             evt.result.setExtension("Gender", this.userInfo.gender);
             evt.result.setExtension("Sexuality", this.userInfo.sexuality);
 
             this.tracker.addEvent(evt);
 
-            this.sendGameProgress();
+            // this.sendGameProgress();
         }
     }
     sendGameProgress() {
         if (this.trackerInitialized && !this.gameCompleted) {
-            let evt = this.completable.progressed(this.completable.types.game, "Game", this.day / this.TOTAL_DAYS);
+            let evt = this.completable.progressed(this.completable.types.seriousGame, "Game", this.day / this.TOTAL_DAYS);
             evt.result.setExtension("Ending", "Day" + this.day);
             this.day++;
 
@@ -675,14 +675,14 @@ export default class GameManager {
     }
     sendEndGame() {
         if (this.trackerInitialized && !this.gameCompleted) {
-            this.sendGameProgress();
+            // this.sendGameProgress();
             
             this.gameCompleted = true;
 
             let ending = this.getValue("routeA") ? "routeA" : "routeB";
             let explained = this.getValue("explained")
             
-            let evt = this.completable.completed(this.completable.types.game, "Game", 1, true, true);
+            let evt = this.completable.completed(this.completable.types.seriousGame, "Game", 1, true, true);
             evt.result.setExtension("Ending", ending);
             evt.result.setExtension("Explained", explained);
             this.tracker.addEvent(evt);
