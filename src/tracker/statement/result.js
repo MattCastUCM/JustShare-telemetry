@@ -93,26 +93,27 @@ export default class Result {
         let result = {};
 
         if (this.scaledScore || this.rawScore || this.minimumScore || this.maximumScore) {
-            this.score = {}
+            let score = {}
             if (this.scaledScore) {
-                this.score.scaled = Number(this.scaledScore);
+                score.scaled = Number(this.scaledScore);
             }
             if (this.rawScore) {
-                this.score.raw = Number(this.rawScore);
+                score.raw = Number(this.rawScore);
             }
             if (this.minimumScore) {
-                this.score.min = Number(this.minimumScore);
+                score.min = Number(this.minimumScore);
             }
             if (this.maximumScore) {
-                this.score.max = Number(this.maximumScore);
+                score.max = Number(this.maximumScore);
             }
+            result.score = score
         }
 
-        if (this.success) {
+        if (this.success != null) {
             result.success = this.success ? true : false;
         }
 
-        if (this.completion) {
+        if (this.completion != null) {
             result.completion = this.completion ? true : false;
         }
 
