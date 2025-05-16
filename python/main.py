@@ -50,7 +50,7 @@ def loadAllFiles(path, extension = "json", sortBy = "eventId"):
 						file = json.load(f)
 						fileDf = pd.json_normalize(file)
 						# Eliminar columnas que no se van a usar
-						fileDf = fileDf.drop(columns=["verb.display.en-US", "id", "stored", "version", "actor.objectType", "actor.account.homePage", "actor.account.name", "result.success", "result.completion", "context.registration", "authority.objectType", "authority.account.homePage", "authority.account.name", "authority.name", "object.definition.description.en-US", "object.definition.name.en-US", "object.objectType", "context.contextActivities.category"])
+						fileDf = fileDf.drop(columns=["verb.display.en-US", "id", "stored", "version", "actor.objectType", "actor.account.homePage", "result.success", "result.completion", "context.registration", "authority.objectType", "authority.account.homePage", "authority.account.name", "authority.name", "object.definition.description.en-US", "object.definition.name.en-US", "object.objectType", "context.contextActivities.category"])
 		
 						# Quedarse solo con la ultima palabra de las uris (tanto en los titulos de las columnas como el los valores de las mismas)
 						for column in fileDf.columns:
@@ -74,10 +74,10 @@ def loadAllFiles(path, extension = "json", sortBy = "eventId"):
 
 	return allFilesDf
 
-
-
-display(loadAllFiles(filesPath, filesExtension, "timestamp"))
-
+def get_n_users(df):
+    account_names = df["actor.account.name"]
+    names = set(name for name in account_names)
+    return len(names)
 
 def getEventsBetweenDifferentParameters(dataframe, parameter1, parameter2, firstPValue, secondPValue):
 	# Buscar el primer y ultimo indice de la fila
@@ -92,5 +92,23 @@ def getEventsBetweenDifferentParameters(dataframe, parameter1, parameter2, first
 	return data
 
 
+############################
+# Datos comunes
+# Sacado de los JSONs
+############################
+df = loadAllFiles(filesPath, filesExtension, "timestamp")
+display(df)
+n_users = get_n_users(df)
 
+############################
+# APARTADO 2bi,
+# Número medio de veces que se pulsa sin éxito el botón de “aceptar” en la pantalla de login (si no ha seleccionado correctamente las opciones de personalización iniciales).
+############################
 
+login = df[df["object.id"] == "loginButton"].index
+game_initialized = df[(df["object.id"] == "Game") & (df["verb.id"] == "initialized")].index
+print("#####################")
+print("APARTADO 2bi")
+print("Número medio de veces que se pulsa sin éxito el botón de “aceptar” en la pantalla de login (si no ha seleccionado correctamente las opciones de personalización iniciales):")
+print((login.size - game_initialized.size) / n_users)
+print("#####################")
