@@ -71,7 +71,7 @@ const config = {
     // Nota: el orden de las escenas es relevante, y las que se encuentren antes en el array se renderizaran por debajo de las siguientes
     scene: [
         // TEST
-        // TrackerScene,
+        TrackerScene,
 
         // Carga de assets
         BootScene,
