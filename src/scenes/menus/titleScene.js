@@ -26,13 +26,13 @@ export default class TitleScene extends ComputerBaseScene {
 
         
         // TEST
-        let spaceBar = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
-        spaceBar.on('down', () => {
-            console.log("starting");
-            this.gameManager.sendStartGame();
-            console.log("ending");
-            this.gameManager.sendEndGame();
-        });
+        // let spaceBar = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
+        // spaceBar.on('down', () => {
+        //     console.log("starting");
+        //     this.gameManager.sendStartGame();
+        //     console.log("ending");
+        //     this.gameManager.sendEndGame();
+        // });
 
     }
 }

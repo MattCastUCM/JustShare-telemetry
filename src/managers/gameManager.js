@@ -116,12 +116,12 @@ export default class GameManager {
         this.computer.scene.sleep();
 
         // this.startGame(this.userInfo)
-        // this.changeScene("Scene1Lunch1", {});
+        this.changeScene("Scene1Lunch1", {});
         // this.changeScene("Scene1Bedroom1", {});
         // this.changeScene("Scene2Bedroom", {});
         // this.changeScene("Scene3Break", {});
-        this.changeScene("Scene6Livingroom", {});
-        // this.changeScene("Scene6BedroomRouteA2", {});
+        // this.changeScene("Scene6Livingroom", {});
+        //this.changeScene("Scene6PortalRouteA", {});
         // this.changeScene("Scene7Bedroom", {});
 
     }
@@ -608,7 +608,7 @@ export default class GameManager {
                     baseUrl: "https://cloud.scorm.com/lrs/YQFKDDG1H6/sandbox/",
                     authScheme: new BasicAuthentication("oMsoz51hM_OQbNNR3Nk", "LfWapsOhe1V-ryV2C6o")
                 }),
-                new AccountActor("http://example.com", "matt")
+                new AccountActor("http://example.com", "TestActor")
             );
         }
 
@@ -647,7 +647,7 @@ export default class GameManager {
                 method = "PhoneReturnButton";
             }
             let evt = this.accesible.accessed(this.accesible.types.screen, "ExitChat");
-            evt.result.setExtension("Chat", PhoneChatList);
+            evt.result.setExtension("Chat", "PhoneChatList");
             evt.result.setExtension("Method", method);
 
             this.tracker.addEvent(evt);
@@ -718,7 +718,7 @@ export default class GameManager {
     }
     sendComputerScreenClick(x, y) {
         if (this.trackerInitialized && !this.gameCompleted) {
-            let evt = this.gameObject.interacted(this.gameObject.types.item, "ComputerScreenCick");
+            let evt = this.gameObject.interacted(this.gameObject.types.item, "ComputerScreenClick");
             evt.result.setExtension("PointerX", x);
             evt.result.setExtension("PointerY", y);
             this.tracker.addEvent(evt);
