@@ -3,7 +3,16 @@ import pandas as pd
 import json
 import matplotlib.pyplot as plt
 
-filesPath = "./trazas/"
+useScorm = False
+
+filesPath = "./trazas/simva/"
+colsToDrop = ["stored", "id", "version", "actor.account.homePage", "authority.name", "authority.name", "authority.homePage", "verb.display.en-US", "context.registration", "context.contextActivities.category", "object.definition.description.en-US", "object.objectType",]
+
+if useScorm:
+	filesPath = "./trazas/scorm/"
+	colsToDrop = ["verb.display.en-US", "id", "stored", "version", "actor.objectType", "actor.account.homePage", "result.success", "result.completion", "context.registration", "authority.objectType", "authority.account.homePage", "authority.account.name", "authority.name", "object.definition.description.en-US", "object.definition.name.en-US", "object.objectType", "context.contextActivities.category"]
+
+
 filesExtension = "json"
 
 def display_pie_chart(values, labels, title='undefined :(',
@@ -81,7 +90,7 @@ def getEventsBetweenLastFirstAndFirstSecond(dataframe, objectId, firstVerb, last
 
 
 # Cargar en un dataframe todos los archivos de un formato especifico del directorio
-def loadAllFiles(path, extension = "json", sortBy = "eventId"):
+def loadAllFiles(path, extension = "json", sortBy = "eventId", dropCols = []):
 	allFilesDf = pd.DataFrame()
 	df_list= []
 	# Recorrer todos los archivos del directorio
@@ -92,23 +101,23 @@ def loadAllFiles(path, extension = "json", sortBy = "eventId"):
 			fileDf = pd.DataFrame()	
 
 			# Intenta leer el archivo. Si hay algun error, el dataframe estara vacio
-
 			try:
 				if (extension == "json"):
 					with open(path + file_name) as f:
 						# Cargar json
 						file = json.load(f)
 						fileDf = pd.json_normalize(file)
+
 						# Eliminar columnas que no se van a usar
-						fileDf = fileDf.drop(columns=["verb.display.en-US", "id", "stored", "version", "actor.objectType", "actor.account.homePage", "result.success", "result.completion", "context.registration", "authority.objectType", "authority.account.homePage", "authority.account.name", "authority.name", "object.definition.description.en-US", "object.definition.name.en-US", "object.objectType", "context.contextActivities.category"])
-		
+						fileDf = fileDf.drop(columns=dropCols)
+
 						# Quedarse solo con la ultima palabra de las uris (tanto en los titulos de las columnas como el los valores de las mismas)
 						for column in fileDf.columns:
 							fileDf[column] = fileDf[column].map(getLastValueUri)
 							fileDf = fileDf.rename(columns={column: getLastValueUri(column)})
 						
-						
 			except:
+				print("Error reading file")
 				pass
 
 			# Si el dataframe esta vacio
@@ -122,7 +131,8 @@ def loadAllFiles(path, extension = "json", sortBy = "eventId"):
 				# Se unen los datasets
 				allFilesDf = pd.concat([allFilesDf, fileDf], ignore_index=True)
 
-	return allFilesDf,df_list
+	return allFilesDf, df_list
+
 
 def get_n_users(df):
     account_names = df["actor.account.name"]
@@ -146,11 +156,10 @@ def getEventsBetweenDifferentParameters(dataframe, parameter1, parameter2, first
 # Datos comunes
 # Sacado de los JSONs
 ############################
-df,df_list = loadAllFiles(filesPath, filesExtension, "timestamp")
-display(df)
+df,df_list = loadAllFiles(filesPath, filesExtension, "timestamp", colsToDrop)
 n_users = get_n_users(df)
 
-
+# display(df)
 
 
 ############################
@@ -169,6 +178,7 @@ def average_total_time(sessions):
     return sum(durations ) / len(durations ) if durations  else 0
 
 print(average_total_time(df_list))
+
 ############################
 # APARTADO 2aii,
 # Media de tiempo de juego desde que se pasa de la pantalla de login
@@ -184,6 +194,7 @@ def average_login_time(sessions):
         durations.append(d)
     return sum(durations ) / len(durations ) if durations  else 0
 print(average_login_time(df_list))
+
 ############################
 # APARTADO 2aiii,
 # Media de tiempo de juego en cada día.
@@ -206,6 +217,7 @@ def average_daily_time(sessions):
     return all_durations
 
 print(average_daily_time(df_list))
+
 ############################
 # APARTADO 2bi,
 # Número medio de veces que se pulsa sin éxito el botón de “aceptar” en la pantalla de login (si no ha seleccionado correctamente las opciones de personalización iniciales).
