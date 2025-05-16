@@ -39,7 +39,7 @@ export default class Completable {
 
         this.descriptions = {
             "serious-game": "A collectable game object whose use or interaction results in an effect in a game. Items are common elements in video games. Players can collect/use/combine them.",
-            game: "	Represents a game or competition of any kind.",
+            game: "Represents a game or competition of any kind.",
             area: "An identified area inside the game world. In some games they can also be worlds. Represents an aggregation of zones.	",
             level: "A level of a game or of a gamified learning platform. A level is logic partition of progression in any video game. Completing a level means advancing in the progression of the game.",
             quest: "A accomplishable challenge or mission presented inside a game. Completing quests marks the players' progress.",

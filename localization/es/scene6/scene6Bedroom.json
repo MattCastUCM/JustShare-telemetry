@@ -4,31 +4,13 @@
             "text": "(Quiero hablar con <harasser, Pablo, Lucía> antes de irme a dormir)."
         }
     },
-    
     "closet": {
         "root": {
             "text": "(Quiero hablar con <harasser, Pablo, Lucía> antes de ordenarlo)."
         }
     },
-
     "phone": {
         "root": {
-            "text": "Y luego qué haras?"
-        },
-        "fill2": {
-            "text": "Luego llegan mis padres del viaje"
-        },
-        "fill3": {
-            "text": "Ah bueno, esta asi los ves despues de tanto"
-        },
-        "fill4": {
-            "text": "Sipp"
-        },
-        "fill5": {
-            "text": "Pues ve contandomee :)"
-        },
-
-        "msg1": {
             "text": "Llevo todo el dia pensando en la foto que me pasaste ayer"
         },
         "choices1": [
@@ -50,7 +32,6 @@
                 "text": "Ya no quiero enviar más fotos."
             }
         ],
-
         "msg4A": {
             "text": "<player, [playerPhoto6Male], [playerPhoto6Female]>"
         },
@@ -62,7 +43,6 @@
         },
         "msg7A": {
             "text": "Me alegro que te guste :)"
-
         },
         "msg8A": {
             "text": "Yo me voy ya dormir, que descansesss"
@@ -70,7 +50,6 @@
         "msg9A": {
             "text": "Soñare contigo ;)"
         },
-        
         "msg4B": {
             "text": "La verdad que no me sentí muy <player, comodo, comoda> al mandarte esa foto, prefiero no enviar mas"
         },

@@ -5,52 +5,14 @@
             "character": "player"
         }
     },
-    
     "closet": {
         "root": {
             "type": "text",
             "character": "player"
         }
     },
-
     "phone": {
         "root": {
-            "type": "chatMessage",
-            "character": "",
-            "chat": "chat2",
-            "replyDelay": 0,
-            "next": "fill2"
-        },
-        "fill2": {
-            "type": "chatMessage",
-            "character": "player",
-            "chat": "chat2",
-            "replyDelay": 0,
-            "next": "fill3"
-        },
-        "fill3": {
-            "type": "chatMessage",
-            "character": "",
-            "chat": "chat2",
-            "replyDelay": 0,
-            "next": "fill4"
-        },
-        "fill4": {
-            "type": "chatMessage",
-            "character": "player",
-            "chat": "chat2",
-            "replyDelay": 0,
-            "next": "fill5"
-        },
-        "fill5": {
-            "type": "chatMessage",
-            "character": "",
-            "chat": "chat2",
-            "replyDelay": 0,
-            "next": "msg1"
-        },
-
-        "msg1": {
             "type": "chatMessage",
             "character": "",
             "chat": "chat2",
@@ -59,8 +21,10 @@
         },
         "choices1": {
             "type": "choice",
-            "choices":[
-                { "next": "msg2" }
+            "choices": [
+                {
+                    "next": "msg2"
+                }
             ]
         },
         "msg2": {
@@ -79,20 +43,23 @@
         },
         "choices2": {
             "type": "choice",
-            "choices":[
-                { "next": "send" },
-                { "next": "dontSend" }
+            "choices": [
+                {
+                    "next": "send"
+                },
+                {
+                    "next": "dontSend"
+                }
             ]
         },
-
         "send": {
             "type": "event",
             "events": [
                 {
                     "routeA": {
-                        "variable": "routeA", 
+                        "variable": "routeA",
                         "global": true,
-                        "value": true, 
+                        "value": true,
                         "delay": 0
                     }
                 },
@@ -149,15 +116,14 @@
             "replyDelay": 2000,
             "next": "chatEnded"
         },
-
         "dontSend": {
             "type": "event",
             "events": [
                 {
                     "routeB": {
-                        "variable": "routeA", 
+                        "variable": "routeA",
                         "global": true,
-                        "value": false, 
+                        "value": false,
                         "delay": 0
                     }
                 },
@@ -221,7 +187,6 @@
             "replyDelay": 2000,
             "next": "chatEnded"
         },
-
         "chatEnded": {
             "type": "event",
             "events": [

@@ -34,23 +34,26 @@ export default class Scene6Livingroom extends BaseScene {
 
         // Lee el archivo de nodos
         let nodes = this.cache.json.get('scene6Livingroom');
-        let node = super.readNodes(nodes, "scene6\\scene6Livingroom", "", true);
+        let node = super.readNodes(nodes, "scene6\\scene6Livingroom", "main", true);
+        let phoneNode = super.readNodes(nodes, "scene6\\scene6Livingroom", "phone", true);
 
         this.chatName = this.gameManager.translate("textMessages.chat2", { ns: "deviceInfo", returnObjects: true });
         this.phoneManager.icon.disableInteractive();
+        this.phoneManager.phone.setChatNode(this.chatName, phoneNode);
 
         
         // Callback que al llamarse cambiara el nodo de dialogo
         this.setNode = () => {
             this.dialogManager.setNode(node, [momPortrait, dadPortrait]);
         }
-        
+
         // Al producirse, se crean los elementos interactuables de la escena
         this.dispatcher.add("processMsg", this, () => {
             this.dialogManager.textbox.activate(false);
 
             setTimeout(() => {
                 this.dialogManager.processNode();
+                this.phoneManager.phone.setChatNode(this.chatName, null);
             }, 500);
         });
 
@@ -68,7 +71,7 @@ export default class Scene6Livingroom extends BaseScene {
             super.createInteractiveElement(890, 380, "pointer", 0.3, () => {
                 this.dialogManager.setNode(doorNode, []);
             }, false, "exitDoor");
-            
+
             super.createInteractiveElement(1140, 380, "enter", 0.4, () => {
                 this.gameManager.changeScene("Scene6Bedroom", null, true);
             }, false, "bedroomDoor");
@@ -77,6 +80,12 @@ export default class Scene6Livingroom extends BaseScene {
 
     // Se hace esto porque si se establece un dialogo en la constructora, no funciona el bloqueo del fondo del DialogManager
     onCreate() {
+        // Quitar notificaciones de los mensajes anteriores
+        this.phoneManager.phone.toChatScreen(this.chatName);
+        setTimeout(() => {
+            this.phoneManager.phone.toMessagesListScreen();
+        }, 50);
+
         setTimeout(() => {
             this.setNode();
         }, 500);
