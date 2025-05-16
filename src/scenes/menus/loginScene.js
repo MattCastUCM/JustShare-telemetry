@@ -51,6 +51,14 @@ export default class LoginScene extends ComputerBaseScene {
         container.add(acceptButton);
 
         container.setScale(SCALE);
+
+        // TEST
+        let spaceBar = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
+        spaceBar.on('down', () => {
+            console.log("ending");
+            this.gameManager.sendEndGame();
+        });
+
     }
 
     startGame(nameContainer, genderContainer, sexualityContainer) {

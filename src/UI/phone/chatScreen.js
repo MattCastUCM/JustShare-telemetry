@@ -89,6 +89,7 @@ export default class ChatScreen extends BaseScreen {
             if (!this.scene.dialogManager.isTalking() && this.boxClickable) {
                 if (this.canAnswerAnim != null) {
                     this.scene.tweens.remove(this.canAnswerAnim);
+                    this.canAnswerAnim = null;
                 }
 
                 this.scene.tweens.addCounter({
@@ -240,24 +241,26 @@ export default class ChatScreen extends BaseScreen {
 
     // Anade una animacion a la caja de respuesta para saber que se puede escribir
     setInteractive() {
-        this.canAnswerAnim = this.scene.tweens.addCounter({
-            targets: [this.textBox],
-            from: 0,
-            to: 100,
-            onUpdate: (tween) => {
-                const value = tween.getValue();
-                let col = Phaser.Display.Color.Interpolate.ColorWithColor(this.noTint, this.pointerOverColor, 100, value);
-                let colInt = Phaser.Display.Color.GetColor(col.r, col.g, col.b);
-                this.textBox.setTint(colInt);
-            },
-            duration: this.tintFadeTime * 15,
-            repeat: -1,
-            yoyo: true
-        });
+        if (this.canAnswerAnim == null) {
+            this.canAnswerAnim = this.scene.tweens.addCounter({
+                targets: [this.textBox],
+                from: 0,
+                to: 100,
+                onUpdate: (tween) => {
+                    const value = tween.getValue();
+                    let col = Phaser.Display.Color.Interpolate.ColorWithColor(this.noTint, this.pointerOverColor, 100, value);
+                    let colInt = Phaser.Display.Color.GetColor(col.r, col.g, col.b);
+                    this.textBox.setTint(colInt);
+                },
+                duration: this.tintFadeTime * 15,
+                repeat: -1,
+                yoyo: true
+            });
+        }
+
         // this.textBox.setInteractive();
         this.canAnswer = true;
         this.boxClickable = true;
-
     }
 
     disableInteractive() {
@@ -266,6 +269,8 @@ export default class ChatScreen extends BaseScreen {
 
         if (this.canAnswerAnim != null) {
             this.scene.tweens.remove(this.canAnswerAnim);
+            this.canAnswerAnim = null;
+            this.textBox.setTint('0xffffff');
         }
         this.canAnswer = false;
         this.boxClickable = false;
@@ -282,6 +287,10 @@ export default class ChatScreen extends BaseScreen {
         if (node != null) {
             this.currNode = node;
             this.processNode();
+        }
+        else {
+            this.disableInteractive();
+
         }
     }
 

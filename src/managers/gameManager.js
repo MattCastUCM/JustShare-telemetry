@@ -606,6 +606,7 @@ export default class GameManager {
         catch { 
             return;
         }
+        
         // TEST
         // this.tracker = new Tracker(
         //     new LRS({
