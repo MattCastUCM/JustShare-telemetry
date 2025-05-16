@@ -117,9 +117,10 @@ export default class GameManager {
 
         // this.startGame(this.userInfo)
         // this.changeScene("Scene1Lunch1", {});
-        this.changeScene("Scene1Bedroom1", {});
+        // this.changeScene("Scene1Bedroom1", {});
         // this.changeScene("Scene2Bedroom", {});
         // this.changeScene("Scene3Break", {});
+        this.changeScene("Scene6Livingroom", {});
         // this.changeScene("Scene6BedroomRouteA2", {});
         // this.changeScene("Scene7Bedroom", {});
 
@@ -626,13 +627,16 @@ export default class GameManager {
             if (scene == "TextOnlyScene") {
                 type = this.accesible.types.cutscene;
             }
-            let evt = this.accesible.accessed(type, scene);
+            let evt = this.accesible.accessed(type, "EnterScene");
+            evt.result.setExtension("Scene", scene);
+
             this.tracker.addEvent(evt);
         }
     }
     sendEnterChat(chatName) {
         if (this.trackerInitialized && !this.gameCompleted) {
-            let evt = this.accesible.accessed(this.accesible.types.screen, chatName);
+            let evt = this.accesible.accessed(this.accesible.types.screen, "EnterChat");
+            evt.result.setExtension("Chat", chatName);
             this.tracker.addEvent(evt);
         }
     }
@@ -642,7 +646,8 @@ export default class GameManager {
             if (!fromChatButton) {
                 method = "PhoneReturnButton";
             }
-            let evt = this.accesible.accessed(this.accesible.types.screen, "PhoneChatList");
+            let evt = this.accesible.accessed(this.accesible.types.screen, "ExitChat");
+            evt.result.setExtension("Chat", PhoneChatList);
             evt.result.setExtension("Method", method);
 
             this.tracker.addEvent(evt);
@@ -655,7 +660,7 @@ export default class GameManager {
         this.TOTAL_DAYS = 7.0;
 
         if (this.trackerInitialized && !this.gameCompleted) {
-            let evt = this.completable.initialized(this.completable.types.seriousGame, "Game");
+            let evt = this.completable.initialized(this.completable.types.seriousGame, "GameStart");
             evt.result.setExtension("Gender", this.userInfo.gender);
             evt.result.setExtension("Sexuality", this.userInfo.sexuality);
 
@@ -666,8 +671,8 @@ export default class GameManager {
     }
     sendGameProgress() {
         if (this.trackerInitialized && !this.gameCompleted) {
-            let evt = this.completable.progressed(this.completable.types.seriousGame, "Game", this.day / this.TOTAL_DAYS);
-            evt.result.setExtension("Ending", "Day" + this.day);
+            let evt = this.completable.progressed(this.completable.types.seriousGame, "GameProgress", this.day / this.TOTAL_DAYS);
+            evt.result.setExtension("EndingDay", this.day);
             this.day++;
 
             this.tracker.addEvent(evt);
@@ -682,7 +687,7 @@ export default class GameManager {
             let ending = this.getValue("routeA") ? "routeA" : "routeB";
             let explained = this.getValue("explained")
             
-            let evt = this.completable.completed(this.completable.types.seriousGame, "Game", 1, true, true);
+            let evt = this.completable.completed(this.completable.types.seriousGame, "GameEnd", 1, true, true);
             evt.result.setExtension("Ending", ending);
             evt.result.setExtension("Explained", explained);
             this.tracker.addEvent(evt);
@@ -699,20 +704,21 @@ export default class GameManager {
                 type = this.gameObject.types.npc;
             }
 
-            let evt = this.gameObject.interacted(type, objectName);
+            let evt = this.gameObject.interacted(type, "ObjectInteraction");
 
             if (extensions !== null) {
                 for (const [key, value] of Object.entries(extensions)) {
                     evt.result.setExtension(key, value);
                 }
             }
+            evt.result.setExtension("Object", objectName);
 
             this.tracker.addEvent(evt);
         }
     }
     sendComputerScreenClick(x, y) {
         if (this.trackerInitialized && !this.gameCompleted) {
-            let evt = this.gameObject.interacted(this.gameObject.types.item, "ComputerScreen");
+            let evt = this.gameObject.interacted(this.gameObject.types.item, "ComputerScreenCick");
             evt.result.setExtension("PointerX", x);
             evt.result.setExtension("PointerY", y);
             this.tracker.addEvent(evt);
@@ -722,53 +728,70 @@ export default class GameManager {
 
     sendDialogStarted(nodeId, dialogText) {
         if (this.trackerInitialized && !this.gameCompleted) {
-            let evt = this.completable.initialized(this.completable.types.storyNode, this.currentScene.scene.key + "." + nodeId);
+            let evt = this.completable.initialized(this.completable.types.storyNode, "DialogStart");
+            evt.result.setExtension("Node", this.currentScene.scene.key + "." + nodeId);
             evt.result.setExtension("Dialog", dialogText);
             this.tracker.addEvent(evt);
         }
     }
     sendDialogEnded(nodeId, dialogText) {
         if (this.trackerInitialized && !this.gameCompleted) {
-            let evt = this.completable.completed(this.completable.types.storyNode, this.currentScene.scene.key + "." + nodeId, 1, true, true);
+            let evt = this.completable.completed(this.completable.types.storyNode, "DialogEnd", 1, true, true);
+            evt.result.setExtension("Node", this.currentScene.scene.key + "." + nodeId);
             evt.result.setExtension("Dialog", dialogText);
             this.tracker.addEvent(evt);
         }
     }
     sendChoiceSelected(nodeId, choiceText) {
         if (this.trackerInitialized && !this.gameCompleted) {
-            let evt = this.alternative.selected(this.alternative.types.dialogTree, this.currentScene.scene.key + "." + nodeId, choiceText);
+            let evt = this.alternative.selected(this.alternative.types.dialogTree, "OptionSelect", " ");
+            evt.result.setExtension("Node", this.currentScene.scene.key + "." + nodeId);
+            evt.result.setExtension("Response", choiceText);
+
             this.tracker.addEvent(evt);
         }
     }
     sendAnswerFriend(timesListened) {
         if (this.trackerInitialized && !this.gameCompleted) {
-            let evt = this.alternative.selected(this.alternative.types.dialogTree, "Day3BreakConversation", timesListened + " times");
+            let evt = this.alternative.selected(this.alternative.types.dialogTree, "Day3BreakConversation", " ");
+            evt.result.setExtension("TimesListened", timesListened);
+
             this.tracker.addEvent(evt);
         }
     }
 
     sendNotificationReceived(chat) {
         if (this.trackerInitialized && !this.gameCompleted) {
-            let evt = this.completable.initialized(this.completable.types.quest, chat + "Notification");
+            let evt = this.completable.initialized(this.completable.types.quest, "NotificationReceived");
+            evt.result.setExtension("Chat", chat);
+
             this.tracker.addEvent(evt);
         }
     }
     sendNotificationsCleared(chat) {
         if (this.trackerInitialized && !this.gameCompleted) {
-            let evt = this.completable.completed(this.completable.types.quest, chat + "Notification", 1, true, true);
+            let evt = this.completable.completed(this.completable.types.quest, "NotificationSeen", 1, true, true);
+            evt.result.setExtension("Chat", chat);
+
             this.tracker.addEvent(evt);
         }
     }
 
     sendCanAnswerChat(nodeId, chat) {
         if (this.trackerInitialized && !this.gameCompleted) {
-            let evt = this.completable.initialized(this.completable.types.quest, this.currentScene.scene.key + "." + chat + "." + nodeId);
+            let evt = this.completable.initialized(this.completable.types.quest, "CanAnswerChat");
+            evt.result.setExtension("Node", this.currentScene.scene.key + "." + nodeId);
+            evt.result.setExtension("Chat", chat);
+
             this.tracker.addEvent(evt);
         }
     }
     sendAnsweredChat(nodeId, chat) {
         if (this.trackerInitialized && !this.gameCompleted) {
-            let evt = this.completable.completed(this.completable.types.quest, this.currentScene.scene.key + "." + chat + "." + nodeId, 1, true, true);
+            let evt = this.completable.completed(this.completable.types.quest, "AnswerChat", 1, true, true);
+            evt.result.setExtension("Node", this.currentScene.scene.key + "." + nodeId);
+            evt.result.setExtension("Chat", chat);
+
             this.tracker.addEvent(evt);
         }
     }

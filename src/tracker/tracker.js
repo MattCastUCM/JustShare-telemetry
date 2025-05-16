@@ -37,7 +37,7 @@ export default class Tracker {
 
         // TRACKER EVENT
         // console.log("Inicio de sesion") 
-        let event = this.completable.initialized(this.completable.types.session, "Session");
+        let event = this.completable.initialized(this.completable.types.session, "SessionStart");
         this.addEvent(event);
     }
 
@@ -54,7 +54,7 @@ export default class Tracker {
     async close() {
         // TRACKER EVENT
         // console.log("Cierre de sesion")
-        let event = this.completable.completed(this.completable.types.session, "Session", 1, true, true);
+        let event = this.completable.completed(this.completable.types.session, "SessionEnd", 1, true, true);
         this.addEvent(event);
 
         while (this.sending && this.pendingQueue.length > 0) {
