@@ -30,7 +30,7 @@ export function generateTrackerFromURL() {
         backupUri = urlParams.get('backup_uri');
         backupType = urlParams.get('backup_type');
 
-        actorHomepage = urlParams.get('actorHomepage');
+        actorHomepage = urlParams.get('actor_homepage');
         actorUsername = urlParams.get('actor_user');
 
         let ssoTokenEndpoint = urlParams.get('sso_token_endpoint');
