@@ -18,6 +18,9 @@ def getEventsBetweenLastFirstAndFirstSecond(dataframe, objectId, firstVerb, last
 	start_idx = dataframe[(dataframe["object.id"] == objectId) & (dataframe["verb.id"] == firstVerb)].index[-1]
 	end_idx = dataframe[(dataframe["object.id"] == objectId) & (dataframe["verb.id"] == lastVerb)].index[0]
 
+	print(objectId, firstVerb, lastVerb)
+	print(start_idx, end_idx)
+
 	# Se juntan todas las filas entre ambos eventos
 	data = pd.DataFrame()
 	data = pd.concat([data, dataframe[start_idx:end_idx + 1]], ignore_index=True)
@@ -48,23 +51,24 @@ def loadAllFiles(path, extension = "json", sortBy = "eventId"):
 						fileDf = pd.json_normalize(file)
 						# Eliminar columnas que no se van a usar
 						fileDf = fileDf.drop(columns=["verb.display.en-US", "id", "stored", "version", "actor.objectType", "actor.account.homePage", "actor.account.name", "result.success", "result.completion", "context.registration", "authority.objectType", "authority.account.homePage", "authority.account.name", "authority.name", "object.definition.description.en-US", "object.definition.name.en-US", "object.objectType", "context.contextActivities.category"])
-
+		
 						# Quedarse solo con la ultima palabra de las uris (tanto en los titulos de las columnas como el los valores de las mismas)
 						for column in fileDf.columns:
 							fileDf[column] = fileDf[column].map(getLastValueUri)
 							fileDf = fileDf.rename(columns={column: getLastValueUri(column)})
 						
-						fileDf['timestamp'] = pd.to_datetime(fileDf['timestamp'])
-						fileDf = getEventsBetweenLastFirstAndFirstSecond(fileDf, "Session", "initialized", "completed")
-						display(fileDf)
-
+						
 			except:
 				pass
 
 			# Si el dataframe esta vacio
 			if (not fileDf.empty):
 				# Se ordenan los eventos (por defecto por eventId)
+				fileDf['timestamp'] = pd.to_datetime(fileDf['timestamp'])
 				fileDf = fileDf.sort_values(by=[sortBy])
+				fileDf = fileDf.reset_index(drop=True)
+				fileDf = getEventsBetweenLastFirstAndFirstSecond(fileDf, "Session", "initialized", "completed")
+				
 				# Se unen los datasets
 				allFilesDf = pd.concat([allFilesDf, fileDf], ignore_index=True)
 
@@ -86,6 +90,7 @@ def getEventsBetweenDifferentParameters(dataframe, parameter1, parameter2, first
 		data = pd.concat([data, dataframe[i:j + 1]], ignore_index=True)
 
 	return data
+
 
 
 
