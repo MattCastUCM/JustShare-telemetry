@@ -32,7 +32,7 @@ export default class DualPost {
             this.showSelectedPost(false)
         })
         this.selected.setHeartIconOnClick(() => {
-            // this.toggleLike();
+            this.toggleLike();
         })
 
         this.feed.setMessageIconOnClick(() => {
@@ -43,7 +43,7 @@ export default class DualPost {
             this.showSelectedPost(true)
         })
         this.feed.setHeartIconOnClick(() => {
-            this.toggleLike()
+            this.toggleLike();
         })
 
         this.selected.setVisible(false)
@@ -52,17 +52,19 @@ export default class DualPost {
 
     toggleLike() {
         this.selected.toggleLike();
+
+        this.feed.heartContainer.icon.setTexture(this.selected.heartContainer.icon.texture.key);
+        this.feed.heartContainer.numberText.setNumber(this.selected.likes)
+
         if (this.selected.heartContainer.icon.texture.key === "heartIconFilled") {
             // TRACKER EVENT
             // console.log("Dar like");
             this.scene.gameManager.sendItemInteraction("likeButton", { "Liked": true });
-
         }
         else {
             // TRACKER EVENT
             // console.log("Quitar like");
             this.scene.gameManager.sendItemInteraction("likeButton", { "Liked": false });
-
         }
     }
 

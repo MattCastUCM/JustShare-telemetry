@@ -182,7 +182,6 @@ export default class Post extends Phaser.GameObjects.Container {
 
     setHeartIconOnClick(onClick) {
         this.addHit(this.heartContainer.icon, () => {
-            this.toggleLike()
             if (onClick) onClick()
         })
     }

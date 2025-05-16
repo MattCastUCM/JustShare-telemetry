@@ -117,9 +117,10 @@ export default class GameManager {
 
         // this.startGame(this.userInfo)
         // this.changeScene("Scene1Lunch1", {});
-        // this.changeScene("Scene1Bedroom1", {});
-        this.changeScene("Scene2Bedroom", {});
+        this.changeScene("Scene1Bedroom1", {});
+        // this.changeScene("Scene2Bedroom", {});
         // this.changeScene("Scene3Break", {});
+        // this.changeScene("Scene6BedroomRouteA2", {});
         // this.changeScene("Scene7Bedroom", {});
 
     }
@@ -599,12 +600,16 @@ export default class GameManager {
         this.day = 1;
         this.TOTAL_DAYS = 7.0;
 
-        this.tracker = generateTrackerFromURL();
-
+        try {
+            this.tracker = generateTrackerFromURL();
+        }
+        catch { 
+            return;
+        }
         // TEST
         // this.tracker = new Tracker(
         //     new LRS({
-        //         baseUrl: "https://cloud.scorm.com/lrs/I43WO3TFWH/sandbox/",
+        //         baseUrl: "https://cloud.scorm.com/lrs/YQFKDDG1H6/sandbox/",
         //         authScheme: new BasicAuthentication("oMsoz51hM_OQbNNR3Nk", "LfWapsOhe1V-ryV2C6o")
         //     }),
         //     new AccountActor("http://example.com", "matt")

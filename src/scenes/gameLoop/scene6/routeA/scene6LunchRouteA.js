@@ -61,10 +61,11 @@ export default class Scene6LunchRouteA extends BaseScene {
             let doorNodeUnprepared = super.readNodes(nodes, "scene6\\routeA\\scene6LunchRouteA", "doorUnprepared", true);
             
             // Puerta a la calle
-            super.createInteractiveElement(890, 380, "pointer", 0.3, () => {
+            let doorIcon = super.createInteractiveElement(890, 380, "pointer", 0.3, () => {
                 // Si no esta preparado, se muestra un dialogo avisando de esto
                 if (this.gameManager.getValue("prepared")) {
                     this.dialogManager.setNode(doorNodePrepared, [dadPortrait, momPortrait]);
+                    doorIcon.destroy();
                 }
                 // Si esta preparado, se muestra el dialogo con los padres
                 else {
