@@ -653,6 +653,9 @@ export default class GameManager {
         if (this.trackerInitialized && !this.gameCompleted) {
             let evt = this.completable.initialized(this.completable.types.level, "Game");
             evt.result.setExtension("Gender", this.userInfo.gender);
+            evt.result.setExtension("Sexuality", this.userInfo.sexuality);
+
+            this.tracker.addEvent(evt);
         }
     }
     sendGameProgress() {
