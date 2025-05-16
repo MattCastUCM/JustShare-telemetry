@@ -33,36 +33,36 @@ export function generateTrackerFromURL() {
         actorHomepage = urlParams.get('actorHomepage');
         actorUsername = urlParams.get('actor_user');
 
-        let sso_token_endpoint = urlParams.get('sso_token_endpoint');
-        if (sso_token_endpoint) {
-            authConfig.tokenEndpoint = sso_token_endpoint;
+        let ssoTokenEndpoint = urlParams.get('sso_token_endpoint');
+        if (ssoTokenEndpoint) {
+            authConfig.tokenEndpoint = ssoTokenEndpoint;
         }
-        let sso_client_id = urlParams.get('sso_client_id');
-        if (sso_client_id) {
-            authConfig.clientId = sso_client_id;
+        let ssoClientId = urlParams.get('sso_client_id');
+        if (ssoClientId) {
+            authConfig.clientId = ssoClientId;
         }
-        let sso_login_hint = urlParams.get('sso_login_hint');
-        if (sso_login_hint) {
-            authConfig.loginHint = sso_login_hint;
+        let ssoLoginHint = urlParams.get('sso_login_hint');
+        if (ssoLoginHint) {
+            authConfig.loginHint = ssoLoginHint;
         }
-        let sso_grant_type = urlParams.get('sso_grant_type');
-        if (sso_grant_type) {
-            authConfig.grantType = sso_grant_type;
+        let ssoGrantType = urlParams.get('sso_grant_type');
+        if (ssoGrantType) {
+            authConfig.grantType = ssoGrantType;
         }
-        let sso_scope = urlParams.get('sso_scope');
-        if (sso_scope) {
-            authConfig.scope = sso_scope;
+        let ssoScope = urlParams.get('sso_scope');
+        if (ssoScope) {
+            authConfig.scope = ssoScope;
         }
-        let sso_username = urlParams.get('sso_username');
-        if (sso_username) {
-            authConfig.username = sso_username;
+        let ssoUsername = urlParams.get('sso_username');
+        if (ssoUsername) {
+            authConfig.username = ssoUsername;
         }
-        let sso_password = urlParams.get('sso_password');
-        if (sso_password) {
-            authConfig.password = sso_password;
+        let ssoPassword = urlParams.get('sso_password');
+        if (ssoPassword) {
+            authConfig.password = ssoPassword;
         }
-        else if (sso_username) {
-            authConfig.password = sso_username;
+        else if (ssoUsername) {
+            authConfig.password = ssoUsername;
         }
     }
 
