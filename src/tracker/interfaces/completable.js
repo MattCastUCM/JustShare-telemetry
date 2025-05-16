@@ -105,12 +105,6 @@ export default class Completable {
                 type: property,
                 description: this.descriptions[property],
                 specificId: completableId,
-            },
-            result: {
-                scaledScore: scaledScore,
-                success: success,
-                completion: completion,
-                duration: duration
             }
         });
 
