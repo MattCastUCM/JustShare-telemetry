@@ -1,6 +1,8 @@
 import utils
 import loader
 import graphics
+import pandas as pd
+import matplotlib.pyplot as plt
 
 
 # Se usan las trazas de Simva o las de Scorm
@@ -211,3 +213,162 @@ utils.show_metric(
     title="Número medio de veces que se pulsa sin éxito el botón de “aceptar” en la pantalla de login (si no ha seleccionado correctamente las opciones de personalización iniciales)",
     info=(login.size - game_initialized.size) / n_users
 )
+
+
+############################
+# APARTADO 1aii,
+# Porcentaje de obtención de cada final.
+############################
+
+def endings_obtained():
+    conditions = [('object.id', 'GameEnd'),('Ending', 'notna')]
+    ending_vals = []
+    for user in users_individual_df_list:
+         # Ruta principal
+        ending = utils.find_first_value_by_conditions(user, conditions, "Ending")
+
+        if ending is None:
+            continue  # no hay final registrado
+        # Si es routeB
+        if ending == "routeB":
+            extra_cond = conditions + [('Ending', 'routeB')]
+            explained_val = utils.find_first_value_by_conditions(user, extra_cond, "Explained")
+
+            if explained_val:      # True
+                ending = "routeB_explained"
+            else:                  # False o NaN
+                ending = "routeB_not_explained"
+
+        ending_vals.append(ending)
+
+    # Convertir a serie y calcular porcentajes
+    ending_counts = pd.Series(ending_vals).value_counts()
+    percentages = (ending_counts / n_users) * 100
+    return percentages
+
+ending_percentages = endings_obtained()
+utils.show_metric(
+    section='1aii',
+    title="Porcentaje de obtención de cada final.",
+    info="\n".join([f"{ending}: {pct:.2f}%" 
+                            for ending, pct in ending_percentages.items()])
+)
+graphics.display_pie_chart(
+values=ending_percentages.values,
+labels=ending_percentages.index,
+title="Distribución de finales conseguidos (%)"
+)
+
+############################
+# APARTADO 1ci,
+# Porcentaje de obtención de cada final.
+############################
+
+def social_media_elements():
+    conditions = [('object.id', 'ObjectInteraction')]
+    social_media = utils.find_values_by_conditions(all_users_df, conditions, "Object")
+    # Nos quedamos solo con los botones deseados
+    counts_all = pd.Series(social_media).value_counts()
+
+    validObj = {"shareButton", "likeButton", "powerOffButton","commentButton"}
+
+   # Mantener solo los válidos y rellenar con 0 los que falten
+    counts_valid = counts_all.reindex(validObj, fill_value=0)
+
+    # Número medio de interacciones por usuario
+    avg_interactions = counts_valid / n_users
+    return avg_interactions
+   
+socialMedia_avg = social_media_elements()
+
+utils.show_metric(
+    section='1ci',
+    title="Número medio de interacciones con los elementos de las redes sociales dentro del juego",
+    info="\n".join([f"{elem}: {avg:.2f}" for elem, avg in socialMedia_avg.items()])
+)
+
+graphics.plot_bar_chart(
+    socialMedia_avg,
+    title="Interacciones medias por usuario con elementos sociales",
+    ylabel="Media de clics por usuario",
+    xlabel="Elemento",
+    bar_color="skyblue"
+)
+
+############################
+# APARTADO 2biii,
+# Porcentaje de las maneras en las que cierra los chats del móvil (pulsando el botón de atrás del móvil o el de la pantalla de chat).
+############################
+
+def exitChatMethod():
+    conditions = [('object.id', 'ExitChat')]
+    exit = utils.find_values_by_conditions(all_users_df, conditions, "Method")
+    exit_counts = pd.Series(exit).value_counts()
+    percentages = (exit_counts / exit_counts.sum()) * 100
+    return percentages
+   
+exit_percentages = exitChatMethod()
+utils.show_metric(
+    section='2biii',
+    title="Porcentaje de las maneras en las que cierra los chats del móvil ",
+    info="\n".join([f"{exit}: {pct:.2f}%" 
+                            for exit, pct in exit_percentages.items()])
+)
+graphics.display_pie_chart(
+values=exit_percentages.values,
+labels=exit_percentages.index,
+title="Distribución de las maneras en las que cierra los chats del móvil  (%)"
+)
+
+############################
+# APARTADO 2biv,
+# Porcentaje de las maneras en las que cierra el móvil (pulsando el botón de atrás o en cualquier zona de la pantalla fuera del móvil).
+############################
+
+def exitMobileMethod():
+    conditions = [('object.id', 'ObjectInteraction'),('Object', 'phone'),('Closing',True)]
+    exit = utils.find_values_by_conditions(all_users_df, conditions, "Method")
+    exit_counts = pd.Series(exit).value_counts()
+    percentages = (exit_counts / exit_counts.sum()) * 100
+    return percentages
+   
+exit_percentages = exitMobileMethod()
+utils.show_metric(
+    section='2biv',
+    title="Porcentaje de las maneras en las que cierra el móvil",
+    info="\n".join([f"{exit}: {pct:.2f}%" 
+                            for exit, pct in exit_percentages.items()])
+)
+
+graphics.display_pie_chart(
+values=exit_percentages.values,
+labels=exit_percentages.index,
+title="Distribución de las maneras en las que cierra el móvil (%)"
+)
+
+############################
+# APARTADO 2bv,
+# Porcentaje de las maneras en las que cierra el móvil (pulsando el botón de atrás o en cualquier zona de la pantalla fuera del móvil).
+############################
+def computerScreenPos():
+    conditions = [('object.id', 'ComputerScreenClick')]
+    X = utils.find_values_by_conditions(all_users_df, conditions, "PointerX")
+    Y= utils.find_values_by_conditions(all_users_df, conditions, "PointerY")
+    return X,Y
+   
+computerScreenPosX,computerScreenPosY = computerScreenPos()
+utils.show_metric(
+    section='2bv',
+    title="Mapa de calor de los lugares en los que se pulsa durante la pantalla del ordenador",
+    info=""
+)
+
+#Mapa de calor
+plt.figure(figsize=(7, 5))
+plt.scatter(computerScreenPosX, computerScreenPosY, alpha=0.6)
+plt.title("Posiciones de clic en pantalla (todas las partidas)")
+plt.xlabel("PointerX")
+plt.ylabel("PointerY")
+plt.gca().invert_yaxis()   # (0,0) arriba‑izquierda, como en coordenadas de pantalla
+plt.grid(True, linestyle='--', linewidth=0.5, alpha=0.4)
+plt.show()
