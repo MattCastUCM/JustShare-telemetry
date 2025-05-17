@@ -1,9 +1,7 @@
 import matplotlib.pyplot as plt
 
 # Grafica de barras
-def display_pie_chart(values, labels, title,
-                      figsize=(6, 6),label_fontsize=12,pct_fontsize=10):
-   
+def display_pie_chart(values, labels, title, figsize=(6, 6),label_fontsize=12,pct_fontsize=10):
     fig, ax = plt.subplots(figsize=figsize)
 
     wedges, texts, autotexts = ax.pie(
