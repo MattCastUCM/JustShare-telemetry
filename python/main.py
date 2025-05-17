@@ -5,7 +5,7 @@ import loader
 use_scorm = False
 
 files_path = "./trazas/simva/"
-cols_to_drop = ["stored", "id", "version", "actor.account.homePage", "authority.name", "authority.name", "authority.homePage", "verb.display.en-US", "context.registration", "context.contextActivities.category", "object.definition.description.en-US", "object.objectType",]
+cols_to_drop = ["stored", "id", "version", "actor.account.homePage", "authority.name", "authority.homePage", "context.contextActivities.category", "context.registration", "object.definition.name.en-US", "object.definition.description.en-US", "object.definition.type", "verb.display.en-US", "verb.id", "object.objectType", "result.response", "result.score.scaled", "result.completion", "result.success"]
 
 if use_scorm:
 	files_path = "./trazas/scorm/"
@@ -13,12 +13,14 @@ if use_scorm:
 
 files_extension = "json"
 
+
 ############################
 # Datos comunes
 # Sacado de los JSONs
 ############################
-df,df_list = loader.loadAllFiles(files_path, files_extension, "timestamp", cols_to_drop)
+df, df_list = loader.load_all_files(files_path, files_extension, "timestamp", cols_to_drop, use_scorm)
 n_users = utils.get_n_users(df)
+
 
 ############################
 # APARTADO 2ai,
