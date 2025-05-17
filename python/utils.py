@@ -19,11 +19,6 @@ def time_between_indices(df, index1, index2):
     delta = t2 - t1
     return abs(delta.total_seconds()) 
 
-# Obtener el numero de usuarios
-def get_n_users(df):
-    account_names = df["actor.account.name"]
-    names = set(name for name in account_names)
-    return len(names)
 
 def show_metric(section, title, info):
     print("#####################")
