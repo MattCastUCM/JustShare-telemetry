@@ -15,10 +15,22 @@ def find_first_index_by_conditions(df, conditions):
     indices = find_indices_by_conditions(df, conditions)
     return indices[0] if indices else None
 
+def find_values_by_conditions(df, conditions, target_column):
+    mask = pd.Series([True] * len(df), index=df.index)
+    for col, val in conditions:
+        if val == "notna":
+            mask &= df[col].notna()
+        else:
+            mask &= df[col] == val
+    return df.loc[mask, target_column].tolist()
+
+
 # Devuelve el valor de una columna específica en la primera fila que cumple las condiciones
-def find_first_value_by_conditions(df, conditions, column):
-    indices = find_indices_by_conditions(df, conditions)
-    return df.loc[indices[0], column] if indices else None
+def find_first_value_by_conditions(df, conditions, target_column):
+    values = find_values_by_conditions(df, conditions, target_column)
+    return values[0] if values else None
+
+
 
 # Dado dos indices obtener la diferencia de tiempos
 def time_between_indices(df, index1, index2):
