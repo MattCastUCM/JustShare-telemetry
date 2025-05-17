@@ -1,5 +1,7 @@
 import utils
 import loader
+import graphics
+
 
 # Se usan las trazas de Simva o las de Scorm
 use_scorm = False
