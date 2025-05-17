@@ -25,6 +25,82 @@ n_users = len(users_individual_df_list)
 
 
 ############################
+# APARTADO 1 a i,
+# Porcentaje de elección de las diferentes respuestas cuando se presentan varias opciones en las siguientes situaciones:
+#   Cuando habla con el acosador.
+#   Al discutir con sus amigas en el cumpleaños.
+#   Cuando le revela a su amiga que sale con el acosador.
+#   Si decide o no contarle el problema a sus padres.
+############################
+
+def get_choices_stats(all_users_df, notable_nodes = []): 
+	# Dataframe solo con las filas en las que la columna Response no es nan
+	only_choices = all_users_df.dropna(subset=["Response"])
+
+	# Elimina las filas que tengan la misma respuesta, nodo y nombre de actor (por si acaso se envian duplicadas)
+	only_choices = only_choices.drop_duplicates(subset=["Response", "actor.account.name", "Node"])
+
+	# only_choices = only_choices.sort_values(by=["timestamp", "Node"])
+	# unique_choices = only_choices["Response"].unique()
+	# unique_nodes = only_choices["Node"].unique()
+
+
+	# Respuestas distintas que tiene cada nodo
+	nodes_responses = []
+
+	# Numero de veces que se ha respondido cada nodo
+	nodes_total_responses = []
+
+	# Numero de veces que se ha respondido cada respuesta en cada nodo
+	nodes_individual_responses = []
+
+	# Recorrer todos los nodos que se quieren comprobar
+	for node in notable_nodes:
+		# Obtener los distintos valores que pueden tener las respuestas de ese nodo
+		responses = only_choices[only_choices["Node"] == node]
+		unique_responses = responses["Response"].unique()
+
+		nodes_responses.append(unique_responses)
+		nodes_total_responses.append(len(responses.index))
+
+		# Recorrer cada opcion del nodo
+		unique_responses_selection = []
+		for choice in unique_responses:
+			# Obtener cuantas veces se ha elegido esa oopcion
+			conditions = [('Node', node), ('Response', choice)]
+			count = utils.find_indices_by_conditions(only_choices, conditions)
+			
+			unique_responses_selection.append(len(count))
+
+		nodes_individual_responses.append(unique_responses_selection)
+
+	return nodes_responses, nodes_total_responses, nodes_individual_responses
+
+# Nodos cuyas respuestas se quieren comprobar
+notable_nodes = ["Scene1Bedroom1.computer1.choices", "Scene1Bedroom1.computer2.choices3", "Scene1Bedroom2.computer.choices", "Scene1Bedroom2.computer.choices2", "Scene2Bedroom.phone.choices", "Scene4Garage.photo.choices", "Scene4Garage.interruption.choices", "Scene4Bedroom.phone.choices", "Scene5Livingroom.choices", "Scene5Bedroom.phone.choices2", "Scene5Bedroom.phone.choices3", "Scene6Bedroom.phone.choices2", ]
+nodes_responses, nodes_total_responses, nodes_individual_responses = get_choices_stats(all_users_df, notable_nodes)
+
+result = "\n"
+for i in range (len(notable_nodes)):
+	result += f'Nodo {notable_nodes[i]}:\n'
+	for j in range(len(nodes_responses[i])):
+		percentage = nodes_individual_responses[i][j] / nodes_total_responses[i]
+		percentage = percentage * 100
+		result += f'   {nodes_responses[i][j]}: {percentage}%\n'
+	result += "\n"
+	
+utils.show_metric(
+    section='1 a i',
+    title="Porcentaje de elección de las diferentes respuestas cuando se presentan varias opciones en las siguientes situaciones",
+    info=result
+)
+
+# Mostrar las graficas
+# for i in range(len(notable_nodes)):
+# 	graphics.display_pie_chart(nodes_individual_responses[i], nodes_responses[i], notable_nodes[i])
+
+
+############################
 # APARTADO 2 a i,
 # Media de tiempo de juego total
 ############################
