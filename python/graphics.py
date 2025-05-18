@@ -83,8 +83,8 @@ def display_nested_pie_chart(outer_values, inner_values, outer_labels, inner_lab
 
 
 # Grafica de barras
-def plot_bar_chart(df, title, ylabel, xlabel, bar_color):
-	ax = df.plot(kind="bar", legend=False, color=bar_color, figsize=(8, 6))
+def plot_bar_chart(df, title, ylabel, xlabel, bar_color, sizex=8, sizey=6):
+	ax = df.plot(kind="bar", legend=False, color=bar_color, figsize=(sizex, sizey))
 	for p in ax.patches:
 		ax.annotate(f"{p.get_height():.2f}", (p.get_x() + p.get_width() / 2., p.get_height()), ha="center", va="center", xytext=(0, 10), textcoords="offset points")
 	plt.title(title)

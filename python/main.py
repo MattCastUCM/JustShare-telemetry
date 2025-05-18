@@ -529,3 +529,51 @@ img = np.asarray(Image.open("./heatmapImg.png"))
 plt.imshow(img)
 
 plt.show()
+
+
+
+############################
+# APARTADO 2 c ii,
+# Tiempo medio que se queda leyendo cada diálogo.
+############################
+def average_dialog_time(users_individual_df_list):
+    conditions = [("object.id", "DialogStart")]
+    diccionary = {}
+
+    for user in users_individual_df_list:
+        indexes = utils.find_indices_by_conditions(user, conditions)
+        for index in indexes:
+            end_condition= [("object.id","DialogEnd"),("Node",user.loc[index, 'Node'])]
+            end_index= utils.find_first_index_by_conditions(user,end_condition,index)
+            if end_index:
+              key= user.loc[index, 'Node']
+              value= utils.time_between_indices(user,index, end_index)
+              if key not in diccionary:
+                 diccionary[key] = []
+            text= user.loc[index, 'Dialog.text']
+            diccionary[key].append(value) 
+            
+    average  = {}
+
+    for key, value in diccionary.items():
+        average [key] = sum(value) / len(value)
+
+    return average
+
+
+average = average_dialog_time(users_individual_df_list)
+text = ""
+for key, value in average.items():
+    text += f"Media para '{key}': {value:.2f}\n"
+
+all_values = [v for v in average.values()]
+overall_average = sum(all_values) / len(all_values)
+text+= f"Media total: {overall_average:.2f}"
+#print(text)
+utils.show_metric(
+	section="2 b v",
+	title="Tiempo medio que se queda leyendo cada diálogo.",
+	info=""
+)
+df_average = pd.DataFrame(list(average.items()), columns=['dialog', 'average'])
+graphics.plot_bar_chart(df_average,title="Media de tiempo en segundos de cada dialogo",ylabel="average",xlabel="dialog",bar_color="skyblue",sizex=80)

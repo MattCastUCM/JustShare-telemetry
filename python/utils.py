@@ -11,8 +11,8 @@ def find_indices_by_conditions(df, conditions):
 	return df[mask].index.tolist()
 
 # Dada una serie de condiciones (por ejemplo, objeto de tipo Game) obtener el primer indice en el dataframe
-def find_first_index_by_conditions(df, conditions):
-	indices = find_indices_by_conditions(df, conditions)
+def find_first_index_by_conditions(df, conditions,index=0):
+	indices = find_indices_by_conditions(df.iloc[index:], conditions)
 	return indices[0] if indices else None
 
 def find_values_by_conditions(df, conditions, target_column):
@@ -41,12 +41,12 @@ def time_between_indices(df, index1, index2):
 
 
 def show_metric(section, title, info = None):
-    print("#####################")
+    print("#"*10)
     print(f"APARTADO {section}")
     print(f"{title}:")
     if info:
         print(str(info))
-    print("#####################\n")
+    print("#"*10,"\n")
 
 # def get_events_between_different_parameters(dataframe, parameter1, parameter2, firstPValue, secondPValue):
 # 	# Buscar el primer y ultimo indice de la fila
