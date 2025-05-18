@@ -386,16 +386,18 @@ def average_daily_time(users_individual_df_list):
 				time = utils.time_between_indices(user, indexes[i], indexes[i + 1])
 				all_durations[i].append(time)
 
-	return all_durations
+	day_means = [np.mean(durations) if len(durations) > 0 else 0 for durations in all_durations]
+	return day_means
 
 daily_times = average_daily_time(users_individual_df_list)
-result = '\n'.join([f'Dia {i+1}: {value[0]} segundos' for i, value in enumerate(daily_times)])
-
+result = '\n'.join([f'Dia {i+1}: {value} segundos' for i, value in enumerate(daily_times)])
 utils.show_metric(
 	section='2 a iii',
 	title="Media de tiempo de juego en cada día",
 	info=result
 )
+df = pd.DataFrame({'Media (segundos)': daily_times}, index=[f'Día {i+1}' for i in range(7)])
+graphics.plot_bar_chart(df,title="Media diaria de tiempo de juego",ylabel="Tiempo promedio (segundos)",xlabel="Día",bar_color="skyblue")
 
 
 ############################

@@ -52,7 +52,6 @@ def display_nested_pie_chart(outer_values, inner_values, outer_labels, inner_lab
 		connectionstyle="angle,angleA=0,angleB={}".format(ang)
 		kw["arrowprops"].update({"connectionstyle":connectionstyle})
 		ax.annotate(outer_labels[i],xy=(x, y),xytext=(1.35*np.sign(x),1.4*y), horizontalalignment=horizontalalignment,**kw)
-
 	total_segments = sum(len(sublist) for sublist in inner_values)
 	flat_values = [val for sublist in inner_values for val in sublist]
 	colors = plt.cm.Set3(np.linspace(0, 1, total_segments))
@@ -83,7 +82,7 @@ def display_nested_pie_chart(outer_values, inner_values, outer_labels, inner_lab
 def plot_bar_chart(df, title, ylabel, xlabel, bar_color):
 	ax = df.plot(kind="bar", legend=False, color=bar_color, figsize=(8, 6))
 	for p in ax.patches:
-		ax.annotate(f'{p.get_height()}', (p.get_x() + p.get_width() / 2., p.get_height()), ha='center', va='center', xytext=(0, 10), textcoords='offset points')
+		ax.annotate(f'{p.get_height():.2f}', (p.get_x() + p.get_width() / 2., p.get_height()), ha='center', va='center', xytext=(0, 10), textcoords='offset points')
 	plt.title(title)
 	plt.ylabel(ylabel)
 	plt.xlabel(xlabel)
