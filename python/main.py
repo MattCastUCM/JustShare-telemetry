@@ -30,16 +30,20 @@ files_extension = "json"
 all_users_df, users_individual_df_list = loader.load_all_files(files_path, files_extension, "timestamp", cols_to_drop, use_scorm)
 n_users = len(users_individual_df_list)
 
-game_starts_conditions = [('object.id', 'GameStart')]
+game_starts_conditions = [("object.id", "GameStart")]
 game_starts = utils.find_indices_by_conditions(all_users_df, game_starts_conditions)
 game_starts = all_users_df.iloc[game_starts]
 game_starts = game_starts.drop_duplicates(subset=["actor.account.name"])
 
-col1 = game_starts['Gender'].unique()
-col2 = game_starts['Sexuality'].unique()
-gender_sexuality_combinations = list(product(col1, col2))
-
-demography = game_starts[['actor.account.name', 'Gender', 'Sexuality']].values.tolist()
+gender_sexuality_combinations = [
+	('male', 'heterosexual'), 
+	('male', 'homosexual'), 
+	('male', 'bisexual'), 
+	('female', 'heterosexual'), 
+	('female', 'homosexual'), 
+	('female', 'bisexual')
+]
+demography = game_starts[["actor.account.name", "Gender", "Sexuality"]].values.tolist()
 
 demography_info = {}
 for user in demography:
@@ -96,7 +100,7 @@ def get_choices_stats(all_users_df, nodes_names = [], gender_sexuality_combinati
 		demographic_count_in_node = []
 		for choice in unique_responses:
 			# Obtener cuantas veces se ha elegido esa oopcion
-			conditions = [('Node', node), ('Response', choice)]
+			conditions = [("Node", node), ("Response", choice)]
 			count = utils.find_indices_by_conditions(choices_events, conditions)
 
 			response_count.append(len(count))
@@ -113,7 +117,7 @@ def get_choices_stats(all_users_df, nodes_names = [], gender_sexuality_combinati
 				
 				count = 0
 				if index >= 0:
-					new_conditions = conditions + [('actor.account.name', user)]
+					new_conditions = conditions + [("actor.account.name", user)]
 					count = utils.find_indices_by_conditions(choices_events, new_conditions)
 					count = len(count)
 				
@@ -133,22 +137,22 @@ nodes_names = ["Scene1Bedroom1.computer1.choices", "Scene1Bedroom1.computer2.cho
 different_responses_per_node, total_responses_per_node, count_per_responses_per_node, count_per_responses_per_node_per_demography = get_choices_stats(all_users_df, nodes_names, gender_sexuality_combinations, demography_info)
 result = "\n"
 for i in range (len(nodes_names)):
-	result += f'Nodo {nodes_names[i]}:\n'
+	result += f"Nodo {nodes_names[i]}:\n"
 	for j in range(len(different_responses_per_node[i])):
 		percentage1 = count_per_responses_per_node[i][j] / total_responses_per_node[i]
 		percentage1 *= 100
-		result += f'   {different_responses_per_node[i][j]}: {percentage1}%\n'
+		result += f"   {different_responses_per_node[i][j]}: {percentage1}%\n"
 
 		for k in range(len(count_per_responses_per_node_per_demography[i][j])):
 			# print(count_per_responses_per_node_per_demography[i][j][k])
 			percentage2 = count_per_responses_per_node_per_demography[i][j][k] / count_per_responses_per_node[i][j]
 			percentage2 *= 100
-			result += f'   	{gender_sexuality_combinations[k]}: {percentage2}%\n'
+			result += f"   	{gender_sexuality_combinations[k]}: {percentage2}%\n"
 
 	result += "\n"
 	
 utils.show_metric(
-	section='1 a i y 1 b i',
+	section="1 a i y 1 b i",
 	title="Porcentaje de elección de las diferentes respuestas cuando se presentan varias opciones en las siguientes situaciones\nPorcentaje de elección de las diferentes respuestas en base a los datos demográficos recogidos al inicio del juego",
 	info=result
 )
@@ -159,7 +163,7 @@ for i in range(len(nodes_names)):
 	labels = []
 	for j in range (len(count_per_responses_per_node[i])):
 		labels += gender_sexuality_combinations
-	graphics.display_nested_pie_chart(count_per_responses_per_node[i], count_per_responses_per_node_per_demography[i], different_responses_per_node[i], labels, f'Distribucion de opciones elegidas en el nodo {nodes_names[i]} por opcion, genero y sexualidad (%)')
+	graphics.display_nested_pie_chart(count_per_responses_per_node[i], count_per_responses_per_node_per_demography[i], different_responses_per_node[i], labels, f"Distribucion de opciones elegidas en el nodo {nodes_names[i]} por opcion, genero y sexualidad (%)")
 
 
 ############################
@@ -171,7 +175,7 @@ for i in range(len(nodes_names)):
 ############################
 
 def endings_obtained():
-	conditions = [('object.id', 'GameEnd'),('Ending', 'notna')]
+	conditions = [("object.id", "GameEnd"),("Ending", "notna")]
 	ending_vals = []
 	ending_by_user = { }
 
@@ -185,7 +189,7 @@ def endings_obtained():
 			continue
 		# Si es routeB
 		if ending == "routeB":
-			extra_cond = conditions + [('Ending', 'routeB')]
+			extra_cond = conditions + [("Ending", "routeB")]
 			explained_val = utils.find_first_value_by_conditions(user, extra_cond, "Explained")
 
 			# True
@@ -227,17 +231,17 @@ for i in range (len(ending_counts)):
 
 result = "\n"
 for i in range (len(ending_counts)):
-	result += f'{ending_counts.index[i]}: {ending_percentages.iloc[i]}%\n'
+	result += f"{ending_counts.index[i]}: {ending_percentages.iloc[i]}%\n"
 	 
 	for j in range (len(demographic_ending_counts[i])):
 		percentage = demographic_ending_counts[i][j] / ending_counts.iloc[i]
 		percentage *= 100
-		result += f'   {gender_sexuality_combinations[j]}: {percentage}%\n'
+		result += f"   {gender_sexuality_combinations[j]}: {percentage}%\n"
 
 	result += "\n"
 
 utils.show_metric(
-	section='1 a ii y 1 b ii',
+	section="1 a ii y 1 b ii",
 	title="Porcentaje de obtención de cada final.\nPorcentaje de obtención de cada final en base a los datos demográficos recogidos al inicio del juego",
 	info=result
 )
@@ -254,21 +258,13 @@ for i in range(len(ending_counts)):
 graphics.display_nested_pie_chart(ending_counts.values, demographic_ending_counts, ending_counts.index, labels, "Distribución de finales conseguidos por final, genero y sexualidad (%)")
 
 
-
-############################
-# APARTADO 1 b ii,
-# Porcentaje de obtención de cada final en base a los datos demográficos recogidos al inicio del juego
-############################
-
-
-
 ############################
 # APARTADO 1 c i,
 # Número medio de interacciones con los elementos de las redes sociales dentro del juego
 ############################
 
 def social_media_elements():
-	conditions = [('object.id', 'ObjectInteraction')]
+	conditions = [("object.id", "ObjectInteraction")]
 	social_media = utils.find_values_by_conditions(all_users_df, conditions, "Object")
 	# Nos quedamos solo con los botones deseados
 	counts_all = pd.Series(social_media).value_counts()
@@ -285,7 +281,7 @@ def social_media_elements():
 socialMedia_avg = social_media_elements()
 
 utils.show_metric(
-	section='1 c i',
+	section="1 c i",
 	title="Número medio de interacciones con los elementos de las redes sociales dentro del juego",
 	info="\n".join([f"{elem}: {avg:.2f}" for elem, avg in socialMedia_avg.items()])
 )
@@ -300,14 +296,39 @@ graphics.plot_bar_chart(
 
 
 ############################
+# APARTADO 1 c i,
+# Porcentaje de veces que escuchan a su amiga en el recreo antes de abrir el móvil (1,2 o 3 veces)
+############################
+conditions = [("object.id", "Day3BreakConversation")]
+conversation_events = utils.find_indices_by_conditions(all_users_df, conditions)
+conversation_events = all_users_df.iloc[conversation_events]
+unique_values = [0, 1, 2]
+
+times_listened = []
+total_times = 0
+for times in unique_values:
+	condition = [("TimesListened", times)]
+	count = utils.find_indices_by_conditions(conversation_events, condition)
+	times_listened.append(len(count))
+	total_times += len(count)
+
+utils.show_metric(
+	section="2 b iii",
+	title="Porcentaje de veces que se escucha a la amiga durante el recreo del dia 3",
+	info="\n".join([f"{i} veces: {(times_listened[i] / total_times) * 100}%" for i in range(len(times_listened))])
+)
+graphics.display_pie_chart(times_listened, [f"{i} veces" for i in range(len(times_listened))], "Distribucion de las veces que escuchan a la amiga durante el recreo del dia 3 (%)")
+
+
+############################
 # APARTADO 2 a i,
 # Media de tiempo de juego total
 ############################
 
 def average_total_time(sessions):
 	durations  = []
-	start_conditions = [('object.id', 'SessionStart')]
-	end_conditions = [('object.id', 'SessionEnd')]
+	start_conditions = [("object.id", "SessionStart")]
+	end_conditions = [("object.id", "SessionEnd")]
 	
 	for user in users_individual_df_list:
 		start_idx = utils.find_first_index_by_conditions(user, start_conditions)
@@ -317,7 +338,7 @@ def average_total_time(sessions):
 	return sum(durations ) / len(durations ) if durations  else 0
 
 utils.show_metric(
-	section='2 a i',
+	section="2 a i",
 	title="Media de tiempo de juego total",
 	info=f"{average_total_time(users_individual_df_list)} segundos"
 )
@@ -329,8 +350,8 @@ utils.show_metric(
 ############################
 def average_login_time(sessions):
 	durations  = []
-	start_conditions = [('object.id', 'GameStart')]
-	end_conditions = [('object.id', 'GameEnd')]
+	start_conditions = [("object.id", "GameStart")]
+	end_conditions = [("object.id", "GameEnd")]
 	
 	for user in users_individual_df_list:
 		start_idx = utils.find_first_index_by_conditions(user, start_conditions)
@@ -340,9 +361,9 @@ def average_login_time(sessions):
 	return sum(durations ) / len(durations ) if durations  else 0
 
 utils.show_metric(
-	section='2 a ii',
+	section="2 a ii",
 	title="Media de tiempo de juego desde que se pasa la pantalla de login",
-	info=f'{average_login_time(users_individual_df_list)} segundos'
+	info=f"{average_login_time(users_individual_df_list)} segundos"
 )
 
 
@@ -352,9 +373,9 @@ utils.show_metric(
 ############################
 
 def average_daily_time(users_individual_df_list):
-	conditions = [('object.id', 'GameProgress')]
-	start_conditions = [('object.id', 'GameStart')]
-	end_conditions = [('object.id', 'GameEnd')]
+	conditions = [("object.id", "GameProgress")]
+	start_conditions = [("object.id", "GameStart")]
+	end_conditions = [("object.id", "GameEnd")]
 
 	# Duraciones de todos los dias. Cada elemento de la lista es otra lista con la duracion de ese dia para cada usuario
 	all_durations = [[] for _ in range(7)]
@@ -390,13 +411,13 @@ def average_daily_time(users_individual_df_list):
 	return day_means
 
 daily_times = average_daily_time(users_individual_df_list)
-result = '\n'.join([f'Dia {i+1}: {value} segundos' for i, value in enumerate(daily_times)])
+result = "\n".join([f"Dia {i+1}: {value} segundos" for i, value in enumerate(daily_times)])
 utils.show_metric(
-	section='2 a iii',
+	section="2 a iii",
 	title="Media de tiempo de juego en cada día",
 	info=result
 )
-df = pd.DataFrame({'Media (segundos)': daily_times}, index=[f'Día {i+1}' for i in range(7)])
+df = pd.DataFrame({"Media (segundos)": daily_times}, index=[f"Día {i+1}" for i in range(7)])
 graphics.plot_bar_chart(df,title="Media diaria de tiempo de juego",ylabel="Tiempo promedio (segundos)",xlabel="Día",bar_color="skyblue")
 
 
@@ -408,7 +429,7 @@ graphics.plot_bar_chart(df,title="Media diaria de tiempo de juego",ylabel="Tiemp
 login = all_users_df[all_users_df["Object"] == "loginButton"].index
 game_initialized = all_users_df[(all_users_df["object.id"] == "GameStart")].index
 utils.show_metric(
-	section='2 b i',
+	section="2 b i",
 	title="Número medio de veces que se pulsa sin éxito el botón de “aceptar” en la pantalla de login (si no ha seleccionado correctamente las opciones de personalización iniciales)",
 	info=(login.size - game_initialized.size) / n_users
 )
@@ -428,7 +449,7 @@ utils.show_metric(
 ############################
 
 def exitChatMethod():
-	conditions = [('object.id', 'ExitChat')]
+	conditions = [("object.id", "ExitChat")]
 	exit = utils.find_values_by_conditions(all_users_df, conditions, "Method")
 	exit_counts = pd.Series(exit).value_counts()
 	percentages = (exit_counts / exit_counts.sum()) * 100
@@ -436,7 +457,7 @@ def exitChatMethod():
    
 exit_percentages = exitChatMethod()
 utils.show_metric(
-	section='2 b iii',
+	section="2 b iii",
 	title="Porcentaje de las maneras en las que cierra los chats del móvil ",
 	info="\n".join([f"{exit}: {pct:.2f}%" 
 							for exit, pct in exit_percentages.items()])
@@ -454,7 +475,7 @@ graphics.display_pie_chart(
 ############################
 
 def exitMobileMethod():
-	conditions = [('object.id', 'ObjectInteraction'),('Object', 'phone'),('Closing',True)]
+	conditions = [("object.id", "ObjectInteraction"),("Object", "phone"),("Closing",True)]
 	exit = utils.find_values_by_conditions(all_users_df, conditions, "Method")
 	exit_counts = pd.Series(exit).value_counts()
 	percentages = (exit_counts / exit_counts.sum()) * 100
@@ -462,7 +483,7 @@ def exitMobileMethod():
    
 exit_percentages = exitMobileMethod()
 utils.show_metric(
-	section='2 b iv',
+	section="2 b iv",
 	title="Porcentaje de las maneras en las que cierra el móvil",
 	info="\n".join([f"{exit}: {pct:.2f}%" 
 							for exit, pct in exit_percentages.items()])
@@ -480,14 +501,14 @@ graphics.display_pie_chart(
 # Mapa de calor de los lugares en los que se pulsa durante la pantalla del ordenador
 ############################
 def computerScreenPos():
-	conditions = [('object.id', 'ComputerScreenClick')]
+	conditions = [("object.id", "ComputerScreenClick")]
 	X = utils.find_values_by_conditions(all_users_df, conditions, "PointerX")
 	Y= utils.find_values_by_conditions(all_users_df, conditions, "PointerY")
 	return X,Y
    
 computerScreenPosX,computerScreenPosY = computerScreenPos()
 utils.show_metric(
-	section='2 b v',
+	section="2 b v",
 	title="Mapa de calor de los lugares en los que se pulsa durante la pantalla del ordenador",
 	info=""
 )
@@ -499,12 +520,12 @@ plt.title("Posiciones de clic en la pantalla del ordenador (todas las partidas)"
 plt.xlabel("PointerX")
 plt.ylabel("PointerY")
 plt.gca().invert_yaxis()   # (0,0) arriba‑izquierda, como en coordenadas de pantalla
-plt.grid(True, linestyle='--', linewidth=0.5, alpha=0.4)
+plt.grid(True, linestyle="--", linewidth=0.5, alpha=0.4)
 
 axes = plt.gca()
 axes.set_xlim(0, 1600)
 axes.set_ylim(900, 0)
-img = np.asarray(Image.open('./heatmapImg.png'))
+img = np.asarray(Image.open("./heatmapImg.png"))
 plt.imshow(img)
 
 plt.show()

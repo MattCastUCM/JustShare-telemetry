@@ -34,8 +34,8 @@ def find_first_value_by_conditions(df, conditions, target_column):
 
 # Dado dos indices obtener la diferencia de tiempos
 def time_between_indices(df, index1, index2):
-	t1 = pd.to_datetime(df.loc[index1, 'timestamp'])
-	t2 = pd.to_datetime(df.loc[index2, 'timestamp'])
+	t1 = pd.to_datetime(df.loc[index1, "timestamp"])
+	t2 = pd.to_datetime(df.loc[index2, "timestamp"])
 	delta = t2 - t1
 	return abs(delta.total_seconds()) 
 

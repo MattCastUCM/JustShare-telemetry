@@ -19,8 +19,8 @@ def format_simva(file):
 
 # Obtener la ultima parte de una URI (que determina el tipo)
 def get_last_value_uri(value):
-	if isinstance(value, str) and '/' in value:
-		return value.rsplit('/', 1)[-1]
+	if isinstance(value, str) and "/" in value:
+		return value.rsplit("/", 1)[-1]
 	else: 
 		return value
 
@@ -101,7 +101,7 @@ def load_all_files(path, extension = "json", column_to_sort_by = "eventId", drop
 				for user_df in users_dfs:
 					# Se intenta convertir el timestamp a formato UNIX epoch
 					try: 
-						user_df['timestamp'] = pd.to_datetime(user_df['timestamp'])
+						user_df["timestamp"] = pd.to_datetime(user_df["timestamp"])
 					except:
 						pass
 

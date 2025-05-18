@@ -6,10 +6,14 @@ import numpy as np
 def display_pie_chart(values, labels, title, figsize=(6, 6),label_fontsize=12,pct_fontsize=10):
 	fig, ax = plt.subplots(figsize=figsize)
 
+	new_labels = []
+	for i in range(len(values)):
+		new_labels.append('' if values[i] == 0 else labels[i])
+
 	wedges, texts, autotexts = ax.pie(
 		values,
-		labels=labels,
-		autopct='%1.1f%%',
+		labels=new_labels,
+		autopct=lambda p: "{:.1f}%".format(round(p)) if p > 0 else "",
 		startangle=90
 	)
 
@@ -19,7 +23,7 @@ def display_pie_chart(values, labels, title, figsize=(6, 6),label_fontsize=12,pc
 		autotext.set_fontsize(pct_fontsize)
 
 	ax.set_title(title, fontsize=label_fontsize + 2)
-	ax.axis('equal') 
+	ax.axis("equal") 
 	plt.show()
 
 	return fig, ax
@@ -36,14 +40,14 @@ def display_nested_pie_chart(outer_values, inner_values, outer_labels, inner_lab
 	wedges, texts, autotexts = ax.pie(
 		outer_values,
 		radius=radius,
-		wedgeprops=dict(width=size, edgecolor='w'),
-		autopct=lambda p: '{:.1f}%'.format(round(p)) if p > 0 else '',
+		wedgeprops=dict(width=size, edgecolor="w"),
+		autopct=lambda p: "{:.1f}%".format(round(p)) if p > 0 else "",
 		pctdistance=0.85,
 		startangle = start_angle
 	)
 
 	# Escribir las etiquetas como anotaciones
-	kw=dict(xycoords='data',textcoords='data',arrowprops=dict(arrowstyle='-'),zorder=0,va='center')
+	kw=dict(xycoords="data",textcoords="data",arrowprops=dict(arrowstyle="-"),zorder=0,va="center")
 	for i,p in enumerate(wedges):
 		ang=(p.theta2-p.theta1)/2. +p.theta1
 		y=np.sin(np.deg2rad(ang))
@@ -61,10 +65,10 @@ def display_nested_pie_chart(outer_values, inner_values, outer_labels, inner_lab
 		flat_values,
 		colors=colors,
 		radius=radius-size,
-		wedgeprops=dict(width=size, edgecolor='w'),
-		labels=[label if value > 0 else '' for label, value in zip(inner_labels, flat_values)],
+		wedgeprops=dict(width=size, edgecolor="w"),
+		labels=[label if value > 0 else "" for label, value in zip(inner_labels, flat_values)],
 		labeldistance=0.2,
-		autopct=lambda p: '{:.1f}%'.format(round(p)) if p > 0 else '',
+		autopct=lambda p: "{:.1f}%".format(round(p)) if p > 0 else "",
 		# pctdistance=0.6,
 		startangle = start_angle
 	)
@@ -73,7 +77,7 @@ def display_nested_pie_chart(outer_values, inner_values, outer_labels, inner_lab
 		text.set_fontsize(8)
 
 
-	ax.set_aspect('equal')  
+	ax.set_aspect("equal")  
 	plt.title(title)
 	plt.show()
 
@@ -82,7 +86,7 @@ def display_nested_pie_chart(outer_values, inner_values, outer_labels, inner_lab
 def plot_bar_chart(df, title, ylabel, xlabel, bar_color):
 	ax = df.plot(kind="bar", legend=False, color=bar_color, figsize=(8, 6))
 	for p in ax.patches:
-		ax.annotate(f'{p.get_height():.2f}', (p.get_x() + p.get_width() / 2., p.get_height()), ha='center', va='center', xytext=(0, 10), textcoords='offset points')
+		ax.annotate(f"{p.get_height():.2f}", (p.get_x() + p.get_width() / 2., p.get_height()), ha="center", va="center", xytext=(0, 10), textcoords="offset points")
 	plt.title(title)
 	plt.ylabel(ylabel)
 	plt.xlabel(xlabel)
