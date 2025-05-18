@@ -40,11 +40,12 @@ def time_between_indices(df, index1, index2):
     return abs(delta.total_seconds()) 
 
 
-def show_metric(section, title, info):
+def show_metric(section, title, info = None):
     print("#####################")
     print(f"APARTADO {section}")
     print(f"{title}:")
-    print(str(info))
+    if info:
+        print(str(info))
     print("#####################\n")
 
 # def get_events_between_different_parameters(dataframe, parameter1, parameter2, firstPValue, secondPValue):
