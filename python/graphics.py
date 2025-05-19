@@ -148,7 +148,6 @@ def flexible_double_donut(outer_data, outer_labels,inner_data, inner_labels,titl
 		outer_colors = plt.cm.tab20.colors[:len(outer_data)]
 	if inner_colors is None:
 		colors = list(plt.cm.tab20.colors)
-		colors.extend(list(plt.cm.tab20.colors))
 		needed = len(inner_data)
 		start = len(outer_data)  # desde dónde empiezas, como en tu código
 		# Repite la lista hasta cubrir los necesarios
