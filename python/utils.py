@@ -41,22 +41,10 @@ def time_between_indices(df, index1, index2):
 
 
 def show_metric(section, title, info = None):
-    print("#"*10)
-    print(f"APARTADO {section}")
-    print(f"{title}:")
-    if info:
-        print(str(info))
-    print("#"*10,"\n")
-
-
-# def get_events_between_different_parameters(dataframe, parameter1, parameter2, firstPValue, secondPValue):
-# 	# Buscar el primer y ultimo indice de la fila
-# 	start_idx = dataframe[dataframe[parameter1] == firstPValue].index
-# 	end_idx = dataframe[dataframe[parameter2] == secondPValue].index
-
-# 	# Se juntan todas las filas entre ambos eventos
-# 	data = pd.DataFrame()
-# 	for i, j in zip(start_idx, end_idx):
-# 		data = pd.concat([data, dataframe[i:j + 1]], ignore_index=True)
-	
-# 	return data
+	N_SEPARATORS = 10
+	print("#"*N_SEPARATORS)
+	print(f"APARTADO {section}")
+	print(f"{title}:")
+	if info:
+		print(str(info))
+	print("#"*N_SEPARATORS + "\n")

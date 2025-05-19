@@ -1,6 +1,18 @@
 import matplotlib.pyplot as plt
 import numpy as np
+from PIL import Image
+import loader
 
+save_graphics = False
+output_directory = "./output/"
+
+def show_graphic(title):
+	if save_graphics:
+		loader.create_output_directory(output_directory)
+		plt.savefig(f'{output_directory}{title}.png',format='png',bbox_inches='tight')
+		plt.clf()
+	else:
+		plt.show()
 
 # Grafica de sectores
 def display_pie_chart(values, labels, title, figsize=(6, 6),label_fontsize=12,pct_fontsize=10):
@@ -23,11 +35,9 @@ def display_pie_chart(values, labels, title, figsize=(6, 6),label_fontsize=12,pc
 		autotext.set_fontsize(pct_fontsize)
 
 	ax.set_title(title, fontsize=label_fontsize + 2)
-	ax.axis("equal") 
-	plt.show()
+	ax.axis("equal")
 
-	return fig, ax
-
+	show_graphic(title)
 
 # Grafica de sectores anidada
 def display_nested_pie_chart(outer_values, inner_values, outer_labels, inner_labels, title, figsize=(8, 8), radius = 1.2):
@@ -49,7 +59,8 @@ def display_nested_pie_chart(outer_values, inner_values, outer_labels, inner_lab
 	# Escribir las etiquetas como anotaciones
 	kw=dict(xycoords="data",textcoords="data",arrowprops=dict(arrowstyle="-"),zorder=0,va="center")
 	for i,p in enumerate(wedges):
-		ang=(p.theta2-p.theta1)/2. +p.theta1
+		# Mini arreglo
+		ang=(p.theta2-p.theta1)/2. +p.theta1 + 0.0001
 		y=np.sin(np.deg2rad(ang))
 		x=np.cos(np.deg2rad(ang))
 		horizontalalignment={-1:"right",1:"left"}[int(np.sign(x))]
@@ -76,21 +87,36 @@ def display_nested_pie_chart(outer_values, inner_values, outer_labels, inner_lab
 	for text in texts:
 		text.set_fontsize(8)
 
-
 	ax.set_aspect("equal")  
 	plt.title(title, pad=20)
-	plt.show()
 
+	show_graphic(title)
 
 # Grafica de barras
-def plot_bar_chart(df, title, ylabel, xlabel, bar_color, sizex=8, sizey=6):
-	ax = df.plot(kind="bar", legend=False, color=bar_color, figsize=(sizex, sizey))
-	for p in ax.patches:
-		ax.annotate(f"{p.get_height():.2f}", (p.get_x() + p.get_width() / 2., p.get_height()), ha="center", va="center", xytext=(0, 10), textcoords="offset points")
+def display_bar_chart(df, title, ylabel, xlabel, bar_color, sizex=8, sizey=6):
+	ax_bis = df.plot(kind="bar", legend=False, color=bar_color, figsize=(sizex, sizey))
+	for p in ax_bis.patches:
+		ax_bis.annotate(f"{p.get_height():.2f}", (p.get_x() + p.get_width() / 2., p.get_height()), ha="center", va="center", xytext=(0, 10), textcoords="offset points")
 	plt.title(title)
 	plt.ylabel(ylabel)
 	plt.xlabel(xlabel)
 	plt.xticks(rotation=0)
-	plt.show()
 
-	return ax
+	show_graphic(title)
+
+def display_heatmap(posX, posY, title, background_image):
+	# Grafica
+	plt.figure(figsize=(15, 15))
+	plt.scatter(posX, posY, alpha=0.6, s=15)
+	plt.title(title)
+	plt.xlabel("PointerX")
+	plt.ylabel("PointerY")
+	plt.gca().invert_yaxis()   # (0,0) arriba‑izquierda, como en coordenadas de pantalla
+	plt.grid(True, linestyle="--", linewidth=0.5, alpha=0.4)
+	axes = plt.gca()
+	axes.set_xlim(0, 1600)
+	axes.set_ylim(900, 0)
+	img = np.asarray(Image.open(background_image))
+	plt.imshow(img)
+
+	show_graphic(title)

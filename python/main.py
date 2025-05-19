@@ -1,14 +1,8 @@
 import utils
 import loader
 import graphics
-
-from itertools import product
-
 import pandas as pd
-import matplotlib.pyplot as plt
 import numpy as np
-from PIL import Image
-
 
 # Usar las trazas de Simva o las de Scorm
 use_scorm = False
@@ -21,7 +15,6 @@ if use_scorm:
 	cols_to_drop = ["verb.display.en-US", "id", "stored", "version", "actor.objectType", "actor.account.homePage", "result.success", "result.completion", "context.registration", "authority.objectType", "authority.account.homePage", "authority.account.name", "authority.name", "object.definition.description.en-US", "object.definition.name.en-US", "object.objectType", "context.contextActivities.category"]
 
 files_extension = "json"
-
 
 ############################
 # Datos comunes
@@ -144,7 +137,6 @@ for i in range (len(nodes_names)):
 		result += f"   {different_responses_per_node[i][j]}: {percentage1}%\n"
 
 		for k in range(len(count_per_responses_per_node_per_demography[i][j])):
-			# print(count_per_responses_per_node_per_demography[i][j][k])
 			percentage2 = count_per_responses_per_node_per_demography[i][j][k] / count_per_responses_per_node[i][j]
 			percentage2 *= 100
 			result += f"   	{gender_sexuality_combinations[k]}: {percentage2}%\n"
@@ -163,6 +155,7 @@ for i in range(len(nodes_names)):
 	labels = []
 	for j in range (len(count_per_responses_per_node[i])):
 		labels += gender_sexuality_combinations
+	# HELPPPPPPPP
 	graphics.display_nested_pie_chart(count_per_responses_per_node[i], count_per_responses_per_node_per_demography[i], different_responses_per_node[i], labels, f"Distribucion de opciones elegidas en el nodo {nodes_names[i]} por opcion, genero y sexualidad (%)")
 
 
@@ -246,11 +239,12 @@ utils.show_metric(
 	info=result
 )
 
-# graphics.display_pie_chart(
-# 	values=ending_percentages.values,
-# 	labels=ending_percentages.index,
-# 	title="Distribución de finales conseguidos (%)"
-# )
+# HELPPPPPPPP
+graphics.display_pie_chart(
+	values=ending_percentages.values,
+	labels=ending_percentages.index,
+	title="Distribución de finales conseguidos (%)"
+)
 
 labels = []
 for i in range(len(ending_counts)):
@@ -286,7 +280,8 @@ utils.show_metric(
 	info="\n".join([f"{elem}: {avg:.2f}" for elem, avg in socialMedia_avg.items()])
 )
 
-graphics.plot_bar_chart(
+# HELP
+graphics.display_bar_chart(
 	socialMedia_avg,
 	title="Interacciones medias por usuario con elementos sociales",
 	ylabel="Media de clics por usuario",
@@ -418,7 +413,7 @@ utils.show_metric(
 	info=result
 )
 df = pd.DataFrame({"Media (segundos)": daily_times}, index=[f"Día {i+1}" for i in range(7)])
-graphics.plot_bar_chart(df,title="Media diaria de tiempo de juego",ylabel="Tiempo promedio (segundos)",xlabel="Día",bar_color="skyblue")
+graphics.display_bar_chart(df,title="Media diaria de tiempo de juego",ylabel="Tiempo promedio (segundos)",xlabel="Día",bar_color="skyblue")
 
 
 ############################
@@ -520,22 +515,8 @@ utils.show_metric(
 )
 
 # Grafica
-plt.figure(figsize=(15, 15))
-plt.scatter(computerScreenPosX, computerScreenPosY, alpha=0.6, s=15)
-plt.title("Posiciones de clic en la pantalla del ordenador (todas las partidas)")
-plt.xlabel("PointerX")
-plt.ylabel("PointerY")
-plt.gca().invert_yaxis()   # (0,0) arriba‑izquierda, como en coordenadas de pantalla
-plt.grid(True, linestyle="--", linewidth=0.5, alpha=0.4)
-
-axes = plt.gca()
-axes.set_xlim(0, 1600)
-axes.set_ylim(900, 0)
-img = np.asarray(Image.open("./heatmapImg.png"))
-plt.imshow(img)
-
-plt.show()
-
+graphics.display_heatmap(computerScreenPosX, computerScreenPosY, 
+						 "Posiciones de clic en la pantalla del ordenador (todas las partidas)", "./heatmapImg.png")
 
 ############################
 # APARTADO 2 c i
@@ -603,13 +584,14 @@ all_values = [v for v in average.values()]
 overall_average = sum(all_values) / len(all_values)
 text+= f"Media total: {overall_average:.2f}"
 #print(text)
+#
 utils.show_metric(
 	section="2 c ii",
 	title="Tiempo medio que se queda leyendo cada diálogo",
 	info=""
 )
 df_average = pd.DataFrame(list(average.items()), columns=['dialog', 'average'])
-graphics.plot_bar_chart(df_average,title="Media de tiempo en segundos de cada dialogo",ylabel="average",xlabel="dialog",bar_color="skyblue",sizex=80)
+graphics.display_bar_chart(df_average,title="Media de tiempo en segundos de cada dialogo",ylabel="average",xlabel="dialog",bar_color="skyblue",sizex=80)
 
 
 ############################
@@ -645,9 +627,6 @@ def get_average_time_difference_between_phone_events(first_conditions, last_cond
 					# Se guardan los indices de ambos eventos
 					first_to_happen.append(immediate_prev[-1])
 					last_to_happen.append(all_last_to_happen[i])
-
-		# print(first_to_happen)
-		# print(last_to_happen)
 
 		for i in range(len(first_to_happen)):
 			difference = utils.time_between_indices(user, first_to_happen[i], last_to_happen[i])

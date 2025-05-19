@@ -2,7 +2,6 @@ import os
 import pandas as pd
 import json
 
-
 # Formatear un archivo de trazas generado por simva 
 # (se generan en formato json, pero cada traza viene como un objeto por separado, cada uno en una linea,
 # y ninguna traza esta separada entre si con comas, ademas de que los objetos no estan dentro de un array)
@@ -125,3 +124,7 @@ def load_all_files(path, extension = "json", column_to_sort_by = "eventId", drop
 					all_users_df = pd.concat([all_users_df, user_df], ignore_index=True)
 	
 	return all_users_df, users_individual_df_list
+
+def create_output_directory(path):
+	if not os.path.exists(path):
+		os.makedirs(path)
