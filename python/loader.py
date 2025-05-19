@@ -128,3 +128,37 @@ def load_all_files(path, extension = "json", column_to_sort_by = "eventId", drop
 def create_output_directory(path):
 	if not os.path.exists(path):
 		os.makedirs(path)
+
+
+def load_surveys(path, extension = "json", drop_cols = []):
+	all_df = pd.DataFrame()
+
+	# Recorrer todos los archivos del directorio
+	for file_name in os.listdir(path):
+		# Si el archivo tiene la extension indicada
+		if (file_name.endswith(extension)):
+			file_df = pd.DataFrame()	
+
+			# Intenta leer el archivo. Si hay algun error, el dataframe estara vacio
+			try:
+				if (extension == "json"):
+					with open(path + file_name) as f:
+						file = json.load(f)
+						answers = [value for value in file.values()]
+
+						for answer in answers:
+							if answer != None:
+								file_df = pd.concat([file_df, pd.DataFrame.from_dict([answer])], ignore_index=True)
+
+			except:
+				print("Error reading file")
+				pass
+
+			# Si el dataframe esta vacio
+			if (not file_df.empty):
+				# Eliminar columnas que no se van a usar
+				file_df = file_df.drop(columns=drop_cols)
+
+				all_df = pd.concat([all_df, file_df], ignore_index=True)
+	
+	return all_df
