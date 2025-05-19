@@ -116,12 +116,12 @@ export default class GameManager {
         this.computer.scene.sleep();
 
         // this.startGame(this.userInfo)
-        this.changeScene("Scene1Lunch1", {});
+        // this.changeScene("Scene1Lunch1", {});
         // this.changeScene("Scene1Bedroom1", {});
         // this.changeScene("Scene2Bedroom", {});
-        // this.changeScene("Scene3Break", {});
+        // this.changeScene("Scene3Bedroom", {});
         // this.changeScene("Scene6Livingroom", {});
-        //this.changeScene("Scene6PortalRouteA", {});
+        this.changeScene("Scene6EndingRouteA", {});
         // this.changeScene("Scene7Bedroom", {});
 
     }
@@ -187,19 +187,19 @@ export default class GameManager {
     */
     changeScene(scene, params, canReturn = false) {
         // Reproduce un fade out al cambiar de escena
-        let FADE_OUT_TIME = 200;
-        let FADE_IN_TIME = 200;
+        this.FADE_OUT_TIME = 200;
+        this.FADE_IN_TIME = 200;
 
         if (params != null) {
             if (params.fadeOutTime != null) {
-                FADE_OUT_TIME = params.fadeOutTime;
+                this.FADE_OUT_TIME = params.fadeOutTime;
             }
             if (params.fadeInTime != null) {
-                FADE_IN_TIME = params.fadeInTime;
+                this.FADE_IN_TIME = params.fadeInTime;
             }
         }
 
-        this.currentScene.cameras.main.fadeOut(FADE_OUT_TIME, 0, 0, 0);
+        this.currentScene.cameras.main.fadeOut(this.FADE_OUT_TIME, 0, 0, 0);
         this.fading = true;
 
         // TODO: DISCARDED TRACKER EVENT
@@ -227,11 +227,11 @@ export default class GameManager {
 
             // Cuando se termina de crear la escena, se reproduce el fade in
             this.currentScene.events.on('create', () => {
-                this.currentScene.cameras.main.fadeIn(FADE_IN_TIME, 0, 0, 0);
+                this.currentScene.cameras.main.fadeIn(this.FADE_IN_TIME, 0, 0, 0);
                 this.fading = false;
             });
             this.currentScene.events.on('wake', () => {
-                this.currentScene.cameras.main.fadeIn(FADE_IN_TIME, 0, 0, 0);
+                this.currentScene.cameras.main.fadeIn(this.FADE_IN_TIME, 0, 0, 0);
                 this.fading = false;
             });
 

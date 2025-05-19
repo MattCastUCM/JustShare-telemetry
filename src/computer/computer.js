@@ -22,12 +22,15 @@ export default class Computer extends ComputerBaseScene {
         this.loginScreen = new LoginScreen(this);
 
         this.createPowerIcon(() => {
+            this.gameManager.leaveComputer()
+
+            setTimeout(() => {
+                this.socialMediaScreen.reset();
+            }, this.gameManager.FADE_OUT_TIME)
+
             // TRACKER EVENT
             // console.log("Salir del ordenador");
             this.gameManager.sendItemInteraction("powerOffButton");
-
-            this.gameManager.leaveComputer()
-            this.socialMediaScreen.reset();
         });
 
         this.changeToMainScreen()

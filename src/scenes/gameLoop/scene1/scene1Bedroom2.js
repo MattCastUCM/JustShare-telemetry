@@ -13,7 +13,7 @@ export default class Scene1Bedroom2 extends BaseScene {
         super.create(params)
 
         // Pone la imagen de fondo con las dimensiones del canvas
-        let bg = this.add.image(0, 0, 'bedroomBg').setOrigin(0, 0);
+        let bg = this.add.image(0, 0, 'bedroomNightBg').setOrigin(0, 0);
         this.scale = this.CANVAS_HEIGHT / bg.height;
         bg.setScale(this.scale);
 

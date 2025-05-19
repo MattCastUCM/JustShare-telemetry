@@ -24,38 +24,35 @@ export default class Scene7Bedroom extends BaseScene {
         bg.setScale(this.scale);
 
 
-        // Lee el archivo de nodos
-        let nodes = this.cache.json.get('scene7Bedroom');
-
         this.phoneManager.activatePhoneIcon(false);
         this.phoneManager.phone.reset();
 
-        this.setupPhone = () => {
-            // Laura
-            let chatName = this.gameManager.translate("textMessages.chat1", { ns: "deviceInfo", returnObjects: true });
-            this.phoneManager.phone.addChat(chatName, "lauraPfp");
-            let phoneNode = super.readNodes(nodes, "scene7\\scene7Bedroom", "lauraChat", true);
-            this.phoneManager.phone.setChatNode(chatName, phoneNode);
+        // Lee el archivo de nodos
+        let nodes = this.cache.json.get('scene7Bedroom');
 
-            // Quitar notificaciones de los mensajes anteriores
-            this.phoneManager.togglePhone(true, 0, () => {
+
+        // Laura
+        let chatName = this.gameManager.translate("textMessages.chat1", { ns: "deviceInfo", returnObjects: true });
+        this.phoneManager.phone.addChat(chatName, "lauraPfp");
+        let phoneNode = super.readNodes(nodes, "scene7\\scene7Bedroom", "lauraChat", true);
+        this.phoneManager.phone.setChatNode(chatName, phoneNode);
+        this.phoneManager.phone.toChatScreen(chatName);
+    
+        // Quitar notificaciones de los mensajes anteriores
+        this.phoneManager.togglePhone(true, 0, () => {
+            // Volver al chat del acosador
+            setTimeout(() => {
+                chatName = this.gameManager.translate("textMessages.chat2", { ns: "deviceInfo", returnObjects: true });
+                this.phoneManager.phone.addChat(chatName, "harasserPfp");
+                phoneNode = super.readNodes(nodes, "scene7\\scene7Bedroom", "phone", true);
+                this.dialogManager.setNode(phoneNode, []);
+
+                this.phoneManager.bgBlock.disableInteractive();
+                this.phoneManager.phone.returnButton.disableInteractive();
+
                 this.phoneManager.phone.toChatScreen(chatName);
-
-                // Volver al chat del acosador
-                setTimeout(() => {
-                    chatName = this.gameManager.translate("textMessages.chat2", { ns: "deviceInfo", returnObjects: true });
-                    this.phoneManager.phone.addChat(chatName, "harasserPfp");
-                    phoneNode = super.readNodes(nodes, "scene7\\scene7Bedroom", "phone", true);
-                    this.dialogManager.setNode(phoneNode, []);
-
-                    this.phoneManager.bgBlock.disableInteractive();
-                    this.phoneManager.phone.returnButton.disableInteractive();
-
-                    this.phoneManager.phone.toChatScreen(chatName);
-                }, 50);
-
-            });
-        };
+            }, 0);
+        });
 
 
         this.dispatcher.add("chatEnded", this, () => {
@@ -108,12 +105,7 @@ export default class Scene7Bedroom extends BaseScene {
 
             this.gameManager.changeScene("TextOnlyScene", params);
         });
-    }
-
-    onCreate() {
-        setTimeout(() => {
-            this.setupPhone();
-        }, 50);
 
     }
+
 }
