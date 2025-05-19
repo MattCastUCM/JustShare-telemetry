@@ -441,7 +441,9 @@ utils.show_metric(
 # Número medio de veces que se pulsa el botón de responder en las pantallas de chat cuando no se puede responder.
 ############################
 
-
+reply = all_users_df[(all_users_df["object.id"] == "ObjectInteraction") & (all_users_df["Object"] == "phoneAnswerButton")]
+answers = all_users_df[all_users_df["object.id"] == "AnswerChat"]
+utils.show_metric("2 b ii", "Número medio de veces que se pulsa el botón de responder en las pantallas de chat cuando no se puede responder", (reply.index.size - answers.index.size) / n_users)
 
 ############################
 # APARTADO 2 b iii,
