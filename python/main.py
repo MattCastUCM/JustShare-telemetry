@@ -614,6 +614,9 @@ graphics.display_bar_chart(df_average,title="Media de tiempo en segundos de cada
 
 # APARTADO 2 d iii
 # Tiempo medio transcurrido entre que el usuario abre un chat con un mensaje que se puede contestar y pulsa el botón para contestar.
+
+# APARTADO 2 e ii
+# Tiempo medio que el usuario pasa con el móvil abierto
 ############################
 
 def get_average_time_difference_between_phone_events(first_conditions, last_conditions):
@@ -674,6 +677,15 @@ utils.show_metric(
 	info=f"{get_average_time_difference_between_phone_events(first_conditions, last_conditions)} segundos"
 )
 
+first_conditions = [("object.id", "ObjectInteraction"), ("Object", "phone"), ("Closing", False)]
+last_conditions = [("object.id", "ObjectInteraction"), ("Object", "phone"), ("Closing", True)]
+
+utils.show_metric(
+	section="2 e ii",
+	title="Tiempo medio que el usuario pasa con el móvil abierto",
+	info=f"{get_average_time_difference_between_phone_events(first_conditions, last_conditions)} segundos"
+)
+
 ############################
 # APARTADO 2 e i
 # Número medio de veces que se interactúa con los elementos del escenario y con cuáles
@@ -698,13 +710,13 @@ objectInteractions_avg = object_interactions()
 
 utils.show_metric(
 	section="2 e i",
-	title="Número medio de interacciones con los elementos del entorno por jugador",
+	title="Número medio de interacciones con los elementos del entorno por usuario",
 	info="\n".join([f"{elem}: {avg:.2f}" for elem, avg in objectInteractions_avg.items()])
 )
 
 graphics.display_bar_chart(
 	objectInteractions_avg,
-	title="Número medio de interacciones con los elementos del entorno por jugador",
+	title="Número medio de interacciones con los elementos del entorno por usuario",
 	ylabel="Media de clics por usuario",
 	xlabel="Elemento",
 	bar_color="skyblue"
