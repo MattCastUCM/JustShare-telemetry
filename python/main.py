@@ -673,3 +673,39 @@ utils.show_metric(
 	title="Tiempo medio transcurrido entre que el usuario abre un chat con un mensaje que se puede contestar y pulsa el botón para contestar",
 	info=f"{get_average_time_difference_between_phone_events(first_conditions, last_conditions)} segundos"
 )
+
+############################
+# APARTADO 2 e i
+# Número medio de veces que se interactúa con los elementos del escenario y con cuáles
+############################
+
+def object_interactions():
+	conditions = [("object.id", "ObjectInteraction")]
+	social_media = utils.find_values_by_conditions(all_users_df, conditions, "Object")
+	counts_all = pd.Series(social_media).value_counts()
+
+	# Se filtran los elementos interactuables del entorno
+	validObj = {'closet', 'bed', 'computer', 'exitDoor', 'bedroomDoor', 'livingroomDoor'}
+
+   # Mantener solo los válidos y rellenar con 0 los que falten
+	counts_valid = counts_all.reindex(validObj, fill_value=0)
+
+	# Número medio de interacciones por usuario
+	avg_interactions = counts_valid / n_users
+	return avg_interactions
+   
+objectInteractions_avg = object_interactions()
+
+utils.show_metric(
+	section="2 e i",
+	title="Número medio de interacciones con los elementos del entorno por jugador",
+	info="\n".join([f"{elem}: {avg:.2f}" for elem, avg in objectInteractions_avg.items()])
+)
+
+graphics.display_bar_chart(
+	objectInteractions_avg,
+	title="Número medio de interacciones con los elementos del entorno por jugador",
+	ylabel="Media de clics por usuario",
+	xlabel="Elemento",
+	bar_color="skyblue"
+)
