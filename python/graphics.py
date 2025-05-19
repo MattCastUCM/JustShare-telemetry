@@ -68,6 +68,7 @@ def display_nested_pie_chart(outer_values, inner_values, outer_labels, inner_lab
 		connectionstyle="angle,angleA=0,angleB={}".format(ang)
 		kw["arrowprops"].update({"connectionstyle":connectionstyle})
 		ax.annotate(outer_labels[i],xy=(x, y),xytext=(1.35*np.sign(x),1.4*y), horizontalalignment=horizontalalignment,**kw)
+	
 	total_segments = sum(len(sublist) for sublist in inner_values)
 	flat_values = [val for sublist in inner_values for val in sublist]
 	colors = plt.cm.Set3(np.linspace(0, 1, total_segments))
@@ -126,85 +127,87 @@ def display_heatmap(posX, posY, title, background_image):
 
 
 def flexible_double_donut(
-    outer_data, outer_labels,
-    inner_data, inner_labels,
-    show_outer_label_in_chart=True,
-    show_outer_percentage_in_chart=True,
-    show_outer_panel=False,
-    show_outer_percentage_in_panel=True,
-    show_inner_label_in_chart=True,
-    show_inner_percentage_in_chart=True,
-    show_inner_panel=False,
-    show_inner_percentage_in_panel=True,
-    outer_title="Outer",
-    inner_title="Inner",
-    outer_colors=None,
-    inner_colors=None,
-    start_angle = 90
+	outer_data, outer_labels,
+	inner_data, inner_labels,
+	title,
+	show_outer_label_in_chart=True,
+	show_outer_percentage_in_chart=True,
+	show_outer_panel=False,
+	show_outer_percentage_in_panel=True,
+	show_inner_label_in_chart=True,
+	show_inner_percentage_in_chart=True,
+	show_inner_panel=False,
+	show_inner_percentage_in_panel=True,
+	outer_title="Outer",
+	inner_title="Inner",
+	outer_colors=None,
+	inner_colors=None,
+	start_angle = 90
 ):
-    fig, ax = plt.subplots(figsize=(8, 5))
-    width = 0.3
+	fig, ax = plt.subplots(figsize=(8, 5))
+	width = 0.3
 
 
-    if not outer_colors:
-        outer_colors = plt.cm.tab20c.colors[:len(outer_data)]
-    if not inner_colors:
-        inner_colors = plt.cm.tab20c.colors[len(outer_data):len(outer_data)+len(inner_data)]
+	if not outer_colors:
+		outer_colors = plt.cm.tab20c.colors[:len(outer_data)]
+	if not inner_colors:
+		inner_colors = plt.cm.tab20c.colors[len(outer_data):len(outer_data)+len(inner_data)]
 
-    def labels_with_percentage(labels, data):
-        total = sum(data)
-        return [f"{e} ({v/total*100:.1f}%)" for e, v in zip(labels, data)]
-    
-    def labels_only(labels, data):
-        return labels
+	def labels_with_percentage(labels, data):
+		total = sum(data)
+		return [f"{e} ({v/total*100:.1f}%)" for e, v in zip(labels, data)]
+	
+	def labels_only(labels, data):
+		return labels
 
-    # OUTER
-    labels_ext = outer_labels if show_outer_label_in_chart else None
-    autopct_ext = '%1.1f%%' if show_outer_percentage_in_chart else None
+	# OUTER
+	labels_ext = outer_labels if show_outer_label_in_chart else None
+	autopct_ext = '%1.1f%%' if show_outer_percentage_in_chart else None
 
-    ax.pie(
-        outer_data, radius=1, labels=labels_ext, autopct=autopct_ext,
-        colors=outer_colors, pctdistance=0.85, labeldistance=1.08,
-        wedgeprops=dict(width=width, edgecolor='w'), textprops=dict(color="black", fontsize=9),
-        startangle = start_angle
-    )
+	ax.pie(
+		outer_data, radius=1, labels=labels_ext, autopct=autopct_ext,
+		colors=outer_colors, pctdistance=0.85, labeldistance=1.08,
+		wedgeprops=dict(width=width, edgecolor='w'), textprops=dict(color="black", fontsize=9),
+		startangle = start_angle
+	)
 
-    # INNER
-    labels_int = inner_labels if show_inner_label_in_chart else None
-    autopct_int = '%1.1f%%' if show_inner_percentage_in_chart else None
+	# INNER
+	labels_int = inner_labels if show_inner_label_in_chart else None
+	autopct_int = '%1.1f%%' if show_inner_percentage_in_chart else None
 
-    ax.pie(
-        inner_data, radius=1-width, labels=labels_int, autopct=autopct_int,
-        colors=inner_colors, pctdistance=0.7, labeldistance=1.02,
-        wedgeprops=dict(width=width, edgecolor='w'), textprops=dict(color="black", fontsize=8),
-        startangle = start_angle
-    )
+	ax.pie(
+		inner_data, radius=1-width, labels=labels_int, autopct=autopct_int,
+		colors=inner_colors, pctdistance=0.7, labeldistance=1.02,
+		wedgeprops=dict(width=width, edgecolor='w'), textprops=dict(color="black", fontsize=8),
+		startangle = start_angle
+	)
 
-    ax.set(aspect="equal")
+	ax.set(aspect="equal")
 
-    # OUTER PANEL
-    if show_outer_panel:
-        if show_outer_percentage_in_panel:
-            panel_labels_ext = labels_with_percentage(outer_labels, outer_data)
-        else:
-            panel_labels_ext = labels_only(outer_labels, outer_data)
-        handles_ext = [Patch(facecolor=c, edgecolor='k') for c in outer_colors]
-        fig.legend(
-            handles_ext, panel_labels_ext, title=outer_title, 
-            bbox_to_anchor=(0.95, 0.92), loc="upper left"
-        )
+	# OUTER PANEL
+	if show_outer_panel:
+		if show_outer_percentage_in_panel:
+			panel_labels_ext = labels_with_percentage(outer_labels, outer_data)
+		else:
+			panel_labels_ext = labels_only(outer_labels, outer_data)
+		handles_ext = [Patch(facecolor=c, edgecolor='k') for c in outer_colors]
+		fig.legend(
+			handles_ext, panel_labels_ext, title=outer_title, 
+			bbox_to_anchor=(0.95, 0.92), loc="upper left"
+		)
 
-    # INNER PANEL
-    if show_inner_panel:
-        if show_inner_percentage_in_panel:
-            panel_labels_int = labels_with_percentage(inner_labels, inner_data)
-        else:
-            panel_labels_int = labels_only(inner_labels, inner_data)
-        handles_int = [Patch(facecolor=c, edgecolor='k') for c in inner_colors]
-        fig.legend(
-            handles_int, panel_labels_int, title=inner_title, 
-            bbox_to_anchor=(0.95, 0.5), loc="upper left"
-        )
+	# INNER PANEL
+	if show_inner_panel:
+		if show_inner_percentage_in_panel:
+			panel_labels_int = labels_with_percentage(inner_labels, inner_data)
+		else:
+			panel_labels_int = labels_only(inner_labels, inner_data)
+		handles_int = [Patch(facecolor=c, edgecolor='k') for c in inner_colors]
+		fig.legend(
+			handles_int, panel_labels_int, title=inner_title, 
+			bbox_to_anchor=(0.95, 0.5), loc="upper left"
+		)
 
-    plt.tight_layout()
-    plt.show()
+	plt.tight_layout()
+	plt.title(title, pad=20)
+	plt.show()

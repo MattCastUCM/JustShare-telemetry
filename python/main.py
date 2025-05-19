@@ -114,7 +114,7 @@ def get_choices_stats(all_users_df, nodes_names = [], gender_sexuality_combinati
 					count = utils.find_indices_by_conditions(choices_events, new_conditions)
 					count = len(count)
 				
-				demographic_count_in_response[index] = count
+				demographic_count_in_response[index] += count
 				
 			demographic_count_in_node.append(demographic_count_in_response)
 
@@ -155,8 +155,14 @@ for i in range(len(nodes_names)):
 	labels = []
 	for j in range (len(count_per_responses_per_node[i])):
 		labels += gender_sexuality_combinations
-	# HELPPPPPPPP
-	graphics.display_nested_pie_chart(count_per_responses_per_node[i], count_per_responses_per_node_per_demography[i], different_responses_per_node[i], labels, f"Distribucion de opciones elegidas en el nodo {nodes_names[i]} por opcion, genero y sexualidad (%)")
+	# graphics.display_nested_pie_chart(count_per_responses_per_node[i], count_per_responses_per_node_per_demography[i], different_responses_per_node[i], labels, f"Distribucion de opciones elegidas en el nodo {nodes_names[i]} por opcion, genero y sexualidad (%)")	
+
+	inner_flattened_percentages = np.array(count_per_responses_per_node_per_demography[i])
+	inner_flattened_percentages = np.concatenate(inner_flattened_percentages)
+	inner_flattened_percentages = np.divide(inner_flattened_percentages, np.sum(inner_flattened_percentages))
+	inner_flattened_percentages *= 100
+	graphics.flexible_double_donut(count_per_responses_per_node[i], different_responses_per_node[i], inner_flattened_percentages, labels, f"Distribucion de opciones elegidas en el nodo {nodes_names[i]} por opcion, genero y sexualidad (%)", show_outer_label_in_chart=False, show_outer_panel=True, show_inner_label_in_chart=False, show_inner_panel=True)
+	
 
 
 ############################
@@ -239,17 +245,22 @@ utils.show_metric(
 	info=result
 )
 
-# HELPPPPPPPP
-graphics.display_pie_chart(
-	values=ending_percentages.values,
-	labels=ending_percentages.index,
-	title="Distribución de finales conseguidos (%)"
-)
+# graphics.display_pie_chart(
+# 	values=ending_percentages.values,
+# 	labels=ending_percentages.index,
+# 	title="Distribución de finales conseguidos (%)"
+# )
 
 labels = []
 for i in range(len(ending_counts)):
 	labels += gender_sexuality_combinations
-graphics.display_nested_pie_chart(ending_counts.values, demographic_ending_counts, ending_counts.index, labels, "Distribución de finales conseguidos por final, genero y sexualidad (%)")
+# graphics.display_nested_pie_chart(ending_counts.values, demographic_ending_counts, ending_counts.index, labels, "Distribución de finales conseguidos por final, genero y sexualidad (%)")
+
+inner_flattened_percentages = np.array(demographic_ending_counts)
+inner_flattened_percentages = np.concatenate(inner_flattened_percentages)
+inner_flattened_percentages = np.divide(inner_flattened_percentages, np.sum(inner_flattened_percentages))
+inner_flattened_percentages *= 100
+graphics.flexible_double_donut(ending_counts.values, ending_counts.index, inner_flattened_percentages, labels, "Distribución de finales conseguidos por final, genero y sexualidad (%)", show_outer_label_in_chart=False, show_outer_panel=True, show_inner_label_in_chart=False, show_inner_panel=True)
 
 
 ############################
