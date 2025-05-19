@@ -141,13 +141,19 @@ def flexible_double_donut(outer_data, outer_labels,inner_data, inner_labels,titl
 		idx = [i for i, v in enumerate(data) if v > 0]
 		filtered_data = [data[i] for i in idx]
 		filtered_labels = [labels[i] for i in idx]
-		filtered_colors = [colors[i] for i in idx]
+		filtered_colors = [colors[(i%len(colors))] for i in idx]
 		return filtered_data, filtered_labels, filtered_colors
 
-	if not outer_colors:
-		outer_colors = plt.cm.tab20c.colors[:len(outer_data)]
-	if not inner_colors:
-		inner_colors = plt.cm.tab20c.colors[len(outer_data):len(outer_data)+len(inner_data)]
+	if outer_colors is None:
+		outer_colors = plt.cm.tab20.colors[:len(outer_data)]
+	if inner_colors is None:
+		colors = list(plt.cm.tab20.colors)
+		colors.extend(list(plt.cm.tab20.colors))
+		needed = len(inner_data)
+		start = len(outer_data)  # desde dónde empiezas, como en tu código
+		# Repite la lista hasta cubrir los necesarios
+		repeated_colors = (colors * ((start + needed) // len(colors) + 1))
+		inner_colors = repeated_colors[start:start+needed]
 
 	# For the chart, remove zeros
 	outer_data_nonzero, outer_labels_nonzero, outer_colors_nonzero = filter_nonzero(outer_data, outer_labels, outer_colors)
