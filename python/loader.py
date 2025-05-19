@@ -75,7 +75,7 @@ def load_all_files(path, extension = "json", column_to_sort_by = "eventId", drop
 			# Intenta leer el archivo. Si hay algun error, el dataframe estara vacio
 			try:
 				if (extension == "json"):
-					with open(path + file_name) as f:
+					with open(path + file_name, encoding='utf-8') as f:
 						file = ""
 						# Cargar json
 						if not use_scorm:
@@ -142,7 +142,7 @@ def load_surveys(path, extension = "json", drop_cols = []):
 			# Intenta leer el archivo. Si hay algun error, el dataframe estara vacio
 			try:
 				if (extension == "json"):
-					with open(path + file_name) as f:
+					with open(path + file_name, encoding='utf-8') as f:
 						file = json.load(f)
 						answers = [value for value in file.values()]
 
