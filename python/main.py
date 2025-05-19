@@ -161,7 +161,7 @@ for i in range(len(nodes_names)):
 	inner_flattened_percentages = np.concatenate(inner_flattened_percentages)
 	inner_flattened_percentages = np.divide(inner_flattened_percentages, np.sum(inner_flattened_percentages))
 	inner_flattened_percentages *= 100
-	graphics.flexible_double_donut(count_per_responses_per_node[i], different_responses_per_node[i], inner_flattened_percentages, labels, f"Distribucion de opciones elegidas en el nodo {nodes_names[i]} por opcion, genero y sexualidad (%)", show_outer_label_in_chart=False, show_outer_panel=True, show_inner_label_in_chart=False, show_inner_panel=True)
+	graphics.display_flexible_double_donut(count_per_responses_per_node[i], different_responses_per_node[i], inner_flattened_percentages, labels, f"Distribucion de opciones elegidas en el nodo {nodes_names[i]} por opcion, genero y sexualidad (%)", show_outer_label_in_chart=False, show_outer_panel=True, show_inner_label_in_chart=False, show_inner_panel=True)
 	
 
 
@@ -260,7 +260,7 @@ inner_flattened_percentages = np.array(demographic_ending_counts)
 inner_flattened_percentages = np.concatenate(inner_flattened_percentages)
 inner_flattened_percentages = np.divide(inner_flattened_percentages, np.sum(inner_flattened_percentages))
 inner_flattened_percentages *= 100
-graphics.flexible_double_donut(ending_counts.values, ending_counts.index, inner_flattened_percentages, labels, "Distribución de finales conseguidos por final, genero y sexualidad (%)", show_outer_label_in_chart=False, show_outer_panel=True, show_inner_label_in_chart=False, show_inner_panel=True)
+graphics.display_flexible_double_donut(ending_counts.values, ending_counts.index, inner_flattened_percentages, labels, "Distribución de finales conseguidos por final, genero y sexualidad (%)", show_outer_label_in_chart=False, show_outer_panel=True, show_inner_label_in_chart=False, show_inner_panel=True)
 
 
 ############################
@@ -595,7 +595,7 @@ all_values = [v for v in average.values()]
 overall_average = sum(all_values) / len(all_values)
 text+= f"Media total: {overall_average:.2f}"
 #print(text)
-#
+
 utils.show_metric(
 	section="2 c ii",
 	title="Tiempo medio que se queda leyendo cada diálogo",
@@ -721,3 +721,82 @@ graphics.display_bar_chart(
 	xlabel="Elemento",
 	bar_color="skyblue"
 )
+
+###########################
+# ENCUESTAS
+###########################
+pd.set_option("display.max_columns", None)
+pd.set_option("display.max_rows", None)
+pd.set_option("display.max_colwidth", None)
+
+cols_to_drop = ["ID de respuesta", "Fecha de envío",  "Última página", "Lenguaje inicial", "Semilla", "Fecha de inicio", "Fecha de la última acción"]
+
+surveys_path = "./encuestas/pre/"
+pre = loader.load_surveys(surveys_path, files_extension, cols_to_drop)
+graphics.display_df(pre, "Pretest")
+
+surveys_path = "./encuestas/post/"
+post = loader.load_surveys(surveys_path, files_extension, cols_to_drop)
+graphics.display_df(post, "Postest")
+
+def survey_comparative(pre, post):
+	def extraer_num(x):
+		try:
+			return int(str(x).split('-')[0].strip())
+		except Exception:
+			return x  # Si no es del formato esperado, lo deja igual
+
+	cols_modificar = pre.columns[4:]
+	datos1 = pre.copy()
+	datos2 = post.copy()
+
+	# Aplica la extracción solo a las columnas deseadas
+	datos1[cols_modificar] = datos1[cols_modificar].map(extraer_num)
+	datos2[cols_modificar] = datos2[cols_modificar].map(extraer_num)
+
+	for index, (idx1, row1) in enumerate(datos1.iterrows()):
+		codigo = row1["Código de acceso"]
+		fila2 = datos2[datos2["Código de acceso"] == codigo]
+		y1 = row1[cols_modificar].values
+		x = range(1, len(cols_modificar) + 1)  # Eje X: número de pregunta
+		title = f'Comparación persona ({codigo})'
+		graphics.display_line_graph(x, y1, fila2, cols_modificar, title, "Número de pregunta", "Peligrosidad")
+
+survey_comparative(pre, post)
+
+def survey_difference(pre, post):
+	def extraer_num(x):
+		try:
+			return int(str(x).split('-')[0].strip())
+		except Exception:
+			return -1
+	
+	cols_modificar = pre.columns[4:]
+	datos1 = pre.copy()
+	datos2 = post.copy()
+
+	datos1[cols_modificar] = datos1[cols_modificar].map(extraer_num)
+	datos2[cols_modificar] = datos2[cols_modificar].map(extraer_num)
+
+	diferencias = []
+
+	for idx1, row1 in datos1.iterrows():
+		codigo = row1["Código de acceso"]
+		fila2 = datos2[datos2["Código de acceso"] == codigo]
+		y1 = row1[cols_modificar].values
+		if not fila2.empty:
+			y2 = fila2.iloc[0][cols_modificar].values
+			if not (-1 in y1 or -1 in y2):
+				diff = y2 - y1
+				diferencias.append(diff)
+
+	# Convierte la lista en DataFrame para graficar fácilmente
+	diferencias_df = pd.DataFrame(diferencias, columns=cols_modificar)
+
+	x = np.arange(1, len(cols_modificar) + 1)
+	promedio = diferencias_df.mean()
+
+	graphics.display_bar(x, promedio, "Diferencia promedio (Post - Pre) por pregunta",
+						"Número de pregunta", "Diferencia promedio")
+
+survey_difference(pre, post)

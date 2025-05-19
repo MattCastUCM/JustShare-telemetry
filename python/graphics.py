@@ -1,19 +1,26 @@
+from matplotlib.patches import Patch
 import matplotlib.pyplot as plt
 import numpy as np
 from PIL import Image
 import loader
-from matplotlib.patches import Patch
 
-save_graphics = False
+save_graphics = True
 output_directory = "./output/"
 
 def show_graphic(title):
 	if save_graphics:
 		loader.create_output_directory(output_directory)
 		plt.savefig(f'{output_directory}{title}.png',format='png',bbox_inches='tight')
-		plt.clf()
+		plt.close()
 	else:
 		plt.show()
+
+def display_df(df, title):
+	if save_graphics:
+		loader.create_output_directory(output_directory)
+		df.to_csv(f'{output_directory}{title}.csv', index=False)
+	else:
+		print(df)
 
 # Grafica de sectores
 def display_pie_chart(values, labels, title, figsize=(6, 6),label_fontsize=12,pct_fontsize=10):
@@ -123,17 +130,13 @@ def display_heatmap(posX, posY, title, background_image):
 
 	show_graphic(title)
 
-
-
-
-def flexible_double_donut(outer_data, outer_labels,inner_data, inner_labels,title,
+def display_flexible_double_donut(outer_data, outer_labels,inner_data, inner_labels,title,
 	show_outer_label_in_chart=True,show_outer_percentage_in_chart=True,
 	show_outer_panel=False,show_outer_percentage_in_panel=True,
 	show_inner_label_in_chart=True,show_inner_percentage_in_chart=True,
 	show_inner_panel=False,show_inner_percentage_in_panel=True,
 	outer_title="Outer",inner_title="Inner",
-	outer_colors=None,inner_colors=None,start_angle = 90
-):
+	outer_colors=None,inner_colors=None,start_angle = 90):
 	fig, ax = plt.subplots(figsize=(8, 5))
 	width = 0.3
 
@@ -213,4 +216,30 @@ def flexible_double_donut(outer_data, outer_labels,inner_data, inner_labels,titl
 
 	plt.tight_layout()
 	plt.title(title, pad=20)
-	plt.show()
+	show_graphic(title)
+
+def display_bar(x, y, title, xlabel, ylabel):
+	plt.figure(figsize=(12, 6))
+	plt.bar(x, y, color='limegreen', alpha=0.7)
+	plt.axhline(0, color='black', linestyle='--', linewidth=1)
+	plt.title(title)
+	plt.xlabel(xlabel)
+	plt.ylabel(ylabel)
+	plt.xticks(x)
+	plt.tight_layout()
+	show_graphic(title)
+
+def display_line_graph(x, y1, fila2, cols_modificar, title, xlabel, ylabel):
+	plt.figure(figsize=(10, 5))
+	plt.plot(x, y1, marker='o', label='Pre')
+	if not fila2.empty:
+		y2 = fila2.iloc[0][cols_modificar].values
+		plt.plot(x, y2, marker='o', label='Post')
+	plt.title(title)
+	plt.xlabel(xlabel)
+	plt.ylabel(ylabel)
+	plt.ylim(1, 6)
+	plt.legend()
+	plt.xticks(x)
+	plt.tight_layout()
+	show_graphic(title)
