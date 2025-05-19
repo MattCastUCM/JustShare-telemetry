@@ -532,7 +532,32 @@ plt.imshow(img)
 
 plt.show()
 
+############################
+# APARTADO 2 c i
+# Tiempo medio que se queda leyendo las pantallas de transición.
+############################
+def average_transition_time(users_individual_df_list):
+    conditions = [("Scene", "TextOnlyScene")]
+    durations=[]
+    for user in users_individual_df_list:
+        indexes = utils.find_indices_by_conditions(user, conditions)
+        for index in indexes:
+            pos = user.index.get_loc(index)
+            if pos + 1 < len(user):
+                next_idx = user.index[index + 1]
+                if user.loc[next_idx, 'object.id'] == 'EnterScene':
+                    value= utils.time_between_indices(user,index, next_idx)
+                    durations.append(value)
 
+    return  durations
+
+durations=average_transition_time(users_individual_df_list)
+mean=np.mean(durations)
+utils.show_metric(
+	section="2 c i",
+	title="Tiempo medio que se queda leyendo las pantallas de transicióno",
+	info=mean
+)
 
 ############################
 # APARTADO 2 c ii,
@@ -545,14 +570,14 @@ def average_dialog_time(users_individual_df_list):
     for user in users_individual_df_list:
         indexes = utils.find_indices_by_conditions(user, conditions)
         for index in indexes:
-            end_condition= [("object.id","DialogEnd"),("Node",user.loc[index, 'Node'])]
+            end_condition= [("object.id","DialogEnd"),("Node",user.loc[index, "Node"])]
             end_index= utils.find_first_index_by_conditions(user,end_condition,index)
             if end_index:
-              key= user.loc[index, 'Node']
+              key= user.loc[index, "Node"]
               value= utils.time_between_indices(user,index, end_index)
               if key not in diccionary:
                  diccionary[key] = []
-            text= user.loc[index, 'Dialog.text']
+            text= user.loc[index, "Dialog.text"]
             diccionary[key].append(value) 
             
     average  = {}
@@ -573,8 +598,8 @@ overall_average = sum(all_values) / len(all_values)
 text+= f"Media total: {overall_average:.2f}"
 #print(text)
 utils.show_metric(
-	section="2 b v",
-	title="Tiempo medio que se queda leyendo cada diálogo.",
+	section="2 c ii",
+	title="Tiempo medio que se queda leyendo cada diálogo",
 	info=""
 )
 df_average = pd.DataFrame(list(average.items()), columns=['dialog', 'average'])
