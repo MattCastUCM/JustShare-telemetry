@@ -126,58 +126,56 @@ def display_heatmap(posX, posY, title, background_image):
 
 
 
-def flexible_double_donut(
-	outer_data, outer_labels,
-	inner_data, inner_labels,
-	title,
-	show_outer_label_in_chart=True,
-	show_outer_percentage_in_chart=True,
-	show_outer_panel=False,
-	show_outer_percentage_in_panel=True,
-	show_inner_label_in_chart=True,
-	show_inner_percentage_in_chart=True,
-	show_inner_panel=False,
-	show_inner_percentage_in_panel=True,
-	outer_title="Outer",
-	inner_title="Inner",
-	outer_colors=None,
-	inner_colors=None,
-	start_angle = 90
+def flexible_double_donut(outer_data, outer_labels,inner_data, inner_labels,title,
+	show_outer_label_in_chart=True,show_outer_percentage_in_chart=True,
+	show_outer_panel=False,show_outer_percentage_in_panel=True,
+	show_inner_label_in_chart=True,show_inner_percentage_in_chart=True,
+	show_inner_panel=False,show_inner_percentage_in_panel=True,
+	outer_title="Outer",inner_title="Inner",
+	outer_colors=None,inner_colors=None,start_angle = 90
 ):
 	fig, ax = plt.subplots(figsize=(8, 5))
 	width = 0.3
 
+	def filter_nonzero(data, labels, colors):
+		idx = [i for i, v in enumerate(data) if v > 0]
+		filtered_data = [data[i] for i in idx]
+		filtered_labels = [labels[i] for i in idx]
+		filtered_colors = [colors[i] for i in idx]
+		return filtered_data, filtered_labels, filtered_colors
 
 	if not outer_colors:
 		outer_colors = plt.cm.tab20c.colors[:len(outer_data)]
 	if not inner_colors:
 		inner_colors = plt.cm.tab20c.colors[len(outer_data):len(outer_data)+len(inner_data)]
 
+	# For the chart, remove zeros
+	outer_data_nonzero, outer_labels_nonzero, outer_colors_nonzero = filter_nonzero(outer_data, outer_labels, outer_colors)
+	inner_data_nonzero, inner_labels_nonzero, inner_colors_nonzero = filter_nonzero(inner_data, inner_labels, inner_colors)
+
 	def labels_with_percentage(labels, data):
 		total = sum(data)
-		return [f"{e} ({v/total*100:.1f}%)" for e, v in zip(labels, data)]
-	
-	def labels_only(labels, data):
-		return labels
+		return [f"{e} ({v/total*100:.1f}%)" if total > 0 else f"{e} (0.0%)" for e, v in zip(labels, data)]
 
+	
 	# OUTER
-	labels_ext = outer_labels if show_outer_label_in_chart else None
+	labels_ext = outer_labels_nonzero if show_outer_label_in_chart else None
 	autopct_ext = '%1.1f%%' if show_outer_percentage_in_chart else None
 
 	ax.pie(
-		outer_data, radius=1, labels=labels_ext, autopct=autopct_ext,
-		colors=outer_colors, pctdistance=0.85, labeldistance=1.08,
+		outer_data_nonzero, radius=1, labels=labels_ext, autopct=autopct_ext,
+		colors=outer_colors_nonzero, pctdistance=0.85, labeldistance=1.08,
 		wedgeprops=dict(width=width, edgecolor='w'), textprops=dict(color="black", fontsize=9),
 		startangle = start_angle
 	)
 
 	# INNER
-	labels_int = inner_labels if show_inner_label_in_chart else None
+	labels_int = inner_labels_nonzero if show_inner_label_in_chart else None
 	autopct_int = '%1.1f%%' if show_inner_percentage_in_chart else None
 
 	ax.pie(
-		inner_data, radius=1-width, labels=labels_int, autopct=autopct_int,
-		colors=inner_colors, pctdistance=0.7, labeldistance=1.02,
+		inner_data_nonzero, radius=1-width, labels=labels_int, autopct=autopct_int,
+		colors=inner_colors_nonzero, pctdistance=0.7, labeldistance=1.02,
 		wedgeprops=dict(width=width, edgecolor='w'), textprops=dict(color="black", fontsize=8),
 		startangle = start_angle
 	)
@@ -189,7 +187,7 @@ def flexible_double_donut(
 		if show_outer_percentage_in_panel:
 			panel_labels_ext = labels_with_percentage(outer_labels, outer_data)
 		else:
-			panel_labels_ext = labels_only(outer_labels, outer_data)
+			panel_labels_ext = outer_labels
 		handles_ext = [Patch(facecolor=c, edgecolor='k') for c in outer_colors]
 		fig.legend(
 			handles_ext, panel_labels_ext, title=outer_title, 
@@ -201,7 +199,7 @@ def flexible_double_donut(
 		if show_inner_percentage_in_panel:
 			panel_labels_int = labels_with_percentage(inner_labels, inner_data)
 		else:
-			panel_labels_int = labels_only(inner_labels, inner_data)
+			panel_labels_int = inner_labels
 		handles_int = [Patch(facecolor=c, edgecolor='k') for c in inner_colors]
 		fig.legend(
 			handles_int, panel_labels_int, title=inner_title, 
