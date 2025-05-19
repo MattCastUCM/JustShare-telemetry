@@ -48,6 +48,7 @@ def show_metric(section, title, info = None):
         print(str(info))
     print("#"*10,"\n")
 
+
 # def get_events_between_different_parameters(dataframe, parameter1, parameter2, firstPValue, secondPValue):
 # 	# Buscar el primer y ultimo indice de la fila
 # 	start_idx = dataframe[dataframe[parameter1] == firstPValue].index

@@ -44,15 +44,20 @@ def split_by_column_values(df, column):
 # Se usa para obtener todos los eventos que se ejecutan en una sesion
 def get_events_between_closest_values(df, column, first, last):
 	# Buscar el primer y ultimo indice de la fila
-	start_idx = df.index[df[column] == first][-1]
-	end_idx = df.index[(df.index > start_idx) & (df[column] == last)][0]
+	start_idx = df.index[df[column] == first]
 
 	events = pd.DataFrame()
-	
-	# Obtener el dataframe entre ambos indices
-	if end_idx > start_idx:
-		events = df.loc[start_idx:end_idx]
-		events = events.reset_index(drop=True)
+
+	if (len(start_idx) > 0):
+		start_idx = start_idx[-1]
+		end_idx = df.index[(df.index > start_idx) & (df[column] == last)]
+		
+		if (len(end_idx) > 0):
+			end_idx = end_idx[0]
+			# Obtener el dataframe entre ambos indices
+			if end_idx > start_idx:
+				events = df.loc[start_idx:end_idx]
+				events = events.reset_index(drop=True)
 
 	return events
 
@@ -111,7 +116,8 @@ def load_all_files(path, extension = "json", column_to_sort_by = "eventId", drop
 
 					# Se busca el dataset que abarque ultimo inicio de sesion y el primer fin de sesion
 					file_df = get_events_between_closest_values(user_df, "object.id", "SessionStart", "SessionEnd")
-
+					file_df = file_df.drop_duplicates()
+					
 					# Se agrega el dataset del usuario a la lista con cada dataset
 					users_individual_df_list.append(user_df)
 

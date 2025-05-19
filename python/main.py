@@ -259,7 +259,7 @@ graphics.display_nested_pie_chart(ending_counts.values, demographic_ending_count
 
 
 ############################
-# APARTADO 1 c i,
+# APARTADO 1 c i y 2 e iii,
 # Número medio de interacciones con los elementos de las redes sociales dentro del juego
 ############################
 
@@ -281,7 +281,7 @@ def social_media_elements():
 socialMedia_avg = social_media_elements()
 
 utils.show_metric(
-	section="1 c i",
+	section="1 c i y 2 e iii",
 	title="Número medio de interacciones con los elementos de las redes sociales dentro del juego",
 	info="\n".join([f"{elem}: {avg:.2f}" for elem, avg in socialMedia_avg.items()])
 )
@@ -296,7 +296,7 @@ graphics.plot_bar_chart(
 
 
 ############################
-# APARTADO 1 c i,
+# APARTADO 1 c ii,
 # Porcentaje de veces que escuchan a su amiga en el recreo antes de abrir el móvil (1,2 o 3 veces)
 ############################
 conditions = [("object.id", "Day3BreakConversation")]
@@ -313,7 +313,7 @@ for times in unique_values:
 	total_times += len(count)
 
 utils.show_metric(
-	section="2 b iii",
+	section="1 c ii",
 	title="Porcentaje de veces que se escucha a la amiga durante el recreo del dia 3",
 	info="\n".join([f"{i} veces: {(times_listened[i] / total_times) * 100}%" for i in range(len(times_listened))])
 )
@@ -431,9 +431,8 @@ game_initialized = all_users_df[(all_users_df["object.id"] == "GameStart")].inde
 utils.show_metric(
 	section="2 b i",
 	title="Número medio de veces que se pulsa sin éxito el botón de “aceptar” en la pantalla de login (si no ha seleccionado correctamente las opciones de personalización iniciales)",
-	info=(login.size - game_initialized.size) / n_users
+	info=f"{(login.size - game_initialized.size) / n_users} veces"
 )
-
 
 
 ############################
@@ -443,7 +442,12 @@ utils.show_metric(
 
 reply = all_users_df[(all_users_df["object.id"] == "ObjectInteraction") & (all_users_df["Object"] == "phoneAnswerButton")]
 answers = all_users_df[all_users_df["object.id"] == "AnswerChat"]
-utils.show_metric("2 b ii", "Número medio de veces que se pulsa el botón de responder en las pantallas de chat cuando no se puede responder", (reply.index.size - answers.index.size) / n_users)
+utils.show_metric(
+	"2 b ii", 
+	"Número medio de veces que se pulsa el botón de responder en las pantallas de chat cuando no se puede responder", 
+	f"{(reply.index.size - answers.index.size) / n_users} veces"
+)
+
 
 ############################
 # APARTADO 2 b iii,
@@ -516,8 +520,8 @@ utils.show_metric(
 )
 
 # Grafica
-plt.figure(figsize=(7, 5))
-plt.scatter(computerScreenPosX, computerScreenPosY, alpha=0.6)
+plt.figure(figsize=(15, 15))
+plt.scatter(computerScreenPosX, computerScreenPosY, alpha=0.6, s=15)
 plt.title("Posiciones de clic en la pantalla del ordenador (todas las partidas)")
 plt.xlabel("PointerX")
 plt.ylabel("PointerY")
@@ -531,6 +535,7 @@ img = np.asarray(Image.open("./heatmapImg.png"))
 plt.imshow(img)
 
 plt.show()
+
 
 ############################
 # APARTADO 2 c i
@@ -555,9 +560,10 @@ durations=average_transition_time(users_individual_df_list)
 mean=np.mean(durations)
 utils.show_metric(
 	section="2 c i",
-	title="Tiempo medio que se queda leyendo las pantallas de transicióno",
-	info=mean
+	title="Tiempo medio que se queda leyendo las pantallas de transición",
+	info=f"{mean} segundos"
 )
+
 
 ############################
 # APARTADO 2 c ii,
@@ -604,3 +610,76 @@ utils.show_metric(
 )
 df_average = pd.DataFrame(list(average.items()), columns=['dialog', 'average'])
 graphics.plot_bar_chart(df_average,title="Media de tiempo en segundos de cada dialogo",ylabel="average",xlabel="dialog",bar_color="skyblue",sizex=80)
+
+
+############################
+# APARTADO 2 d i
+# Tiempo medio transcurrido entre que el usuario recibe una notificación y consulta el teléfono.
+
+# APARTADO 2 d ii
+# Tiempo medio transcurrido entre que el usuario abre el móvil y se mete a un chat con una notificación.
+
+# APARTADO 2 d iii
+# Tiempo medio transcurrido entre que el usuario abre un chat con un mensaje que se puede contestar y pulsa el botón para contestar.
+############################
+
+def get_average_time_difference_between_phone_events(first_conditions, last_conditions):
+	time_differences = []
+	
+	# Recorre todos los usuarios
+	for user in users_individual_df_list:
+		all_last_to_happen = utils.find_indices_by_conditions(user, last_conditions)
+
+		first_to_happen = []
+		last_to_happen = []
+
+		# Recorre todos los indices del evento que sucede despues
+		for i in range(len(all_last_to_happen)):
+			# Encuentra el evento que sucede primero inmediatamente anterior al indice
+			immediate_prev = utils.find_indices_by_conditions(user.iloc[:all_last_to_happen[i]], first_conditions)
+
+			# Si se encuentra algun evento anterior 
+			if len(immediate_prev) > 0:
+				# Si el indice del evento anterior no estaba en la lista de indices anteriores
+				if not (immediate_prev[-1] in first_to_happen):
+					# Se guardan los indices de ambos eventos
+					first_to_happen.append(immediate_prev[-1])
+					last_to_happen.append(all_last_to_happen[i])
+
+		# print(first_to_happen)
+		# print(last_to_happen)
+
+		for i in range(len(first_to_happen)):
+			difference = utils.time_between_indices(user, first_to_happen[i], last_to_happen[i])
+			time_differences.append(difference)
+
+	return sum(time_differences) / len(time_differences) if len(time_differences) > 0 else 0
+
+first_conditions = [("object.id", "NotificationReceived")]
+last_conditions = [("object.id", "ObjectInteraction"), ("Object", "phone"), ("Closing", False)]
+
+utils.show_metric(
+	section="2 d i",
+	title="Tiempo medio transcurrido entre que el usuario recibe una notificación y consulta el teléfono",
+	info=f"{get_average_time_difference_between_phone_events(first_conditions, last_conditions)} segundos"
+)
+
+
+first_conditions = [("object.id", "ObjectInteraction"), ("Object", "phone"), ("Closing", False)]
+last_conditions = [("object.id", "NotificationSeen")]
+
+utils.show_metric(
+	section="2 d ii",
+	title="Tiempo medio transcurrido entre que el usuario abre el móvil y se mete a un chat con una notificación",
+	info=f"{get_average_time_difference_between_phone_events(first_conditions, last_conditions)} segundos"
+)
+
+
+first_conditions = [("object.id", "CanAnswerChat")]
+last_conditions = [("object.id", "AnswerChat")]
+
+utils.show_metric(
+	section="2 d iii",
+	title="Tiempo medio transcurrido entre que el usuario abre un chat con un mensaje que se puede contestar y pulsa el botón para contestar",
+	info=f"{get_average_time_difference_between_phone_events(first_conditions, last_conditions)} segundos"
+)

@@ -34,7 +34,7 @@ def display_nested_pie_chart(outer_values, inner_values, outer_labels, inner_lab
 	fig, ax = plt.subplots(figsize=figsize)
 
 	size = 0.5
-	start_angle = 20
+	start_angle = 0
 	
 	# Grafica externa
 	wedges, texts, autotexts = ax.pie(
@@ -78,7 +78,7 @@ def display_nested_pie_chart(outer_values, inner_values, outer_labels, inner_lab
 
 
 	ax.set_aspect("equal")  
-	plt.title(title)
+	plt.title(title, pad=20)
 	plt.show()
 
 
