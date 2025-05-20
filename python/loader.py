@@ -32,9 +32,10 @@ def split_by_column_values(df, column):
 	unique_values = df[column].unique() 
 	
 	for value in unique_values:
-		value_df = df.loc[df[column] == value]
-		value_df = value_df.reset_index(drop=True)
-		df_list.append(value_df)
+		if value != "682b4a41c76d2e0023ed4b24_ixzr":
+			value_df = df.loc[df[column] == value]
+			value_df = value_df.reset_index(drop=True)
+			df_list.append(value_df)
 		
 	return df_list
 
@@ -114,7 +115,7 @@ def load_all_files(path, extension = "json", column_to_sort_by = "eventId", drop
 					user_df = user_df.reset_index(drop=True)
 
 					# Se busca el dataset que abarque ultimo inicio de sesion y el primer fin de sesion
-					file_df = get_events_between_closest_values(user_df, "object.id", "SessionStart", "SessionEnd")
+					file_df = get_events_between_closest_values(user_df, "object.id", "GameStart", "GameEnd")
 					file_df = file_df.drop_duplicates()
 					
 					# Se agrega el dataset del usuario a la lista con cada dataset

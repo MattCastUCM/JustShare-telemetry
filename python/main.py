@@ -222,8 +222,10 @@ for i in range (len(ending_counts)):
 		except ValueError:
 			pass
 		
-		if (ending_by_user[user] == ending_counts.index[i]):
-			demographic_count_by_ending[index] += 1
+		user_key = ending_by_user.get(user)
+		if user_key:
+			if (user_key == ending_counts.index[i]):
+				demographic_count_by_ending[index] += 1
 
 	demographic_ending_counts.append(demographic_count_by_ending)
 
