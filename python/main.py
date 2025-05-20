@@ -343,8 +343,9 @@ def average_total_time(sessions):
 	for user in users_individual_df_list:
 		start_idx = utils.find_first_index_by_conditions(user, start_conditions)
 		end_idx = utils.find_first_index_by_conditions(user, end_conditions)
-		d = utils.time_between_indices(user,start_idx,end_idx)
-		durations.append(d)
+		if start_idx != None and end_idx != None:
+			d = utils.time_between_indices(user,start_idx,end_idx)
+			durations.append(d)
 	return sum(durations ) / len(durations ) if durations  else 0
 
 utils.show_metric(
@@ -366,8 +367,9 @@ def average_login_time(sessions):
 	for user in users_individual_df_list:
 		start_idx = utils.find_first_index_by_conditions(user, start_conditions)
 		end_idx = utils.find_first_index_by_conditions(user, end_conditions)
-		d = utils.time_between_indices(user,start_idx,end_idx)
-		durations.append(d)
+		if start_idx != None and end_idx != None:
+			d = utils.time_between_indices(user,start_idx,end_idx)
+			durations.append(d)
 	return sum(durations ) / len(durations ) if durations  else 0
 
 utils.show_metric(
