@@ -43,6 +43,8 @@ for user in demography:
 	demography_info.update({user[0]: (user[1], user[2])})
 
 
+
+
 ############################
 # APARTADO 1 a i,
 # Porcentaje de elección de las diferentes respuestas cuando se presentan varias opciones en las siguientes situaciones:
@@ -517,10 +519,10 @@ graphics.display_pie_chart(
 def computerScreenPos():
 	conditions = [("object.id", "ComputerScreenClick")]
 	X = utils.find_values_by_conditions(all_users_df, conditions, "PointerX")
-	Y= utils.find_values_by_conditions(all_users_df, conditions, "PointerY")
-	return X,Y
-   
-computerScreenPosX,computerScreenPosY = computerScreenPos()
+	Y = utils.find_values_by_conditions(all_users_df, conditions, "PointerY")
+	return X, Y
+
+computerScreenPosX, computerScreenPosY = computerScreenPos()
 utils.show_metric(
 	section="2 b v",
 	title="Mapa de calor de los lugares en los que se pulsa durante la pantalla del ordenador",
@@ -528,27 +530,30 @@ utils.show_metric(
 )
 
 # Grafica
-graphics.display_heatmap(computerScreenPosX, computerScreenPosY, 
-						 "Posiciones de clic en la pantalla del ordenador (todas las partidas)", "./heatmapImg.png")
+graphics.display_heatmap(
+	computerScreenPosX, computerScreenPosY,
+	"Posiciones de clic en la pantalla del ordenador (todas las partidas)", "./heatmapImg.png"
+)
 
 ############################
 # APARTADO 2 c i
 # Tiempo medio que se queda leyendo las pantallas de transición.
 ############################
 def average_transition_time(users_individual_df_list):
-    conditions = [("Scene", "TextOnlyScene")]
-    durations=[]
-    for user in users_individual_df_list:
-        indexes = utils.find_indices_by_conditions(user, conditions)
-        for index in indexes:
-            pos = user.index.get_loc(index)
-            if pos + 1 < len(user):
-                next_idx = user.index[index + 1]
-                if user.loc[next_idx, 'object.id'] == 'EnterScene':
-                    value= utils.time_between_indices(user,index, next_idx)
-                    durations.append(value)
+	conditions = [("Scene", "TextOnlyScene")]
+	durations = []
+	for user in users_individual_df_list:
+		indexes = utils.find_indices_by_conditions(user, conditions)
+		index_list = list(user.index)
+		for index in indexes:
+			pos = index_list.index(index)
+			if pos + 1 < len(index_list):
+				next_idx = index_list[pos + 1]
+				if user.loc[next_idx, 'object.id'] == 'EnterScene':
+					value = utils.time_between_indices(user, index, next_idx)
+					durations.append(value)
 
-    return  durations
+	return durations
 
 durations=average_transition_time(users_individual_df_list)
 mean=np.mean(durations)

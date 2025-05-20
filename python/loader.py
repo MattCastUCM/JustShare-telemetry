@@ -117,13 +117,13 @@ def load_all_files(path, extension = "json", column_to_sort_by = "eventId", drop
 					# Se busca el dataset que abarque ultimo inicio de sesion y el primer fin de sesion
 					file_df = get_events_between_closest_values(user_df, "object.id", "GameStart", "GameEnd")
 					file_df = file_df.drop_duplicates()
-					
-					# Se agrega el dataset del usuario a la lista con cada dataset
-					users_individual_df_list.append(user_df)
 
-					# Se agrega el dataset del usuario al dataset de todos los usuarios
-					all_users_df = pd.concat([all_users_df, user_df], ignore_index=True)
-	
+					if not file_df.empty:
+						# Se agrega el dataset del usuario a la lista con cada dataset
+						users_individual_df_list.append(file_df)
+						# Se agrega el dataset del usuario al dataset de todos los usuarios
+						all_users_df = pd.concat([all_users_df, file_df], ignore_index=True)
+						
 	return all_users_df, users_individual_df_list
 
 def create_output_directory(path):
