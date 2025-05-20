@@ -84,7 +84,7 @@ export default class LoginScene extends ComputerBaseScene {
 
     checkErrors(nameContainer, genderContainer, sexualityContainer) {
         const FADE_DURATION = 20;
-        const MAX_N_CHARACTERES = 7;
+        const MAX_N_CHARACTERES = 10;
 
         let errors = false;
 

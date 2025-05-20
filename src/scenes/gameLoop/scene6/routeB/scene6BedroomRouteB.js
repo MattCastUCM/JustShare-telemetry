@@ -76,6 +76,7 @@ export default class Scene6BedroomRouteB extends BaseScene {
         }
         this.computer.socialMediaScreen.addPost("harasserPost", "harasser", photo)
         this.computer.socialMediaScreen.falsifyCommentaries("harasserPost", 4)
+        this.computer.socialMediaScreen.focusOnFirstPost()
         let computerCamera = this.gameManager.computer.cameras.main
 
         // Al producirse, se cambian los nodos de la cama y el armario

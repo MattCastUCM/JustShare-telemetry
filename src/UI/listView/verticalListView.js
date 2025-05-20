@@ -403,6 +403,18 @@ export default class VerticalListView extends Phaser.GameObjects.Container {
         }
     }
 
+    focusOnFirstItem() {
+        this.itemsCont.y = this.boundedZone.y
+        this.lastSavedPosition.x = this.itemsCont.x;
+        this.lastSavedPosition.y = this.itemsCont.y;
+    }
+
+    focusOnLastItem() {
+        this.itemsCont.y = this.boundedZone.end - this.endPadding - (this.lastItem.y + this.lastItem.h);
+        this.lastSavedPosition.x = this.itemsCont.x;
+        this.lastSavedPosition.y = this.itemsCont.y;
+    }
+
     /**
      * Agregar un elemento al final del listview
      * Nota: el elemento queda alineado en el medio de la listview
@@ -430,9 +442,7 @@ export default class VerticalListView extends Phaser.GameObjects.Container {
 
             // Colocar la listview para que enfoque al ultimo item
             if (this.focusLastItem) {
-                this.itemsCont.y = this.boundedZone.end - this.endPadding - (this.lastItem.y + this.lastItem.h);
-                this.lastSavedPosition.x = this.itemsCont.x;
-                this.lastSavedPosition.y = this.itemsCont.y;
+                this.focusOnLastItem()
             }
 
             this.addItemElems(item, hits, listviews);

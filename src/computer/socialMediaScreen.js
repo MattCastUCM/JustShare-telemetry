@@ -206,6 +206,10 @@ export default class SocialMediaScreen extends BaseScreen {
     //////// Metodos para el feed /////////
     //////////////////////////////////////
 
+    focusOnFirstPost() {
+        this.feedListView.focusOnFirstItem()
+    }
+
     createFeed(x, y, width, height) {
         const PADDING = 50
         const END_PADDING = 20
