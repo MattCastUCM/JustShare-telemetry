@@ -16,12 +16,30 @@ if use_scorm:
 
 files_extension = "json"
 
+
+# Usuarios que se usaron para probar el estudio
+users_to_drop = ["682b4a72c76d2e0023ed4d05_igbm", "682b4a41c76d2e0023ed4b24_dmyj", "682b4a41c76d2e0023ed4b24_sxif", "682b4a72c76d2e0023ed4d05_agog"]
+
+
 ############################
 # Datos comunes
 # Sacado de los JSONs
 ############################
 all_users_df, users_individual_df_list = loader.load_all_files(files_path, files_extension, "timestamp", cols_to_drop, use_scorm)
 n_users = len(users_individual_df_list)
+
+
+# Eliminar usuarios invalidos
+all_users_df = all_users_df[~all_users_df['actor.account.name'].isin(users_to_drop)]
+all_users_df = all_users_df.reset_index(drop=True)
+
+users_to_drop = set(users_to_drop)
+filtered_df_list = [
+    df for df in users_individual_df_list 
+    if df["actor.account.name"].unique()[0] not in users_to_drop
+]
+users_individual_df_list = filtered_df_list
+
 
 game_starts_conditions = [("object.id", "GameStart")]
 game_starts = utils.find_indices_by_conditions(all_users_df, game_starts_conditions)
@@ -442,6 +460,19 @@ graphics.display_bar_chart(df,title="Media diaria de tiempo de juego",ylabel="Ti
 
 
 ############################
+# APARTADO 2 a iii,
+# Media de tiempo de juego en cada día.
+############################
+
+game_ends = utils.find_indices_by_conditions(all_users_df, [("object.id", "GameEnd")])
+utils.show_metric(
+	section="2 a iv",
+	title="Porcentaje de usuarios que terminan el juego",
+	info=f"{len(game_ends) / len(users_individual_df_list) * 100}%"
+)
+
+
+############################
 # APARTADO 2 b i,
 # Número medio de veces que se pulsa sin éxito el botón de “aceptar” en la pantalla de login (si no ha seleccionado correctamente las opciones de personalización iniciales).
 ############################
@@ -828,6 +859,19 @@ def survey_difference(pre, post):
 						"Número de pregunta", "Diferencia promedio")
 
 survey_difference(pre, post)
+
+
+###########################
+# Uso de redes
+###########################
+
+questions = ["¿Cuántas horas pasas al día en redes sociales?", "¿Con qué frecuencia usas las siguientes redes sociales o plataformas? [TikTok]", "¿Con qué frecuencia usas las siguientes redes sociales o plataformas? [Instagram]", "¿Con qué frecuencia usas las siguientes redes sociales o plataformas? [YouTube]", "¿Con qué frecuencia usas las siguientes redes sociales o plataformas? [WhatsApp]", "¿Con qué frecuencia usas las siguientes redes sociales o plataformas? [Facebook]", "¿Con qué frecuencia usas las siguientes redes sociales o plataformas? [Twitter o X]", "¿Con qué frecuencia usas las siguientes redes sociales o plataformas? [Discord]", "¿Con qué frecuencia usas las siguientes redes sociales o plataformas? [Telegram]", "¿Con qué frecuencia usas las siguientes redes sociales o plataformas? [Snapchat]", "¿Con qué frecuencia usas las siguientes redes sociales o plataformas? [BeReal]", "¿Con qué frecuencia usas las siguientes redes sociales o plataformas? [Reddit]", "¿Con qué frecuencia usas las siguientes redes sociales o plataformas? [Tumblr]", "¿Con qué frecuencia usas las siguientes redes sociales o plataformas? [Pinterest]", "¿Con qué frecuencia usas las siguientes redes sociales o plataformas? [Play Station Network]", "¿Con qué frecuencia usas las siguientes redes sociales o plataformas? [Microsoft Xbox]", "¿Con qué frecuencia usas las siguientes redes sociales o plataformas? [Steam]", "¿Con qué frecuencia usas las siguientes redes sociales o plataformas? [Roblox]"]
+
+for question in questions:
+	df = pd.Series(post[question]).value_counts()
+	df = df.sort_index()
+	# display(df)
+	graphics.display_pie_chart(df.values, df.index, question)
 
 
 ###########################
