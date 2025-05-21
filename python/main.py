@@ -741,14 +741,20 @@ graphics.display_bar_chart(
 )
 
 
+
 ###########################
 # ENCUESTAS
 ###########################
-pd.set_option("display.max_columns", None)
-pd.set_option("display.max_rows", None)
-pd.set_option("display.max_colwidth", None)
 
-cols_to_drop = ["ID de respuesta", "Fecha de envío",  "Última página", "Lenguaje inicial", "Semilla", "Fecha de inicio", "Fecha de la última acción"]
+
+###########################
+# Carga de datos
+###########################
+# pd.set_option("display.max_columns", None)
+# pd.set_option("display.max_rows", None)
+# pd.set_option("display.max_colwidth", None)
+
+cols_to_drop = ["ID de respuesta", "Última página", "Lenguaje inicial", "Semilla", "Fecha de la última acción"]
 
 surveys_path = "./encuestas/pre/"
 pre = loader.load_surveys(surveys_path, files_extension, cols_to_drop)
@@ -757,6 +763,7 @@ graphics.display_df(pre, "Pretest")
 surveys_path = "./encuestas/post/"
 post = loader.load_surveys(surveys_path, files_extension, cols_to_drop)
 graphics.display_df(post, "Postest")
+
 
 def survey_comparative(pre, post):
 	def extraer_num(x):
@@ -782,6 +789,8 @@ def survey_comparative(pre, post):
 		graphics.display_line_graph(x, y1, fila2, cols_modificar, title, "Número de pregunta", "Peligrosidad")
 
 survey_comparative(pre, post)
+
+
 
 def survey_difference(pre, post):
 	def extraer_num(x):
@@ -819,3 +828,29 @@ def survey_difference(pre, post):
 						"Número de pregunta", "Diferencia promedio")
 
 survey_difference(pre, post)
+
+
+###########################
+# Opinion sobre el juego
+###########################
+
+questions = ["¿Cómo de acuerdo estás con las siguientes afirmaciones? [El juego es demasiado largo]", "¿Cómo de acuerdo estás con las siguientes afirmaciones? [El juego es aburrido]", "¿Cómo de acuerdo estás con las siguientes afirmaciones? [El juego es fácil de jugar]", "¿Cómo de acuerdo estás con las siguientes afirmaciones? [El juego es educativo]", "¿Cómo de acuerdo estás con las siguientes afirmaciones? [El juego me hace reflexionar]", "¿Cómo de acuerdo estás con las siguientes afirmaciones? [El juego es fácil de usar en clase con los alumnos]", "¿Cómo de acuerdo estás con las siguientes afirmaciones? [Los videojuegos en general pueden ser herramientas educativas]"]
+
+for question in questions:
+	df = pd.Series(post[question]).value_counts()
+	df = df.sort_index()
+	# display(df)
+	graphics.display_pie_chart(df.values, df.index, question)
+
+
+question = "¿Qué opinas del juego?"
+print(f"{question}:")
+print(post[question].unique())
+
+question = "¿Crees que has aprendido algo?"
+print(f"{question}:")
+print(post[question].unique())
+
+question = "¿Qué no te ha gustado del juego y qué piensas que se podría cambiar?"
+print(f"{question}:")
+print(post[question].unique())

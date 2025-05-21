@@ -4,7 +4,7 @@ import numpy as np
 from PIL import Image
 import loader
 
-save_graphics = True
+save_graphics = False
 output_directory = "./output/"
 
 def show_graphic(title):
@@ -42,7 +42,7 @@ def display_pie_chart(values, labels, title, figsize=(6, 6),label_fontsize=12,pc
 	for autotext in autotexts:
 		autotext.set_fontsize(pct_fontsize)
 
-	ax.set_title(title, fontsize=label_fontsize + 2)
+	ax.set_title(title, fontsize=label_fontsize + 2, pad=20)
 	ax.axis("equal")
 
 	show_graphic(title)
