@@ -44,7 +44,6 @@ for user in demography:
 
 
 
-
 ############################
 # APARTADO 1 a i,
 # Porcentaje de elección de las diferentes respuestas cuando se presentan varias opciones en las siguientes situaciones:
@@ -127,7 +126,7 @@ def get_choices_stats(all_users_df, nodes_names = [], gender_sexuality_combinati
 
 
 # Nodos cuyas respuestas se quieren comprobar
-nodes_names = ["Scene1Bedroom1.computer1.choices", "Scene1Bedroom1.computer2.choices3", "Scene1Bedroom2.computer.choices", "Scene1Bedroom2.computer.choices2", "Scene2Bedroom.phone.choices", "Scene4Garage.photo.choices", "Scene4Garage.interruption.choices", "Scene4Bedroom.phone.choices", "Scene5Livingroom.choices", "Scene5Bedroom.phone.choices2", "Scene5Bedroom.phone.choices3", "Scene6Bedroom.phone.choices2", ]
+nodes_names = ["Scene1Bedroom1.computer1.choices", "Scene1Bedroom1.computer2.choices2", "Scene1Bedroom1.computer2.choices3", "Scene1Bedroom2.computer.choices", "Scene1Bedroom2.computer.choices2", "Scene2Bedroom.phone.choices", "Scene4Garage.photo.choices", "Scene4Garage.interruption.choices", "Scene4Bedroom.phone.choices", "Scene5Livingroom.choices", "Scene5Bedroom.phone.choices2", "Scene5Bedroom.phone.choices3", "Scene6Bedroom.phone.choices2", ]
 
 different_responses_per_node, total_responses_per_node, count_per_responses_per_node, count_per_responses_per_node_per_demography = get_choices_stats(all_users_df, nodes_names, gender_sexuality_combinations, demography_info)
 result = "\n"
@@ -164,7 +163,6 @@ for i in range(len(nodes_names)):
 	inner_flattened_percentages = np.divide(inner_flattened_percentages, np.sum(inner_flattened_percentages))
 	inner_flattened_percentages *= 100
 	graphics.display_flexible_double_donut(count_per_responses_per_node[i], different_responses_per_node[i], inner_flattened_percentages, labels, f"Distribucion de opciones elegidas en el nodo {nodes_names[i]} por opcion, genero y sexualidad (%)", show_outer_label_in_chart=False, show_outer_panel=True, show_inner_label_in_chart=False, show_inner_panel=True)
-	
 
 
 ############################
@@ -224,10 +222,8 @@ for i in range (len(ending_counts)):
 		except ValueError:
 			pass
 		
-		user_key = ending_by_user.get(user)
-		if user_key:
-			if (user_key == ending_counts.index[i]):
-				demographic_count_by_ending[index] += 1
+		if (user in ending_by_user and ending_by_user[user] == ending_counts.index[i]):
+			demographic_count_by_ending[index] += 1
 
 	demographic_ending_counts.append(demographic_count_by_ending)
 
@@ -537,6 +533,7 @@ graphics.display_heatmap(
 	"Posiciones de clic en la pantalla del ordenador (todas las partidas)", "./heatmapImg.png"
 )
 
+
 ############################
 # APARTADO 2 c i
 # Tiempo medio que se queda leyendo las pantallas de transición.
@@ -546,11 +543,10 @@ def average_transition_time(users_individual_df_list):
 	durations = []
 	for user in users_individual_df_list:
 		indexes = utils.find_indices_by_conditions(user, conditions)
-		index_list = list(user.index)
 		for index in indexes:
-			pos = index_list.index(index)
-			if pos + 1 < len(index_list):
-				next_idx = index_list[pos + 1]
+			pos = indexes.index(index)
+			if pos + 1 < len(indexes):
+				next_idx = indexes[pos + 1]
 				if user.loc[next_idx, 'object.id'] == 'EnterScene':
 					value = utils.time_between_indices(user, index, next_idx)
 					durations.append(value)
@@ -695,6 +691,7 @@ utils.show_metric(
 	info=f"{get_average_time_difference_between_phone_events(first_conditions, last_conditions)} segundos"
 )
 
+
 ############################
 # APARTADO 2 e i
 # Número medio de veces que se interactúa con los elementos del escenario y con cuáles
@@ -730,6 +727,7 @@ graphics.display_bar_chart(
 	xlabel="Elemento",
 	bar_color="skyblue"
 )
+
 
 ###########################
 # ENCUESTAS

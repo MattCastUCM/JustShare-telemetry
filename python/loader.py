@@ -32,10 +32,9 @@ def split_by_column_values(df, column):
 	unique_values = df[column].unique() 
 	
 	for value in unique_values:
-		if value != "682b4a41c76d2e0023ed4b24_ixzr":
-			value_df = df.loc[df[column] == value]
-			value_df = value_df.reset_index(drop=True)
-			df_list.append(value_df)
+		value_df = df.loc[df[column] == value]
+		value_df = value_df.reset_index(drop=True)
+		df_list.append(value_df)
 		
 	return df_list
 
@@ -99,10 +98,12 @@ def load_all_files(path, extension = "json", column_to_sort_by = "eventId", drop
 				pass
 
 
-			# Si el dataframe esta vacio
+			# Si el dataframe no esta vacio (ha cargado el archivo correctamente)
 			if (not file_df.empty):
-				users_dfs = split_by_column_values(file_df, split_by_column)
+				file_df = file_df.drop_duplicates()
 
+				users_dfs = split_by_column_values(file_df, split_by_column)
+				
 				for user_df in users_dfs:
 					# Se intenta convertir el timestamp a formato UNIX epoch
 					try: 
@@ -115,9 +116,9 @@ def load_all_files(path, extension = "json", column_to_sort_by = "eventId", drop
 					user_df = user_df.reset_index(drop=True)
 
 					# Se busca el dataset que abarque ultimo inicio de sesion y el primer fin de sesion
-					file_df = get_events_between_closest_values(user_df, "object.id", "GameStart", "GameEnd")
-					file_df = file_df.drop_duplicates()
+					file_df = get_events_between_closest_values(user_df, "object.id", "SessionStart", "SessionEnd")
 
+					# Si el dataframe no esta vacio (ha encontrado un inicio y fin de sesion)
 					if not file_df.empty:
 						# Se agrega el dataset del usuario a la lista con cada dataset
 						users_individual_df_list.append(file_df)
