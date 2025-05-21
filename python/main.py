@@ -945,7 +945,7 @@ survey_comparative(pre,valid_post)
 questions = ["¿Cuántas horas pasas al día en redes sociales?", "¿Con qué frecuencia usas las siguientes redes sociales o plataformas? [TikTok]", "¿Con qué frecuencia usas las siguientes redes sociales o plataformas? [Instagram]", "¿Con qué frecuencia usas las siguientes redes sociales o plataformas? [YouTube]", "¿Con qué frecuencia usas las siguientes redes sociales o plataformas? [WhatsApp]", "¿Con qué frecuencia usas las siguientes redes sociales o plataformas? [Facebook]", "¿Con qué frecuencia usas las siguientes redes sociales o plataformas? [Twitter o X]", "¿Con qué frecuencia usas las siguientes redes sociales o plataformas? [Discord]", "¿Con qué frecuencia usas las siguientes redes sociales o plataformas? [Telegram]", "¿Con qué frecuencia usas las siguientes redes sociales o plataformas? [Snapchat]", "¿Con qué frecuencia usas las siguientes redes sociales o plataformas? [BeReal]", "¿Con qué frecuencia usas las siguientes redes sociales o plataformas? [Reddit]", "¿Con qué frecuencia usas las siguientes redes sociales o plataformas? [Tumblr]", "¿Con qué frecuencia usas las siguientes redes sociales o plataformas? [Pinterest]", "¿Con qué frecuencia usas las siguientes redes sociales o plataformas? [Play Station Network]", "¿Con qué frecuencia usas las siguientes redes sociales o plataformas? [Microsoft Xbox]", "¿Con qué frecuencia usas las siguientes redes sociales o plataformas? [Steam]", "¿Con qué frecuencia usas las siguientes redes sociales o plataformas? [Roblox]"]
 
 for question in questions:
-	df = pd.Series(post[question]).value_counts()
+	df = pd.Series(valid_post[question]).value_counts()
 	df = df.sort_index()
 	# display(df)
 	graphics.display_pie_chart(df.values, df.index, question.replace("?", ""))
@@ -958,7 +958,7 @@ for question in questions:
 questions = ["¿Cómo de acuerdo estás con las siguientes afirmaciones? [El juego es demasiado largo]", "¿Cómo de acuerdo estás con las siguientes afirmaciones? [El juego es aburrido]", "¿Cómo de acuerdo estás con las siguientes afirmaciones? [El juego es fácil de jugar]", "¿Cómo de acuerdo estás con las siguientes afirmaciones? [El juego es educativo]", "¿Cómo de acuerdo estás con las siguientes afirmaciones? [El juego me hace reflexionar]", "¿Cómo de acuerdo estás con las siguientes afirmaciones? [El juego es fácil de usar en clase con los alumnos]", "¿Cómo de acuerdo estás con las siguientes afirmaciones? [Los videojuegos en general pueden ser herramientas educativas]"]
 
 for question in questions:
-	df = pd.Series(post[question]).value_counts()
+	df = pd.Series(valid_post[question]).value_counts()
 	df = df.sort_index()
 	graphics.display_pie_chart(df.values, df.index, question.replace("?", ""))
 
