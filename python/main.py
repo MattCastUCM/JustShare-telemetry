@@ -796,69 +796,77 @@ post = loader.load_surveys(surveys_path, files_extension, cols_to_drop)
 graphics.display_df(post, "Postest")
 
 
-def survey_comparative(pre, post):
-	def extraer_num(x):
-		try:
-			return int(str(x).split('-')[0].strip())
-		except Exception:
-			return x  # Si no es del formato esperado, lo deja igual
+def extract_num(x):
+    try:
+        return int(str(x).split('-')[0].strip())
+    except Exception:
+        return -1
 
-	cols_modificar = pre.columns[4:]
-	datos1 = pre.copy()
-	datos2 = post.copy()
+def survey_comparative(pre_df, post_df, code_col="Código de acceso"):
+	"""
+	Compara los resultados pre y post para cada persona y pinta la gráfica.
+	pre_df, post_df: DataFrames con las respuestas pre y post
+	code_col: nombre de la columna que identifica a la persona
+	"""
+	# Lista de columnas que NO queremos analizar (identificadores y datos demográficos)
+	columns_to_ignore = [
+		"ID de respuesta", "Fecha de envío", "Última página", "Lenguaje inicial",
+		"Semilla", "Código de acceso", "Fecha de inicio", "Fecha de la última acción",
+		"Edad", "Género", "Género [Otro]"
+	]
+	# Seleccionamos sólo las columnas de preguntas
+	columns_to_modify = [col for col in pre_df.columns if col not in columns_to_ignore]
 
-	# Aplica la extracción solo a las columnas deseadas
-	datos1[cols_modificar] = datos1[cols_modificar].map(extraer_num)
-	datos2[cols_modificar] = datos2[cols_modificar].map(extraer_num)
+	# Copiamos los DataFrames para no modificar los originales
+	pre_data = pre_df.copy()
+	post_data = post_df.copy()
 
-	for index, (idx1, row1) in enumerate(datos1.iterrows()):
-		codigo = row1["Código de acceso"]
-		fila2 = datos2[datos2["Código de acceso"] == codigo]
-		y1 = row1[cols_modificar].values
-		x = range(1, len(cols_modificar) + 1)  # Eje X: número de pregunta
-		title = f'Comparación persona ({codigo})'
-		graphics.display_line_graph(x, y1, fila2, cols_modificar, title, "Número de pregunta", "Peligrosidad")
+	# Aplicamos la función para extraer el número solo en las columnas de interés
+	pre_data[columns_to_modify] = pre_data[columns_to_modify].map(extract_num)
+	post_data[columns_to_modify] = post_data[columns_to_modify].map(extract_num)
+      
+	differences = []
 
-survey_comparative(pre, post)
-
-
-
-def survey_difference(pre, post):
-	def extraer_num(x):
-		try:
-			return int(str(x).split('-')[0].strip())
-		except Exception:
-			return -1
-	
-	cols_modificar = pre.columns[4:]
-	datos1 = pre.copy()
-	datos2 = post.copy()
-
-	datos1[cols_modificar] = datos1[cols_modificar].map(extraer_num)
-	datos2[cols_modificar] = datos2[cols_modificar].map(extraer_num)
-
-	diferencias = []
-
-	for idx1, row1 in datos1.iterrows():
-		codigo = row1["Código de acceso"]
-		fila2 = datos2[datos2["Código de acceso"] == codigo]
-		y1 = row1[cols_modificar].values
-		if not fila2.empty:
-			y2 = fila2.iloc[0][cols_modificar].values
-			if not (-1 in y1 or -1 in y2):
-				diff = y2 - y1
-				diferencias.append(diff)
+	for idx, pre_row in pre_data.iterrows():
+		# Obtenemos el código de acceso de la persona
+		code = pre_row[code_col]
+		# Filtramos el post para encontrar la fila correspondiente a este código
+		post_row = post_data[post_data[code_col] == code]
+		if post_row.empty:
+			continue  # Si no hay post para este código, saltamos
+		# Extraemos los valores de las preguntas en pre y post (como float)
+		y_pre = pre_row[columns_to_modify].values.astype(float)
+		y_post = post_row.iloc[0][columns_to_modify].values.astype(float)  # Tomamos la primera fila
+		# Creamos el diccionario para display_line
+		data_dict = {
+			"Pre": y_pre,
+			"Post": y_post
+		}
+		# Definimos el eje X y el título de la gráfica
+		x = range(1, len(columns_to_modify) + 1)  # Número de pregunta
+		title = f'Comparación persona ({code})'
+		# Llamamos a la función para mostrar la gráfica
+		graphics.display_line(
+			data_dict,
+			ylabel="Peligrosidad",
+			xlabel="Número de pregunta",
+			title=title,
+			threshold=None  # O pon un umbral si lo necesitas
+		)
+		if not (-1 in y_pre or -1 in y_post):
+			diff = y_post - y_pre
+			differences.append(diff)
 
 	# Convierte la lista en DataFrame para graficar fácilmente
-	diferencias_df = pd.DataFrame(diferencias, columns=cols_modificar)
+	differences_df = pd.DataFrame(differences, columns=columns_to_modify)
 
-	x = np.arange(1, len(cols_modificar) + 1)
-	promedio = diferencias_df.mean()
+	x = np.arange(1, len(columns_to_modify) + 1)
+	mean = differences_df.mean()
 
-	graphics.display_bar(x, promedio, "Diferencia promedio (Post - Pre) por pregunta",
+	graphics.display_bar(x, mean, "Diferencia promedio (Post - Pre) por pregunta",
 						"Número de pregunta", "Diferencia promedio")
 
-survey_difference(pre, post)
+survey_comparative(pre,post)
 
 
 ###########################

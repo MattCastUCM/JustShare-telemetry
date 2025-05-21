@@ -243,3 +243,19 @@ def display_line_graph(x, y1, fila2, cols_modificar, title, xlabel, ylabel):
 	plt.xticks(x)
 	plt.tight_layout()
 	show_graphic(title)
+
+def display_line(data_dict, ylabel= "Value",xlabel="Index", title="title", threshold=None):
+	plt.figure(figsize=(10, 6))
+	for key, y in data_dict.items():
+		x = list(range(1, len(y)+1))
+		plt.plot(x, y, marker='o', label=str(key))
+	if threshold is not None:
+		plt.axhline(threshold, color='red', linestyle='--', label='Umbral')
+	plt.xlabel(xlabel)
+	plt.ylabel(ylabel)
+	plt.title(title)
+	plt.legend(bbox_to_anchor=(1.05, 1), loc='upper left')
+	plt.ylim(1, 6)
+	plt.tight_layout()
+	plt.grid(True, linestyle='--', alpha=0.5)
+	show_graphic(title)
