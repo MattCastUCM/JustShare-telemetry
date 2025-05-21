@@ -393,7 +393,10 @@ def average_daily_time(users_individual_df_list):
 		indexes = []
 
 		# Indice del evento de inicio del juego
-		indexes.append(utils.find_first_index_by_conditions(user, start_conditions))
+		idx = utils.find_first_index_by_conditions(user, start_conditions)
+		if idx == None:
+			continue
+		indexes.append(idx)
 
 		# Indices de los eventos de progreso en el juego
 		progress_indexes = utils.find_indices_by_conditions(user, conditions)
@@ -407,15 +410,23 @@ def average_daily_time(users_individual_df_list):
 				indexes.append(progress_indexes[i])
 
 		# Indice del evento de final del juego
-		indexes.append(utils.find_first_index_by_conditions(user, end_conditions))
-		
+		idx = utils.find_first_index_by_conditions(user, end_conditions)
+		if idx == None:
+			continue
+		indexes.append(idx)
+
 		# Si hay 8 indices (inicio, 6 dias y fin), se calculan los tiempos para el usuario y se guardan
 		if len(indexes) == 8:
 			for i in range (len(indexes) - 1):
+				# display(user)
 				time = utils.time_between_indices(user, indexes[i], indexes[i + 1])
 				all_durations[i].append(time)
 
 	day_means = [np.mean(durations) if len(durations) > 0 else 0 for durations in all_durations]
+
+	# print(len(all_durations[0]))
+	# print(len(users_individual_df_list))
+	
 	return day_means
 
 daily_times = average_daily_time(users_individual_df_list)
@@ -427,6 +438,7 @@ utils.show_metric(
 )
 df = pd.DataFrame({"Media (segundos)": daily_times}, index=[f"Día {i+1}" for i in range(7)])
 graphics.display_bar_chart(df,title="Media diaria de tiempo de juego",ylabel="Tiempo promedio (segundos)",xlabel="Día",bar_color="skyblue")
+
 
 
 ############################

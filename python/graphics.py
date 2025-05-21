@@ -106,7 +106,7 @@ def display_bar_chart(df, title, ylabel, xlabel, bar_color, sizex=8, sizey=6):
 	ax_bis = df.plot(kind="bar", legend=False, color=bar_color, figsize=(sizex, sizey))
 	for p in ax_bis.patches:
 		ax_bis.annotate(f"{p.get_height():.2f}", (p.get_x() + p.get_width() / 2., p.get_height()), ha="center", va="center", xytext=(0, 10), textcoords="offset points")
-	plt.title(title)
+	plt.title(title, pad=20)
 	plt.ylabel(ylabel)
 	plt.xlabel(xlabel)
 	plt.xticks(rotation=0)
@@ -117,7 +117,7 @@ def display_heatmap(posX, posY, title, background_image):
 	# Grafica
 	plt.figure(figsize=(15, 15))
 	plt.scatter(posX, posY, alpha=0.6, s=15)
-	plt.title(title)
+	plt.title(title, pad=20)
 	plt.xlabel("PointerX")
 	plt.ylabel("PointerY")
 	plt.gca().invert_yaxis()   # (0,0) arriba‑izquierda, como en coordenadas de pantalla
@@ -222,7 +222,7 @@ def display_bar(x, y, title, xlabel, ylabel):
 	plt.figure(figsize=(12, 6))
 	plt.bar(x, y, color='limegreen', alpha=0.7)
 	plt.axhline(0, color='black', linestyle='--', linewidth=1)
-	plt.title(title)
+	plt.title(title, pad=20)
 	plt.xlabel(xlabel)
 	plt.ylabel(ylabel)
 	plt.xticks(x)
@@ -235,7 +235,7 @@ def display_line_graph(x, y1, fila2, cols_modificar, title, xlabel, ylabel):
 	if not fila2.empty:
 		y2 = fila2.iloc[0][cols_modificar].values
 		plt.plot(x, y2, marker='o', label='Post')
-	plt.title(title)
+	plt.title(title, pad=20)
 	plt.xlabel(xlabel)
 	plt.ylabel(ylabel)
 	plt.ylim(1, 6)
