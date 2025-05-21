@@ -35,8 +35,8 @@ all_users_df = all_users_df.reset_index(drop=True)
 
 users_to_drop = set(users_to_drop)
 filtered_df_list = [
-    df for df in users_individual_df_list 
-    if df["actor.account.name"].unique()[0] not in users_to_drop
+	df for df in users_individual_df_list 
+	if df["actor.account.name"].unique()[0] not in users_to_drop
 ]
 users_individual_df_list = filtered_df_list
 
@@ -461,16 +461,22 @@ graphics.display_bar_chart(df,title="Media diaria de tiempo de juego",ylabel="Ti
 
 ############################
 # APARTADO 2 a iv,
-# Media de tiempo de juego en cada día.
+# Porcentaje de usuarios que terminan el juego.
 ############################
 
 game_ends = utils.find_indices_by_conditions(all_users_df, [("object.id", "GameEnd")])
+p = len(game_ends) / len(users_individual_df_list) * 100
 utils.show_metric(
 	section="2 a iv",
-	title="Media de tiempo de juego en cada día",
-	info=f"{len(game_ends) / len(users_individual_df_list) * 100}%"
+	title="Porcentaje de usuarios que terminan el juego",
+	info=f"{p}%"
 )
 
+graphics.display_pie_chart(
+		values=[p, 100-p],
+		labels=["Termina", "No termina"],
+		title="Distribución de los usuarios que terminan el juego (%)"
+	)
 
 ############################
 # APARTADO 2 b i,
@@ -581,39 +587,45 @@ graphics.display_heatmap(
 # Tiempo medio que se queda leyendo las pantallas de transición.
 ############################
 def average_transition_time(users_individual_df_list):
-    conditions = [("Scene", "TextOnlyScene")]
-    durations = []
-    user_durations = []
-    cont = 0
-    for user in users_individual_df_list:
-        indexes = utils.find_indices_by_conditions(user, conditions)
-        index_list = list(user.index)
-        for index in indexes:
-            pos = index_list.index(index)
-            if pos + 1 < len(index_list):
-                next_idx = index_list[pos + 1]
-                if user.loc[next_idx, "object.id"] == "EnterScene":
-                    value = utils.time_between_indices(user, index, next_idx)
-                    durations.append(value)
-                    cont+= value
-        user_durations.append(cont)
-        cont=0
-    mean=np.mean(durations)
-    utils.show_metric(
-        section="2 c i",
-        title="Tiempo medio que se queda leyendo las pantallas de transición",
-        info=f"{mean:.2f} segundos"
-    )
-    total_mean= np.mean(user_durations)
-    total_std= np.std(user_durations)
-    threshold = max(1, total_mean - 0.5 * total_std)
-    no_read = sum(1 for d in user_durations if d > threshold)
-    p= no_read/len(user_durations) * 100
-    utils.show_metric(
-        section="2 c ii",
-        title="Porcentaje de usuarios que leen realmente las pantallas de transición",
-        info=f"{p:.2f} %"
-    )
+	conditions = [("Scene", "TextOnlyScene")]
+	durations = []
+	user_durations = []
+	cont = 0
+	for user in users_individual_df_list:
+		indexes = utils.find_indices_by_conditions(user, conditions)
+		index_list = list(user.index)
+		for index in indexes:
+			pos = index_list.index(index)
+			if pos + 1 < len(index_list):
+				next_idx = index_list[pos + 1]
+				if user.loc[next_idx, "object.id"] == "EnterScene":
+					value = utils.time_between_indices(user, index, next_idx)
+					durations.append(value)
+					cont+= value
+		user_durations.append(cont)
+		cont=0
+	mean=np.mean(durations)
+	utils.show_metric(
+		section="2 c i",
+		title="Tiempo medio que se queda leyendo las pantallas de transición",
+		info=f"{mean:.2f} segundos"
+	)
+	total_mean= np.mean(user_durations)
+	total_std= np.std(user_durations)
+	threshold = max(1, total_mean - 0.5 * total_std)
+	no_read = sum(1 for d in user_durations if d > threshold)
+	p= no_read/len(user_durations) * 100
+	utils.show_metric(
+		section="2 c ii",
+		title="Porcentaje de usuarios que leen realmente las pantallas de transición",
+		info=f"{p:.2f} %"
+	)
+	
+	graphics.display_pie_chart(
+		values=[p, 100-p],
+		labels=["Lee las transiciones", "No lee las transiciones"],
+		title="Distribución de los usuarios que leen las pantallas de transición (%)"
+	)
 
 average_transition_time(users_individual_df_list)
 
@@ -623,57 +635,63 @@ average_transition_time(users_individual_df_list)
 # Tiempo medio que se queda leyendo cada diálogo.
 ############################
 def average_dialog_time(users_individual_df_list):
-    conditions = [("object.id", "DialogStart")]
-    diccionary = {}
-    user_durations =[]
-    cont = 0
-    for user in users_individual_df_list:
-        indexes = utils.find_indices_by_conditions(user, conditions)
-        for index in indexes:
-            end_condition= [("object.id","DialogEnd"),("Node",user.loc[index, "Node"])]
-            end_index= utils.find_first_index_by_conditions(user,end_condition,index)
-            if end_index:
-                key= user.loc[index, "Node"]
-                value= utils.time_between_indices(user,index, end_index)
-                if key not in diccionary:
-                    diccionary[key] = []
-                text= user.loc[index, "Dialog.text"]
-                diccionary[key].append(value) 
-                cont+=value
-        user_durations.append(cont)
-        cont=0
-            
-    average  = {}
-    for key, value in diccionary.items():
-        average [key] = sum(value) / len(value)
+	conditions = [("object.id", "DialogStart")]
+	diccionary = {}
+	user_durations =[]
+	cont = 0
+	for user in users_individual_df_list:
+		indexes = utils.find_indices_by_conditions(user, conditions)
+		for index in indexes:
+			end_condition= [("object.id","DialogEnd"),("Node",user.loc[index, "Node"])]
+			end_index= utils.find_first_index_by_conditions(user,end_condition,index)
+			if end_index:
+				key= user.loc[index, "Node"]
+				value= utils.time_between_indices(user,index, end_index)
+				if key not in diccionary:
+					diccionary[key] = []
+				text= user.loc[index, "Dialog.text"]
+				diccionary[key].append(value) 
+				cont+=value
+		user_durations.append(cont)
+		cont=0
+			
+	average  = {}
+	for key, value in diccionary.items():
+		average [key] = sum(value) / len(value)
 
-    text = ""
-    for key, value in average.items():
-        text += f"Media para {key}: {value:.2f}\n"
+	text = ""
+	for key, value in average.items():
+		text += f"Media para {key}: {value:.2f}\n"
 
-    all_values = [v for v in average.values()]
-    overall_average = sum(all_values) / len(all_values)
-    text+= f"Media total: {overall_average:.2f}"
+	all_values = [v for v in average.values()]
+	overall_average = sum(all_values) / len(all_values)
+	text+= f"Media total: {overall_average:.2f}"
 
-    utils.show_metric(
-        section="2 c iii",
-        title="Tiempo medio que se queda leyendo cada diálogo",
-        info=""
-    )
-    df_average = pd.DataFrame(list(average.items()), columns=["dialog", "average"])
-    graphics.display_bar_chart(df_average,title="Media de tiempo en segundos de cada dialogo",ylabel="average",xlabel="dialog",bar_color="skyblue",sizex=80)
+	utils.show_metric(
+		section="2 c iii",
+		title="Tiempo medio que se queda leyendo cada diálogo",
+		info=""
+	)
+	df_average = pd.DataFrame(list(average.items()), columns=["dialog", "average"])
+	graphics.display_bar_chart(df_average,title="Media de tiempo en segundos de cada dialogo",ylabel="average",xlabel="dialog",bar_color="skyblue",sizex=80)
 
-    total_mean= np.mean(user_durations)
-    total_std= np.std(user_durations)
-    threshold = max(0.01, total_mean - 0.5 * total_std)
-    no_read = sum(1 for d in user_durations if d > threshold)
-    p= no_read/len(user_durations) * 100
-    utils.show_metric(
-        section="2 c iv",
-        title="Porcentaje de usuarios que leen realmente los diálogos",
-        info=f"{p:.2f} %"
-    )
-
+	total_mean= np.mean(user_durations)
+	total_std= np.std(user_durations)
+	threshold = max(0.01, total_mean - 0.5 * total_std)
+	no_read = sum(1 for d in user_durations if d > threshold)
+	p= no_read/len(user_durations) * 100
+	utils.show_metric(
+		section="2 c iv",
+		title="Porcentaje de usuarios que leen realmente los diálogos",
+		info=f"{p:.2f} %"
+	)
+	
+	graphics.display_pie_chart(
+		values=[p, 100-p],
+		labels=["Lee los diálogos", "No lee los diálogos"],
+		title="Distribución de los usuarios que leen los diálogos (%)"
+	)
+	
 average_dialog_time(users_individual_df_list)
 
 
@@ -848,10 +866,10 @@ ids_below_n = filtered["Código de acceso"].unique()
 valid_post= post[~post["Código de acceso"].isin(ids_below_n)]
 
 def extract_num(x):
-    try:
-        return int(str(x).split("-")[0].strip())
-    except Exception:
-        return -1
+	try:
+		return int(str(x).split("-")[0].strip())
+	except Exception:
+		return -1
 
 def survey_comparative(pre_df, post_df, code_col="Código de acceso"):
 	"""
@@ -875,7 +893,7 @@ def survey_comparative(pre_df, post_df, code_col="Código de acceso"):
 	# Aplicamos la función para extraer el número solo en las columnas de interés
 	pre_data[columns_to_modify] = pre_data[columns_to_modify].map(extract_num)
 	post_data[columns_to_modify] = post_data[columns_to_modify].map(extract_num)
-      
+	  
 	differences = []
 
 	for idx, pre_row in pre_data.iterrows():
