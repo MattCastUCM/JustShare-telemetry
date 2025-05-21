@@ -576,81 +576,105 @@ graphics.display_heatmap(
 	"Posiciones de clic en la pantalla del ordenador (todas las partidas)", "./heatmapImg.png"
 )
 
-
 ############################
-# APARTADO 2 c i
+# APARTADO 2 c i y ii
 # Tiempo medio que se queda leyendo las pantallas de transición.
 ############################
 def average_transition_time(users_individual_df_list):
-	conditions = [("Scene", "TextOnlyScene")]
-	durations = []
-	for user in users_individual_df_list:
-		indexes = utils.find_indices_by_conditions(user, conditions)
-		for index in indexes:
-			pos = indexes.index(index)
-			if pos + 1 < len(indexes):
-				next_idx = indexes[pos + 1]
-				if user.loc[next_idx, 'object.id'] == 'EnterScene':
-					value = utils.time_between_indices(user, index, next_idx)
-					durations.append(value)
+    conditions = [("Scene", "TextOnlyScene")]
+    durations = []
+    user_durations = []
+    cont = 0
+    for user in users_individual_df_list:
+        indexes = utils.find_indices_by_conditions(user, conditions)
+        index_list = list(user.index)
+        for index in indexes:
+            pos = index_list.index(index)
+            if pos + 1 < len(index_list):
+                next_idx = index_list[pos + 1]
+                if user.loc[next_idx, 'object.id'] == 'EnterScene':
+                    value = utils.time_between_indices(user, index, next_idx)
+                    durations.append(value)
+                    cont+= value
+        user_durations.append(cont)
+        cont=0
+    mean=np.mean(durations)
+    utils.show_metric(
+        section="2 c i",
+        title="Tiempo medio que se queda leyendo las pantallas de transición",
+        info=f"{mean:.2f} segundos"
+    )
+    total_mean= np.mean(user_durations)
+    total_std= np.std(user_durations)
+    threshold = max(1, total_mean - 0.5 * total_std)
+    no_read = sum(1 for d in user_durations if d > threshold)
+    p= no_read/len(user_durations) * 100
+    utils.show_metric(
+        section="2 c ii",
+        title="Porcentaje de usuarios que leen realmente las pantallas de transición",
+        info=f"{p:.2f} %"
+    )
 
-	return durations
-
-durations=average_transition_time(users_individual_df_list)
-mean=np.mean(durations)
-utils.show_metric(
-	section="2 c i",
-	title="Tiempo medio que se queda leyendo las pantallas de transición",
-	info=f"{mean} segundos"
-)
+average_transition_time(users_individual_df_list)
 
 
 ############################
-# APARTADO 2 c ii,
+# APARTADO 2 c iii y iv,
 # Tiempo medio que se queda leyendo cada diálogo.
 ############################
 def average_dialog_time(users_individual_df_list):
     conditions = [("object.id", "DialogStart")]
     diccionary = {}
-
+    user_durations =[]
+    cont = 0
     for user in users_individual_df_list:
         indexes = utils.find_indices_by_conditions(user, conditions)
         for index in indexes:
             end_condition= [("object.id","DialogEnd"),("Node",user.loc[index, "Node"])]
             end_index= utils.find_first_index_by_conditions(user,end_condition,index)
             if end_index:
-              key= user.loc[index, "Node"]
-              value= utils.time_between_indices(user,index, end_index)
-              if key not in diccionary:
-                 diccionary[key] = []
-            text= user.loc[index, "Dialog.text"]
-            diccionary[key].append(value) 
+                key= user.loc[index, "Node"]
+                value= utils.time_between_indices(user,index, end_index)
+                if key not in diccionary:
+                    diccionary[key] = []
+                text= user.loc[index, "Dialog.text"]
+                diccionary[key].append(value) 
+                cont+=value
+        user_durations.append(cont)
+        cont=0
             
     average  = {}
-
     for key, value in diccionary.items():
         average [key] = sum(value) / len(value)
 
-    return average
+    text = ""
+    for key, value in average.items():
+        text += f"Media para '{key}': {value:.2f}\n"
 
+    all_values = [v for v in average.values()]
+    overall_average = sum(all_values) / len(all_values)
+    text+= f"Media total: {overall_average:.2f}"
 
-average = average_dialog_time(users_individual_df_list)
-text = ""
-for key, value in average.items():
-    text += f"Media para '{key}': {value:.2f}\n"
+    utils.show_metric(
+        section="2 c iii",
+        title="Tiempo medio que se queda leyendo cada diálogo",
+        info=""
+    )
+    df_average = pd.DataFrame(list(average.items()), columns=['dialog', 'average'])
+    graphics.display_bar_chart(df_average,title="Media de tiempo en segundos de cada dialogo",ylabel="average",xlabel="dialog",bar_color="skyblue",sizex=80)
 
-all_values = [v for v in average.values()]
-overall_average = sum(all_values) / len(all_values)
-text+= f"Media total: {overall_average:.2f}"
-#print(text)
+    total_mean= np.mean(user_durations)
+    total_std= np.std(user_durations)
+    threshold = max(0.01, total_mean - 0.5 * total_std)
+    no_read = sum(1 for d in user_durations if d > threshold)
+    p= no_read/len(user_durations) * 100
+    utils.show_metric(
+        section="2 c iv",
+        title="Porcentaje de usuarios que leen realmente los diálogos",
+        info=f"{p:.2f} %"
+    )
 
-utils.show_metric(
-	section="2 c ii",
-	title="Tiempo medio que se queda leyendo cada diálogo",
-	info=""
-)
-df_average = pd.DataFrame(list(average.items()), columns=['dialog', 'average'])
-graphics.display_bar_chart(df_average,title="Media de tiempo en segundos de cada dialogo",ylabel="average",xlabel="dialog",bar_color="skyblue",sizex=80)
+average_dialog_time(users_individual_df_list)
 
 
 ############################
