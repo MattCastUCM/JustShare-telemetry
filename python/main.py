@@ -819,6 +819,26 @@ surveys_path = "./encuestas/post/"
 post = loader.load_surveys(surveys_path, files_extension, cols_to_drop)
 graphics.display_df(post, "Postest")
 
+df= post.copy()
+df["Fecha de envío"] = pd.to_datetime(df["Fecha de envío"])
+df["Fecha de inicio"] = pd.to_datetime(df["Fecha de inicio"])
+df["duration_seconds"] = (df["Fecha de envío"] - df["Fecha de inicio"]).dt.total_seconds()
+
+mean = df["duration_seconds"].mean()
+std = df["duration_seconds"].std()
+
+threshold = max(10, mean - 0.8 * std)
+filtered = df[df["duration_seconds"] < threshold]
+ids_below_n = filtered["Código de acceso"].unique() 
+
+# print("Media:", mean)
+# print("Desviación típica:", std)
+# print(df["duration_seconds"])
+# print(threshold)
+# print(ids_below_n)
+# print(filtered_df["duration_seconds"])
+
+valid_post= post[~post["Código de acceso"].isin(ids_below_n)]
 
 def extract_num(x):
     try:
@@ -890,7 +910,7 @@ def survey_comparative(pre_df, post_df, code_col="Código de acceso"):
 	graphics.display_bar(x, mean, "Diferencia promedio (Post - Pre) por pregunta",
 						"Número de pregunta", "Diferencia promedio")
 
-survey_comparative(pre,post)
+survey_comparative(pre,valid_post)
 
 
 ###########################
@@ -915,7 +935,6 @@ questions = ["¿Cómo de acuerdo estás con las siguientes afirmaciones? [El jue
 for question in questions:
 	df = pd.Series(post[question]).value_counts()
 	df = df.sort_index()
-	# display(df)
 	graphics.display_pie_chart(df.values, df.index, question)
 
 
