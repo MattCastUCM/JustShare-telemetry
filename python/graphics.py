@@ -4,7 +4,7 @@ import numpy as np
 from PIL import Image
 import loader
 
-save_graphics = False
+save_graphics = True
 output_directory = "./output/"
 
 def show_graphic(title):

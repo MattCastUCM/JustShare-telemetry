@@ -30,7 +30,7 @@ n_users = len(users_individual_df_list)
 
 
 # Eliminar usuarios invalidos
-all_users_df = all_users_df[~all_users_df['actor.account.name'].isin(users_to_drop)]
+all_users_df = all_users_df[~all_users_df["actor.account.name"].isin(users_to_drop)]
 all_users_df = all_users_df.reset_index(drop=True)
 
 users_to_drop = set(users_to_drop)
@@ -47,12 +47,12 @@ game_starts = all_users_df.iloc[game_starts]
 game_starts = game_starts.drop_duplicates(subset=["actor.account.name"])
 
 gender_sexuality_combinations = [
-	('male', 'heterosexual'), 
-	('male', 'homosexual'), 
-	('male', 'bisexual'), 
-	('female', 'heterosexual'), 
-	('female', 'homosexual'), 
-	('female', 'bisexual')
+	("male", "heterosexual"), 
+	("male", "homosexual"), 
+	("male", "bisexual"), 
+	("female", "heterosexual"), 
+	("female", "homosexual"), 
+	("female", "bisexual")
 ]
 demography = game_starts[["actor.account.name", "Gender", "Sexuality"]].values.tolist()
 
@@ -460,14 +460,14 @@ graphics.display_bar_chart(df,title="Media diaria de tiempo de juego",ylabel="Ti
 
 
 ############################
-# APARTADO 2 a iii,
+# APARTADO 2 a iv,
 # Media de tiempo de juego en cada día.
 ############################
 
 game_ends = utils.find_indices_by_conditions(all_users_df, [("object.id", "GameEnd")])
 utils.show_metric(
 	section="2 a iv",
-	title="Porcentaje de usuarios que terminan el juego",
+	title="Media de tiempo de juego en cada día",
 	info=f"{len(game_ends) / len(users_individual_df_list) * 100}%"
 )
 
@@ -592,7 +592,7 @@ def average_transition_time(users_individual_df_list):
             pos = index_list.index(index)
             if pos + 1 < len(index_list):
                 next_idx = index_list[pos + 1]
-                if user.loc[next_idx, 'object.id'] == 'EnterScene':
+                if user.loc[next_idx, "object.id"] == "EnterScene":
                     value = utils.time_between_indices(user, index, next_idx)
                     durations.append(value)
                     cont+= value
@@ -649,7 +649,7 @@ def average_dialog_time(users_individual_df_list):
 
     text = ""
     for key, value in average.items():
-        text += f"Media para '{key}': {value:.2f}\n"
+        text += f"Media para {key}: {value:.2f}\n"
 
     all_values = [v for v in average.values()]
     overall_average = sum(all_values) / len(all_values)
@@ -660,7 +660,7 @@ def average_dialog_time(users_individual_df_list):
         title="Tiempo medio que se queda leyendo cada diálogo",
         info=""
     )
-    df_average = pd.DataFrame(list(average.items()), columns=['dialog', 'average'])
+    df_average = pd.DataFrame(list(average.items()), columns=["dialog", "average"])
     graphics.display_bar_chart(df_average,title="Media de tiempo en segundos de cada dialogo",ylabel="average",xlabel="dialog",bar_color="skyblue",sizex=80)
 
     total_mean= np.mean(user_durations)
@@ -770,7 +770,7 @@ def object_interactions():
 	counts_all = pd.Series(social_media).value_counts()
 
 	# Se filtran los elementos interactuables del entorno
-	validObj = {'closet', 'bed', 'computer', 'exitDoor', 'bedroomDoor', 'livingroomDoor'}
+	validObj = {"closet", "bed", "computer", "exitDoor", "bedroomDoor", "livingroomDoor"}
 
    # Mantener solo los válidos y rellenar con 0 los que falten
 	counts_valid = counts_all.reindex(validObj, fill_value=0)
@@ -815,9 +815,16 @@ surveys_path = "./encuestas/pre/"
 pre = loader.load_surveys(surveys_path, files_extension, cols_to_drop)
 graphics.display_df(pre, "Pretest")
 
+pre = pre[~pre["Código de acceso"].isin(users_to_drop)]
+pre = pre.reset_index(drop=True)
+
 surveys_path = "./encuestas/post/"
 post = loader.load_surveys(surveys_path, files_extension, cols_to_drop)
 graphics.display_df(post, "Postest")
+
+post = post[~post["Código de acceso"].isin(users_to_drop)]
+post = post.reset_index(drop=True)
+
 
 df= post.copy()
 df["Fecha de envío"] = pd.to_datetime(df["Fecha de envío"])
@@ -842,7 +849,7 @@ valid_post= post[~post["Código de acceso"].isin(ids_below_n)]
 
 def extract_num(x):
     try:
-        return int(str(x).split('-')[0].strip())
+        return int(str(x).split("-")[0].strip())
     except Exception:
         return -1
 
@@ -888,7 +895,7 @@ def survey_comparative(pre_df, post_df, code_col="Código de acceso"):
 		}
 		# Definimos el eje X y el título de la gráfica
 		x = range(1, len(columns_to_modify) + 1)  # Número de pregunta
-		title = f'Comparación persona ({code})'
+		title = f"Comparación persona ({code})"
 		# Llamamos a la función para mostrar la gráfica
 		graphics.display_line(
 			data_dict,
@@ -923,7 +930,7 @@ for question in questions:
 	df = pd.Series(post[question]).value_counts()
 	df = df.sort_index()
 	# display(df)
-	graphics.display_pie_chart(df.values, df.index, question)
+	graphics.display_pie_chart(df.values, df.index, question.replace("?", ""))
 
 
 ###########################
@@ -935,7 +942,7 @@ questions = ["¿Cómo de acuerdo estás con las siguientes afirmaciones? [El jue
 for question in questions:
 	df = pd.Series(post[question]).value_counts()
 	df = df.sort_index()
-	graphics.display_pie_chart(df.values, df.index, question)
+	graphics.display_pie_chart(df.values, df.index, question.replace("?", ""))
 
 
 question = "¿Qué opinas del juego?"
