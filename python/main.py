@@ -589,7 +589,7 @@ graphics.display_heatmap(
 def transition_time_stats(users_individual_df_list, min_umbral=0.10, user_id_col="id"):
 	# Recopila todos los tiempos de transición
 	conditions = [("Scene", "TextOnlyScene")]
-	transitions={
+	transitions_text={
 		"Scene1Classroom": "Tus padres y tú acabáis de mudaros a otra ciudad. Acabas de llegar a tu nuevo instituto y las clases acaban de comenzar.",
 		"Scene1Break": "Las clases pasan volando. Antes de que te des cuenta, suena el timbre y todos salen al recreo.",
 		"Scene1Lunch1": "El resto del día pasa con normalidad. Al acabar las clases, vuelves a tu casa y comes con tus padres.",
@@ -627,7 +627,7 @@ def transition_time_stats(users_individual_df_list, min_umbral=0.10, user_id_col
 					scene= user.loc[next_idx, 'Scene']
 					user_transition_times.setdefault(user_idx,[]).append((scene,value))
 					
-	for scene, text in transitions.items():
+	for scene, text in transitions_text.items():
 		transition_words[scene]= len(text.split())
 
 					
@@ -665,19 +665,19 @@ def transition_time_stats(users_individual_df_list, min_umbral=0.10, user_id_col
 	p=no_read/len(percentages_per_user)*100
 
 	text= ""
-	text+= f"Número total de transicion NO leídos: {total_no_read} \n"
-	text+= f"Porcentaje total de transicion NO leídos: {percentage_no_read:.2f}% \n"
-	text+= f"Porcentaje de usuarios que No leer transicion: {p:.2f}%"
+	text+= f"Número total de transiciones NO leídas: {total_no_read} \n"
+	text+= f"Porcentaje total de transiciones NO leídas: {percentage_no_read:.2f}% \n"
+	text+= f"Porcentaje de usuarios que NO leen las transiciones: {p:.2f}%"
 
 	utils.show_metric(
 		section="2 c iii",
-		title="Estadistica de lectura de transicion",
+		title="Estadisticas de lectura de las transiciones",
 		info=text
 	)
 	graphics.display_pie_chart(
 		values=[100-p,p],
-		labels=["Lee los transicion", "No lee los transicion"],
-		title="Distribución de los usuarios que leen los transicion (%)"
+		labels=["Lee las transiciones", "No lee las transiciones"],
+		title="Distribución de los usuarios que leen las transiciones (%)"
 	)
 
 transition_time_stats(users_individual_df_list)
