@@ -1,4 +1,5 @@
 import pandas as pd
+import numpy as np
 
 # Dada una serie de condiciones (por ejemplo, objeto de tipo Game) obtener sus indices en el dataframe
 def find_indices_by_conditions(df, conditions):
@@ -10,10 +11,12 @@ def find_indices_by_conditions(df, conditions):
 			mask &= df[col] == val
 	return df[mask].index.tolist()
 
+
 # Dada una serie de condiciones (por ejemplo, objeto de tipo Game) obtener el primer indice en el dataframe
 def find_first_index_by_conditions(df, conditions,index=0):
 	indices = find_indices_by_conditions(df.iloc[index:], conditions)
 	return indices[0] if indices else None
+
 
 def find_values_by_conditions(df, conditions, target_column):
 	mask = pd.Series([True] * len(df), index=df.index)
@@ -29,7 +32,6 @@ def find_values_by_conditions(df, conditions, target_column):
 def find_first_value_by_conditions(df, conditions, target_column):
 	values = find_values_by_conditions(df, conditions, target_column)
 	return values[0] if values else None
-
 
 
 # Dado dos indices obtener la diferencia de tiempos
@@ -48,3 +50,15 @@ def show_metric(section, title, info = None):
 	if info:
 		print(str(info))
 	print("#"*N_SEPARATORS + "\n")
+
+
+def get_outlier_fences(data):
+	q1 = np.percentile(data, 25)
+	q3 = np.percentile(data, 75)
+
+	iqr = q3 - q1
+	
+	lower_fence = q1 - iqr * 1.5
+	upper_fence = q3 + iqr * 1.5
+
+	return lower_fence, upper_fence
