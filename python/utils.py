@@ -52,13 +52,25 @@ def show_metric(section, title, info = None):
 	print("#"*N_SEPARATORS + "\n")
 
 
-def get_outlier_fences(data):
-	q1 = np.percentile(data, 25)
-	q3 = np.percentile(data, 75)
 
-	iqr = q3 - q1
-	
-	lower_fence = q1 - iqr * 1.5
-	upper_fence = q3 + iqr * 1.5
+def find_outliers(data,n=1.5,p1=25,p2=75):
+	# Calculate quartiles
+	Q1 = np.percentile(data, p1)
+	Q3 = np.percentile(data, p2)
+	IQR = Q3 - Q1
 
-	return lower_fence, upper_fence
+	# Calculate limits
+	lower_limit = Q1 - n * IQR
+	upper_limit = Q3 + n * IQR
+
+	# Find outliers
+	outliers = [x for x in data if x < lower_limit or x > upper_limit]
+
+	return {
+		"Q1": Q1,
+		"Q3": Q3,
+		"IQR": IQR,
+		"lower_limit": lower_limit,
+		"upper_limit": upper_limit,
+		"outliers": outliers
+	}

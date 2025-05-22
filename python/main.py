@@ -632,67 +632,83 @@ average_transition_time(users_individual_df_list)
 
 ############################
 # APARTADO 2 c iii y iv,
-# Tiempo medio que se queda leyendo cada diálogo.
+# Estadistica de lectura de diálogos
 ############################
-def average_dialog_time(users_individual_df_list):
-	conditions = [("object.id", "DialogStart")]
-	diccionary = {}
-	user_durations =[]
-	cont = 0
-	for user in users_individual_df_list:
-		indexes = utils.find_indices_by_conditions(user, conditions)
-		for index in indexes:
-			end_condition= [("object.id","DialogEnd"),("Node",user.loc[index, "Node"])]
-			end_index= utils.find_first_index_by_conditions(user,end_condition,index)
-			if end_index:
-				key= user.loc[index, "Node"]
-				value= utils.time_between_indices(user,index, end_index)
-				if key not in diccionary:
-					diccionary[key] = []
-				text= user.loc[index, "Dialog.text"]
-				diccionary[key].append(value) 
-				cont+=value
-		user_durations.append(cont)
-		cont=0
-			
-	average  = {}
-	for key, value in diccionary.items():
-		average [key] = sum(value) / len(value)
 
-	text = ""
-	for key, value in average.items():
-		text += f"Media para {key}: {value:.2f}\n"
+def dialog_time_stats(users_individual_df_list):
+	# Recoger todos los tiempos por diálogo y por usuario
+	dialog_times = {}  # Node -> [tiempos de todos]
+	user_dialog_times = {}  # user_idx -> [(Node, tiempo)]
 
-	all_values = [v for v in average.values()]
-	overall_average = sum(all_values) / len(all_values)
-	text+= f"Media total: {overall_average:.2f}"
+	for user_idx, user in enumerate(users_individual_df_list):
+		starts = utils.find_indices_by_conditions(user, [("object.id", "DialogStart")])
+		for idx in starts:
+			node = user.loc[idx, "Node"]
+			end_idx = utils.find_first_index_by_conditions(
+				user, [("object.id", "DialogEnd"), ("Node", node)], idx)
+			if end_idx:
+				value = utils.time_between_indices(user, idx, end_idx)
+				dialog_times.setdefault(node, []).append(value)
+				user_dialog_times.setdefault(user_idx, []).append((node, value))
+
+	# Calcular media y std por diálogo
+	dialog_stats = {}  # Node -> (media, std)
+	for node, times in dialog_times.items():
+		# media = np.mean(times)
+		# std = np.std(times)
+		# dialog_stats[node] = (media, std)
+		dialog_stats[node]= utils.find_outliers(np.sort(times),1.5,40,60)
+
+	# Detectar diálogos no leídos por usuario
+	user_no_read_info = {}  # user_idx -> [(Node, tiempo, threshold, no_leido_bool)]
+	user_no_read_count = []
+	user_total_count = []
+
+	for user_idx, node_times in user_dialog_times.items():
+		no_read_list = []
+		no_read_count = 0
+		for node, value in node_times:
+			outliers = dialog_stats[node]
+			threshold = outliers["lower_limit"]
+			no_leido = value < threshold
+			no_read_list.append((node, value, threshold, no_leido))
+			if no_leido:
+				no_read_count += 1
+		user_no_read_info[user_idx] = no_read_list
+		user_no_read_count.append(no_read_count)
+		user_total_count.append(len(node_times))
+
+	# Cálculo de porcentajes
+	total_no_read = sum(user_no_read_count)
+	total_dialogs = sum(user_total_count)
+	percentage_no_read = (total_no_read / total_dialogs) * 100 if total_dialogs > 0 else 0
+
+	percentages_per_user = [
+		(count / total) * 100 if total > 0 else 0
+		for count, total in zip(user_no_read_count, user_total_count)
+	]
+	text= ""
+	text+= f"Número total de diálogos NO leídos: {total_no_read} \n"
+	text+= f"Porcentaje total de diálogos NO leídos: {percentage_no_read:.2f}% \n"
+	# print("Diálogos no leídos por usuario:", user_no_read_count)
+	# print("Porcentaje de diálogos no leídos por usuario:", [f"{p:.1f}%" for p in percentages_per_user])
+	cont = sum(1 for n in percentages_per_user if n > 25)
+	p=cont/len(percentages_per_user)*100
+	text+= f"Porcentaje de usuarios que No leer diálogos: {p:.2f}%"
 
 	utils.show_metric(
 		section="2 c iii",
-		title="Tiempo medio que se queda leyendo cada diálogo",
-		info=""
+		title="Estadistica de lectura de diálogos",
+		info=text
 	)
-	df_average = pd.DataFrame(list(average.items()), columns=["dialog", "average"])
-	graphics.display_bar_chart(df_average,title="Media de tiempo en segundos de cada dialogo",ylabel="average",xlabel="dialog",bar_color="skyblue",sizex=80)
 
-	total_mean= np.mean(user_durations)
-	total_std= np.std(user_durations)
-	threshold = max(0.01, total_mean - 0.5 * total_std)
-	no_read = sum(1 for d in user_durations if d > threshold)
-	p= no_read/len(user_durations) * 100
-	utils.show_metric(
-		section="2 c iv",
-		title="Porcentaje de usuarios que leen realmente los diálogos",
-		info=f"{p:.2f} %"
-	)
-	
 	graphics.display_pie_chart(
-		values=[p, 100-p],
+		values=[100-p,p],
 		labels=["Lee los diálogos", "No lee los diálogos"],
 		title="Distribución de los usuarios que leen los diálogos (%)"
 	)
-	
-average_dialog_time(users_individual_df_list)
+
+dialog_time_stats(users_individual_df_list)
 
 
 ############################
