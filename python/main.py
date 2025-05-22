@@ -584,50 +584,103 @@ graphics.display_heatmap(
 
 ############################
 # APARTADO 2 c i y ii
-# Tiempo medio que se queda leyendo las pantallas de transición.
+# Estadistica de lectura de transicion
 ############################
-def average_transition_time(users_individual_df_list):
+def transition_time_stats(users_individual_df_list, min_umbral=0.10, user_id_col="id"):
+	# Recopila todos los tiempos de transición
 	conditions = [("Scene", "TextOnlyScene")]
-	durations = []
-	user_durations = []
-	cont = 0
-	for user in users_individual_df_list:
+	transitions={
+		"Scene1Classroom": "Tus padres y tú acabáis de mudaros a otra ciudad. Acabas de llegar a tu nuevo instituto y las clases acaban de comenzar.",
+		"Scene1Break": "Las clases pasan volando. Antes de que te des cuenta, suena el timbre y todos salen al recreo.",
+		"Scene1Lunch1": "El resto del día pasa con normalidad. Al acabar las clases, vuelves a tu casa y comes con tus padres.",
+		"Scene1Lunch2": "A la hora de comer del día siguiente...",
+		"Scene2Break": "La semana siguiente...",
+		"Scene2Bedroom": "La campana suena y volvéis a clase. Al volver a casa, comes con tu abuela y te vas rápidamente a tu cuarto a utilizar el ordenador. Antes de darte cuenta, ya es por la noche.",
+		"Scene3Break": "Unos días más tarde...",
+		"Scene3Bedroom": "Terminan las clases y vuelves a tu casa. Te pones con el móvil, y, cuando quieres darte cuenta, ya se ha hecho de noche.",
+		"Scene4Frontyard": "Ya ha llegado el fin de semana, y tal y como prometiste, vas a la fiesta de cumpleaños de Paula.",
+		"Scene4Bedroom": "El cumpleaños termina y todos vuelven a sus casas.",
+		"Scene5Livingroom": "Ya han pasado un par de semanas. Desde entonces, <harasser, Pablo, Lucía> y tú habéis estado estrechando vuestra amistad cada día más, hasta que, hace poco, habéis comenzado una relación amorosa.",
+		"Scene6Livingroom": "Unos días después...",
+		"Scene6LunchRouteB": "A la hora de comer del día siguiente...",
+		"Scene6BedroomRouteB": "A los pocos días...",
+		"Scene6PoliceStationRouteB": "Tus padres y tú vais a la comisaría, donde le cuentas todo lo sucedido a los agentes.",
+		"Scene6EndingRouteB": "Ya han pasado varios días. Apenas has salido a la calle, y los mensajes de odio no parecen dejar de llegar.",
+		"Scene6BedroomRouteA1": "Han pasado varios días, y <harasser, Pablo, Lucía> y tú os intercambiáis fotos casi todas las noches.",
+		"Scene6LunchRouteA": "Después de la comida...",
+		"Scene6PortalRouteA": "Tras un rato caminando por la ciudad, llegas finalmente al portal en el que vive Pablo",
+		"Scene7Bedroom": "¿Y si no hubieras mandado esas fotos aquel día?"
+	}
+	
+	user_transition_times = {} # user_idx -> [(Scene,tiempo)]
+	transition_words = {}
+
+	for user_idx, user in enumerate(users_individual_df_list):
 		indexes = utils.find_indices_by_conditions(user, conditions)
 		index_list = list(user.index)
 		for index in indexes:
 			pos = index_list.index(index)
 			if pos + 1 < len(index_list):
 				next_idx = index_list[pos + 1]
-				if user.loc[next_idx, "object.id"] == "EnterScene":
+				if user.loc[next_idx, 'object.id'] == 'EnterScene':
 					value = utils.time_between_indices(user, index, next_idx)
-					durations.append(value)
-					cont+= value
-		user_durations.append(cont)
-		cont=0
-	mean=np.mean(durations)
+					scene= user.loc[next_idx, 'Scene']
+					user_transition_times.setdefault(user_idx,[]).append((scene,value))
+					
+	for scene, text in transitions.items():
+		transition_words[scene]= len(text.split())
+
+					
+	# Detectar transicion no leídos por usuario
+	user_no_read_info = {}  # user_idx -> [(Node, tiempo, threshold, no_leido_bool)]
+	user_no_read_count = []
+	user_total_count = []
+
+	for user_idx, node_times in user_transition_times.items():
+		no_read_list = []
+		no_read_count = 0
+		for node, value in node_times:
+			
+			threshold = (transition_words[node]/3.0)*0.4
+			no_leido = value < threshold 
+			no_read_list.append((node, value, threshold, no_leido))
+			if no_leido:
+				no_read_count += 1
+
+		user_no_read_info[user_idx] = no_read_list
+		user_no_read_count.append(no_read_count)
+		user_total_count.append(len(node_times))
+
+	# Cálculo de porcentajes
+	total_no_read = sum(user_no_read_count)
+	total_dialogs = sum(user_total_count)
+	percentage_no_read = (total_no_read / total_dialogs) * 100 if total_dialogs > 0 else 0
+
+	percentages_per_user = [
+		(count / total) * 100 if total > 0 else 0
+		for count, total in zip(user_no_read_count, user_total_count)
+	]
+
+	no_read = sum(1 for n in percentages_per_user if n > 30)
+	p=no_read/len(percentages_per_user)*100
+
+	text= ""
+	text+= f"Número total de transicion NO leídos: {total_no_read} \n"
+	text+= f"Porcentaje total de transicion NO leídos: {percentage_no_read:.2f}% \n"
+	text+= f"Porcentaje de usuarios que No leer transicion: {p:.2f}%"
+
 	utils.show_metric(
-		section="2 c i",
-		title="Tiempo medio que se queda leyendo las pantallas de transición",
-		info=f"{mean:.2f} segundos"
+		section="2 c iii",
+		title="Estadistica de lectura de transicion",
+		info=text
 	)
-	total_mean= np.mean(user_durations)
-	total_std= np.std(user_durations)
-	threshold = max(1, total_mean - 0.5 * total_std)
-	no_read = sum(1 for d in user_durations if d > threshold)
-	p= no_read/len(user_durations) * 100
-	utils.show_metric(
-		section="2 c ii",
-		title="Porcentaje de usuarios que leen realmente las pantallas de transición",
-		info=f"{p:.2f} %"
-	)
-	
 	graphics.display_pie_chart(
-		values=[p, 100-p],
-		labels=["Lee las transiciones", "No lee las transiciones"],
-		title="Distribución de los usuarios que leen las pantallas de transición (%)"
+		values=[100-p,p],
+		labels=["Lee los transicion", "No lee los transicion"],
+		title="Distribución de los usuarios que leen los transicion (%)"
 	)
 
-average_transition_time(users_individual_df_list)
+transition_time_stats(users_individual_df_list)
 
 
 ############################
@@ -637,8 +690,8 @@ average_transition_time(users_individual_df_list)
 
 def dialog_time_stats(users_individual_df_list):
 	# Recoger todos los tiempos por diálogo y por usuario
-	dialog_times = {}  # Node -> [tiempos de todos]
 	user_dialog_times = {}  # user_idx -> [(Node, tiempo)]
+	dialog_words = {}
 
 	for user_idx, user in enumerate(users_individual_df_list):
 		starts = utils.find_indices_by_conditions(user, [("object.id", "DialogStart")])
@@ -648,16 +701,10 @@ def dialog_time_stats(users_individual_df_list):
 				user, [("object.id", "DialogEnd"), ("Node", node)], idx)
 			if end_idx:
 				value = utils.time_between_indices(user, idx, end_idx)
-				dialog_times.setdefault(node, []).append(value)
 				user_dialog_times.setdefault(user_idx, []).append((node, value))
-
-	# Calcular media y std por diálogo
-	dialog_stats = {}  # Node -> (media, std)
-	for node, times in dialog_times.items():
-		# media = np.mean(times)
-		# std = np.std(times)
-		# dialog_stats[node] = (media, std)
-		dialog_stats[node]= utils.find_outliers(np.sort(times),1.5,40,60)
+				if not node in dialog_words:
+					text= user.loc[idx, "Dialog.text"]
+					dialog_words[node]= len(text.split())
 
 	# Detectar diálogos no leídos por usuario
 	user_no_read_info = {}  # user_idx -> [(Node, tiempo, threshold, no_leido_bool)]
@@ -668,8 +715,7 @@ def dialog_time_stats(users_individual_df_list):
 		no_read_list = []
 		no_read_count = 0
 		for node, value in node_times:
-			outliers = dialog_stats[node]
-			threshold = outliers["lower_limit"]
+			threshold= (dialog_words[node]/3.0)*0.4
 			no_leido = value < threshold
 			no_read_list.append((node, value, threshold, no_leido))
 			if no_leido:
@@ -687,13 +733,13 @@ def dialog_time_stats(users_individual_df_list):
 		(count / total) * 100 if total > 0 else 0
 		for count, total in zip(user_no_read_count, user_total_count)
 	]
+
+	cont = sum(1 for n in percentages_per_user if n > 30)
+	p=cont/len(percentages_per_user)*100
+
 	text= ""
 	text+= f"Número total de diálogos NO leídos: {total_no_read} \n"
 	text+= f"Porcentaje total de diálogos NO leídos: {percentage_no_read:.2f}% \n"
-	# print("Diálogos no leídos por usuario:", user_no_read_count)
-	# print("Porcentaje de diálogos no leídos por usuario:", [f"{p:.1f}%" for p in percentages_per_user])
-	cont = sum(1 for n in percentages_per_user if n > 25)
-	p=cont/len(percentages_per_user)*100
 	text+= f"Porcentaje de usuarios que No leer diálogos: {p:.2f}%"
 
 	utils.show_metric(
