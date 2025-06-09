@@ -45,15 +45,19 @@ export default class Scene4Garage extends BaseScene {
             this.dialogManager.setNode(node, [paulaPortrait]);
         }
 
-        
+                
         // Al producirse, se recibe un mensaje en el movil
-        this.dispatcher.add("endGifts", this, () => {
+        this.dispatcher.add("receiveMsg", this, () => {
             setTimeout(() => {
                 this.dialogManager.processNode();
-                
+            }, 1);
+        });
+        
+        // Al producirse, se hace que se pueda contestar al movil
+        this.dispatcher.add("endGifts", this, () => {
+            setTimeout(() => {
                 let phoneNode = super.readNodes(nodes, "scene4\\scene4Garage", "phone1", true);
                 this.phoneManager.phone.setChatNode(chatName, phoneNode);
-
             }, 1);
         });
 

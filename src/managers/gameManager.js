@@ -120,8 +120,9 @@ export default class GameManager {
         // this.changeScene("Scene1Bedroom1", {});
         // this.changeScene("Scene2Bedroom", {});
         // this.changeScene("Scene3Bedroom", {});
+        this.changeScene("Scene4Garage", {});
         // this.changeScene("Scene6Livingroom", {});
-        this.changeScene("Scene6EndingRouteA", {});
+        // this.changeScene("Scene6EndingRouteA", {});
         // this.changeScene("Scene7Bedroom", {});
 
     }
@@ -237,7 +238,7 @@ export default class GameManager {
 
             // TRACKER EVENT
             // console.log("Entrando en", scene);
-            this.sendEnterScene(scene);
+            this.sendEnterScene(scene, params);
         });
     }
 
@@ -620,7 +621,7 @@ export default class GameManager {
         this.trackerInitialized = this.tracker !== null && this.accesible !== null && this.alternative !== null && this.completable !== null && this.gameObject !== null;
     }
 
-    sendEnterScene(scene) {
+    sendEnterScene(scene, params) {
         if (this.trackerInitialized && !this.gameCompleted) {
             let type = this.accesible.types.area;
 
@@ -628,7 +629,11 @@ export default class GameManager {
                 type = this.accesible.types.cutscene;
             }
             let evt = this.accesible.accessed(type, "EnterScene");
+            
             evt.result.setExtension("Scene", scene);
+            if (scene == "TextOnlyScene") {
+                evt.result.setExtension("Text", params.text);
+            }
 
             this.tracker.addEvent(evt);
         }

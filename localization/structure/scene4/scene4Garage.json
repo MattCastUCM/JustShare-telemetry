@@ -28,15 +28,6 @@
         "wow": {
             "type": "text",
             "character": "paula",
-            "next": "endGifts"
-        },
-        "endGifts": {
-            "type": "event",
-            "events": [
-                {
-                    "endGifts": { }
-                }
-            ],
             "next": "msg"
         },
         "msg": {
@@ -44,11 +35,29 @@
             "character": "",
             "chat": "chat2",
             "replyDelay": 0,
+            "next": "receiveMsg"
+        },
+        "receiveMsg": {
+            "type": "event",
+            "events": [
+                {
+                    "receiveMsg": { }
+                }
+            ],
             "next": "thoughts"
         },
         "thoughts": {
             "type": "text",
-            "character": "player"
+            "character": "player",
+            "next": "endGifts"
+        },        
+        "endGifts": {
+            "type": "event",
+            "events": [
+                {
+                    "endGifts": { }
+                }
+            ]
         }
     },
     
