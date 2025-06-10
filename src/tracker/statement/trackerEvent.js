@@ -10,7 +10,6 @@ export default class TrackerEvent {
         this.object = object;
         this.context = context;
         this.result = result;
-
     }
 
     serializeToXApi(version) {

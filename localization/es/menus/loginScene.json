@@ -1,7 +1,7 @@
 {
     "nameInput": "Nombre",
-    "genderBoxes": "Género",
-    "sexualityBoxes": "Sexualidad",
+    "genderBoxes": "¿Qué eres?",
+    "sexualityBoxes": "¿Qué te gusta?",
     "acceptButton": "Aceptar",
     "invalidName": "Introduce tu nombre",
     "shorterName": "Tu nombre tiene más de {{number}} caracteres",

@@ -10,13 +10,13 @@ export default class TrackerScene extends Phaser.Scene {
     }
 
     create() {
-        var tracker = new Tracker(
+        let tracker = new Tracker(
             new LRS({
-                baseUrl: "https://cloud.scorm.com/lrs/I43WO3TFWH/sandbox/",
-                authScheme: new BasicAuthentication("oMsoz51hM_OQbNNR3Nk", "LfWapsOhe1V-ryV2C6o")
+                baseUrl: "https://cloud.scorm.com/lrs/YQFKDDG1H6/sandbox/",
+                authScheme: new BasicAuthentication("oMsoz51hM_OQbNNR3Nk", "LfWapsOhe1V-ryV2C6o"),
+                serializer: (statement, version) => statement.serializeToXApi(version)
             }),
-
-            new AccountActor("http://example.com", "barbie")
+            new AccountActor("http://example.com", "TestActor")
         );
 
         // var tracker = new Tracker(

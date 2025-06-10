@@ -607,7 +607,8 @@ export default class GameManager {
             this.tracker = new Tracker(
                 new LRS({
                     baseUrl: "https://cloud.scorm.com/lrs/YQFKDDG1H6/sandbox/",
-                    authScheme: new BasicAuthentication("oMsoz51hM_OQbNNR3Nk", "LfWapsOhe1V-ryV2C6o")
+                    authScheme: new BasicAuthentication("oMsoz51hM_OQbNNR3Nk", "LfWapsOhe1V-ryV2C6o"),
+                    serializer: (statement, version) => statement.serializeToXApi(version)
                 }),
                 new AccountActor("http://example.com", "TestActor")
             );
@@ -629,7 +630,7 @@ export default class GameManager {
                 type = this.accesible.types.cutscene;
             }
             let evt = this.accesible.accessed(type, "EnterScene");
-            
+
             evt.result.setExtension("Scene", scene);
             if (scene == "TextOnlyScene") {
                 evt.result.setExtension("Text", params.text);
@@ -687,12 +688,12 @@ export default class GameManager {
     sendEndGame() {
         if (this.trackerInitialized && !this.gameCompleted) {
             // this.sendGameProgress();
-            
+
             this.gameCompleted = true;
 
             let ending = this.getValue("routeA") ? "routeA" : "routeB";
             let explained = this.getValue("explained")
-            
+
             let evt = this.completable.completed(this.completable.types.seriousGame, "GameEnd", 1, true, true);
             evt.result.setExtension(evt.result.types.progress, this.day / this.TOTAL_DAYS);
             evt.result.setExtension("Ending", ending);

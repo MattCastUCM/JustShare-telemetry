@@ -1,5 +1,15 @@
 import { makeRequest } from './utils.js'
 
+class Persistance {
+    constructor(serializer) {
+        this.serializer = serializer
+    }
+
+    async logout() { }
+
+    async saveStatements(statements) { }
+}
+
 class Versions {
     static getAllVersions() {
         return [
@@ -16,8 +26,10 @@ class Versions {
     }
 }
 
-export default class LRS {
-    constructor({ baseUrl, authScheme, version = null, backup = null }) {
+export default class LRS extends Persistance {
+    constructor({ baseUrl, authScheme, serializer, version = null, backup = null }) {
+        super(serializer)
+
         this.baseUrl = String(baseUrl)
         if (this.baseUrl.slice(-1) !== "/") {
             this.baseUrl += "/"
@@ -115,23 +127,22 @@ export default class LRS {
     }
 
     async sendBackup(statements) {
-        if (this.online && this.backup && this.backup.endpoint) {
-            let contentType = null;
-            let statementsXApi = [];
+        if (this.online && this.backup && this.backup.endpoint && this.backup.serializer) {
+            let statementsXApi = statements.map(statement => this.backup.serializer(statement, this.version));
 
-            switch (this.backup.type) {
-                case 'XAPI':
-                    statementsXApi = statements.map(statement => JSON.stringify(statement.serializeToXApi(this.version)));
-                    contentType = 'application/json';
-                    break;
-                default:
-                    return;
-            }
+            // switch (this.backup.type) {
+            //     case 'XAPI':
+            //         statementsXApi = statements.map(statement => JSON.stringify(statement.serializeToXApi(this.version)));
+            //         contentType = 'application/json';
+            //         break;
+            //     default:
+            //         return;
+            // }
 
             let body = {
                 tofile: true,
                 result: statementsXApi.join('\n'),
-                contentType: contentType
+                contentType: 'application/json'
             };
 
             try {
@@ -175,7 +186,8 @@ export default class LRS {
             }
 
             if (statements.length !== 0) {
-                let statementsXApi = statements.map(statement => statement.serializeToXApi(this.version))
+                // let statementsXApi = statements.map(statement => statement.serializeToXApi(this.version))
+                let statementsXApi = statements.map(statement => this.serializer(statement, this.version))
 
                 try {
                     return await this.sendRequest("statements", "POST", headers, statementsXApi)

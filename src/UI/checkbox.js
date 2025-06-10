@@ -11,9 +11,8 @@ export default class CheckBox extends Phaser.GameObjects.Container {
     * @param {Color} pressedCol - color RGB de la checkbox que se utiliza en la animacion cuando se clica en ella
     * @param {String} fill - sprite que se usa para el relleno
     * @param {String} edge - sprite que se usa para el borde (opcional)
-    * @param {String} hitArea - cambiar el area de colision (opcional)
     */
-    constructor(scene, x, y, scale, tickColor, pressedColor, fill, edge, hitArea) {
+    constructor(scene, x, y, scale, tickColor, pressedColor, fill, edge) {
         super(scene, x, y);
 
         this.scene.add.existing(this);
@@ -26,35 +25,47 @@ export default class CheckBox extends Phaser.GameObjects.Container {
         // Si es distinto de null pertenece a algun grupo y funciona como un radio button
         this.group = null;
 
-        let fillImg = this.scene.add.image(0, 0, fill);
-        this.add(fillImg);
+        this.nCol = Phaser.Display.Color.HexStringToColor('#ffffff');
+        this.pCol = Phaser.Display.Color.GetColor(pressedColor.R, pressedColor.G, pressedColor.B);
+        this.pCol = Phaser.Display.Color.IntegerToRGB(this.pCol);
 
-        if (hitArea) {
-            fillImg.setInteractive(hitArea.area, hitArea.callback, { useHandCursor: true });
+        this.fillImg = this.scene.add.image(0, 0, fill);
+        this.add(this.fillImg);
+        this.addHitArea(this.fillImg)
+
+        if (edge) {
+            let edgeImg = this.scene.add.image(0, 0, edge);
+            this.add(edgeImg);
         }
-        else {
-            fillImg.setInteractive({ useHandCursor: true },);
-        }
+
+        let style = { ...gameManager.textConfig };
+        style.fontSize = '75px';
+        style.fontStyle = 'bold';
+        style.color = tickColor;
+        this.tickText = this.scene.add.text(0, 0, '✓', style).setOrigin(0.5).setVisible(false);
+        this.add(this.tickText);
+
+        this.setScale(scale);
+    }
+
+    addHitArea(hitArea) {
+        hitArea.setInteractive({ useHandCursor: true },);
 
         let debug = this.scene.sys.game.debug;
         if (debug.enable) {
-            this.scene.input.enableDebug(fillImg, debug.color);
+            this.scene.input.enableDebug(hitArea, debug.color);
         }
 
-        let nCol = Phaser.Display.Color.HexStringToColor('#ffffff');
-        let pCol = Phaser.Display.Color.GetColor(pressedColor.R, pressedColor.G, pressedColor.B);
-        pCol = Phaser.Display.Color.IntegerToRGB(pCol);
-
-        fillImg.on('pointerdown', () => {
-            let down = scene.tweens.addCounter({
-                targets: fillImg,
+        hitArea.on('pointerdown', () => {
+            let down = this.scene.tweens.addCounter({
+                targets: this.fillImg,
                 from: 0,
                 to: 100,
                 onUpdate: (tween) => {
                     const value = tween.getValue();
-                    let col = Phaser.Display.Color.Interpolate.ColorWithColor(nCol, pCol, 100, value);
+                    let col = Phaser.Display.Color.Interpolate.ColorWithColor(this.nCol, this.pCol, 100, value);
                     let colInt = Phaser.Display.Color.GetColor(col.r, col.g, col.b);
-                    fillImg.setTint(colInt);
+                    this.fillImg.setTint(colInt);
                 },
                 duration: 80,
                 repeat: 0,
@@ -72,20 +83,6 @@ export default class CheckBox extends Phaser.GameObjects.Container {
                 }
             });
         });
-
-        if (edge) {
-            let edgeImg = this.scene.add.image(0, 0, edge);
-            this.add(edgeImg);
-        }
-
-        let style = { ...gameManager.textConfig };
-        style.fontSize = '75px';
-        style.fontStyle = 'bold';
-        style.color = tickColor;
-        this.tickText = this.scene.add.text(0, 0, '✓', style).setOrigin(0.5).setVisible(false);
-        this.add(this.tickText);
-
-        this.setScale(scale);
     }
 
     setChecked(checked) {

@@ -13,7 +13,7 @@ export function generateTrackerFromURL() {
     // let batchTimeout = 180000;
 
     let backupUri = null;
-    let backupType = "XAPI"
+    // let backupType = "XAPI"
 
     let actorHomepage = null;
     let actorUsername = null;
@@ -28,7 +28,7 @@ export function generateTrackerFromURL() {
         // batchTimeout = ms(batchTimeout)
 
         backupUri = urlParams.get('backup_uri');
-        backupType = urlParams.get('backup_type');
+        // backupType = urlParams.get('backup_type');
 
         actorHomepage = urlParams.get('actor_homepage');
         actorUsername = urlParams.get('actor_user');
@@ -70,9 +70,10 @@ export function generateTrackerFromURL() {
         new LRS({
             baseUrl: resultUri,
             authScheme: new OAuth2(authConfig),
+            serializer: (statement, version) => statement.serializeToXApi(version),
             backup: {
                 endpoint: backupUri,
-                type: backupType
+                serializer: (statement, version) => JSON.stringify(statement.serializeToXApi(version))
             }
         }),
         new AccountActor(actorHomepage, actorUsername)
