@@ -677,6 +677,7 @@ export default class GameManager {
     sendGameProgress() {
         if (this.trackerInitialized && !this.gameCompleted) {
             let evt = this.completable.progressed(this.completable.types.seriousGame, "GameProgress", this.day / this.TOTAL_DAYS);
+            evt.result.setExtension(evt.result.types.progress, this.day / this.TOTAL_DAYS);
             evt.result.setExtension("EndingDay", this.day);
             this.day++;
 
@@ -693,6 +694,7 @@ export default class GameManager {
             let explained = this.getValue("explained")
             
             let evt = this.completable.completed(this.completable.types.seriousGame, "GameEnd", 1, true, true);
+            evt.result.setExtension(evt.result.types.progress, this.day / this.TOTAL_DAYS);
             evt.result.setExtension("Ending", ending);
             evt.result.setExtension("Explained", explained);
             this.tracker.addEvent(evt);
