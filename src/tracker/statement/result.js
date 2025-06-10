@@ -16,6 +16,12 @@ export default class Result {
 
         this.extensions = {};
 
+        this.types = {
+            health: "health",
+            position: "position",
+            progress: "progress",
+        };
+
         this.ids = {
             health: 'https://w3id.org/xapi/seriousgames/extensions/health',
             position: 'https://w3id.org/xapi/seriousgames/extensions/position',
