@@ -120,9 +120,9 @@ export default class GameManager {
         // this.changeScene("Scene1Bedroom1", {});
         // this.changeScene("Scene2Bedroom", {});
         // this.changeScene("Scene3Bedroom", {});
-        this.changeScene("Scene4Garage", {});
+        // this.changeScene("Scene4Garage", {});
         // this.changeScene("Scene6Livingroom", {});
-        // this.changeScene("Scene6EndingRouteA", {});
+        this.changeScene("Scene6EndingRouteA", {});
         // this.changeScene("Scene7Bedroom", {});
 
     }
@@ -254,7 +254,7 @@ export default class GameManager {
         // Cuando acaba el fade out de la escena actual se cambia a la siguiente
         this.currentScene.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, (cam, effect) => {
 
-            this.UIManager.phoneManager.activatePhoneIcon(false)
+            this.UIManager.phoneManager.activatePhoneIcon(false);
             this.currentScene.scene.sleep()
 
             this.computer.scene.wake()
@@ -287,7 +287,7 @@ export default class GameManager {
 
             // Cuando se termina de crear la escena, se reproduce el fade in
             this.currentScene.events.once('wake', () => {
-                this.UIManager.phoneManager.activatePhoneIcon(true)
+                this.UIManager.phoneManager.activatePhoneIcon(true);
                 this.currentScene.cameras.main.fadeIn(FADE_IN_TIME, 0, 0, 0);
                 this.fading = false;
 
@@ -683,11 +683,12 @@ export default class GameManager {
             this.day++;
 
             this.tracker.addEvent(evt);
+            this.tracker.sendEvents();
         }
     }
     sendEndGame() {
         if (this.trackerInitialized && !this.gameCompleted) {
-            // this.sendGameProgress();
+            this.sendGameProgress();
 
             this.gameCompleted = true;
 
@@ -695,7 +696,6 @@ export default class GameManager {
             let explained = this.getValue("explained")
 
             let evt = this.completable.completed(this.completable.types.seriousGame, "GameEnd", 1, true, true);
-            evt.result.setExtension(evt.result.types.progress, this.day / this.TOTAL_DAYS);
             evt.result.setExtension("Ending", ending);
             evt.result.setExtension("Explained", explained);
             this.tracker.addEvent(evt);

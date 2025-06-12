@@ -49,6 +49,7 @@ export default class Scene7Bedroom extends BaseScene {
 
                 this.phoneManager.bgBlock.disableInteractive();
                 this.phoneManager.phone.returnButton.disableInteractive();
+                this.phoneManager.phone.chats.get(chatName).returnButton.disableInteractive();
 
                 this.phoneManager.phone.toChatScreen(chatName);
             }, 0);

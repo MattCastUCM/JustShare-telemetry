@@ -59,6 +59,7 @@ export default class Scene3Break extends BaseScene {
             });
             this.phoneManager.bgBlock.disableInteractive();
             this.phoneManager.phone.returnButton.disableInteractive();
+            this.phoneManager.phone.chats.get(this.chatName).returnButton.disableInteractive();
         });
 
         // Cuando llegan los eventos de enviar mensajes, se anade el mensaje correspondiente a la pantalla del chat
