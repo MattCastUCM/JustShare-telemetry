@@ -19,17 +19,6 @@
             "character": "",
             "chat": "chat3",
             "replyDelay": 2000,
-            "next": "addMomChat"
-        },
-        "addMomChat": {
-            "type": "event",
-            "events": [
-                {
-                    "addMomChat": {
-                        "delay": 2000
-                    }
-                }
-            ],
             "next": "choices"
         },
         "choices": {
@@ -40,7 +29,18 @@
         },
         "cantAnswer": {
             "type": "text",
-            "character": ""
+            "character": "",
+            "next":"addMomChat"
+        },
+        "addMomChat": {
+            "type": "event",
+            "events": [
+                {
+                    "addMomChat": {
+                        "delay": 1000
+                    }
+                }
+            ]
         }
     },
 

@@ -36,23 +36,24 @@ export default class Scene7Bedroom extends BaseScene {
         this.phoneManager.phone.addChat(chatName, "lauraPfp");
         let phoneNode = super.readNodes(nodes, "scene7\\scene7Bedroom", "lauraChat", true);
         this.phoneManager.phone.setChatNode(chatName, phoneNode);
-        this.phoneManager.phone.toChatScreen(chatName);
-    
+        
         // Quitar notificaciones de los mensajes anteriores
-        this.phoneManager.togglePhone(true, 0, () => {
-            // Volver al chat del acosador
-            setTimeout(() => {
-                chatName = this.gameManager.translate("textMessages.chat2", { ns: "deviceInfo", returnObjects: true });
-                this.phoneManager.phone.addChat(chatName, "harasserPfp");
-                phoneNode = super.readNodes(nodes, "scene7\\scene7Bedroom", "phone", true);
-                this.dialogManager.setNode(phoneNode, []);
+        this.dispatcher.add("endLauraChatReconstruction", this, () => {
+            this.phoneManager.phone.toChatScreen(chatName);
+
+            chatName = this.gameManager.translate("textMessages.chat2", { ns: "deviceInfo", returnObjects: true });
+            this.phoneManager.phone.addChat(chatName, "harasserPfp");
+            phoneNode = super.readNodes(nodes, "scene7\\scene7Bedroom", "phone", true);
+            this.dialogManager.setNode(phoneNode, []);
+
+            this.phoneManager.togglePhone(true, 0, () => {
+                // Volver al chat del acosador
+                this.phoneManager.phone.toChatScreen(chatName);
 
                 this.phoneManager.bgBlock.disableInteractive();
                 this.phoneManager.phone.returnButton.disableInteractive();
                 this.phoneManager.phone.chats.get(chatName).returnButton.disableInteractive();
-
-                this.phoneManager.phone.toChatScreen(chatName);
-            }, 0);
+            });
         });
 
 

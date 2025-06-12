@@ -32,8 +32,18 @@
             "type": "chatMessage",
             "character": "laura",
             "chat": "chat1",
-            "replyDelay": 0
+            "replyDelay": 0,
+            "next": "endLauraChatReconstruction"
+        },
+        "endLauraChatReconstruction": {
+            "type": "event",
+            "events": [
+                {
+                    "endLauraChatReconstruction": { }
+                }
+            ]
         }
+        
     },
     
     "phone": {
@@ -125,7 +135,6 @@
             "replyDelay": 0,
             "next": "chatEnded"
         },
-
         "chatEnded": {
             "type": "event",
             "events": [
